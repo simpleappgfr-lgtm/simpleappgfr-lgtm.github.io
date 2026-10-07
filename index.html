@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Info SimpleApp — La navaja suiza de Misiones | Clima, SOS, rutas y noticias</title>
+<meta name="description" content="App gratuita para Misiones, el NEA y Sudamérica: clima y alertas oficiales, emergencias, rutas, noticias y cotizaciones. Usala en el navegador o en Play.">
+<meta name="keywords" content="Info SimpleApp, clima Misiones, farmacias de turno San Vicente, colectivos Posadas, alertas meteorológicas SMN, rutas Misiones, emergencias Argentina, noticias Misiones, app Misiones, app NEA">
+<link rel="canonical" href="https://simpleappgfr-lgtm.github.io/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Info SimpleApp — La navaja suiza de Misiones">
+<meta property="og:description" content="Clima, alertas oficiales, emergencias, rutas, noticias y mini-apps para Misiones, el NEA y Sudamérica. Gratis.">
+<meta property="og:image" content="https://play-lh.googleusercontent.com/_gP2EtfYW0pBD6s2xqbJArpQYaNIbVJHmuwuIWhJMlqJ2CGPBTnShEpOnxkncbkmNZeLqgwNKtpQCGY9BAbiMw=s512">
+<meta property="og:url" content="https://simpleappgfr-lgtm.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Info SimpleApp — La navaja suiza de Misiones">
+<meta name="twitter:description" content="Clima, alertas oficiales, emergencias, rutas, noticias y mini-apps para Misiones, el NEA y Sudamérica. Gratis.">
+<meta name="twitter:image" content="https://play-lh.googleusercontent.com/_gP2EtfYW0pBD6s2xqbJArpQYaNIbVJHmuwuIWhJMlqJ2CGPBTnShEpOnxkncbkmNZeLqgwNKtpQCGY9BAbiMw=s512">
+
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicon-96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Info SimpleApp - Todo en uno",
+  "operatingSystem": "ANDROID",
+  "applicationCategory": "UtilitiesApplication",
+  "description": "App todo en uno para vivir y viajar por Misiones, el NEA y Sudamérica: clima, alertas meteorológicas oficiales, emergencias, rutas, noticias, feriados, cotizaciones y mini-apps.",
+  "image": "https://play-lh.googleusercontent.com/_gP2EtfYW0pBD6s2xqbJArpQYaNIbVJHmuwuIWhJMlqJ2CGPBTnShEpOnxkncbkmNZeLqgwNKtpQCGY9BAbiMw=s512",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" },
+  "installUrl": "https://play.google.com/store/apps/details?id=info.simpleapp"
+}
+</script>
+
+<script type="application/ld+json">
+{ "@context": "https://schema.org", "@type": "WebSite", "name": "Info SimpleApp", "alternateName": "Info SimpleApp - La navaja suiza de Misiones", "url": "https://simpleappgfr-lgtm.github.io/" }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --tierra-1:#2c1a0e;
+    --tierra-2:#6b3f1f;
+    --tierra-3:#4a2d14;
+    --oro:#b8761d;
+    --oro-2:#e0a845;
+    --crema:#fdf6ec;
+    --crema-2:#f5e9d6;
+    --linea:#d8c4a0;
+    --verde-ruta:#5a8a3a;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+  body{
+    margin:0;
+    font-family:'Barlow',sans-serif;
+    background:var(--crema);
+    color:var(--tierra-1);
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:0.5px;
+    line-height:1.02;
+    margin:0;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+
+  /* ===== NAV ===== */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(253,246,236,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--linea);
+  }
+  .nav-row{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;max-width:1120px;margin:0 auto;}
+  .nav-logo{display:flex;align-items:center;gap:10px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.5px;color:var(--tierra-2);}
+  .nav-logo img{width:34px;height:34px;border-radius:9px;}
+  .btn-nav{
+    background:var(--tierra-2);color:#fff;padding:9px 18px;border-radius:30px;
+    font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;
+  }
+
+  /* ===== HERO: la ruta ===== */
+  .hero{position:relative;padding:72px 0 40px;overflow:hidden;}
+  .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center;}
+  .eyebrow-route{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:700;color:var(--tierra-2);
+    background:var(--crema-2);border:1px solid var(--linea);
+    padding:6px 14px 6px 10px;border-radius:30px;margin-bottom:22px;
+  }
+  .hero h1{font-size:clamp(40px,6.4vw,66px);color:var(--tierra-1);}
+  .hero h1 em{font-style:normal;color:var(--oro);}
+  .hero-aclaracion{
+    font-family:'Barlow',sans-serif;font-style:italic;font-weight:500;
+    font-size:16.5px;color:var(--oro);margin:14px 0 0;
+    padding-left:14px;border-left:3px solid var(--oro-2);
+  }
+  .hero p.lead{font-size:18px;color:var(--tierra-3);max-width:46ch;margin:20px 0 28px;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .btn-play{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--tierra-1);color:#fff;text-decoration:none;
+    padding:14px 24px;border-radius:14px;font-weight:700;font-size:16px;
+    box-shadow:0 10px 24px rgba(44,26,14,0.25);
+  }
+  .btn-play svg{width:22px;height:22px;flex-shrink:0;}
+  .hero-sub-note{font-size:13px;color:var(--tierra-3);opacity:0.75;}
+  .hero-ventajas{margin-top:26px;display:flex;flex-direction:column;gap:11px;max-width:46ch;}
+  .hero-ventajas .ventaja{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--tierra-3);line-height:1.4;}
+  .hero-ventajas .vicono{flex-shrink:0;font-size:16px;line-height:1.3;}
+
+  /* fila de paises como "escalas" de la ruta */
+  .ruta-paises{display:flex;gap:0;align-items:center;margin-top:38px;flex-wrap:wrap;}
+  .ruta-paises .parada{display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;padding:0 14px;}
+  .ruta-paises .punto{width:11px;height:11px;border-radius:50%;background:var(--oro);border:2px solid var(--crema);box-shadow:0 0 0 2px var(--oro);}
+  .ruta-paises .parada span{font-size:12px;font-weight:700;color:var(--tierra-3);}
+  .ruta-linea{flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--oro) 0 6px,transparent 6px 11px);min-width:18px;}
+
+  .hero-phone-wrap{position:relative;display:flex;justify-content:center;}
+  .phone-frame{
+    width:232px;border-radius:30px;border:8px solid var(--tierra-1);
+    box-shadow:0 30px 60px rgba(44,26,14,0.35);
+    overflow:hidden;background:#000;
+  }
+  .phone-frame img{display:block;width:100%;}
+  .hero-badge{
+    position:absolute;background:#fff;border:1px solid var(--linea);
+    border-radius:14px;padding:10px 14px;box-shadow:0 10px 24px rgba(44,26,14,0.14);
+    font-size:12.5px;font-weight:700;color:var(--tierra-2);
+  }
+  .hero-badge-1{top:6%;left:-6%;}
+  .hero-badge-2{bottom:10%;right:-8%;}
+
+  /* ===== SECCION: dos publicos ===== */
+  .dos-publicos{padding:60px 0;background:var(--crema-2);border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);}
+  .dp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--linea);border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(44,26,14,0.08);}
+  .dp-card{background:var(--crema);padding:36px 32px;}
+  .dp-card h3{font-size:30px;color:var(--tierra-2);margin-bottom:10px;}
+  .dp-card p{font-size:15.5px;color:var(--tierra-3);max-width:44ch;}
+
+  /* ===== SECCION: ruta de funciones (en vez de grilla de tarjetas iguales) ===== */
+  .funciones{padding:76px 0 40px;}
+  .funciones .kicker{font-size:14px;font-weight:700;color:var(--oro);margin-bottom:8px;}
+  .funciones h2{font-size:clamp(32px,4.5vw,46px);max-width:16ch;margin-bottom:46px;}
+  .ruta-funciones{position:relative;}
+  .ruta-funciones::before{
+    content:'';position:absolute;left:27px;top:14px;bottom:14px;width:2px;
+    background:repeating-linear-gradient(180deg,var(--linea) 0 7px,transparent 7px 13px);
+  }
+  .f-parada{display:grid;grid-template-columns:56px 1fr;gap:22px;margin-bottom:44px;position:relative;}
+  .f-parada .pin{
+    width:56px;height:56px;border-radius:50%;background:var(--tierra-1);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:24px;z-index:1;
+  }
+  .f-parada h3{font-family:'Barlow',sans-serif;font-weight:800;font-size:19px;color:var(--tierra-1);margin-bottom:6px;}
+  .f-parada p{font-size:15px;color:var(--tierra-3);max-width:60ch;}
+  .f-parada .lista-chica{margin-top:8px;display:flex;flex-wrap:wrap;gap:8px;}
+  .f-parada .lista-chica span{
+    font-size:12.5px;background:var(--crema-2);border:1px solid var(--linea);
+    padding:4px 11px;border-radius:30px;color:var(--tierra-2);font-weight:600;
+  }
+
+  /* ===== COBERTURA / paises ===== */
+  .cobertura{background:var(--tierra-1);color:#fdf6ec;padding:64px 0;}
+  .cobertura h2{font-size:clamp(28px,4vw,38px);margin-bottom:8px;}
+  .cobertura .sub{color:#d9c4a3;font-size:15px;margin-bottom:34px;max-width:50ch;}
+  .paises-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:rgba(255,255,255,0.12);border-radius:16px;overflow:hidden;}
+  .pais-card{background:#3a2412;padding:22px 18px;}
+  .pais-card .bandera{font-size:26px;margin-bottom:8px;}
+  .pais-card h4{font-family:'Barlow',sans-serif;font-weight:800;font-size:15.5px;margin-bottom:4px;color:#fff;}
+  .pais-card p{font-size:12.5px;color:#c9ad87;margin:0;}
+
+  /* ===== CAPTURAS ===== */
+  .capturas{padding:70px 0;}
+  .capturas h2{font-size:clamp(28px,4vw,38px);margin-bottom:34px;}
+  .cap-scroll{display:flex;gap:16px;overflow-x:auto;padding-bottom:14px;scrollbar-width:thin;}
+  .cap-scroll img{height:380px;border-radius:18px;border:1px solid var(--linea);flex-shrink:0;box-shadow:0 10px 24px rgba(44,26,14,0.1);}
+
+  /* ===== MINI-APPS ===== */
+  .miniapps{padding:0 0 70px;}
+  .miniapps h2{font-size:clamp(28px,4vw,38px);margin-bottom:30px;}
+  .mini-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .mini-item{border:1px solid var(--linea);border-radius:14px;padding:18px 18px;background:var(--crema-2);}
+  .mini-item b{display:block;font-size:15.5px;color:var(--tierra-2);margin-bottom:3px;}
+  .mini-item span{font-size:13.5px;color:var(--tierra-3);}
+
+  /* ===== CTA FINAL ===== */
+  .cta-final{background:linear-gradient(135deg,var(--tierra-2),var(--tierra-1));padding:70px 24px;text-align:center;color:#fff;border-radius:28px;max-width:1072px;margin:0 auto 70px;}
+  .cta-final h2{font-size:clamp(30px,5vw,44px);margin-bottom:14px;}
+  .cta-final p{color:#e8d6ba;font-size:16px;margin-bottom:28px;}
+
+  /* ===== DISCLAIMER / FOOTER ===== */
+  .en-construccion{max-width:760px;margin:0 auto 50px;padding:30px 32px;background:var(--crema-2);border:1px solid var(--linea);border-radius:18px;text-align:center;}
+  .en-construccion h3{font-family:'Barlow',sans-serif;font-weight:800;font-size:19px;color:var(--tierra-2);margin-bottom:12px;}
+  .en-construccion p{font-size:14.5px;color:var(--tierra-3);line-height:1.6;margin:0;}
+  .en-construccion a{color:var(--oro);font-weight:700;text-decoration:none;}
+  .disclaimer{max-width:760px;margin:0 auto 60px;padding:0 24px;font-size:13px;color:var(--tierra-3);text-align:center;opacity:0.85;}
+  footer{border-top:1px solid var(--linea);padding:30px 24px;text-align:center;font-size:13px;color:var(--tierra-3);}
+  footer a{color:var(--tierra-2);font-weight:700;text-decoration:none;}
+
+
+  /* ===== VERSION WEB ===== */
+  .btn-web{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:14px;border:2px solid var(--tierra-2);color:var(--tierra-2);font-weight:700;font-size:16px;text-decoration:none;background:transparent;}
+  .btn-web:hover,.btn-web:focus-visible{background:var(--tierra-2);color:#fff;}
+  .web-nota{font-size:13.5px;color:var(--tierra-3);margin:16px 0 0;max-width:52ch;line-height:1.55;}
+  .web-nota b{color:var(--tierra-2);}
+  .cta-final .btn-web-claro{display:inline-block;margin-top:18px;color:#fff;font-weight:700;font-size:15.5px;text-decoration:underline;text-underline-offset:4px;}
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-phone-wrap{order:-1;margin-bottom:8px;}
+    .dp-grid{grid-template-columns:1fr;}
+    .hero-badge{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-row">
+    <div class="nav-logo">
+      <img src="https://play-lh.googleusercontent.com/_gP2EtfYW0pBD6s2xqbJArpQYaNIbVJHmuwuIWhJMlqJ2CGPBTnShEpOnxkncbkmNZeLqgwNKtpQCGY9BAbiMw=s128" alt="Info SimpleApp">
+      Info SimpleApp
+    </div>
+    <a class="btn-nav" href="https://play.google.com/store/apps/details?id=info.simpleapp" target="_blank" rel="noopener">Descargar</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow-route">🛣️ Nació en Misiones, cruza seis países</div>
+      <h1>La <em>navaja suiza</em><br>de Misiones.</h1>
+      <p class="hero-aclaracion">la App todo en uno para el día a día</p>
+      <p class="lead">Clima, alertas oficiales, emergencias, rutas y noticias de más de 90 localidades en Argentina, Paraguay, Brasil, Uruguay, Chile y Bolivia. Todo en una sola app, gratis.</p>
+      <div class="hero-ctas">
+        <a href="https://play.google.com/store/apps/details?id=info.simpleapp" target="_blank" rel="noopener">
+          <img src="https://play.google.com/intl/es/badges/static/images/badges/es_badge_web_generic.png" alt="Disponible en Google Play" style="height:62px;">
+        </a>
+        <a class="btn-web" href="app/">🌐 Usar en el navegador</a>
+        <span class="hero-sub-note">Gratis · Menos de 10 MB · Sin datos compartidos con terceros</span>
+      </div>
+      <p class="web-nota"><b>¿Sin Android o sin ganas de instalar?</b> Usá la versión web desde cualquier celular o computadora. Para tenerla como una app más: en Android, menú de Chrome → <i>Instalar app</i>; en iPhone, <i>Compartir → Añadir a pantalla de inicio</i>. La versión web necesita conexión a internet y guarda sus datos aparte de la app de Google Play.</p>
+
+      <div class="hero-ventajas">
+        <div class="ventaja"><span class="vicono">📶</span>Mucho de lo que guardás funciona sin conexión, y lo demás carga rápido aunque estés en otro país con poca señal</div>
+        <div class="ventaja"><span class="vicono">🚫</span>Sin publicidad invasiva que te interrumpa</div>
+        <div class="ventaja"><span class="vicono">✍️</span>No solo mostramos información de terceros: también podés cargar la tuya propia (gastos, mantenimiento de tu auto, tus mascotas) sin salir de la app</div>
+      </div>
+
+      <div class="ruta-paises">
+        <div class="parada"><div class="punto"></div><span>🇦🇷 Argentina</span></div>
+        <div class="ruta-linea"></div>
+        <div class="parada"><div class="punto"></div><span>🇵🇾 Paraguay</span></div>
+        <div class="ruta-linea"></div>
+        <div class="parada"><div class="punto"></div><span>🇧🇷 Brasil</span></div>
+        <div class="ruta-linea"></div>
+        <div class="parada"><div class="punto"></div><span>🇺🇾 Uruguay</span></div>
+        <div class="ruta-linea"></div>
+        <div class="parada"><div class="punto"></div><span>🇨🇱 Chile</span></div>
+        <div class="ruta-linea"></div>
+        <div class="parada"><div class="punto"></div><span>🇧🇴 Bolivia</span></div>
+      </div>
+    </div>
+
+    <div class="hero-phone-wrap">
+      <div class="phone-frame">
+        <img src="https://play-lh.googleusercontent.com/6RQm8AzT1xMALR5feqVFAo7zyMAK8W-Ad5OURV4fEJjxChLK8YzY5yEGCKYi-PBRWa321C2MruPmWB164F-Wbg=w720" alt="Captura de Info SimpleApp">
+      </div>
+      <div class="hero-badge hero-badge-1">⚠️ Alertas del SMN, INMET y más</div>
+      <div class="hero-badge hero-badge-2">🛣️ Rutas con combustible y hoteles</div>
+    </div>
+  </div>
+</header>
+
+<section class="dos-publicos">
+  <div class="wrap dp-grid">
+    <div class="dp-card">
+      <h3>🏠 Si vivís acá</h3>
+      <p>Todo lo de tu ciudad en una sola app: clima, alertas meteorológicas, teléfonos de emergencia, feriados, cotizaciones y noticias. En algunas localidades, además, sumamos cosas propias del lugar: farmacias de turno, colectivos urbanos, trenes y más.</p>
+    </div>
+    <div class="dp-card">
+      <h3>🧳 Si estás de viaje</h3>
+      <p>Llegá informado: clima antes de salir, alertas vigentes, a quién llamar en una emergencia según el país, feriados, conversión de tu dinero y tu ruta armada con combustible, hoteles y turismo incluidos.</p>
+    </div>
+  </div>
+</section>
+
+<section class="funciones">
+  <div class="wrap">
+    <div class="kicker">El recorrido de la app</div>
+    <h2>Seis paradas, una sola app</h2>
+
+    <div class="ruta-funciones">
+      <div class="f-parada">
+        <div class="pin">🌤️</div>
+        <div>
+          <h3>Clima y alertas oficiales</h3>
+          <p>Pronóstico en vivo, altura de ríos con avisos de crecida, mar y playa en ciudades costeras, y alertas meteorológicas de los organismos oficiales de cada país. Combinamos tres fuentes distintas (Tiempo y Radar, Open-Meteo, y el organismo meteorológico oficial de cada país) para que tengas más de un punto de referencia, no uno solo.</p>
+          <div class="lista-chica"><span>SMN · Argentina</span><span>INMET · Brasil</span><span>INUMET · Uruguay</span><span>DMH · Paraguay</span><span>SENAPRED · Chile</span><span>SENAMHI · Bolivia</span></div>
+        </div>
+      </div>
+      <div class="f-parada">
+        <div class="pin">🆘</div>
+        <div>
+          <h3>Emergencias</h3>
+          <p>Números de emergencia de los seis países, con aclaraciones claras sobre cuándo funciona cada uno según dónde estés.</p>
+        </div>
+      </div>
+      <div class="f-parada">
+        <div class="pin">🛣️</div>
+        <div>
+          <h3>Rutas SimpleApp</h3>
+          <p>Armá tu ruta y abrila directo en Google Maps. Combustible, hoteles y turismo cerca de cada punto del trayecto, estado de rutas en vivo y cómo descargar el mapa sin conexión. Tres versiones: Misiones, toda Argentina y el sur de Brasil.</p>
+        </div>
+      </div>
+      <div class="f-parada">
+        <div class="pin">🚍</div>
+        <div>
+          <h3>Transporte urbano</h3>
+          <p>En las localidades donde está disponible: subte, trenes urbanos e interurbanos, colectivos urbanos, trenes internacionales y apps útiles para descargar, según lo que tenga cada ciudad.</p>
+        </div>
+      </div>
+      <div class="f-parada">
+        <div class="pin">📰</div>
+        <div>
+          <h3>Noticias y cotizaciones</h3>
+          <p>Titulares por sección de diarios importantes, con acceso a la nota completa en el sitio del diario. Dólar, real y guaraní actualizados.</p>
+        </div>
+      </div>
+      <div class="f-parada">
+        <div class="pin">📲</div>
+        <div>
+          <h3>Mini-apps para el día a día</h3>
+          <p>Gastos, listas de compras, mantenimiento de vehículos, cuidado de mascotas, conversor de divisas y trivia — todo adentro, sin instalar nada aparte.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cobertura">
+  <div class="wrap">
+    <h2>Más de 90 localidades</h2>
+    <p class="sub">Con más detalle en Misiones, Corrientes, Chaco y Formosa — y cobertura en seis países.</p>
+    <div class="paises-grid">
+      <div class="pais-card"><div class="bandera">🇦🇷</div><h4>Argentina</h4><p>23 provincias + CABA</p></div>
+      <div class="pais-card"><div class="bandera">🇵🇾</div><h4>Paraguay</h4><p>Asunción, Encarnación, CDE</p></div>
+      <div class="pais-card"><div class="bandera">🇧🇷</div><h4>Brasil</h4><p>PR, SC, RS, SP, RJ, DF</p></div>
+      <div class="pais-card"><div class="bandera">🇺🇾</div><h4>Uruguay</h4><p>Montevideo, Punta del Este</p></div>
+      <div class="pais-card"><div class="bandera">🇨🇱</div><h4>Chile</h4><p>Santiago, Valparaíso</p></div>
+      <div class="pais-card"><div class="bandera">🇧🇴</div><h4>Bolivia</h4><p>La Paz, Sucre</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="capturas">
+  <div class="wrap">
+    <h2>Así se ve por dentro</h2>
+    <div class="cap-scroll">
+      <img src="https://play-lh.googleusercontent.com/6RQm8AzT1xMALR5feqVFAo7zyMAK8W-Ad5OURV4fEJjxChLK8YzY5yEGCKYi-PBRWa321C2MruPmWB164F-Wbg=w720" alt="Pantalla de inicio de Info SimpleApp">
+      <img src="https://play-lh.googleusercontent.com/kh1O8DAA3euqDQORlafMAoBO7M8zhVzgI0gOeIDWsbmfuKWmwj4NnbDwIWGjO8qGnxHDnKWw3jDGt5NjSEq_nlI=w720" alt="Clima y alertas en Info SimpleApp">
+      <img src="https://play-lh.googleusercontent.com/JNg9dpTZjHc3pzcVhxU31ZZiwD53uB1bisniKtnpv266T8MEUirlQLneym6Iu0Dkro0F_ajHSHAqdPKqRUWI738=w720" alt="Rutas en Info SimpleApp">
+      <img src="https://play-lh.googleusercontent.com/3Ota-CczYNjGmpAPUo93n1nPTKIl4C8EoqssK1edv03qE16Q3J__dtTloUm17puzXpQ0nkmmMuP61K2d7YJUEA=w720" alt="Noticias en Info SimpleApp">
+      <img src="https://play-lh.googleusercontent.com/VB39BKjjet7Hh5AUYxjJ1SGRVZnZwsj6Y1QVp2D7xylvWuCzdnfvws2mnh_UeNFu-lmy-H1WCkypiIT5uFmt=w720" alt="Mini-apps en Info SimpleApp">
+      <img src="https://play-lh.googleusercontent.com/XcJjUMnKKA8UEMVnXNKWlhYZaureZ9xcFjno3pUYj7TGJ5bWuBmwSbXAH1fKNdCpl4yL1TFSe2o8NHp8Bg4uQcQ=w720" alt="Emergencias en Info SimpleApp">
+    </div>
+  </div>
+</section>
+
+<section class="miniapps">
+  <div class="wrap">
+    <h2>Mini-apps incluidas</h2>
+    <div class="mini-list">
+      <div class="mini-item"><b>💰 Gastos SimpleApp</b><span>Registrá los gastos del hogar por categoría, armá tu presupuesto mensual y mirá en qué se te va la plata, sin planillas.</span></div>
+      <div class="mini-item"><b>🛒 Listas de Compras</b><span>Listas que se organizan solas por rubro (verdulería, almacén, limpieza...) y aprenden a clasificar lo que vas agregando, para que no se te pierda nada en el súper.</span></div>
+      <div class="mini-item"><b>🚗 Rodados SimpleApp</b><span>Llevá el mantenimiento de tus vehículos: cambios de aceite, service, vencimientos y gastos, para no perder la cuenta de cuándo tocó cada cosa.</span></div>
+      <div class="mini-item"><b>🐾 Mascotas SimpleApp</b><span>Vacunas, desparasitaciones y controles de tus mascotas, con recordatorios para no pasarte la fecha de la próxima dosis.</span></div>
+      <div class="mini-item"><b>💱 Divisas SimpleApp</b><span>Convertí entre peso, dólar (oficial y blue), real, guaraní y más, y compará si la cotización que te ofrecen es conveniente o no.</span></div>
+      <div class="mini-item"><b>🧠 Trivia</b><span>Preguntas por categorías para jugar solo o entre amigos, directo desde la app.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="cta-final">
+    <h2>Llevala en el bolsillo</h2>
+    <p>Gratis, sin registro, pensada desde Misiones, sin publicidad invasiva y con gran parte del contenido disponible offline.</p>
+    <a href="https://play.google.com/store/apps/details?id=info.simpleapp" target="_blank" rel="noopener">
+      <img src="https://play.google.com/intl/es/badges/static/images/badges/es_badge_web_generic.png" alt="Disponible en Google Play" style="height:64px;">
+    </a>
+    <br><a class="btn-web-claro" href="app/">o usala directo en el navegador</a>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="en-construccion">
+    <h3>Un proyecto que sigue creciendo</h3>
+    <p>El objetivo de Info SimpleApp es combinar dos tipos de información en un solo lugar: la que viene de afuera (clima, alertas oficiales, noticias, cotizaciones) y la que generás vos mismo adentro de la app (tus gastos, el mantenimiento de tu auto, el cuidado de tus mascotas y mucho más). Es un proyecto en construcción permanente: seguimos sumando contenidos, localidades y mini-apps. Si tu ciudad todavía no está, escribinos y vemos la posibilidad de incluirla. Y si encontrás un error o tenés una idea para mejorarla, también contanos: <a href="mailto:simpleappgfr@gmail.com">simpleappgfr@gmail.com</a>.</p>
+  </div>
+</section>
+
+<p class="disclaimer">
+  ℹ️ Info SimpleApp es una aplicación independiente y de carácter privado. No está afiliada, respaldada ni asociada a ningún organismo gubernamental ni a los medios cuyos titulares se muestran. Recopila información pública para facilitar su consulta; verificá siempre los datos sensibles directamente con cada organismo. Las alertas meteorológicas pertenecen a sus organismos oficiales (SMN, INMET, INUMET, DMH, SENAPRED, SENAMHI), no a Info SimpleApp.
+</p>
+
+<footer>
+  Hecho en Misiones por SimpleApp Aplicaciones · <a href="mailto:simpleappgfr@gmail.com">simpleappgfr@gmail.com</a> · <a href="https://sites.google.com/view/infosimpleapp/p%C3%A1gina-principal" target="_blank" rel="noopener">Política de Privacidad</a>
+</footer>
+
+<script defer src="/analytics.js"></script>
+</body>
+</html>

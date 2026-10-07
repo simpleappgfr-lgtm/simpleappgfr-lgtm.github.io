@@ -1,0 +1,31 @@
+{
+  "name": "Info SimpleApp",
+  "short_name": "Info SimpleApp",
+  "description": "Clima, alertas oficiales, emergencias, rutas y noticias para Misiones, el NEA y Sudamérica.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fdf6ec",
+  "theme_color": "#1f1206",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
