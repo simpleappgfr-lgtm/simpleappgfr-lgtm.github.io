@@ -22,6 +22,7 @@
 <style>html.ios .ios-oculto{display:none !important;}</style>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="/flags-windows.js"></script>
 <style>
 /* El mapa de farmacias no debe capturar el scroll vertical de la página */
 #mapa-farmacias, #mapa-farmacias.leaflet-container, #mapa-farmacias * {
@@ -1073,6 +1074,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   <button onclick="hdrMenuGo('rutas-misiones')"><span class="hdr-dd-ic">🛣️</span>Rutas de Misiones SimpleApp</button>
   <button onclick="hdrMenuGo('rutas-argentina')"><span class="hdr-dd-ic">🇦🇷</span>Rutas de Argentina SimpleApp</button>
   <button onclick="hdrMenuGo('rutas-brasil')"><span class="hdr-dd-ic">🇧🇷</span>Rutas del Sur de Brasil SimpleApp</button>
+  <button onclick="hdrMenuGo('fronteras')"><span class="hdr-dd-ic">🛂</span>Fronteras SimpleApp</button>
   <div class="hdr-dd-section-title">⚙️ Ajustes</div>
   <button onclick="reactivarPantallaBienvenida()"><span class="hdr-dd-ic">🔄</span>Mostrar pantalla de bienvenida</button>
 </div>
@@ -1114,8 +1116,11 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       <button onclick="elegirRutasArgentinaDesdeBienvenida()" style="width:100%;background:rgba(116,172,223,0.12);border:1px solid #74acdf;color:#9fc3e8;border-radius:12px;padding:16px;margin-bottom:10px;font-family:'Barlow',sans-serif;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
         🇦🇷 Rutas de Argentina
       </button>
-      <button onclick="elegirRutasBrasilDesdeBienvenida()" style="width:100%;background:rgba(90,165,36,0.12);border:1px solid #5aa524;color:#8fcf5c;border-radius:12px;padding:16px;margin-bottom:14px;font-family:'Barlow',sans-serif;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+      <button onclick="elegirRutasBrasilDesdeBienvenida()" style="width:100%;background:rgba(90,165,36,0.12);border:1px solid #5aa524;color:#8fcf5c;border-radius:12px;padding:16px;margin-bottom:10px;font-family:'Barlow',sans-serif;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
         🇧🇷 Rutas del Sur de Brasil
+      </button>
+      <button onclick="elegirFronterasDesdeBienvenida()" style="width:100%;background:rgba(41,128,185,0.12);border:1px solid #2980b9;color:#7fb8e0;border-radius:12px;padding:16px;margin-bottom:14px;font-family:'Barlow',sans-serif;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+        🛂 Fronteras
       </button>
       <button onclick="toggleMenuRutasBienvenida()" style="width:100%;background:none;border:1px solid var(--border,#d8c8b0);color:var(--muted,#7a5c3e);border-radius:12px;padding:11px;font-family:'Barlow',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">
         ← Volver
@@ -1169,6 +1174,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   <button onclick="showTab('rutas-misiones',this)">🛣️ <span class="nav-label">Rutas SimpleApp</span></button>
   <button onclick="showTab('rutas-argentina',this)">🇦🇷 <span class="nav-label">Rutas Argentina</span></button>
   <button onclick="showTab('rutas-brasil',this)">🇧🇷 <span class="nav-label">Rutas Brasil</span></button>
+  <button onclick="showTab('fronteras',this)">🛂 <span class="nav-label">Fronteras</span></button>
 </nav>
 
 <!-- ============ INICIO ============ -->
@@ -1477,6 +1483,14 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       </div>
     </a>
 
+    <a onclick="showTab('fronteras',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
+      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #2980b9;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
+        <div style="font-size:18px;">🛂</div>
+        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Fronteras SimpleApp</div>
+        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Pasos a Brasil, Paraguay y Uruguay</div>
+      </div>
+    </a>
+
   </div>
 
   <!-- PANTALLA GRANDE EXCLUSIVA DEL MODO "APLICACIONES SIMPLEAPP" -->
@@ -1566,6 +1580,16 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
           <div>
             <div style="font-size:15px;font-weight:900;color:#5a7e1f;">Rutas</div>
             <div style="font-size:10.5px;color:#84995c;margin-top:2px;">Sur de Brasil</div>
+          </div>
+        </div>
+      </a>
+
+      <a onclick="showTab('fronteras',null)" style="text-decoration:none;display:block;">
+        <div style="aspect-ratio:1;background:#e8f1f8;border:1px solid #b9d3e8;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
+          <div style="font-size:42px;width:76px;height:76px;background:#d3e5f3;border-radius:20px;display:flex;align-items:center;justify-content:center;">🛂</div>
+          <div>
+            <div style="font-size:15px;font-weight:900;color:#1a5276;">Fronteras</div>
+            <div style="font-size:10.5px;color:#5d86a8;margin-top:2px;">Brasil · Paraguay · Uruguay</div>
           </div>
         </div>
       </a>
@@ -1859,6 +1883,13 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
     <div>
       <div class="t" style="color:#5a7e1f;">Rutas del Sur de Brasil SimpleApp</div>
       <div class="d">Paraná, Santa Catarina y Rio Grande do Sul.</div>
+    </div>
+  </div>
+  <div class="curio-item" onclick="showTab('fronteras',null)" style="cursor:pointer;border-left-color:#2980b9;">
+    <div class="ic">🛂</div>
+    <div>
+      <div class="t" style="color:#1a5276;">Fronteras SimpleApp</div>
+      <div class="d">Estado de los pasos a Brasil, Paraguay y Uruguay.</div>
     </div>
   </div>
   </div>
@@ -2663,8 +2694,27 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       <button type="button" class="rm-ico" id="rb-swap" title="Invertir" aria-label="Invertir origen y destino">⇅</button>
     </div>
 
+    <div class="rm-lbl" style="margin-top:12px">🛂 Cruzar la frontera por</div>
+    <select id="rb-paso" style="width:100%;flex:none">
+      <option value="">Lo que elija Google (automático)</option>
+      <option value="Dionísio Cerqueira, Santa Catarina, Brasil">Bernardo de Irigoyen ↔ Dionísio Cerqueira · frontera seca, 24 hs, todo el año ✅</option>
+      <option value="Santo Antônio do Sudoeste, Paraná, Brasil">San Antonio ↔ Santo Antônio do Sudoeste · frontera seca, aduana de turismo</option>
+      <option value="-25.5999,-54.5620">Puerto Iguazú ↔ Foz do Iguaçu · 24 hs ✅</option>
+      <option value="Porto Mauá, Rio Grande do Sul, Brasil">Alba Posse ↔ Porto Mauá · balsa, aduana de ambos lados ✅</option>
+      <option value="Porto Xavier, Rio Grande do Sul, Brasil">San Javier ↔ Porto Xavier · balsa, aduana de ambos lados ✅</option>
+      <option value="-28.5500,-56.0300">Santo Tomé ↔ São Borja · 24 hs, puente ✅</option>
+      <option value="-29.7370,-57.0700">Paso de los Libres ↔ Uruguaiana · 24 hs, puente ✅</option>
+    </select>
+    <div class="rm-nota" style="padding:6px 0 0">Google no deja decirle “evitá este paso”, pero sí obligarlo a pasar por el que elijas. Si te muestra una ruta por un paso sin Migraciones (por ejemplo Paso Rosales fuera de temporada), elegí acá otro paso con control todo el año y la ruta se recalcula. Si no lo sabés, Bernardo de Irigoyen es el más seguro desde Misiones: es frontera seca (sin río ni balsa), así que no depende de la altura del río. Alba Posse y San Javier cruzan en balsa: se corta por crecida del río y tienen horario limitado, y Google puede no reconocer la balsa y armar otra ruta, así que verificá en Fronteras SimpleApp.</div>
+
     <a class="rm-btn rm-link" id="rb-a-ruta" target="_blank" rel="noopener">🧭 Ver ruta en Google Maps</a>
     <div style="margin-top:10px;background:rgba(212,160,23,0.14);border:1px solid #d4a017;border-radius:10px;padding:11px 13px;font-size:13px;line-height:1.45;color:var(--text);">💡 Para ver estaciones, hoteles y lugares a lo largo de <b>todo el trayecto</b> (no solo un punto), una vez adentro de Google Maps tocá <b>"Agregar paradas"</b> y elegí la categoría que quieras.</div>
+
+    <div id="rb-fronteras-card" style="margin-top:14px;background:rgba(212,160,23,0.14);border:1.5px solid #d4a017;border-radius:12px;padding:12px 14px;">
+      <div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px;">🛂 Verificá siempre el paso fronterizo</div>
+      <div style="font-size:13px;line-height:1.45;color:var(--text);">Google Maps elige la ruta más corta, pero no sabe si ese puente o balsa tiene Migraciones y Aduana abiertas ese día. Hay pasos que solo funcionan en verano, con horarios cortos o que se cortan con la crecida del río. Antes de salir, confirmá que el paso esté habilitado.</div>
+      <a class="rm-btn2" href="#" onclick="abrirFronterasSimpleApp('por-que');return false;" style="display:block;margin-top:8px;">🛂 Abrir Fronteras SimpleApp: por qué verificar el paso</a>
+    </div>
 
     <div class="rm-lbl" style="margin-top:14px">Buscar cerca de</div>
     <select id="rb-donde" style="width:100%;flex:none"><option value="yo" selected>Mi ubicación ahora</option><option value="loc:Balneário Camboriú">Balneário Camboriú (SC)</option><option value="loc:Bombinhas">Bombinhas (SC)</option><option value="loc:Caiobá">Caiobá (PR)</option><option value="loc:Curitiba">Curitiba (PR)</option><option value="loc:Dionísio Cerqueira">Dionísio Cerqueira (SC)</option><option value="loc:Florianópolis">Florianópolis (SC)</option><option value="loc:Foz do Iguaçu">Foz do Iguaçu (PR)</option><option value="loc:Gramado">Gramado (RS)</option><option value="loc:Guaratuba">Guaratuba (PR)</option><option value="loc:Itapema">Itapema (SC)</option><option value="loc:Porto Alegre">Porto Alegre (RS)</option><option value="loc:Santa Rosa (RS)">Santa Rosa (RS)</option><option value="loc:São Miguel do Oeste">São Miguel do Oeste (SC)</option><option value="loc:Torres">Torres (RS)</option><option value="loc:Três Passos">Três Passos (RS)</option></select>
@@ -2706,6 +2756,84 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       <li>Recuadrá la zona que te interese (el estado o el tramo que uses seguido) y tocá <b>Descargar</b>.</li>
     </ol>
   </div>
+
+  <div style="text-align:center;margin-top:18px;margin-bottom:8px;">
+    <button onclick="showTab('inicio', null)" style="background:rgba(107,63,31,0.06);border:1px solid var(--border);border-radius:20px;color:var(--muted);font-family:'Barlow',sans-serif;font-size:12px;font-weight:700;padding:8px 20px;cursor:pointer;letter-spacing:0.3px;">🏠 Volver al inicio</button>
+  </div>
+</div>
+
+<!-- ============ FRONTERAS SIMPLEAPP ============ -->
+<div id="fronteras" class="section">
+
+
+  <div class="hero-banner">
+    <div class="hb-city">FRONTERAS</div>
+    <div class="hb-sub">Verificá el paso antes de salir</div>
+  </div>
+
+  <!-- ===== POR QUÉ VERIFICAR ===== -->
+  <div class="aviso" id="fr-por-que">
+    <div class="aviso-hdr">⚠️ Por qué verificar SIEMPRE el paso, aunque Google Maps te marque esa ruta</div>
+    <div class="aviso-body">
+      <p><b>Google Maps elige la ruta más corta o más rápida, pero no sabe si en ese puente o balsa hay Migraciones y Aduana.</b> Para Google, un paso sin control habilitado es una calle más. No conoce los días, los horarios ni las temporadas de cada paso.</p>
+
+      <div class="ej">
+        <b>Ejemplo real: Paso Rosales (San Pedro ↔ Paraíso / São Miguel do Oeste).</b> El control brasileño funciona solo en temporada de verano (en 2026: del 2 de enero al 13 de marzo, de 7 a 19 hs). Fuera de esas fechas Google igual puede mandarte por ahí porque ahorra kilómetros, pero del lado brasileño no hay quién te selle el ingreso. Solo se permite tránsito vecinal y no se puede seguir viaje hacia el resto de Brasil.
+        <br><a href="#" onclick="irAFrontera('sanpedro');return false;" class="stat-link">Ver ficha de Paso Rosales ↓</a>
+      </div>
+
+      <p><b>Qué puede salir mal:</b></p>
+      <ul>
+        <li><b>Pasos estacionales:</b> solo abren en verano o en fechas puntuales, y esas fechas cambian cada año.</li>
+        <li><b>Balsas y cruces fluviales:</b> tienen horarios cortos, suelen cerrar al mediodía y se suspenden por crecida del río, viento o mantenimiento. Google no sabe nada de eso.</li>
+        <li><b>Cada lado tiene su horario:</b> Migraciones de Argentina informa que el horario del país de destino puede ser distinto. Fines de semana y feriados cambian los horarios.</li>
+        <li><b>Hay pasos con control de un solo lado</b> o solo para tránsito vecinal. Con ellos no se puede viajar libremente por el otro país.</li>
+        <li><b>Cruzar sin pasar por Migraciones y Aduana es ingresar de forma irregular:</b> puede traer multas, problemas con el vehículo y complicaciones al volver o en un control de ruta.</li>
+      </ul>
+
+      <div class="check" id="fr-checklist">
+        <h4>✅ Antes de salir</h4>
+        <label><input type="checkbox"> Elegí el paso en esta app y mirá su estado (✅ completo, 🔶 revisar, ⛔ no opera).</label>
+        <label><input type="checkbox"> Consultá el estado oficial del paso el día del viaje (horario, cierres, altura del río).</label>
+        <label><input type="checkbox"> Confirmá los horarios de los dos lados, sobre todo si viajás en feriado o fin de semana.</label>
+        <label><input type="checkbox"> Armá la ruta en Google Maps agregando el paso como parada, para que no elija otro por su cuenta.</label>
+        <label><input type="checkbox"> Llevá un plan B: el paso de 24 hs más cercano.</label>
+        <label><input type="checkbox"> Llegá con margen: si cierran a las 17 hs, llegar a las 16:55 no alcanza.</label>
+      </div>
+      <a href="https://www.argentina.gob.ar/seguridad/pasosinternacionales" target="_blank" rel="noopener" class="stat-link">🔗 Estado oficial de todos los pasos (argentina.gob.ar)</a>
+    </div>
+  </div>
+
+  <!-- ===== MAPA ===== -->
+  <div class="stage-title">🗺️ Mapa de pasos fronterizos</div>
+  <div class="farm-card" style="padding:10px;">
+    <div id="fr-mapa"></div>
+    <div class="nota-mapa">Mapa real (OpenStreetMap) · ubicación aproximada de cada paso · requiere conexión a internet</div>
+  </div>
+
+  <div id="fr-resumen-rios"></div>
+
+  <div class="leyenda">
+    <span>✅ Control completo</span>
+    <span>🔶 Revisar horario o condición</span>
+    <span>⛔ No opera</span>
+  </div>
+
+  <div class="chips" id="fr-chips">
+    <button class="chip on" data-f="all">Todos</button>
+    <button class="chip" data-f="BR">🇧🇷 Brasil</button>
+    <button class="chip" data-f="PY">🇵🇾 Paraguay</button>
+    <button class="chip" data-f="UY">🇺🇾 Uruguay</button>
+  </div>
+
+  <select class="fr-sel" id="fr-selPaso" aria-label="Elegir un paso"></select>
+
+  <div id="fr-lista"></div>
+
+  <div class="pie">
+    <b>Fuentes y alcance.</b> Horarios del lado argentino: listado de pasos de la Dirección Nacional de Migraciones (<a href="https://www.argentina.gob.ar/migraciones/pasos-internacionales" target="_blank" rel="noopener">argentina.gob.ar/migraciones/pasos-internacionales</a>, actualizado a diciembre de 2025). Lado extranjero, temporadas y demoras: notas de prensa regional y fichas oficiales. Alturas de ríos: INA (Instituto Nacional del Agua), misma fuente que Info SimpleApp. Todo puede cambiar sin aviso: ante cualquier duda, confirmá con la fuente oficial antes de viajar. Los pines del mapa son aproximados. Solo se incluyen los pasos más usados; el listado oficial tiene más cruces fluviales menores.
+  </div>
+
 
   <div style="text-align:center;margin-top:18px;margin-bottom:8px;">
     <button onclick="showTab('inicio', null)" style="background:rgba(107,63,31,0.06);border:1px solid var(--border);border-radius:20px;color:var(--muted);font-family:'Barlow',sans-serif;font-size:12px;font-weight:700;padding:8px 20px;cursor:pointer;letter-spacing:0.3px;">🏠 Volver al inicio</button>
@@ -4221,7 +4349,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   <div class="stage-title" style="color:#16a085;">💱 Divisas SimpleApp</div>
   <div class="ia-note" style="margin-bottom:14px;">
     <span style="font-size:14px;flex-shrink:0;">ℹ️</span>
-    <span>Convertí entre pesos argentinos, dólar, real, guaraní, peso chileno, boliviano, euro y libra esterlina. Para dólar y real usamos precio "compra" al vender y "venta" al comprar, como en una casa de cambio real; el resto son cotizaciones de referencia únicas (sin compra/venta separado). Son valores de referencia: pueden variar según dónde cambies.</span>
+    <span>Convertí entre pesos argentinos, dólar, real, guaraní, peso chileno, boliviano, euro y libra esterlina. Para dólar y real te mostramos las dos opciones: el precio de «compra» (lo que te pagan si vendés) y el de «venta» (lo que pagás si comprás). El resto (guaraní, peso uruguayo, chileno, boliviano, euro y libra) tiene un único valor de referencia, sin compra y venta separados. Son valores de referencia: pueden variar según dónde cambies.</span>
   </div>
 
   <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;">
@@ -4268,9 +4396,16 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 
     <div id="div-resultado-wrap" style="margin-top:16px;background:rgba(22,160,133,0.08);border:1px solid rgba(22,160,133,0.25);border-radius:12px;padding:14px;text-align:center;">
       <div id="div-resultado-etiqueta" style="font-size:9.5px;font-weight:800;color:#16a085;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;display:none;">Según la cotización de referencia</div>
+      <div id="div-caption" style="font-size:10.5px;font-weight:700;color:var(--muted);margin-bottom:3px;"></div>
       <div id="div-resultado" style="font-size:24px;font-weight:900;color:#16a085;">Cargando cotizaciones...</div>
       <div id="div-tasa-detalle" style="font-size:10.5px;color:var(--muted);margin-top:4px;"></div>
+      <div id="div-opciones" style="display:none;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;text-align:center;"></div>
     </div>
+
+    <details id="div-cot-wrap" style="margin-top:12px;">
+      <summary style="font-size:12px;font-weight:800;color:#16a085;cursor:pointer;">📊 Ver cotizaciones de hoy (compra, venta o referencia)</summary>
+      <div id="div-cot-tabla" style="margin-top:8px;"></div>
+    </details>
 
     <label style="display:flex;align-items:center;gap:7px;margin-top:12px;font-size:11.5px;color:var(--muted);cursor:pointer;">
       <input type="checkbox" id="div-usar-propia" onchange="toggleTasaPropia()" style="width:16px;height:16px;flex-shrink:0;">
@@ -4278,6 +4413,25 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
     </label>
 
     <div id="div-propia-wrap" style="display:none;margin-top:8px;">
+      <div id="div-op-wrap" style="display:none;margin-bottom:10px;">
+        <div style="font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px;">¿Qué vas a hacer?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+          <button type="button" id="div-op-vender" onclick="elegirOperacionDivisa('vender')" style="padding:10px 6px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-weight:800;font-size:12px;cursor:pointer;">💵 Vender</button>
+          <button type="button" id="div-op-comprar" onclick="elegirOperacionDivisa('comprar')" style="padding:10px 6px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-weight:800;font-size:12px;cursor:pointer;">🛒 Comprar</button>
+        </div>
+        <div id="div-op-nota" style="font-size:10.5px;color:var(--muted);margin-top:5px;"></div>
+      </div>
+      <div id="div-dual" style="display:none;">
+        <div style="font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Lo que te ofrecen por 1 <span id="div-dual-mon">—</span> (en pesos)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div><label style="font-size:10px;font-weight:800;color:#16a085;text-transform:uppercase;">Si vendés (te compran a)</label>
+            <input id="div-of-compra" type="number" inputmode="decimal" placeholder="Ej: 1480" min="0" step="any" oninput="calcularDivisas()" style="width:100%;box-sizing:border-box;margin-top:4px;padding:10px 12px;border-radius:10px;border:1px solid var(--border);font-size:16px;font-weight:800;"></div>
+          <div><label style="font-size:10px;font-weight:800;color:#2980b9;text-transform:uppercase;">Si comprás (te venden a)</label>
+            <input id="div-of-venta" type="number" inputmode="decimal" placeholder="Ej: 1500" min="0" step="any" oninput="calcularDivisas()" style="width:100%;box-sizing:border-box;margin-top:4px;padding:10px 12px;border-radius:10px;border:1px solid var(--border);font-size:16px;font-weight:800;"></div>
+        </div>
+        <div id="div-dual-res" style="margin-top:12px;display:grid;gap:8px;"></div>
+      </div>
+      <div id="div-single">
       <label id="div-propia-label" style="font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">1 = ?</label>
       <input id="div-propia-tasa" type="number" inputmode="decimal" placeholder="Ej: 1480" min="0" step="any" oninput="calcularDivisas()" style="width:100%;box-sizing:border-box;margin-top:4px;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-size:15px;font-weight:800;font-family:inherit;">
 
@@ -4286,9 +4440,35 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
         <div id="div-resultado-propia" style="font-size:24px;font-weight:900;color:#e67e22;">—</div>
         <div id="div-diferencia" style="font-size:11px;color:var(--muted);margin-top:5px;"></div>
       </div>
+      </div>
     </div>
 
     <div id="div-fuente" style="font-size:9.5px;color:var(--muted);margin-top:10px;text-align:right;">Cargando...</div>
+  </div>
+
+  <div class="card" id="div-costo-card" style="margin-top:14px;padding:16px;">
+    <div style="font-weight:900;font-size:15px;color:var(--text);">🧾 ¿Cuánto me sale lo que compré?</div>
+    <div style="font-size:11.5px;color:var(--muted);margin:4px 0 10px;">Si compraste la moneda a un precio distinto al del mercado (en la frontera, a un arbolito, etc.), poné a cuánto la compraste y cuánto te cobran: te calculo el costo real en pesos.</div>
+    <label style="font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Moneda</label>
+    <select id="div-costo-mon" onchange="calcularCostoReal()" style="width:100%;box-sizing:border-box;margin-top:4px;padding:10px 12px;border-radius:10px;border:1px solid var(--border);font-size:16px;font-weight:800;">
+      <option value="BRL_OF">🇧🇷 Real</option>
+      <option value="USD_BLUE">💵 Dólar</option>
+      <option value="PYG">🇵🇾 Guaraní</option>
+      <option value="UYU">🇺🇾 Peso uruguayo</option>
+      <option value="CLP">🇨🇱 Peso chileno</option>
+      <option value="BOB">🇧🇴 Boliviano</option>
+      <option value="EUR">🇪🇺 Euro</option>
+      <option value="GBP">🇬🇧 Libra esterlina</option>
+    </select>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+      <div><label style="font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Pagué cada 1 a ($)</label><input id="div-costo-tasa" type="number" inputmode="decimal" placeholder="Ej: 350" min="0" step="any" oninput="calcularCostoReal()" style="width:100%;box-sizing:border-box;margin-top:4px;padding:10px 12px;border-radius:10px;border:1px solid var(--border);font-size:16px;font-weight:800;"></div>
+      <div><label style="font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Me cobran</label><input id="div-costo-monto" type="number" inputmode="decimal" placeholder="Ej: 200" min="0" step="any" oninput="calcularCostoReal()" style="width:100%;box-sizing:border-box;margin-top:4px;padding:10px 12px;border-radius:10px;border:1px solid var(--border);font-size:16px;font-weight:800;"></div>
+    </div>
+    <div style="margin-top:12px;background:rgba(22,160,133,0.08);border:1px solid rgba(22,160,133,0.3);border-radius:12px;padding:14px;text-align:center;">
+      <div style="font-size:9.5px;font-weight:800;color:#16a085;text-transform:uppercase;letter-spacing:0.5px;">Te sale en pesos</div>
+      <div id="div-costo-res" style="font-size:26px;font-weight:900;color:#16a085;">—</div>
+      <div id="div-costo-comp" style="font-size:11px;color:var(--muted);margin-top:5px;"></div>
+    </div>
   </div>
 
   <div style="text-align:center;margin-top:18px;margin-bottom:8px;">
@@ -4317,6 +4497,7 @@ function showTab(id, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  if (id === 'fronteras' && typeof initFronteras === 'function') { try { initFronteras(); } catch (e) {} }
   var activeBtn = null;
   if (btn) {
     btn.classList.add('active');
@@ -4458,7 +4639,7 @@ function hdrMenuGo(id) {
 // clima o de Instagram con el botón "volver"), restauramos esa sección y esa
 // ciudad en vez de mostrar siempre "inicio" / San Vicente.
 document.addEventListener('DOMContentLoaded', function () {
-  var validTabs = ['inicio','farmacias','urbanos','colectivos','colectivos-caba','trenes-posadas','empresas','emergencias','calendario','juegos','noticias','rutas-misiones','rutas-argentina','rutas-brasil','divisas','gastos','listas','mantenimiento','mascotas'];
+  var validTabs = ['inicio','farmacias','urbanos','colectivos','colectivos-caba','trenes-posadas','empresas','emergencias','calendario','juegos','noticias','rutas-misiones','rutas-argentina','rutas-brasil','fronteras','divisas','gastos','listas','mantenimiento','mascotas'];
   var rawHash = (window.location.hash || '').replace('#', '');
   var partes = rawHash.split('|');
   var hashTab = partes[0];
@@ -6038,6 +6219,11 @@ function elegirRutasBrasilDesdeBienvenida() {
   showTab('rutas-brasil', null);
 }
 
+function elegirFronterasDesdeBienvenida() {
+  cerrarPantallaConsultaInicial();
+  showTab('fronteras', null);
+}
+
 
 function selectCiudad(nombre) {
   _modoSoloApps = false;
@@ -6073,6 +6259,10 @@ function activarModoSoloApps() {
   }
   closeCityMenu();
   aplicarCiudadActual();
+  // Siempre vamos al inicio de Aplicaciones SimpleApp. Antes solo se cambiaba
+  // de pantalla si la sección actual no era válida para este modo, así que si
+  // el usuario estaba en Gastos, Rutas, Fronteras, etc., se quedaba ahí.
+  showTab('inicio', null);
 }
 
 // Activa el modo "Noticias": el menú de arriba muestra solo Noticias,
@@ -6747,7 +6937,7 @@ function aplicarCiudadActual() {
     // En este modo solo tienen sentido Inicio y las 4 mini-apps: cualquier
     // otra sección donde estuviera el usuario (Calendario, Negocios, Trivia,
     // Emergencia, etc.) se cierra y vuelve a Inicio.
-    if (['inicio', 'gastos', 'listas', 'mantenimiento', 'mascotas', 'divisas', 'rutas-misiones', 'rutas-argentina', 'rutas-brasil'].indexOf(idActiva) === -1) {
+    if (['inicio', 'gastos', 'listas', 'mantenimiento', 'mascotas', 'divisas', 'rutas-misiones', 'rutas-argentina', 'rutas-brasil', 'fronteras'].indexOf(idActiva) === -1) {
       showTab('inicio', null);
     }
   }
@@ -7342,6 +7532,7 @@ function cargarTasasDivisas() {
         + ' y <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener" style="color:#16a085;">ExchangeRate-API</a>'
         + (fecha ? ' · actualizado ' + fecha : '');
     }
+    renderCotizacionesDivisas();
     calcularDivisas();
   });
 }
@@ -7364,6 +7555,50 @@ function tasaDivisaEnArs(divisa, sentido) {
   return null;
 }
 
+// Devuelve cuánto vale 1 unidad de la moneda en ARS para "compra" y "venta".
+// spread=true: la moneda tiene compra y venta separados (dólar y real).
+// spread=false: solo hay un valor de referencia (compra = venta).
+function ladosDivisa(divisa) {
+  if (divisa === 'ARS') return { compra: 1, venta: 1, spread: false };
+  var t = _divisasTasas;
+  if (!t) return null;
+  var o = null;
+  if (divisa === 'USD_OF') o = t.usdOf;
+  else if (divisa === 'USD_BLUE') o = t.usdBlue;
+  else if (divisa === 'BRL_OF') o = t.brlOf;
+  else if (divisa === 'BRL_BLUE') o = t.brlBlue;
+  if (o) return { compra: o.compra, venta: o.venta, spread: true };
+  var r = tasaDivisaEnArs(divisa, 'compra');
+  if (r === null || r === undefined) return null;
+  return { compra: r, venta: r, spread: false };
+}
+
+function renderCotizacionesDivisas() {
+  var cont = document.getElementById('div-cot-tabla');
+  if (!cont || !_divisasTasas) return;
+  var filas = [
+    ['USD_BLUE', '💵 Dólar blue', 1], ['USD_OF', '💵 Dólar oficial', 1],
+    ['BRL_BLUE', '🇧🇷 Real blue', 1], ['BRL_OF', '🇧🇷 Real oficial', 1],
+    ['PYG', '🇵🇾 Guaraní', 1000], ['UYU', '🇺🇾 Peso uruguayo', 1], ['CLP', '🇨🇱 Peso chileno', 1],
+    ['BOB', '🇧🇴 Boliviano', 1], ['EUR', '🇪🇺 Euro', 1], ['GBP', '🇬🇧 Libra esterlina', 1]
+  ];
+  var h = '';
+  filas.forEach(function (f) {
+    var l = ladosDivisa(f[0]);
+    if (!l) return;
+    var unidad = f[2] === 1 ? '' : ' <span style="color:var(--muted);font-weight:600;">(por ' + f[2].toLocaleString('es-AR') + ' ' + SIMBOLOS_DIVISAS[f[0]] + ')</span>';
+    h += '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 2px;border-bottom:1px dashed var(--border);font-size:12.5px;">';
+    h += '<div style="font-weight:800;color:var(--text);">' + f[1] + unidad + '</div>';
+    if (l.spread) {
+      h += '<div style="text-align:right;font-weight:800;white-space:nowrap;"><span style="color:#16a085;">Compra ' + fmtMontoDivisa(l.compra * f[2], 'ARS') + '</span><br><span style="color:#2980b9;">Venta ' + fmtMontoDivisa(l.venta * f[2], 'ARS') + '</span></div>';
+    } else {
+      h += '<div style="text-align:right;font-weight:800;white-space:nowrap;color:var(--text);">' + fmtMontoDivisa(l.compra * f[2], 'ARS') + '<br><span style="font-size:10px;color:var(--muted);font-weight:600;">valor de referencia</span></div>';
+    }
+    h += '</div>';
+  });
+  cont.innerHTML = h + '<div style="font-size:10.5px;color:var(--muted);margin-top:6px;line-height:1.4;">Valores en pesos argentinos por unidad de cada moneda. <b>Compra</b>: lo que te pagan si vendés esa moneda. <b>Venta</b>: lo que pagás si la comprás. Donde dice «valor de referencia» no hay compra y venta separados.</div>';
+}
+
 function fmtMontoDivisa(n, divisa) {
   // El guaraní no tiene centavos, así que para montos grandes redondeamos a
   // entero. Pero si el número es chico (por ejemplo, el valor de 1 peso en
@@ -7373,6 +7608,18 @@ function fmtMontoDivisa(n, divisa) {
   return SIMBOLOS_DIVISAS[divisa] + ' ' + Number(n).toLocaleString('es-AR', { minimumFractionDigits: decimales, maximumFractionDigits: decimales });
 }
 
+function monedaForaneaDivisa(de, a) {
+  if (de === 'ARS' && a !== 'ARS') return a;
+  if (a === 'ARS' && de !== 'ARS') return de;
+  return null;
+}
+function elegirOperacionDivisa(op) {
+  var de = document.getElementById('div-de').value, a = document.getElementById('div-a').value;
+  var f = monedaForaneaDivisa(de, a);
+  if (!f) return;
+  var actual = (de === f) ? 'vender' : 'comprar';
+  if (actual !== op) intercambiarDivisas(); // intercambiarDivisas ya recalcula
+}
 function toggleTasaPropia() {
   var activo = document.getElementById('div-usar-propia').checked;
   var wrap = document.getElementById('div-propia-wrap');
@@ -7394,43 +7641,131 @@ function calcularDivisas() {
   if (isNaN(monto) || monto < 0) monto = 0;
 
   // Vendés "de" (te pagan al precio compra) y con eso comprás "a" (pagás el precio venta).
-  var tasaVentaDe = tasaDivisaEnArs(de, 'compra');
-  var tasaCompraA = tasaDivisaEnArs(a, 'venta');
-  if (tasaVentaDe === null || tasaCompraA === null) {
+  var dL = ladosDivisa(de), aL = ladosDivisa(a);
+  var elCaption = document.getElementById('div-caption');
+  var elOpc = document.getElementById('div-opciones');
+  if (!dL || !aL) {
     elResultado.textContent = 'No disponible para esta moneda';
     if (elDetalle) elDetalle.textContent = '';
+    if (elCaption) elCaption.textContent = '';
+    if (elOpc) elOpc.style.display = 'none';
     return;
   }
+  var tasaVentaDe = dL.compra;
+  var tasaCompraA = aL.venta;
   var enArs = monto * tasaVentaDe;
   var resultado = (a === 'ARS') ? enArs : (enArs / tasaCompraA);
   var unoDeEnA = (a === 'ARS') ? tasaVentaDe : (tasaVentaDe / tasaCompraA);
 
   elResultado.textContent = fmtMontoDivisa(monto, de) + ' = ' + fmtMontoDivisa(resultado, a);
-  if (elDetalle) elDetalle.textContent = '1 ' + NOMBRES_DIVISAS[de] + ' ≈ ' + fmtMontoDivisa(unoDeEnA, a);
+
+  // Las dos opciones: con el precio de compra y con el precio de venta (solo si alguna
+  // de las dos monedas los tiene). Si no, es un único valor de referencia.
+  var hayCompraVenta = dL.spread || aL.spread;
+  var oCompra = monto * dL.compra / aL.compra;
+  var oVenta = monto * dL.venta / aL.venta;
+  if (hayCompraVenta) {
+    if (elCaption) {
+      elCaption.textContent = (dL.spread && aL.spread)
+        ? 'En una casa de cambio: vendés ' + NOMBRES_DIVISAS[de] + ' (precio de compra) y comprás ' + NOMBRES_DIVISAS[a] + ' (precio de venta)'
+        : (dL.spread ? 'En una casa de cambio: te pagan el precio de compra' : 'En una casa de cambio: pagás el precio de venta');
+    }
+    if (elDetalle) {
+      elDetalle.textContent = '1 ' + NOMBRES_DIVISAS[de] + ' ≈ ' + fmtMontoDivisa(dL.compra / aL.compra, a) + ' (compra) · ' + fmtMontoDivisa(dL.venta / aL.venta, a) + ' (venta)';
+    }
+    if (elOpc) {
+      var marcaC = (dL.spread && !aL.spread) ? 'border:2px solid #16a085;' : 'border:1px solid var(--border);';
+      var marcaV = (!dL.spread && aL.spread) ? 'border:2px solid #2980b9;' : 'border:1px solid var(--border);';
+      elOpc.innerHTML =
+        '<div style="background:var(--card);' + marcaC + 'border-radius:10px;padding:9px 6px;">' +
+          '<div style="font-size:9.5px;font-weight:800;color:#16a085;text-transform:uppercase;letter-spacing:0.5px;">Precio de compra</div>' +
+          '<div style="font-size:16px;font-weight:900;color:var(--text);margin-top:2px;">' + fmtMontoDivisa(oCompra, a) + '</div>' +
+          '<div style="font-size:9.5px;color:var(--muted);margin-top:2px;">lo que te pagan si vendés</div></div>' +
+        '<div style="background:var(--card);' + marcaV + 'border-radius:10px;padding:9px 6px;">' +
+          '<div style="font-size:9.5px;font-weight:800;color:#2980b9;text-transform:uppercase;letter-spacing:0.5px;">Precio de venta</div>' +
+          '<div style="font-size:16px;font-weight:900;color:var(--text);margin-top:2px;">' + fmtMontoDivisa(oVenta, a) + '</div>' +
+          '<div style="font-size:9.5px;color:var(--muted);margin-top:2px;">lo que pagás si comprás</div></div>';
+      elOpc.style.display = 'grid';
+    }
+  } else {
+    if (elCaption) elCaption.textContent = 'Valor de referencia (estas monedas no tienen compra y venta separados)';
+    if (elDetalle) elDetalle.textContent = '1 ' + NOMBRES_DIVISAS[de] + ' ≈ ' + fmtMontoDivisa(unoDeEnA, a);
+    if (elOpc) elOpc.style.display = 'none';
+  }
 
   // ── Comparación con la cotización que alguien te ofrece ──
   var usarPropia = document.getElementById('div-usar-propia') && document.getElementById('div-usar-propia').checked;
   var labelPropia = document.getElementById('div-propia-label');
-  if (labelPropia) labelPropia.textContent = '1 ' + NOMBRES_DIVISAS[de] + ' = ? ' + NOMBRES_DIVISAS[a];
+  var _f = monedaForaneaDivisa(de, a);
+  if (labelPropia) labelPropia.textContent = _f ? ('1 ' + NOMBRES_DIVISAS[_f] + ' = ? pesos argentinos (precio que te ofrecen)') : ('1 ' + NOMBRES_DIVISAS[de] + ' = ? ' + NOMBRES_DIVISAS[a]);
   if (!usarPropia) return;
 
+  var foranea = monedaForaneaDivisa(de, a);
+  var vendiendo = foranea && de === foranea;
+  var opWrap = document.getElementById('div-op-wrap');
+  if (opWrap) {
+    opWrap.style.display = foranea ? 'block' : 'none';
+    var bV = document.getElementById('div-op-vender'), bC = document.getElementById('div-op-comprar');
+    var on = 'border:2px solid #e67e22;background:rgba(230,126,34,0.12);', off = 'border:1px solid var(--border);background:var(--card);';
+    if (foranea && bV && bC) {
+      bV.style.cssText += (vendiendo ? on : off);
+      bC.style.cssText += (vendiendo ? off : on);
+      bV.textContent = '💵 Vendo ' + NOMBRES_DIVISAS[foranea];
+      bC.textContent = '🛒 Compro ' + NOMBRES_DIVISAS[foranea];
+    }
+    var nota = document.getElementById('div-op-nota');
+    if (nota) nota.textContent = !foranea
+      ? 'Vendés ' + NOMBRES_DIVISAS[de] + ' al precio de compra y comprás ' + NOMBRES_DIVISAS[a] + ' al precio de venta.'
+      : (vendiendo ? 'Comparo con el precio de compra (lo que te pagan por tus ' + NOMBRES_DIVISAS[foranea] + ').' : 'Comparo con el precio de venta (lo que pagás por ' + NOMBRES_DIVISAS[foranea] + ').');
+  }
+  var dual = document.getElementById('div-dual'), single = document.getElementById('div-single');
+  if (opWrap) opWrap.style.display = 'none';
+  if (dual) dual.style.display = foranea ? 'block' : 'none';
+  if (single) single.style.display = foranea ? 'none' : 'block';
+  if (foranea) {
+    var ref = ladosDivisa(foranea), nm = NOMBRES_DIVISAS[foranea];
+    document.getElementById('div-dual-mon').textContent = nm;
+    var oc = parseFloat(document.getElementById('div-of-compra').value);
+    var ov = parseFloat(document.getElementById('div-of-venta').value);
+    var enF = (de === foranea);
+    function fila(tipo, of, rf, color) {
+      var vende = tipo === 'vender';
+      var tit = vende ? '💵 Si vendés' : '🛒 Si comprás';
+      if (!(of > 0)) return '<div style="border:1px solid var(--border);border-radius:12px;padding:10px;font-size:11px;color:var(--muted);">' + tit + ': ingresá el precio que te ofrecen.</div>';
+      var txt;
+      if (enF) txt = vende ? ('Vendés ' + fmtMontoDivisa(monto, foranea) + ' y recibís') : ('Comprás ' + fmtMontoDivisa(monto, foranea) + ' y pagás');
+      else txt = vende ? ('Para juntar ' + fmtMontoDivisa(monto, 'ARS') + ' vendés') : ('Con ' + fmtMontoDivisa(monto, 'ARS') + ' comprás');
+      var val = enF ? fmtMontoDivisa(monto * of, 'ARS') : fmtMontoDivisa(monto / of, foranea);
+      var d = (of - rf) / rf * 100, mejor = vende ? d >= 0 : d <= 0;
+      var nombreRef = ref.spread ? (vende ? 'el precio de compra' : 'el precio de venta') : 'la cotización de referencia';
+      return '<div style="background:rgba(230,126,34,0.08);border:1px solid rgba(230,126,34,0.3);border-radius:12px;padding:10px;text-align:center;">' +
+        '<div style="font-size:9.5px;font-weight:800;color:' + color + ';text-transform:uppercase;">' + tit + ' a ' + fmtMontoDivisa(of, 'ARS') + '</div>' +
+        '<div style="font-size:11px;color:var(--muted);margin-top:3px;">' + txt + '</div>' +
+        '<div style="font-size:22px;font-weight:900;color:#e67e22;">' + val + '</div>' +
+        '<div style="font-size:11px;color:var(--muted);margin-top:3px;">Es ' + Math.abs(d).toLocaleString('es-AR', { maximumFractionDigits: 1 }) + '% ' + (mejor ? 'mejor' : 'peor') + ' que ' + nombreRef + ' (' + fmtMontoDivisa(rf, 'ARS') + ')</div></div>';
+    }
+    document.getElementById('div-dual-res').innerHTML = fila('vender', oc, ref ? ref.compra : 0, '#16a085') + fila('comprar', ov, ref ? ref.venta : 0, '#2980b9');
+    return;
+  }
+  var tipoRef = foranea ? (vendiendo ? 'el precio de compra' : 'el precio de venta') : 'la cotización de referencia';
   var tasaPropia = parseFloat(document.getElementById('div-propia-tasa').value);
   var elResultadoPropia = document.getElementById('div-resultado-propia');
   var elDiferencia = document.getElementById('div-diferencia');
   if (!elResultadoPropia) return;
   if (isNaN(tasaPropia) || tasaPropia <= 0) {
     elResultadoPropia.textContent = '—';
-    if (elDiferencia) elDiferencia.textContent = 'Ingresá cuánto te ofrecen por 1 ' + NOMBRES_DIVISAS[de] + '.';
+    if (elDiferencia) elDiferencia.textContent = 'Ingresá cuánto te ofrecen por 1 ' + NOMBRES_DIVISAS[foranea || de] + '.';
     return;
   }
-  var resultadoPropia = monto * tasaPropia;
+  var resultadoPropia = foranea ? (vendiendo ? monto * tasaPropia : monto / tasaPropia) : monto * tasaPropia;
   elResultadoPropia.textContent = fmtMontoDivisa(monto, de) + ' = ' + fmtMontoDivisa(resultadoPropia, a);
 
   if (elDiferencia && resultado > 0) {
     var diferenciaPorc = ((resultadoPropia - resultado) / resultado) * 100;
     var signo = diferenciaPorc >= 0 ? '+' : '';
     var palabra = diferenciaPorc >= 0 ? 'mejor' : 'peor';
-    elDiferencia.textContent = 'Es ' + signo + diferenciaPorc.toLocaleString('es-AR', { maximumFractionDigits: 1 }) + '% ' + palabra + ' que la cotización de referencia ('
+    if (foranea && !(dL.spread || aL.spread)) tipoRef = 'la cotización de referencia';
+    elDiferencia.textContent = 'Es ' + signo + diferenciaPorc.toLocaleString('es-AR', { maximumFractionDigits: 1 }) + '% ' + palabra + ' que ' + tipoRef + ' ('
       + fmtMontoDivisa(Math.abs(resultadoPropia - resultado), a) + ' de diferencia).';
   }
 }
@@ -7442,10 +7777,28 @@ function intercambiarDivisas() {
   var tmp = selDe.value;
   selDe.value = selA.value;
   selA.value = tmp;
+  var ip = document.getElementById('div-propia-tasa');
+  if (ip && parseFloat(ip.value) > 0 && !monedaForaneaDivisa(selDe.value, selA.value)) ip.value = String(parseFloat((1 / parseFloat(ip.value)).toPrecision(6)));
   calcularDivisas();
 }
 
+function calcularCostoReal() {
+  var mon = document.getElementById('div-costo-mon').value;
+  var tasa = parseFloat(document.getElementById('div-costo-tasa').value);
+  var monto = parseFloat(document.getElementById('div-costo-monto').value);
+  var res = document.getElementById('div-costo-res'), comp = document.getElementById('div-costo-comp');
+  if (!res) return;
+  if (!(tasa > 0) || !(monto > 0)) { res.textContent = '—'; comp.textContent = 'Completá a cuánto la compraste y cuánto te cobran.'; return; }
+  var total = tasa * monto;
+  res.textContent = fmtMontoDivisa(total, 'ARS');
+  var ref = ladosDivisa(mon);
+  if (!ref) { comp.textContent = ''; return; }
+  var mercado = monto * ref.venta, dif = total - mercado, pct = dif / mercado * 100;
+  comp.textContent = 'A precio de mercado hoy (' + (ref.spread ? 'venta ' : 'referencia ') + fmtMontoDivisa(ref.venta, 'ARS') + ' c/u) serían ' + fmtMontoDivisa(mercado, 'ARS') + '. Pagaste ' +
+    fmtMontoDivisa(Math.abs(dif), 'ARS') + (dif > 0 ? ' de más' : ' de menos') + ' (' + Math.abs(pct).toLocaleString('es-AR', { maximumFractionDigits: 1 }) + '%).';
+}
 document.addEventListener('DOMContentLoaded', cargarTasasDivisas);
+document.addEventListener('DOMContentLoaded', calcularCostoReal);
 
 // ── REINTENTAR AL RECUPERAR CONEXIÓN ────────────────────────────────────────
 // Si algo falló por falta de señal (clima, cotizaciones, alertas, noticias),
@@ -8154,7 +8507,7 @@ showTab = function (id, btn) {
 
 // Aviso de deslinde de responsabilidad por enlaces externos, agregado al final de cada menú/sección.
 document.addEventListener('DOMContentLoaded', function () {
-  var appDisclaimer = '<div style="background:rgba(107,63,31,0.08);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-top:16px;font-size:11px;line-height:1.5;color:var(--muted);text-align:center;">ℹ️ <strong>Info SimpleApp es una aplicación independiente y de carácter privado</strong>. No está afiliada, respaldada ni asociada a ningún organismo gubernamental. Recopila información pública para facilitar su consulta; verificá siempre los datos sensibles directamente con cada organismo.</div>';
+  var appDisclaimer = '<div style="background:rgba(107,63,31,0.08);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-top:16px;font-size:11px;line-height:1.5;color:var(--muted);text-align:center;">ℹ️ <strong>Info SimpleApp es una aplicación independiente y de carácter privado</strong>. No está afiliada, respaldada ni asociada a ningún organismo gubernamental. Recopila información pública para facilitar su consulta; verificá siempre los datos sensibles directamente con cada organismo. Banderas: Twemoji, licencia CC BY 4.0 (github.com/twitter/twemoji).</div>';
   var disclaimer = '<div style="margin:22px 0 10px 0;padding:10px 12px;border-top:1px dashed var(--border);font-size:10px;line-height:1.4;color:var(--muted);text-align:center;">⚠️ Los enlaces a sitios externos son solo a modo informativo. SimpleApp no se responsabiliza por el contenido, la disponibilidad ni la exactitud de la información de esas páginas de terceros.</div>';
   document.querySelectorAll('.section').forEach(function (sec) {
     var divApp = document.createElement('div');
@@ -10239,6 +10592,64 @@ document.addEventListener('DOMContentLoaded', function () {
 #rutas-brasil a.rm-btn2 { color:var(--text); }
 #rutas-brasil .rm-pasos { margin:6px 0 10px; padding-left:20px; font-size:14px; line-height:1.5; }
 #rutas-argentina .rm-pasos { margin:6px 0 10px; padding-left:20px; font-size:14px; line-height:1.5; }
+
+/* ============ FRONTERAS SIMPLEAPP ============ */
+#fronteras { --ok:#2e7d32; }
+#fronteras .hero-banner::before { content:'🛂'; }
+#fronteras .stat-link { display:inline-block; margin-top:4px; font-size:12px; color:var(--azul2); font-weight:700; text-decoration:none; }
+#fronteras .url-txt { font-size:11px; color:var(--azul2); font-weight:600; word-break:break-all; margin-top:2px; }
+#fronteras .btn-subir { display:block; margin:12px auto 2px; background:rgba(107,63,31,0.06); border:1px solid var(--border); border-radius:20px; color:var(--muted); font-family:'Barlow',sans-serif; font-size:12px; font-weight:700; padding:8px 20px; cursor:pointer; }
+#fronteras .aviso { background:rgba(192,57,43,0.08); border:1.5px solid var(--rojo); border-radius:12px; margin-bottom:14px; overflow:hidden; }
+#fronteras .aviso-hdr { background:linear-gradient(90deg,#7a1515,#c0392b); color:#fff; padding:9px 14px; font-size:14px; font-weight:800; }
+#fronteras .aviso-body { padding:12px 14px; font-size:13px; line-height:1.5; }
+#fronteras .aviso-body p { margin-bottom:9px; }
+#fronteras .aviso-body ul { margin:4px 0 10px 18px; }
+#fronteras .aviso-body li { margin-bottom:5px; }
+#fronteras .aviso-body .ej { background:rgba(255,255,255,0.7); border-left:4px solid var(--oro); border-radius:6px; padding:8px 10px; margin:8px 0 10px; }
+#fronteras .check { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:10px 12px; margin-top:6px; }
+#fronteras .check h4 { font-size:13px; font-weight:800; color:var(--verde); margin-bottom:6px; }
+#fronteras .check label { display:flex; gap:8px; align-items:flex-start; font-size:13px; margin-bottom:6px; cursor:pointer; }
+#fronteras .check input { margin-top:3px; accent-color:var(--verde2); }
+#fronteras .leyenda { display:flex; flex-wrap:wrap; gap:6px 14px; font-size:12px; color:var(--muted); font-weight:600; margin:2px 0 10px; }
+#fronteras .chips { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px; }
+#fronteras .chip { background:var(--card); border:1.5px solid var(--border); color:var(--text); border-radius:20px; padding:7px 13px; font-family:'Barlow',sans-serif; font-size:13px; font-weight:700; cursor:pointer; }
+#fronteras .chip.on { background:var(--verde); border-color:var(--verde); color:#fff; }
+#fronteras .fr-sel { width:100%; background:var(--card); border:1.5px solid var(--border); border-radius:10px; padding:10px 14px; font-family:'Barlow',sans-serif; font-size:13px; color:var(--text); margin-bottom:10px; }
+#fronteras #fr-mapa { width:100%; height:340px; border-radius:10px; overflow:hidden; position:relative; z-index:0; }
+#fronteras .nota-mapa { font-size:10px; color:var(--muted); text-align:center; margin-top:6px; }
+#fronteras .pais-sep { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:3px; color:var(--verde); margin:20px 0 4px; }
+#fronteras .pie { font-size:11px; color:var(--muted); line-height:1.5; margin-top:16px; border-top:1px solid var(--border); padding-top:10px; }
+#fronteras .pie a { color:var(--azul2); font-weight:700; }
+#fronteras .vacio { text-align:center; font-size:13px; color:var(--muted); padding:18px; }
+#fronteras .paso-card { scroll-margin-top:70px; }
+#fronteras .rio-box { background:rgba(41,128,185,0.08); border:1px solid #2980b9; border-radius:10px; padding:10px 12px; margin:6px 0 8px; }
+#fronteras .rio-t { font-size:13px; font-weight:800; color:var(--azul); margin-bottom:4px; }
+#fronteras .rio-s { font-size:12px; color:var(--text); line-height:1.4; margin-bottom:8px; }
+#fronteras .rio-auto { font-size:13px; font-weight:700; color:var(--azul); background:#fff; border:1px solid var(--border); border-radius:8px; padding:8px 10px; margin-bottom:8px; }
+#fronteras .rio-auto.err { color:var(--muted); font-weight:600; }
+#fronteras .rio-in { display:flex; gap:8px; margin-bottom:8px; }
+#fronteras .rio-in label { flex:1; font-size:11px; font-weight:700; color:var(--muted); display:flex; flex-direction:column; gap:3px; }
+#fronteras .rio-in input { width:100%; border:1.5px solid var(--border); border-radius:8px; padding:8px; font-family:'Barlow',sans-serif; font-size:14px; background:#fff; color:var(--text); }
+#fronteras .rio-res { font-size:13px; font-weight:700; border-radius:8px; padding:8px 10px; background:#fff; border:1px solid var(--border); color:var(--muted); }
+#fronteras .rio-res.ok { color:#1b5e20; border-color:#2e7d32; background:rgba(46,125,50,0.10); }
+#fronteras .rio-res.cerca { color:#8a5a00; border-color:#d68a00; background:rgba(214,138,0,0.12); }
+#fronteras .rio-res.alto { color:#fff; border-color:#c0392b; background:#c0392b; }
+#fronteras .rio-dos { display:flex; gap:8px; }
+#fronteras .rio-n { flex:1; text-align:center; background:#fff; border:1px solid var(--border); border-radius:10px; padding:8px 6px; display:flex; flex-direction:column; gap:1px; }
+#fronteras .rio-n .l { font-size:10px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:var(--muted); }
+#fronteras .rio-n b { font-size:22px; font-weight:900; color:var(--azul); line-height:1.1; }
+#fronteras .rio-n.al b { color:#b8761d; }
+#fronteras .rio-n .t { font-size:11px; font-weight:700; color:var(--muted); }
+#fronteras .rio-est { font-size:11px; font-weight:600; color:var(--muted); margin-top:5px; }
+#fronteras .rio-manual { margin-top:8px; }
+#fronteras .rio-banner { border-radius:8px; padding:9px 11px; margin-bottom:8px; font-size:13px; font-weight:800; line-height:1.35; }
+#fronteras .rio-banner.alto { background:#c0392b; color:#fff; }
+#fronteras .rio-banner.cerca { background:rgba(214,138,0,0.15); color:#8a5a00; border:1px solid #d68a00; }
+#fronteras #fr-resumen-rios .res-alerta { background:rgba(192,57,43,0.10); border:1.5px solid #c0392b; border-radius:12px; padding:10px 14px; margin-bottom:12px; font-size:13px; line-height:1.45; }
+#fronteras #fr-resumen-rios .res-alerta b.t { display:block; color:#c0392b; font-size:14px; margin-bottom:4px; }
+#fronteras #fr-resumen-rios .res-alerta a { color:var(--azul2); font-weight:700; text-decoration:underline; cursor:pointer; }
+#fronteras .rio-retry { margin-top:6px; background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:6px 12px; font-family:'Barlow',sans-serif; font-size:12px; font-weight:700; color:var(--text); cursor:pointer; }
+#fronteras .rio-links a { display:inline-block; margin:6px 12px 0 0; font-size:12px; font-weight:700; color:var(--azul2); text-decoration:none; }
 </style>
 <script>
 /* ======================================================================
@@ -15763,6 +16174,11 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
   'use strict';
   function $(id) { return document.getElementById(id); }
   var YO = 'Mi ubicación';
+  // ── Enlace a Fronteras SimpleApp (mini app dentro de esta misma app) ──
+  window.abrirFronterasSimpleApp = function (ancla) {
+    showTab('fronteras', null);
+    if (ancla) setTimeout(function () { if (typeof irAFrontera === 'function') irAFrontera(ancla); }, 250);
+  };
   function esYo(v) { return v === YO; }
   // El origen ahora puede ser cualquier ciudad de la app, no solo de Brasil
   // (por ejemplo, salir desde San Vicente, Misiones, hacia Florianópolis).
@@ -15783,7 +16199,10 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
     var u = 'https://www.google.com/maps/dir/?api=1&travelmode=driving';
     if (origenQ) u += '&origin=' + origenQ;
     if (destinoQ) u += '&destination=' + destinoQ;
+    var paso = $('rb-paso') ? $('rb-paso').value : '';
+    if (paso) u += '&waypoints=' + encodeURIComponent(paso);
     $('rb-a-ruta').href = u;
+
 
     var donde = $('rb-donde').value, ref = '';
     if (donde.indexOf('loc:') === 0) ref = lugar(donde.slice(4));
@@ -15806,6 +16225,7 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
     $('rb-estado').textContent = 'Listo: la ruta va a salir desde donde estés cuando abras Google Maps.';
     actualizar();
   });
+  $('rb-paso').addEventListener('change', actualizar);
   $('rb-donde').addEventListener('change', actualizar);
   actualizar();
 
@@ -15828,6 +16248,703 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
   window.addEventListener('offline', function () { pintarAvisoConexion(false); });
   verificarConexionReal();
   setInterval(verificarConexionReal, 15000);
+})();
+</script>
+
+<script>
+// ============ FRONTERAS SIMPLEAPP ============
+
+(function () {
+  'use strict';
+
+  var DNM = 'https://www.argentina.gob.ar/migraciones/pasos-internacionales';
+  var OFI = 'https://www.argentina.gob.ar/seguridad/pasosinternacionales/detalle/';
+  var LISTADO = 'https://www.argentina.gob.ar/seguridad/pasosinternacionales';
+  var INA = 'https://alerta.ina.gob.ar/';
+
+  // ── Helpers para armar las filas de cada ficha ──
+  function H(t)      { return ['🕐', t, 'hor']; }
+  function AR(t)     { return ['🇦🇷', t]; }
+  function BRx(t)    { return ['🇧🇷', t]; }
+  function PYx(t)    { return ['🇵🇾', t]; }
+  function UYx(t)    { return ['🇺🇾', t]; }
+  function AMB(t)    { return ['🇦🇷🇧🇷', t]; }
+  function RIO(t)    { return ['🌊', t]; }
+  function KM(t)     { return ['📏', t]; }
+  function NT(i, t)  { return [i, t]; }
+
+  var OTRO_LADO = 'El listado oficial argentino informa solo el horario del control argentino. Confirmá el horario y los controles del otro lado antes de cruzar.';
+  var CRECIDA = 'Se suspende por crecida del río o mal tiempo. Si hay duda, consultá el estado el mismo día.';
+
+  // v.n: 'ok' | 'warn' | 'bad'
+  var PASOS = [
+
+    // ================= BRASIL · MISIONES =================
+    { id:'elsoberbio', pais:'BR', zona:'Misiones', nombre:'El Soberbio ↔ Porto Soberbo', badge:'Balsa · Río Uruguay', lat:-27.3000, lng:-54.2167, dir:'Tránsito vecinal fronterizo',
+      v:{n:'warn', i:'⚠️', t:'No permite recorrer Brasil libremente: solo tránsito vecinal (zona cercana a Porto Soberbo).'},
+      f:[ H('Lunes a viernes 8 a 12 y 14 a 20 hs · Sábados 10 a 12 y 16 a 18 hs (horarios aproximados, pueden variar; consultar antes de viajar). El listado de Migraciones informa lunes a sábado de 8 a 17:30 hs.'),
+          AR('Lado argentino: control migratorio y aduanero completo (AFIP / Gendarmería Nacional).'),
+          BRx('Lado brasileño: históricamente no cuenta con aduana ni oficina de migraciones propia en el puerto; para trámites formales de ingreso a Brasil hay que trasladarse a otra localidad habilitada.'),
+          RIO('Se corta el servicio de balsa por crecida del río Uruguay (habitualmente al superar los 8 metros de altura).'),
+          KM('Al no haber aduana/migraciones brasileña propia, este paso funciona como tránsito vecinal fronterizo (TVF), pensado para desplazamientos cortos entre localidades vecinas. No hay una cifra oficial de km publicada para este paso puntual; para viajar más lejos dentro de Brasil conviene ingresar por un paso con control migratorio brasileño pleno, como Bernardo de Irigoyen.') ],
+      ofi: OFI + 'rio/87/El-Soberbio-Porto-Soberbo' },
+
+    { id:'sanpedro', pais:'BR', zona:'Misiones', nombre:'San Pedro ↔ São Miguel do Oeste (Paso Rosales)', badge:'Estacional', lat:-26.6139, lng:-53.7389, dir:'Estacional, solo verano',
+      v:{n:'warn', i:'🔶', t:'Solo se puede recorrer Brasil libremente en temporada de verano; el resto del año, solo tránsito vecinal.'},
+      f:[ H('Habilitado solo en temporada de verano (aprox. 2 de enero al 13 de marzo), de 7 a 19 hs. Las fechas cambian cada año.'),
+          AR('Lado argentino: control migratorio y aduanero permanente, las 24 hs (Gendarmería Nacional).'),
+          BRx('Lado brasileño: solo tiene control migratorio y aduanero (Policía Federal / Receita Federal) durante la temporada habilitada. Fuera de esa fecha no hay control brasileño en el puente.'),
+          NT('📲','En temporada, el pre-registro migratorio online de la Polícia Federal es obligatorio (turistas y tránsito vecinal). Se genera un código QR que se presenta en el puesto.'),
+          NT('⚠️','Para ir más allá de São Miguel do Oeste/Paraíso fuera de temporada hay que hacer el trámite migratorio en Dionísio Cerqueira.'),
+          NT('🗺️','Es el paso que Google Maps suele elegir porque acorta camino, pero fuera de temporada no se puede usar para seguir viaje por Brasil.') ],
+      ofi: OFI + 'rio/9/San-Pedro-S%C3%A3o-Miguel-do-Oeste' },
+
+    { id:'bernardo', pais:'BR', zona:'Misiones', nombre:'Bernardo de Irigoyen ↔ Dionísio Cerqueira', badge:'24 hs · Frontera seca', lat:-26.2547, lng:-53.6441, dir:'24 hs · frontera seca',
+      v:{n:'ok', i:'✅', t:'Se puede recorrer todo Brasil sin límite de km (control migratorio completo todo el año).'},
+      f:[ H('Abierto los 365 días, las 24 horas (frontera seca, sin río de por medio).'),
+          AMB('Aduana y migraciones completas de ambos lados: área de control integrado, con cabecera única del lado argentino para pasajeros/TVF y cabecera única del lado brasileño para cargas.'),
+          NT('✅','Es el paso más estable de la zona: no se ve afectado por crecidas de ríos.'),
+          NT('⏳','En temporada alta de verano suele haber colas de varios kilómetros. Los pasos alternativos son San Antonio y, en verano, Paso Rosales.'),
+          KM('Al contar con control migratorio y aduanero completo de ambos países, quien hace el trámite de ingreso puede circular sin límite de kilómetros por todo Brasil (hasta 90 días como turista). Es el paso recomendado si el destino está lejos de la frontera.') ],
+      ofi: OFI + 'ruta/12/Bernardo-de-Irigoyen-Dionisio-Cerqueira' },
+
+    { id:'sanantonio', pais:'BR', zona:'Misiones', nombre:'San Antonio ↔ Santo Antônio do Sudoeste', badge:'Frontera seca', lat:-26.0700, lng:-53.7400, dir:'Aduana de turismo desde 2023',
+      v:{n:'ok', i:'✅', t:'Desde el 1 de febrero de 2023 el lado brasileño tiene control para turistas: se puede seguir viaje por Brasil.'},
+      f:[ H('Lado argentino (listado de Migraciones): 7 a 23 hs. Lado brasileño: al habilitarse, lunes a sábado de 7 a 19 hs. Confirmá domingos y feriados antes de ir.'),
+          AR('Lado argentino: control migratorio y aduanero en el paso.'),
+          BRx('Lado brasileño (Santo Antônio do Sudoeste, Paraná): puesto de la Polícia Federal y aduana de la Receita Federal.'),
+          NT('🔀','Sirve de alternativa para descomprimir Dionísio Cerqueira cuando hay colas en temporada.'),
+          KM('Al haber control migratorio brasileño habilitado para turistas, no hay límite de km (hasta 90 días como turista).') ],
+      ofi: null },
+
+    { id:'andresito', pais:'BR', zona:'Misiones', nombre:'Comandante Andresito ↔ Capanema', badge:'Puente · Río Iguazú', lat:-25.6740, lng:-54.0300, dir:'Verificar si habilita turismo',
+      v:{n:'warn', i:'🔶', t:'Confirmá si el lado brasileño habilita ingreso turístico completo antes de usarlo para ir lejos.'},
+      f:[ H('7 a 19 hs (listado de Migraciones, lado argentino).'),
+          NT('🌉','Puente internacional sobre el río Iguazú entre Misiones y Paraná.'),
+          BRx('No tenemos confirmado si el lado brasileño hace control migratorio pleno para turistas. Consultalo con la Polícia Federal antes de ir; si no hay control, se trata como tránsito vecinal.'),
+          KM('Si no está confirmado el control brasileño, usá Bernardo de Irigoyen o San Antonio para viajes largos dentro de Brasil.') ],
+      ofi: null },
+
+    { id:'albaposse', pais:'BR', zona:'Misiones', nombre:'Alba Posse ↔ Porto Mauá', badge:'Balsa · Río Uruguay', lat:-27.5698, lng:-54.6826, dir:'Balsa · aduana completa',
+      v:{n:'ok', i:'✅', t:'Se puede hacer el trámite migratorio y aduanero del lado brasileño y circular por todo Brasil.'},
+      f:[ H('Lunes a viernes 8 a 11:30 y 14 a 18 hs · Sábados, domingos y feriados 8:30 a 11:30 y 14:30 a 18 hs (horarios aproximados, pueden variar). El listado de Migraciones informa 8 a 17:30 hs.'),
+          AMB('Cuenta con controles migratorios y aduaneros de ambos lados: Prefectura Naval Argentina del lado argentino, Policía Federal y Receita Federal del lado brasileño.'),
+          RIO('Se cierra preventivamente por crecida del río Uruguay (habitualmente al superar entre 8 y 9 metros de altura). El servicio de balsa queda suspendido hasta que el caudal baje a niveles seguros.'),
+          KM('Al completar el trámite migratorio pleno con la aduana brasileña presente en el puerto, no hay límite de km: se puede viajar por cualquier destino de Brasil (hasta 90 días como turista).') ],
+      ofi: OFI + 'rio/88/Puerto-Alba-Posse-Porto-Maua' },
+
+    { id:'sanjavier', pais:'BR', zona:'Misiones', nombre:'San Javier ↔ Porto Xavier (Paso de la Barca)', badge:'Balsa · Río Uruguay', lat:-27.8833, lng:-55.1333, dir:'Balsa · aduana completa',
+      v:{n:'ok', i:'✅', t:'Se puede hacer el trámite migratorio y aduanero del lado brasileño y circular por todo Brasil.'},
+      f:[ H('Lunes a viernes 8 a 12 y 14 a 18 hs · Sábados, domingos y feriados 9 a 11 y 16 a 18 hs (horarios aproximados, pueden variar). El listado de Migraciones informa lunes a viernes de 8 a 17:30 hs y fines de semana de 9 a 10:30 y de 16 a 17:30 hs.'),
+          AMB('Controles migratorios y aduaneros de ambos lados (Prefectura Naval Argentina / Dirección Nacional de Aduanas del lado argentino; Policía Federal y Receita Federal del lado brasileño).'),
+          RIO('Al igual que Alba Posse, se suspende por crecida del río Uruguay hasta que el nivel del agua vuelva a valores seguros.'),
+          KM('Al completar el trámite migratorio pleno del lado brasileño, no hay límite de km: se puede viajar por cualquier destino de Brasil (hasta 90 días como turista).') ],
+      ofi: OFI + 'rio/10/Paso-de-la-Barca-Porto-Xavier' },
+
+    { id:'iguazu', pais:'BR', zona:'Misiones', nombre:'Puerto Iguazú ↔ Foz do Iguaçu (Puente Tancredo Neves)', badge:'24 hs · Triple Frontera', lat:-25.5999, lng:-54.5620, dir:'24 hs · triple frontera',
+      v:{n:'ok', i:'✅', t:'Se puede hacer el trámite migratorio y aduanero completo y circular por todo Brasil.'},
+      f:[ H('Abierto los 365 días, las 24 horas. El trámite migratorio suele ser más ágil en horario diurno (8 a 18 hs); los fines de semana suele haber más demora.'),
+          AMB('Control migratorio y aduanero completo de ambos lados: Migraciones, Aduana y Gendarmería Nacional del lado argentino; Polícia Federal y Receita Federal del lado brasileño.'),
+          NT('🌉','Se cruza por el Puente Internacional Tancredo Neves (489 m) sobre el río Iguazú. Es uno de los pasos más transitados del país, con acceso también a Ciudad del Este (Paraguay) desde Foz do Iguaçu.'),
+          KM('Al contar con control migratorio pleno de ambos países, no hay límite de km: se puede viajar por cualquier destino de Brasil (hasta 90 días como turista).') ],
+      ofi: OFI + 'ruta/2/Iguaz%C3%BA-Foz-de-Iguaz%C3%BA' },
+
+    // ================= BRASIL · CORRIENTES =================
+    { id:'santotome', pais:'BR', zona:'Corrientes', nombre:'Santo Tomé ↔ São Borja', badge:'24 hs · Puente', lat:-28.5500, lng:-56.0300, dir:'24 hs · puente de la Integración',
+      v:{n:'ok', i:'✅', t:'Paso con control completo: se puede circular por todo Brasil con el trámite de ingreso.'},
+      f:[ H('24 hs (listado de Migraciones).'),
+          NT('🌉','Puente internacional sobre el río Uruguay, entre Santo Tomé (Corrientes) y São Borja (Rio Grande do Sul).'),
+          AMB('Controles migratorios y aduaneros de ambos países (Migraciones, Aduana y Gendarmería del lado argentino; Polícia Federal y Receita Federal del lado brasileño).'),
+          NT('🌧️','Es un paso por puente: no se corta por crecida del río, pero revisá si hay cierres por obras antes de ir.'),
+          KM('Con control migratorio pleno de ambos países, no hay límite de km (hasta 90 días como turista).') ],
+      ofi: null },
+
+    { id:'libres', pais:'BR', zona:'Corrientes', nombre:'Paso de los Libres ↔ Uruguaiana', badge:'24 hs · Puente', lat:-29.7370, lng:-57.0700, dir:'24 hs · puente Agustín P. Justo – Getúlio Vargas',
+      v:{n:'ok', i:'✅', t:'Paso con control completo: se puede circular por todo Brasil con el trámite de ingreso.'},
+      f:[ H('24 hs, los 365 días (Centro de Frontera, listado de Migraciones).'),
+          NT('🌉','Puente internacional Agustín P. Justo – Getúlio Vargas sobre el río Uruguay.'),
+          AMB('Controles migratorios y aduaneros de ambos países.'),
+          NT('⏳','Es uno de los pasos más cargados en verano y en feriados largos: en picos se informaron demoras de entre 3 y 8 horas, con 20 a 25 mil personas por día. Conviene cruzar de madrugada o a la noche.'),
+          KM('Con control migratorio pleno de ambos países, no hay límite de km (hasta 90 días como turista).') ],
+      ofi: null },
+
+    { id:'corpus', pais:'PY', zona:'Misiones', nombre:'Corpus Christi (Puerto Maní) ↔ Puerto Bella Vista Sur', badge:'Balsa · Río Paraná', lat:-27.1000, lng:-55.5167, dir:'Balsa con vehículos · lunes a viernes',
+      v:{n:'warn', i:'🔶', t:'Cruce en balsa de lunes a viernes, con horario partido: confirmá que esté funcionando antes de ir.'},
+      f:[ H('Lunes a viernes de 8 a 12 y de 14 a 20 hs (ficha oficial de argentina.gob.ar). Cierra al mediodía.'),
+          NT('🚢','Se cruza en balsa con remolcador, entre Puerto Maní (Corpus Christi, Misiones) y Puerto Bella Vista Sur (Paraguay). Es un paso de tráfico vecinal fronterizo.'),
+          NT('🚗','Según la ficha oficial, cruzan vehículos y personas.'),
+          AR('Lado argentino: Prefectura Naval Argentina y Dirección General de Aduanas. Contacto de Prefectura: (3764) 495715.'),
+          RIO(CRECIDA),
+          PYx(OTRO_LADO) ],
+      ofi: OFI + 'rio/50/Puerto-Mani-Puerto-Bella-Vista-Sur' },
+
+    { id:'iguazufranco', pais:'PY', zona:'Misiones', nombre:'Puerto Iguazú ↔ Presidente Franco', badge:'Balsa · Río Paraná', lat:-25.5990, lng:-54.5740, dir:'Balsa · depende del río',
+      v:{n:'warn', i:'🔶', t:'Cruce en balsa que depende del nivel del río Paraná: confirmá que esté funcionando antes de ir.'},
+      f:[ H('Último horario que encontramos (2022): de 8 a 17 hs. No tenemos confirmados los días ni el horario actual: consultalo antes de ir.'),
+          NT('🚢','Cruza el río Paraná entre Puerto Iguazú (Puerto Tres Fronteras) y Presidente Franco (Paraguay), cerca de Ciudad del Este. Antes de la pandemia hacía unos cinco viajes por día.'),
+          RIO('Depende del nivel del río: en 2022 una bajante del Paraná impidió reactivarla. También se suspende con mal tiempo o crecida.'),
+          PYx(OTRO_LADO) ],
+      ofi: 'https://www.argentina.gob.ar/seguridad/pasosinternacionales?search=Presidente+franco+#rio56' },
+
+    { id:'posadas', pais:'PY', zona:'Misiones', nombre:'Posadas ↔ Encarnación (Puente San Roque González)', badge:'24 hs · Puente y tren', lat:-27.3520, lng:-55.8870, dir:'24 hs · puente y tren binacional',
+      v:{n:'ok', i:'✅', t:'Paso con control completo, abierto las 24 hs. Se puede seguir viaje por todo Paraguay.'},
+      f:[ H('Abierto las 24 hs, los 365 días del año (Migraciones y ficha oficial).'),
+          NT('🌉','Se cruza por el Puente Internacional San Roque González de Santa Cruz, sobre el río Paraná.'),
+          AR('Lado argentino: Gendarmería Nacional, Dirección Nacional de Migraciones y Aduana.'),
+          PYx('Lado paraguayo: controles de Migraciones y Aduana en Encarnación.'),
+          NT('🚆','Además del puente carretero, hay un tren binacional Posadas–Encarnación para pasajeros. Suele ser la forma más ágil de cruzar a pie cuando el puente está cargado. Consultá los horarios vigentes.'),
+          NT('⏳','Los fines de semana, feriados y vacaciones hay colas de varias horas. En julio de 2026 se informaron esperas de más de 10 horas del lado paraguayo.') ],
+      ofi: null },
+
+    { id:'puertorico', pais:'PY', zona:'Misiones', nombre:'Puerto Rico ↔ Puerto Triunfo', badge:'Balsa · Río Paraná', lat:-26.8000, lng:-55.0100, dir:'Balsa · 8 a 17:30 hs',
+      v:{n:'warn', i:'🔶', t:'Cruce en balsa: confirmá que el servicio esté funcionando antes de ir.'},
+      f:[ H('8 a 17:30 hs (listado de Migraciones).'),
+          RIO('El servicio de balsa depende del río y del operador: en el pasado estuvo meses sin funcionar. ' + CRECIDA),
+          PYx(OTRO_LADO) ],
+      ofi: null },
+
+    { id:'eldorado', pais:'PY', zona:'Misiones', nombre:'Eldorado ↔ Puerto Mayor Julio Otaño', badge:'Balsa · Río Paraná', lat:-26.4000, lng:-54.6200, dir:'Balsa · lunes a viernes',
+      v:{n:'warn', i:'🔶', t:'Cruce en balsa de horario partido y solo en días hábiles.'},
+      f:[ H('Lunes a viernes de 8 a 12 y de 14 a 18 hs (listado de Migraciones). Cierra al mediodía.'),
+          RIO(CRECIDA),
+          PYx(OTRO_LADO) ],
+      ofi: null },
+
+    { id:'ituzaingo', pais:'PY', zona:'Corrientes', nombre:'Ituzaingó ↔ Ayolas (Represa Yacyretá)', badge:'Ruta sobre la represa', lat:-27.4800, lng:-56.7300, dir:'Por la represa · horario diurno',
+      v:{n:'warn', i:'🔶', t:'Se cruza por la ruta de la represa Yacyretá, solo de día. Confirmá horario y qué vehículos pasan antes de ir.'},
+      f:[ H('Según la Entidad Binacional Yacyretá (EBY): vehículos livianos, de lunes a lunes (todos los días) de 9 a 19 hs.'),
+          NT('🌉','No es balsa: se cruza por el coronamiento de la Central Hidroeléctrica Yacyretá, entre Ituzaingó (Corrientes) y Ayolas (Paraguay). No depende de la altura del río.'),
+          NT('🚗','Solo vehículos livianos. Según una nota de ABC Color (noviembre de 2024) pasan autos livianos y minibuses de hasta 24 pasajeros, y no pasan peatones, motos ni bicicletas.'),
+          NT('📞','Contactos de la EBY en Ayolas: +595 72 222 141 / 8.'),
+          NT('📞','Contacto del lado argentino (ficha oficial): (3786) 421817. La ficha oficial no informa horario ni estado del paso; solo muestra el clima y enlaces a requisitos y a la ruta.'),
+          NT('📅','Se habilitó en 2019, cerró en marzo de 2020 por la pandemia y volvió a funcionar en 2022 solo con transporte público. En noviembre de 2024 se reabrió a vehículos particulares.'),
+          PYx('Lado paraguayo: control de Migraciones en Ayolas.') ],
+      empresa:{ t:'🔗 Información del paso (EBY, Entidad Binacional Yacyretá)', u:'https://www.eby.gov.py/paso-fronterizo-ayolas-ituzaingo/' },
+      ofi: OFI + 'ruta/36/Yaciret%C3%A1-Yaciret%C3%A1' },
+
+    { id:'clorinda', pais:'PY', zona:'Formosa', nombre:'Clorinda ↔ Puerto Falcón (hacia Asunción)', badge:'24 hs · Puente', lat:-25.3400, lng:-57.6500, dir:'24 hs · puente San Ignacio de Loyola',
+      v:{n:'ok', i:'✅', t:'Es el paso con puente y control abierto las 24 hs hacia Asunción.'},
+      f:[ H('24 hs (Puente Internacional San Ignacio de Loyola, listado de Migraciones).'),
+          NT('🌉','Une Clorinda (Formosa) con José Falcón / Puerto Falcón (Paraguay). Desde allí se sigue por ruta hacia Asunción.'),
+          NT('⏳','En feriados largos y fines de semana es habitual que haya colas.'),
+          PYx('Confirmá en el sitio oficial si hay novedades de cierres o controles especiales antes de salir.') ],
+      ofi: null },
+
+    { id:'itaenramada', pais:'PY', zona:'Formosa', nombre:'Clorinda (Puerto Pilcomayo) ↔ Itá Enramada (Asunción)', badge:'Cruce fluvial', lat:-25.2900, lng:-57.7000, dir:'Cruce fluvial desde Clorinda',
+      v:{n:'warn', i:'🔶', t:'Cruce fluvial con horario según el día: confirmá antes de ir.'},
+      f:[ H('Lunes a viernes de 7 a 18:30 hs · Sábados y feriados de 7 a 15 hs (listado de Migraciones).'),
+          RIO(CRECIDA),
+          NT('📍','Itá Enramada queda sobre el río Paraguay, en la zona de Asunción.'),
+          PYx(OTRO_LADO) ],
+      ofi: null },
+
+    { id:'concordia', pais:'UY', zona:'Entre Ríos', nombre:'Concordia ↔ Salto (Represa Salto Grande)', badge:'24 hs · Puente', lat:-31.2740, lng:-57.9390, dir:'24 hs · represa Salto Grande',
+      v:{n:'ok', i:'✅', t:'Paso con control completo, abierto las 24 hs. Se puede seguir viaje por todo Uruguay.'},
+      f:[ H('Vehículos particulares: 24 hs. Transporte de carga, vehículos menores y transporte de pasajeros: 7 a 19 hs (la carga no pasa domingos ni feriados). Según la ficha oficial del Centro de Frontera.'),
+          NT('🌉','Se cruza por la ruta sobre la represa de Salto Grande, en el río Uruguay.'),
+          AR('Lado argentino: Centro de Frontera en Concordia (control migratorio y aduanero).'),
+          UYx('Lado uruguayo: controles en Salto.'),
+          NT('⏳','En verano, Semana Santa y feriados largos puede haber demoras.') ],
+      ofi: 'https://www.argentina.gob.ar/node/464571' },
+
+    { id:'colon', pais:'UY', zona:'Entre Ríos', nombre:'Colón ↔ Paysandú (Puente General Artigas)', badge:'24 hs · Puente', lat:-32.2000, lng:-58.1000, dir:'24 hs · puente General Artigas',
+      v:{n:'ok', i:'✅', t:'Paso con control completo, abierto las 24 hs.'},
+      f:[ H('24 hs (listado de Migraciones).'),
+          NT('🌉','Puente internacional General Artigas sobre el río Uruguay.'),
+          NT('⏳','En temporada alta y feriados largos puede haber demoras. Hay otro cruce fluvial de Colón a Paysandú (puerto) con horario distinto: no lo confundas con el puente.') ],
+      ofi: null },
+
+    { id:'gualeguaychu', pais:'UY', zona:'Entre Ríos', nombre:'Gualeguaychú ↔ Fray Bentos (Puente General San Martín)', badge:'24 hs · Puente', lat:-33.1100, lng:-58.2600, dir:'24 hs · puente General San Martín',
+      v:{n:'ok', i:'✅', t:'Paso con control completo, abierto las 24 hs.'},
+      f:[ H('24 hs (listado de Migraciones).'),
+          NT('🌉','Puente internacional General San Martín sobre el río Uruguay.'),
+          NT('🔎','Antes de salir, mirá el estado oficial del paso en argentina.gob.ar.') ],
+      ofi: OFI + 'ruta/4/Gualeguaych%C3%BA-Fray-Bentos' },
+
+    { id:'paranacito', pais:'UY', zona:'Entre Ríos', nombre:'Paranacito ↔ Nueva Palmira', badge:'Cruce fluvial', lat:-33.7200, lng:-58.6400, dir:'Cruce fluvial · 7 a 20 hs',
+      v:{n:'warn', i:'🔶', t:'Cruce fluvial en el Delta: confirmá el servicio y el horario del día.'},
+      f:[ H('7 a 20 hs (listado de Migraciones).'),
+          RIO(CRECIDA),
+          UYx(OTRO_LADO) ],
+      ofi: null },
+
+    { id:'buquebus', pais:'UY', zona:'Buenos Aires', nombre:'Buenos Aires ↔ Colonia / Montevideo (Buquebus)', badge:'Barco · Río de la Plata', lat:-34.6125, lng:-58.3665, dir:'Terminal Buquebus · Puerto Madero',
+      v:{n:'ok', i:'✅', t:'Cruce regular en barco, con la terminal habilitada como paso de ingreso y egreso del país.'},
+      f:[ H('El listado de Migraciones incluye la Terminal Portuaria de Buquebus, pero no informa un horario fijo: depende de los horarios de salida y llegada de cada barco. Consultalos con la empresa.'),
+          NT('⛴️','Se cruza en barco por el Río de la Plata hacia Colonia o Montevideo, según el servicio. Buquebus también ofrece Buenos Aires ↔ Punta del Este: consultá en el sitio de la empresa los días y horarios.'),
+          NT('🪪','Documentación: la misma que para cruzar por tierra (DNI o pasaporte vigente). Para viajar con auto o con menores, confirmá los requisitos con la empresa.'),
+          NT('🌫️','Puede haber demoras o cancelaciones por mal tiempo, niebla o sudestada. Revisá el estado de tu salida antes de ir a la terminal.'),
+          UYx('Lado uruguayo: Colonia del Sacramento o Montevideo, según el destino.') ],
+      empresa: { t:'🔗 Buquebus: horarios, tarifas y requisitos de viaje (sitio de la empresa)', u:'https://www.buquebus.com/' },
+      ofi: null },
+
+    { id:'coloniaexpress', pais:'UY', zona:'Buenos Aires', nombre:'Buenos Aires ↔ Colonia (Colonia Express)', badge:'Barco · Río de la Plata', lat:-34.6140, lng:-58.3650, dir:'Terminal Colonia Express',
+      v:{n:'ok', i:'✅', t:'Cruce regular en barco, con la terminal habilitada como paso de ingreso y egreso del país.'},
+      f:[ H('El listado de Migraciones incluye la Terminal Portuaria de Colonia Express, pero no informa un horario fijo: depende de las salidas de la empresa. Consultalas antes de viajar.'),
+          NT('⛴️','Se cruza en barco por el Río de la Plata hasta Colonia del Sacramento.'),
+          NT('🪪','Documentación: la misma que para cruzar por tierra (DNI o pasaporte vigente). Para viajar con auto o con menores, confirmá los requisitos con la empresa.'),
+          NT('🌫️','Puede haber demoras o cancelaciones por mal tiempo, niebla o sudestada. Revisá el estado de tu salida antes de ir a la terminal.') ],
+      empresa: { t:'🔗 Colonia Express: horarios, tarifas y requisitos de viaje (sitio de la empresa)', u:'https://www.coloniaexpress.com/' },
+      ofi: null },
+
+    { id:'tigre', pais:'UY', zona:'Buenos Aires', nombre:'Tigre ↔ Uruguay (Terminal Fluvial Binacional)', badge:'Barco · Delta', lat:-34.4150, lng:-58.5830, dir:'Terminal Fluvial Binacional de Tigre',
+      v:{n:'warn', i:'🔶', t:'Cruce fluvial desde Tigre: los horarios dependen de la empresa y de las embarcaciones.'},
+      f:[ H('El listado de Migraciones informa de 7 a 17 hs para embarcaciones particulares y deportivas en la Terminal Fluvial Binacional de Tigre. Para los servicios regulares, consultá la empresa.'),
+          NT('⛴️','Tigre ↔ Carmelo: los pasajes los vende Buquebus y lo opera Líneas Delta Argentino, con conexión en bus hacia Colonia, Montevideo y Punta del Este (según notas de 2022: confirmá en el sitio de Buquebus si el servicio sigue y qué días sale).'),
+          NT('⛴️','Tigre ↔ Nueva Palmira: lo opera Líneas Delta Argentino. No tenemos su sitio web verificado: consultá los horarios en la Terminal Fluvial de Tigre.'),
+          NT('🌫️','Puede haber demoras o cancelaciones por mal tiempo, niebla o sudestada.'),
+          UYx(OTRO_LADO) ],
+      empresa: { t:'🔗 Buquebus: pasajes y horarios Tigre ↔ Carmelo (sitio de la empresa)', u:'https://www.buquebus.com/' },
+      ofi: null }
+  ];
+
+  // Cruces fluviales: u = nivel (m) a partir del cual el servicio suele suspenderse (null = no lo tenemos confirmado)
+  var RIOS = {
+    elsoberbio:   { u:8,    n:'El servicio de balsa se suele cortar al superar los 8 m en el río Uruguay.' },
+    albaposse:    { u:8,    n:'Se cierra preventivamente entre los 8 y los 9 m en el río Uruguay. Usamos 8 m como alerta.' },
+    sanjavier:    { u:6.5,  n:'Referencia de alerta de balsa usada en Info SimpleApp para el río Uruguay en San Javier (6,5 m). Confirmala con Prefectura.' },
+    puertorico:   { u:null, n:'No tenemos un nivel de corte confirmado para este cruce: la app muestra la altura, pero para la alerta cargá el nivel que informe la fuente oficial.' },
+    eldorado:     { u:null, n:'No tenemos un nivel de corte confirmado para este cruce: la app muestra la altura, pero para la alerta cargá el nivel que informe la fuente oficial.' },
+    corpus:       { u:null, n:'No tenemos un nivel de corte confirmado para este cruce: la app muestra la altura si la encuentra, pero la habilitación la define Prefectura.' },
+    iguazufranco: { u:null, n:'No tenemos un nivel de corte confirmado para este cruce: la app muestra la altura si la encuentra, pero la habilitación la define Prefectura.' },
+    itaenramada:  { u:null, n:'No tenemos un nivel de corte confirmado para este cruce: la app muestra la altura, pero para la alerta cargá el nivel que informe la fuente oficial.' },
+    paranacito:   { u:null, n:'No tenemos un nivel de corte confirmado para este cruce: la app muestra la altura, pero para la alerta cargá el nivel que informe la fuente oficial.' }
+  };
+
+  // Nombre de estación a buscar en el INA (misma capa que usa Info SimpleApp). Si el INA no tiene esa
+  // estación, el cuadro queda en modo manual. Se muestra siempre qué estación se encontró.
+  var INA_FILTRO = {
+    elsoberbio:'El Soberbio', sanjavier:'San Javier', albaposse:'Alba Posse', eldorado:'Eldorado',
+    puertorico:'Puerto Rico',
+    corpus:'Corpus', iguazufranco:'Iguaz', itaenramada:'Clorinda', paranacito:'Paranacito'
+  };
+  var INA_WFS = 'https://alerta.ina.gob.ar/geoserver/ows?service=WFS&version=2.0.0&request=GetFeature' +
+    '&typeNames=public2:ultimas_alturas_con_timeseries&outputFormat=application/json';
+  var cacheINA = {};
+
+  // Texto a buscar en el listado oficial cuando no tenemos la dirección exacta de la ficha
+  var BUSCAR = {
+    sanantonio:'San Antonio', andresito:'Andresito', santotome:'Santo Tomé', libres:'Paso de los Libres', posadas:'Posadas', puertorico:'Puerto Rico', eldorado:'Eldorado', iguazufranco:'Puerto Iguazú', ituzaingo:'Ituzaingó', clorinda:'Clorinda', itaenramada:'Pilcomayo', buquebus:'Buquebus', coloniaexpress:'Colonia Express', tigre:'Tigre', colon:'Colón', paranacito:'Paranacito'
+  };
+
+  var PAISES = {
+    BR: { nombre:'Brasil', flag:'🇧🇷' },
+    PY: { nombre:'Paraguay', flag:'🇵🇾' },
+    UY: { nombre:'Uruguay', flag:'🇺🇾' }
+  };
+
+  var GENERALES = {
+    BR: { titulo:'📋 Consideraciones generales para pasar a Brasil', filas: [
+      ['🪪','Documentación: DNI o pasaporte vigente y en buen estado. Como turista, no se necesita visa para estadías de hasta 90 días.'],
+      ['📲','Tarjeta migratoria: hay que registrar la entrada y salida de Brasil. Para los pasos de Misiones habilitados (Dionísio Cerqueira y Paraíso/São Miguel do Oeste), se puede completar antes de viajar el <b>pre-registro migratorio online</b> y generar el código QR que se presenta en el puesto de control.'],
+      ['🚗','Vehículo propio: cédula verde o azul vigente, licencia de conducir y seguro obligatorio Mercosur (Carta Verde): el seguro argentino común no es válido en Brasil. El título digital del auto no siempre es aceptado: conviene llevarlo impreso.'],
+      ['👶','Menores de edad: si no viajan con ambos padres, llevar partida de nacimiento y autorización de viaje correspondiente.']
+    ], link:{ t:'🔗 Generar QR de pre-registro migratorio (Polícia Federal)', u:'https://mobile.pf.gov.br/sti-mobile/' } },
+    PY: { titulo:'📋 Consideraciones generales para pasar a Paraguay', filas: [
+      ['🪪','Documentación: DNI o pasaporte vigente y en buen estado. Confirmá el requisito vigente antes de viajar.'],
+      ['🚗','Vehículo propio: cédula verde o azul vigente, licencia de conducir y seguro de responsabilidad civil válido para Paraguay (Carta Verde / seguro Mercosur). Llevá los papeles impresos.'],
+      ['👶','Menores de edad: si no viajan con ambos padres, llevar partida de nacimiento y autorización de viaje correspondiente.'],
+      ['🛍️','Compras: al volver se controlan los productos y la franquicia. Consultá en la Aduana (ARCA) el límite vigente y en SENASA los productos prohibidos.']
+    ], link:null },
+    UY: { titulo:'📋 Consideraciones generales para pasar a Uruguay', filas: [
+      ['🪪','Documentación: DNI o pasaporte vigente y en buen estado. Confirmá el requisito vigente antes de viajar.'],
+      ['🚗','Vehículo propio: cédula verde o azul vigente, licencia de conducir y seguro de responsabilidad civil válido para Uruguay (Carta Verde / seguro Mercosur). Llevá los papeles impresos.'],
+      ['👶','Menores de edad: si no viajan con ambos padres, llevar partida de nacimiento y autorización de viaje correspondiente.'],
+      ['🛍️','Compras: al volver se controlan los productos y la franquicia. Consultá en la Aduana (ARCA) el límite vigente y en SENASA los productos prohibidos.']
+    ], link:null }
+  };
+
+  function $(id) { return document.getElementById(id); }
+  var filtro = 'all';
+  var map = null, capas = {};
+
+  function colorNivel(n) { return n === 'ok' ? '#2e7d32' : (n === 'bad' ? '#c0392b' : '#d68a00'); }
+  function colorVerdict(n) { return n === 'ok' ? 'var(--ok)' : (n === 'bad' ? 'var(--rojo)' : 'var(--oro)'); }
+
+  function riosBox(p) {
+    var r = RIOS[p.id];
+    var url = p.ofi || LISTADO;
+    var h = '<div class="rio-box" data-id="' + p.id + '">';
+    h += '<div class="rio-t">🌊 Altura del río y alerta de balsa</div>';
+    h += '<div class="rio-s">Si el río está alto, es posible que <b>no haya cruce de balsa</b>. ' + r.n + '</div>';
+    h += '<div class="rio-auto" data-k="auto">⏳ Consultando la altura del río (INA)…</div>';
+    h += '<div class="rio-manual" data-k="manual" style="display:none;"><div class="rio-in">';
+    h += '<label data-k="lab-h">Altura hoy (m)<input type="text" inputmode="decimal" data-k="h" placeholder="ej. 6,8"></label>';
+    h += '<label data-k="lab-a">Nivel de alerta (m)<input type="text" inputmode="decimal" data-k="a" placeholder="ej. 8"' + (r.u !== null ? ' value="' + String(r.u).replace('.', ',') + '"' : '') + '></label>';
+    h += '</div></div>';
+    h += '<div class="rio-res" data-k="res">Consultando la altura del río…</div>';
+    h += '<div class="rio-links"><a href="' + url + '" target="_blank" rel="noopener">🔗 Altura publicada por Prefectura (si la informa)</a><a href="' + INA + '" target="_blank" rel="noopener">📈 Alturas de ríos (INA)</a></div>';
+    h += '</div>';
+    return h;
+  }
+
+  function num(v) {
+    var n = parseFloat(String(v).replace(',', '.'));
+    return isNaN(n) ? null : n;
+  }
+
+  function fmt(n) { return String(n).replace('.', ','); }
+
+  function actualizarResumenRios() {
+    var cont = document.getElementById('fr-resumen-rios');
+    if (!cont) return;
+    var items = [];
+    Array.prototype.forEach.call(document.querySelectorAll('#fr-lista .rio-box'), function (box) {
+      var n = box.getAttribute('data-nivel');
+      if (n !== 'alto' && n !== 'cerca') return;
+      var card = box.closest('.paso-card');
+      var nombre = card ? card.querySelector('.fn').textContent : box.getAttribute('data-id');
+      items.push({ id: box.getAttribute('data-id'), nombre: nombre, nivel: n });
+    });
+    if (!items.length) { cont.innerHTML = ''; return; }
+    var h = '<div class="res-alerta"><b class="t">🌊 Alerta por altura de ríos</b>Con el río alto, el cruce de balsa puede estar suspendido (y sin balsa no hay paso por esa aduana). Revisá estos cruces:<ul style="margin:6px 0 0 18px;">';
+    items.forEach(function (it) {
+      h += '<li><a onclick="irAFrontera(\'' + it.id + '\')">' + it.nombre + '</a> ' + (it.nivel === 'alto' ? '🚨 posible cierre' : '🟠 cerca del nivel de alerta') + '</li>';
+    });
+    h += '</ul></div>';
+    cont.innerHTML = h;
+  }
+
+  function evaluarRio(box) {
+    var h = (typeof box._auto === 'number') ? box._auto : num(box.querySelector('[data-k="h"]').value);
+    var a = num(box.querySelector('[data-k="a"]').value);
+    var pill = box.querySelector('[data-k="pillA"]');
+    if (pill) pill.textContent = (a !== null) ? fmt(a) + ' m' : 'sin dato';
+    var res = box.querySelector('[data-k="res"]');
+    var card = box.closest('.paso-card');
+    var banner = card ? card.querySelector('.rio-banner') : null;
+    res.className = 'rio-res';
+    box.setAttribute('data-nivel', '');
+    if (banner) { banner.style.display = 'none'; banner.className = 'rio-banner'; banner.textContent = ''; }
+    if (h === null) { res.textContent = 'Ingresá la altura del río de hoy para ver si hay alerta.'; actualizarResumenRios(); return; }
+    if (a === null) { res.textContent = 'No tenemos el nivel de alerta de este cruce. Cargalo arriba (lo informa la fuente oficial) para ver si hay riesgo de cierre.'; actualizarResumenRios(); return; }
+    if (h >= a) {
+      box.setAttribute('data-nivel', 'alto');
+      res.className = 'rio-res alto';
+      res.textContent = '🚨 ALERTA: el río está en ' + fmt(h) + ' m, igual o por encima del nivel de alerta (' + fmt(a) + ' m). Es muy posible que el cruce de balsa esté suspendido y, sin balsa, no hay paso por esta aduana. No salgas sin confirmar con Prefectura.';
+      if (banner) { banner.className = 'rio-banner alto'; banner.style.display = 'block'; banner.textContent = '🚨 Río en ' + fmt(h) + ' m: posible cierre del cruce de balsa. Confirmá antes de ir.'; }
+    } else if (h >= a * 0.9) {
+      box.setAttribute('data-nivel', 'cerca');
+      res.className = 'rio-res cerca';
+      res.textContent = '🟠 Atención: el río está cerca del nivel de alerta (' + fmt(h) + ' de ' + fmt(a) + ' m). La balsa puede suspenderse en cualquier momento. Confirmá antes de ir.';
+      if (banner) { banner.className = 'rio-banner cerca'; banner.style.display = 'block'; banner.textContent = '🟠 Río en ' + fmt(h) + ' m, cerca del nivel de alerta: la balsa puede suspenderse.'; }
+    } else {
+      box.setAttribute('data-nivel', 'ok');
+      res.className = 'rio-res ok';
+      res.textContent = '🟢 Por debajo del nivel de alerta (' + fmt(h) + ' de ' + fmt(a) + ' m). La balsa puede operar, pero confirmá igual el servicio y el horario.';
+    }
+    actualizarResumenRios();
+  }
+
+  // ── Consulta al INA (misma capa que usa Info SimpleApp) ──
+  // Máximo 2 pedidos a la vez y con más tiempo de espera: el servicio del INA puede tardar.
+  var cola = [], activos = 0;
+  function encolar(fn) {
+    return new Promise(function (resolve, reject) {
+      cola.push({ fn: fn, resolve: resolve, reject: reject });
+      siguiente();
+    });
+  }
+  function siguiente() {
+    while (activos < 2 && cola.length) {
+      (function (t) {
+        activos++;
+        t.fn().then(function (v) { activos--; t.resolve(v); siguiente(); },
+                    function (e) { activos--; t.reject(e); siguiente(); });
+      })(cola.shift());
+    }
+  }
+
+  function pedir(url, ms) {
+    var ctl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    var t = setTimeout(function () { if (ctl) ctl.abort(); }, ms);
+    return fetch(url, ctl ? { signal: ctl.signal } : {})
+      .then(function (r) { clearTimeout(t); if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .catch(function (e) {
+        clearTimeout(t);
+        if (e && e.name === 'AbortError') throw new Error('timeout');
+        if (e && /^http /.test(e.message)) throw e;
+        if (e instanceof SyntaxError) throw new Error('respuesta no válida');
+        throw new Error('red');
+      });
+  }
+
+  function aNumero(v) {
+    if (v === null || v === undefined || v === '') return null;
+    var n = parseFloat(String(v).replace(',', '.'));
+    return isNaN(n) ? null : n;
+  }
+
+  function extraerAltura(pr) {
+    var claves = ['altura', 'valor', 'nivel', 'value', 'h', 'ultimo_valor', 'ultima_altura', 'valor_ultimo', 'altura_ultima', 'ultimo'];
+    var i, n;
+    for (i = 0; i < claves.length; i++) { n = aNumero(pr[claves[i]]); if (n !== null) return n; }
+    var ts = pr.timeseries;
+    if (typeof ts === 'string') { try { ts = JSON.parse(ts); } catch (e) { ts = null; } }
+    if (Array.isArray(ts) && ts.length) {
+      var ult = ts[ts.length - 1];
+      if (Array.isArray(ult)) ult = ult[ult.length - 1];
+      n = aNumero(ult);
+      if (n !== null) return n;
+      if (ult && typeof ult === 'object') {
+        var k2 = ['valor', 'value', 'altura', 'h', 'nivel'];
+        for (i = 0; i < k2.length; i++) { n = aNumero(ult[k2[i]]); if (n !== null) return n; }
+      }
+    }
+    var ks = Object.keys(pr);
+    for (i = 0; i < ks.length; i++) {
+      if (/(altur|valor|nivel|value)/i.test(ks[i]) && !/(cero|alerta|evac|unid|tipo|id_)/i.test(ks[i])) {
+        n = aNumero(pr[ks[i]]);
+        if (n !== null) return n;
+      }
+    }
+    return null;
+  }
+
+  function consultarINA(filtro) {
+    if (cacheINA[filtro]) return cacheINA[filtro];
+    var url = INA_WFS + '&count=2&CQL_FILTER=' + encodeURIComponent("nombre ILIKE '%" + filtro + "%'");
+    cacheINA[filtro] = encolar(function () {
+      return pedir(url, 30000).catch(function (e) {
+        if (e.message === 'timeout' || e.message === 'red') return pedir(url, 30000); // un reintento
+        throw e;
+      });
+    }).then(function (data) {
+      var feats = data && data.features;
+      if (!feats || !feats.length) throw new Error('sin estaciones');
+      var pr = feats[0].properties || {};
+      var altura = extraerAltura(pr);
+      if (altura === null) throw new Error('sin valor: ' + Object.keys(pr).slice(0, 10).join(', '));
+      var tr = (pr.tendencia || pr.trend || '').toString().toLowerCase();
+      var tend = { txt: 'estable', ic: '➡️' };
+      if (tr.indexOf('asc') !== -1 || tr.indexOf('crec') !== -1 || tr.indexOf('sub') !== -1) tend = { txt: 'creciendo', ic: '⬆️' };
+      else if (tr.indexOf('desc') !== -1 || tr.indexOf('baj') !== -1) tend = { txt: 'bajando', ic: '⬇️' };
+      return { altura: altura, tend: tend, estacion: pr.nombre || filtro };
+    }).catch(function (e) { delete cacheINA[filtro]; throw e; });
+    return cacheINA[filtro];
+  }
+
+  function motivoError(e) {
+    var m = (e && e.message) || '';
+    if (m === 'timeout') return 'el servicio del INA tardó demasiado en responder';
+    if (m === 'red') return 'no hay conexión con el INA o el navegador bloqueó la consulta';
+    if (/^http /.test(m)) return 'el INA respondió con error (' + m.replace('http ', '') + ')';
+    if (m === 'sin estaciones') return 'el INA no tiene una estación con ese nombre';
+    if (/^sin valor/.test(m)) return 'se encontró la estación pero no se reconoció el campo de altura (' + m.replace('sin valor: ', 'campos: ') + ')';
+    return m || 'error desconocido';
+  }
+
+  function cargarAltura(box) {
+    var id = box.getAttribute('data-id');
+    var auto = box.querySelector('[data-k="auto"]');
+    var manual = box.querySelector('[data-k="manual"]');
+    var labH = box.querySelector('[data-k="lab-h"]');
+    var res = box.querySelector('[data-k="res"]');
+    var filtro = INA_FILTRO[id];
+    box._auto = undefined;
+    if (!filtro) {
+      auto.className = 'rio-auto err';
+      auto.textContent = 'Sin medición automática para este cruce: cargá la altura a mano.';
+      manual.style.display = 'block'; labH.style.display = '';
+      res.className = 'rio-res'; res.textContent = 'Ingresá la altura del río de hoy para ver si hay alerta.';
+      return;
+    }
+    auto.className = 'rio-auto';
+    auto.textContent = '⏳ Consultando la altura del río (INA)…';
+    manual.style.display = 'none';
+    consultarINA(filtro).then(function (d) {
+      box._auto = d.altura;
+      var u = RIOS[id].u;
+      auto.className = 'rio-auto';
+      auto.innerHTML = '<div class="rio-dos">' +
+        '<div class="rio-n"><span class="l">Altura actual</span><b>' + fmt(d.altura.toFixed(2)) + ' m</b><span class="t">' + d.tend.ic + ' ' + d.tend.txt + '</span></div>' +
+        '<div class="rio-n al"><span class="l">Nivel de alerta</span><b data-k="pillA">' + (u !== null ? fmt(u) + ' m' : 'sin dato') + '</b><span class="t">' + (u !== null ? 'la balsa suele cortarse' : 'cargalo abajo') + '</span></div>' +
+        '</div><div class="rio-est">Estación INA: ' + d.estacion + '. Dato de referencia: confirmá siempre con Prefectura.</div>';
+      if (u === null) { manual.style.display = 'block'; labH.style.display = 'none'; }
+      else { manual.style.display = 'none'; }
+      evaluarRio(box);
+    }).catch(function (e) {
+      box._auto = undefined;
+      auto.className = 'rio-auto err';
+      auto.innerHTML = 'No se pudo obtener la altura automática: ' + motivoError(e) + '. Cargala a mano.<br><button class="rio-retry" type="button">🔄 Reintentar</button>';
+      manual.style.display = 'block'; labH.style.display = '';
+      res.className = 'rio-res'; res.textContent = 'Ingresá la altura del río de hoy para ver si hay alerta.';
+      actualizarResumenRios();
+    });
+  }
+
+  function cargarAlturasAutomaticas() {
+    var boxes = Array.prototype.slice.call(document.querySelectorAll('#fr-lista .rio-box'));
+    // primero los cruces con nivel de alerta conocido
+    boxes.sort(function (a, b) {
+      var ua = RIOS[a.getAttribute('data-id')].u !== null ? 0 : 1;
+      var ub = RIOS[b.getAttribute('data-id')].u !== null ? 0 : 1;
+      return ua - ub;
+    });
+    boxes.forEach(cargarAltura);
+  }
+
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (t && t.classList && t.classList.contains('rio-retry')) {
+      var box = t.closest('.rio-box');
+      if (box) { delete cacheINA[INA_FILTRO[box.getAttribute('data-id')]]; cargarAltura(box); }
+    }
+  });
+
+  document.addEventListener('input', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var box = t.closest('.rio-box');
+    if (box) evaluarRio(box);
+  });
+
+  function tarjeta(p) {
+    var h = '<div class="farm-card paso-card" id="fr-paso-' + p.id + '">';
+    h += '<div class="farm-hdr"><div class="fn">' + p.nombre + '</div><div class="fb">' + p.badge + '</div></div>';
+    h += '<div class="farm-body">';
+    if (RIOS[p.id]) h += '<div class="rio-banner" style="display:none;"></div>';
+    h += '<div class="farm-row" style="font-weight:800;"><span class="fic">' + p.v.i + '</span><span class="ftxt" style="color:' + colorVerdict(p.v.n) + ';">' + p.v.t + '</span></div>';
+    p.f.forEach(function (r) {
+      h += '<div class="farm-row"><span class="fic">' + r[0] + '</span><span class="ftxt' + (r[2] ? ' ' + r[2] : '') + '">' + r[1] + '</span></div>';
+    });
+    if (RIOS[p.id]) h += riosBox(p);
+    if (p.empresa) {
+      h += '<a href="' + p.empresa.u + '" target="_blank" rel="noopener" class="stat-link">' + p.empresa.t + '</a>';
+      h += '<div class="url-txt">' + p.empresa.u + '</div><br>';
+    }
+    if (p.ofi) {
+      h += '<a href="' + p.ofi + '" target="_blank" rel="noopener" class="stat-link">🔗 Estado y horario oficial (argentina.gob.ar)</a>';
+      h += '<div class="url-txt">' + p.ofi + '</div>';
+    } else {
+      h += '<a href="' + LISTADO + '" target="_blank" rel="noopener" class="stat-link">🔗 Estado oficial (argentina.gob.ar): en el listado, buscá «' + (BUSCAR[p.id] || p.nombre) + '»</a>';
+      h += '<div class="url-txt">' + LISTADO + '</div>';
+    }
+    h += '<br><a href="' + DNM + '" target="_blank" rel="noopener" class="stat-link">🕐 Horario del lado argentino (Migraciones)</a>';
+    h += '<div class="farm-row" style="margin-top:8px;"><span class="fic">🔎</span><span class="ftxt hor">Verificá el estado el día del viaje: horarios y habilitación pueden cambiar sin aviso.</span></div>';
+    h += '<button class="btn-subir" onclick="window.scrollTo({top:0,behavior:\'smooth\'})">⬆️ Subir</button>';
+    h += '</div></div>';
+    return h;
+  }
+
+  function generales(pais) {
+    var g = GENERALES[pais];
+    var h = '<div class="farm-card"><div class="farm-hdr"><div class="fn">' + g.titulo + '</div></div><div class="farm-body">';
+    g.filas.forEach(function (r) {
+      h += '<div class="farm-row"><span class="fic">' + r[0] + '</span><span class="ftxt">' + r[1] + '</span></div>';
+    });
+    if (g.link) {
+      h += '<a href="' + g.link.u + '" target="_blank" rel="noopener" class="stat-link">' + g.link.t + '</a>';
+      h += '<div class="url-txt">' + g.link.u + '</div>';
+    }
+    h += '</div></div>';
+    return h;
+  }
+
+  function render() {
+    var out = '';
+    ['BR', 'PY', 'UY'].forEach(function (pais) {
+      if (filtro !== 'all' && filtro !== pais) return;
+      var lista = PASOS.filter(function (p) { return p.pais === pais; });
+      if (!lista.length) return;
+      out += '<div class="pais-sep">' + PAISES[pais].flag + ' ' + PAISES[pais].nombre.toUpperCase() + '</div>';
+      out += generales(pais);
+      lista.forEach(function (p) { out += tarjeta(p); });
+    });
+    $('fr-lista').innerHTML = out || '<div class="vacio">No hay pasos para mostrar.</div>';
+    cargarAlturasAutomaticas();
+    llenarSelect();
+    pintarMapa();
+  }
+
+  function llenarSelect() {
+    var sel = $('fr-selPaso');
+    var h = '<option value="">🛂 Ver rápido: elegí un paso fronterizo…</option>';
+    ['BR', 'PY', 'UY'].forEach(function (pais) {
+      if (filtro !== 'all' && filtro !== pais) return;
+      h += '<optgroup label="' + PAISES[pais].flag + ' ' + PAISES[pais].nombre + '">';
+      PASOS.filter(function (p) { return p.pais === pais; }).forEach(function (p) {
+        h += '<option value="' + p.id + '">' + p.v.i.replace('⚠️','🔶') + ' ' + p.nombre + '</option>';
+      });
+      h += '</optgroup>';
+    });
+    sel.innerHTML = h;
+  }
+
+  window.irAFrontera = function (id) {
+    if (!id) return;
+    var el = document.getElementById('fr-paso-' + id);
+    if (id === 'por-que') { var pq = document.getElementById('fr-por-que'); if (pq) window.scrollTo({ top: pq.getBoundingClientRect().top + window.pageYOffset - 70, behavior: 'smooth' }); return; }
+    if (!el) {
+      filtro = 'all'; actualizarChips(); render();
+      el = document.getElementById('fr-paso-' + id);
+    }
+    if (!el) return;
+    setTimeout(function () {
+      var y = el.getBoundingClientRect().top + window.pageYOffset - ((parseInt(getComputedStyle(document.body).paddingTop, 10) || 60) + 10);
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      el.style.outline = '2px solid var(--verde2)';
+      setTimeout(function () { el.style.outline = ''; }, 1800);
+    }, 120);
+  };
+
+  function actualizarChips() {
+    var cs = document.querySelectorAll('#fr-chips .chip');
+    for (var i = 0; i < cs.length; i++) {
+      cs[i].classList.toggle('on', cs[i].getAttribute('data-f') === filtro);
+    }
+  }
+
+  function iniciarMapa() {
+    if (typeof L === 'undefined') {
+      $('fr-mapa').innerHTML = '<div class="vacio">No se pudo cargar el mapa. Revisá tu conexión.</div>';
+      return;
+    }
+    map = L.map('fr-mapa', { scrollWheelZoom: false, dragging: !L.Browser.mobile, touchZoom: true, doubleClickZoom: false, tap: false });
+    $('fr-mapa').style.touchAction = 'pan-y pinch-zoom';
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map);
+    capas.grupo = L.layerGroup().addTo(map);
+  }
+
+  function pintarMapa() {
+    if (!map) return;
+    capas.grupo.clearLayers();
+    var marcas = [];
+    PASOS.forEach(function (p) {
+      if (filtro !== 'all' && filtro !== p.pais) return;
+      var col = colorNivel(p.v.n);
+      var icon = L.divIcon({
+        html: '<div style="background:' + col + ';border:2px solid #fff;border-radius:50% 50% 50% 0;width:20px;height:20px;transform:rotate(-45deg);box-shadow:0 1px 4px rgba(0,0,0,0.5);"></div>',
+        className: '', iconSize: [20, 20], iconAnchor: [10, 20], popupAnchor: [0, -18]
+      });
+      var popup = '<strong>🛂 ' + p.nombre + '</strong><br>' + p.dir +
+        '<br><a href="javascript:void(0)" onclick="irAFrontera(\'' + p.id + '\')" style="color:#1a5276;font-weight:700;">Ver detalle ↓</a>';
+      var mk = L.marker([p.lat, p.lng], { icon: icon }).bindPopup(popup);
+      mk.addTo(capas.grupo);
+      marcas.push(mk);
+    });
+    if (marcas.length) map.fitBounds(L.featureGroup(marcas).getBounds().pad(0.15));
+    setTimeout(function () { map.invalidateSize(); }, 200);
+  }
+
+  document.getElementById('fr-chips').addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('.chip') : null;
+    if (!b) return;
+    filtro = b.getAttribute('data-f');
+    actualizarChips();
+    render();
+  });
+  $('fr-selPaso').addEventListener('change', function () {
+    var v = this.value; this.blur(); irAFrontera(v);
+  });
+
+  var iniciado = false;
+  window.initFronteras = function () {
+    if (iniciado) { if (map) setTimeout(function () { map.invalidateSize(); }, 100); return; }
+    iniciado = true;
+    iniciarMapa();
+    render();
+  };
 })();
 </script>
 <script>
