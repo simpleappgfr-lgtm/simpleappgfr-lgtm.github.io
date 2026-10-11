@@ -1075,6 +1075,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   <button onclick="hdrMenuGo('rutas-argentina')"><span class="hdr-dd-ic">🇦🇷</span>Rutas de Argentina SimpleApp</button>
   <button onclick="hdrMenuGo('rutas-brasil')"><span class="hdr-dd-ic">🇧🇷</span>Rutas del Sur de Brasil SimpleApp</button>
   <button onclick="hdrMenuGo('fronteras')"><span class="hdr-dd-ic">🛂</span>Fronteras SimpleApp</button>
+  <button onclick="hdrMenuGo('planificador')"><span class="hdr-dd-ic">🗓️</span>Plan de Viaje SimpleApp</button>
   <div class="hdr-dd-section-title">⚙️ Ajustes</div>
   <button onclick="reactivarPantallaBienvenida()"><span class="hdr-dd-ic">🔄</span>Mostrar pantalla de bienvenida</button>
 </div>
@@ -1119,8 +1120,11 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       <button onclick="elegirRutasBrasilDesdeBienvenida()" style="width:100%;background:rgba(90,165,36,0.12);border:1px solid #5aa524;color:#8fcf5c;border-radius:12px;padding:16px;margin-bottom:10px;font-family:'Barlow',sans-serif;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
         🇧🇷 Rutas del Sur de Brasil
       </button>
-      <button onclick="elegirFronterasDesdeBienvenida()" style="width:100%;background:rgba(41,128,185,0.12);border:1px solid #2980b9;color:#7fb8e0;border-radius:12px;padding:16px;margin-bottom:14px;font-family:'Barlow',sans-serif;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+      <button onclick="elegirFronterasDesdeBienvenida()" style="width:100%;background:rgba(41,128,185,0.12);border:1px solid #2980b9;color:#7fb8e0;border-radius:12px;padding:16px;margin-bottom:10px;font-family:'Barlow',sans-serif;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
         🛂 Fronteras
+      </button>
+      <button onclick="elegirPlanDesdeBienvenida()" style="width:100%;background:rgba(142,68,173,0.12);border:1px solid #8e44ad;color:#c39bd3;border-radius:12px;padding:16px;margin-bottom:14px;font-family:'Barlow',sans-serif;font-weight:800;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+        🗓️ Plan de Viaje
       </button>
       <button onclick="toggleMenuRutasBienvenida()" style="width:100%;background:none;border:1px solid var(--border,#d8c8b0);color:var(--muted,#7a5c3e);border-radius:12px;padding:11px;font-family:'Barlow',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">
         ← Volver
@@ -1174,7 +1178,8 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   <button onclick="showTab('rutas-misiones',this)">🛣️ <span class="nav-label">Rutas SimpleApp</span></button>
   <button onclick="showTab('rutas-argentina',this)">🇦🇷 <span class="nav-label">Rutas Argentina</span></button>
   <button onclick="showTab('rutas-brasil',this)">🇧🇷 <span class="nav-label">Rutas Brasil</span></button>
-  <button onclick="showTab('fronteras',this)">🛂 <span class="nav-label">Fronteras</span></button>
+  <button onclick="showTab('fronteras',this)">🛂 <span class="nav-label">Fronteras SimpleApp</span></button>
+  <button onclick="showTab('planificador',this)">🗓️ <span class="nav-label">Plan de Viaje SimpleApp</span></button>
 </nav>
 
 <!-- ============ INICIO ============ -->
@@ -1407,207 +1412,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   </div>
   </div>
 
-  <!-- NOTICIAS NACIONALES (Infobae) -->
-  <div class="modo-normal-only" style="font-size:12.5px;font-weight:800;color:var(--verde3);margin:14px 0 8px 2px;">📰 Últimas Noticias</div>
-  <div id="noticias-fuente-texto" class="modo-normal-only" style="font-size:9.5px;color:var(--muted);margin:-4px 0 8px 2px;">Cargando fuente... · Solo mostramos el título; tocá para leer la nota completa en el sitio</div>
-  <div id="noticias-infobae-contenido" class="modo-normal-only">
-    <div style="text-align:center;font-size:12px;color:var(--muted);padding:14px 0;">Cargando noticias...</div>
-  </div>
-
-  <!-- APLICACIONES SIMPLEAPP -->
-  <div class="modo-normal-only" style="font-size:11px;font-weight:800;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin:2px 0 6px 2px;">📲 Aplicaciones SimpleApp</div>
-
-  <div class="modo-normal-only link-util-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px;">
-
-    <a onclick="showTab('gastos',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
-      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #34b273;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
-        <div style="font-size:18px;">💰</div>
-        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Gastos SimpleApp</div>
-        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Control de gastos de la casa</div>
-      </div>
-    </a>
-
-    <a onclick="showTab('listas',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
-      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid var(--verde2);border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
-        <div style="font-size:18px;">🛒</div>
-        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Listas de Compras</div>
-        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Listas inteligentes por rubro</div>
-      </div>
-    </a>
-
-    <a onclick="showTab('mantenimiento',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
-      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent2);border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
-        <div style="font-size:18px;">🚗🏍️</div>
-        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Rodados SimpleApp</div>
-        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Mantenimiento de tus vehículos</div>
-      </div>
-    </a>
-
-    <a onclick="showTab('mascotas',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
-      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #5aa524;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
-        <div style="font-size:18px;">🐾</div>
-        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Mascotas SimpleApp</div>
-        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Cuidado y control de tus mascotas</div>
-      </div>
-    </a>
-
-    <a onclick="showTab('divisas',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
-      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #16a085;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
-        <div style="font-size:18px;">💱</div>
-        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Divisas SimpleApp</div>
-        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Convertí pesos, dólares, reales y guaraníes</div>
-      </div>
-    </a>
-
-    <a onclick="showTab('rutas-misiones',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
-      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #d4a017;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
-        <div style="font-size:18px;">🛣️</div>
-        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Rutas de Misiones SimpleApp</div>
-        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Rutas, combustible, hoteles y turismo</div>
-      </div>
-    </a>
-
-    <a onclick="showTab('rutas-argentina',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
-      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #74acdf;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
-        <div style="font-size:18px;">🇦🇷</div>
-        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Rutas de Argentina SimpleApp</div>
-        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Rutas, combustible, hoteles y turismo</div>
-      </div>
-    </a>
-
-    <a onclick="showTab('rutas-brasil',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
-      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #5aa524;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
-        <div style="font-size:18px;">🇧🇷</div>
-        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Rutas del Sur de Brasil SimpleApp</div>
-        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Paraná, Santa Catarina y Rio Grande do Sul</div>
-      </div>
-    </a>
-
-    <a onclick="showTab('fronteras',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
-      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #2980b9;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
-        <div style="font-size:18px;">🛂</div>
-        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Fronteras SimpleApp</div>
-        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Pasos a Brasil, Paraguay y Uruguay</div>
-      </div>
-    </a>
-
-  </div>
-
-  <!-- PANTALLA GRANDE EXCLUSIVA DEL MODO "APLICACIONES SIMPLEAPP" -->
-  <div class="modo-solo-apps-only">
-
-    <div style="text-align:center;padding:18px 6px 22px;">
-      <div style="font-size:38px;line-height:1;margin-bottom:8px;">📲</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1.5px;color:var(--oro);">APLICACIONES SIMPLEAPP</div>
-      <div style="font-size:12.5px;color:var(--muted);margin-top:4px;">Elegí la que necesités</div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-
-      <a onclick="showTab('gastos',null)" style="text-decoration:none;display:block;">
-        <div style="aspect-ratio:1;background:#f2faf5;border:1px solid #cdeadb;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
-          <div style="font-size:42px;width:76px;height:76px;background:#dff3e7;border-radius:20px;display:flex;align-items:center;justify-content:center;">💰</div>
-          <div>
-            <div style="font-size:15px;font-weight:900;color:#1e7a4e;">Gastos</div>
-            <div style="font-size:10.5px;color:#5a8f74;margin-top:2px;">Control de gastos</div>
-          </div>
-        </div>
-      </a>
-
-      <a onclick="showTab('listas',null)" style="text-decoration:none;display:block;">
-        <div style="aspect-ratio:1;background:#eff9f9;border:1px solid #c5e8e6;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
-          <div style="font-size:42px;width:76px;height:76px;background:#d8f0ef;border-radius:20px;display:flex;align-items:center;justify-content:center;">🛒</div>
-          <div>
-            <div style="font-size:15px;font-weight:900;color:#1d7d76;">Listas</div>
-            <div style="font-size:10.5px;color:#5a9d97;margin-top:2px;">Listas de compras</div>
-          </div>
-        </div>
-      </a>
-
-      <a onclick="showTab('mantenimiento',null)" style="text-decoration:none;display:block;">
-        <div style="aspect-ratio:1;background:#fdf6ee;border:1px solid #f0ddc0;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
-          <div style="font-size:42px;width:76px;height:76px;background:#f7e9d4;border-radius:20px;display:flex;align-items:center;justify-content:center;">🚗</div>
-          <div>
-            <div style="font-size:15px;font-weight:900;color:#a9701f;">Rodados</div>
-            <div style="font-size:10.5px;color:#b5905c;margin-top:2px;">Tus vehículos</div>
-          </div>
-        </div>
-      </a>
-
-      <a onclick="showTab('mascotas',null)" style="text-decoration:none;display:block;">
-        <div style="aspect-ratio:1;background:#f6faee;border:1px solid #dcecc0;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
-          <div style="font-size:42px;width:76px;height:76px;background:#e8f3d4;border-radius:20px;display:flex;align-items:center;justify-content:center;">🐾</div>
-          <div>
-            <div style="font-size:15px;font-weight:900;color:#5a7e1f;">Mascotas</div>
-            <div style="font-size:10.5px;color:#84995c;margin-top:2px;">Tus mascotas</div>
-          </div>
-        </div>
-      </a>
-
-      <a onclick="showTab('divisas',null)" style="text-decoration:none;display:block;">
-        <div style="aspect-ratio:1;background:#eafaf6;border:1px solid #bfe8dc;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
-          <div style="font-size:42px;width:76px;height:76px;background:#d3f0e6;border-radius:20px;display:flex;align-items:center;justify-content:center;">💱</div>
-          <div>
-            <div style="font-size:15px;font-weight:900;color:#16a085;">Divisas</div>
-            <div style="font-size:10.5px;color:#4ab89e;margin-top:2px;">Convertidor</div>
-          </div>
-        </div>
-      </a>
-
-      <a onclick="showTab('rutas-misiones',null)" style="text-decoration:none;display:block;">
-        <div style="aspect-ratio:1;background:#fdf6e3;border:1px solid #f0e0a8;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
-          <div style="font-size:42px;width:76px;height:76px;background:#f7ecc4;border-radius:20px;display:flex;align-items:center;justify-content:center;">🛣️</div>
-          <div>
-            <div style="font-size:15px;font-weight:900;color:#a67c00;">Rutas</div>
-            <div style="font-size:10.5px;color:#c9a032;margin-top:2px;">de Misiones</div>
-          </div>
-        </div>
-      </a>
-
-      <a onclick="showTab('rutas-argentina',null)" style="text-decoration:none;display:block;">
-        <div style="aspect-ratio:1;background:#eaf2fb;border:1px solid #bcd6f0;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
-          <div style="font-size:42px;width:76px;height:76px;background:#d3e6f7;border-radius:20px;display:flex;align-items:center;justify-content:center;">🇦🇷</div>
-          <div>
-            <div style="font-size:15px;font-weight:900;color:#2a5f94;">Rutas</div>
-            <div style="font-size:10.5px;color:#5f8db6;margin-top:2px;">de Argentina</div>
-          </div>
-        </div>
-      </a>
-
-      <a onclick="showTab('rutas-brasil',null)" style="text-decoration:none;display:block;">
-        <div style="aspect-ratio:1;background:#eef7e4;border:1px solid #c7e3ab;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
-          <div style="font-size:42px;width:76px;height:76px;background:#dcefc6;border-radius:20px;display:flex;align-items:center;justify-content:center;">🇧🇷</div>
-          <div>
-            <div style="font-size:15px;font-weight:900;color:#5a7e1f;">Rutas</div>
-            <div style="font-size:10.5px;color:#84995c;margin-top:2px;">Sur de Brasil</div>
-          </div>
-        </div>
-      </a>
-
-      <a onclick="showTab('fronteras',null)" style="text-decoration:none;display:block;">
-        <div style="aspect-ratio:1;background:#e8f1f8;border:1px solid #b9d3e8;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
-          <div style="font-size:42px;width:76px;height:76px;background:#d3e5f3;border-radius:20px;display:flex;align-items:center;justify-content:center;">🛂</div>
-          <div>
-            <div style="font-size:15px;font-weight:900;color:#1a5276;">Fronteras</div>
-            <div style="font-size:10.5px;color:#5d86a8;margin-top:2px;">Brasil · Paraguay · Uruguay</div>
-          </div>
-        </div>
-      </a>
-
-    </div>
-
-  </div>
-
-
-  <!-- FRASE DEL DÍA -->
   <div class="modo-normal-only">
-  <div class="stage-title" style="color:var(--verde3);">💬 Frase del Día</div>
-  <div class="frase-dia-card">
-    <div class="frase-dia-icon">❝</div>
-    <div class="frase-dia-texto" id="frase-dia-texto">Cargando...</div>
-    <div class="frase-dia-autor" id="frase-dia-autor"></div>
-  </div>
-
   <!-- LINKS ÚTILES -->
   <div class="stage-title">🔗 Links Útiles</div>
 
@@ -1713,6 +1518,231 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
     </a>
 
   </div>
+  </div>
+
+  <div class="modo-normal-only">
+  <div class="stage-title" style="color:var(--verde3);">💬 Frase del Día</div>
+  <div class="frase-dia-card">
+    <div class="frase-dia-icon">❝</div>
+    <div class="frase-dia-texto" id="frase-dia-texto">Cargando...</div>
+    <div class="frase-dia-autor" id="frase-dia-autor"></div>
+  </div>
+  </div>
+
+  <!-- NOTICIAS NACIONALES (Infobae) -->
+  <div class="modo-normal-only" style="font-size:12.5px;font-weight:800;color:var(--verde3);margin:14px 0 8px 2px;">📰 Últimas Noticias</div>
+  <div id="noticias-fuente-texto" class="modo-normal-only" style="font-size:9.5px;color:var(--muted);margin:-4px 0 8px 2px;">Cargando fuente... · Solo mostramos el título; tocá para leer la nota completa en el sitio</div>
+  <div id="noticias-infobae-contenido" class="modo-normal-only">
+    <div style="text-align:center;font-size:12px;color:var(--muted);padding:14px 0;">Cargando noticias...</div>
+  </div>
+
+  <!-- APLICACIONES SIMPLEAPP -->
+  <div class="modo-normal-only" style="font-size:11px;font-weight:800;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin:2px 0 6px 2px;">📲 Aplicaciones SimpleApp</div>
+
+  <div class="modo-normal-only link-util-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px;">
+
+    <a onclick="showTab('gastos',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
+      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #34b273;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
+        <div style="font-size:18px;">💰</div>
+        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Gastos SimpleApp</div>
+        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Control de gastos de la casa</div>
+      </div>
+    </a>
+
+    <a onclick="showTab('listas',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
+      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid var(--verde2);border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
+        <div style="font-size:18px;">🛒</div>
+        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Listas de Compras</div>
+        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Listas inteligentes por rubro</div>
+      </div>
+    </a>
+
+    <a onclick="showTab('mantenimiento',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
+      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent2);border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
+        <div style="font-size:18px;">🚗🏍️</div>
+        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Rodados SimpleApp</div>
+        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Mantenimiento de tus vehículos</div>
+      </div>
+    </a>
+
+    <a onclick="showTab('mascotas',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
+      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #5aa524;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
+        <div style="font-size:18px;">🐾</div>
+        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Mascotas SimpleApp</div>
+        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Cuidado y control de tus mascotas</div>
+      </div>
+    </a>
+
+    <a onclick="showTab('divisas',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
+      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #16a085;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
+        <div style="font-size:18px;">💱</div>
+        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Divisas SimpleApp</div>
+        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Convertí pesos, dólares, reales y guaraníes</div>
+      </div>
+    </a>
+
+    <a onclick="showTab('rutas-misiones',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
+      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #d4a017;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
+        <div style="font-size:18px;">🛣️</div>
+        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Rutas de Misiones SimpleApp</div>
+        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Rutas, combustible, hoteles y turismo</div>
+      </div>
+    </a>
+
+    <a onclick="showTab('rutas-argentina',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
+      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #74acdf;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
+        <div style="font-size:18px;">🇦🇷</div>
+        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Rutas de Argentina SimpleApp</div>
+        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Rutas, combustible, hoteles y turismo</div>
+      </div>
+    </a>
+
+    <a onclick="showTab('rutas-brasil',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
+      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #5aa524;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
+        <div style="font-size:18px;">🇧🇷</div>
+        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Rutas del Sur de Brasil SimpleApp</div>
+        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Paraná, Santa Catarina y Rio Grande do Sul</div>
+      </div>
+    </a>
+
+    <a onclick="showTab('fronteras',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
+      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #2980b9;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
+        <div style="font-size:18px;">🛂</div>
+        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Fronteras SimpleApp</div>
+        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Pasos a Brasil, Paraguay y Uruguay</div>
+      </div>
+    </a>
+
+    <a onclick="showTab('planificador',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
+      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #2980b9;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
+        <div style="font-size:18px;">🗓️</div>
+        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Plan de Viaje SimpleApp</div>
+        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Combustible, dormir y comer</div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- PANTALLA GRANDE EXCLUSIVA DEL MODO "APLICACIONES SIMPLEAPP" -->
+  <div class="modo-solo-apps-only">
+
+    <div style="text-align:center;padding:18px 6px 22px;">
+      <div style="font-size:38px;line-height:1;margin-bottom:8px;">📲</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1.5px;color:var(--oro);">APLICACIONES SIMPLEAPP</div>
+      <div style="font-size:12.5px;color:var(--muted);margin-top:4px;">Elegí la que necesités</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+
+      <a onclick="showTab('gastos',null)" style="text-decoration:none;display:block;">
+        <div style="aspect-ratio:1;background:#f2faf5;border:1px solid #cdeadb;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
+          <div style="font-size:42px;width:76px;height:76px;background:#dff3e7;border-radius:20px;display:flex;align-items:center;justify-content:center;">💰</div>
+          <div>
+            <div style="font-size:15px;font-weight:900;color:#1e7a4e;">Gastos</div>
+            <div style="font-size:10.5px;color:#5a8f74;margin-top:2px;">Control de gastos</div>
+          </div>
+        </div>
+      </a>
+
+      <a onclick="showTab('listas',null)" style="text-decoration:none;display:block;">
+        <div style="aspect-ratio:1;background:#eff9f9;border:1px solid #c5e8e6;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
+          <div style="font-size:42px;width:76px;height:76px;background:#d8f0ef;border-radius:20px;display:flex;align-items:center;justify-content:center;">🛒</div>
+          <div>
+            <div style="font-size:15px;font-weight:900;color:#1d7d76;">Listas</div>
+            <div style="font-size:10.5px;color:#5a9d97;margin-top:2px;">Listas de compras</div>
+          </div>
+        </div>
+      </a>
+
+      <a onclick="showTab('mantenimiento',null)" style="text-decoration:none;display:block;">
+        <div style="aspect-ratio:1;background:#fdf6ee;border:1px solid #f0ddc0;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
+          <div style="font-size:42px;width:76px;height:76px;background:#f7e9d4;border-radius:20px;display:flex;align-items:center;justify-content:center;">🚗</div>
+          <div>
+            <div style="font-size:15px;font-weight:900;color:#a9701f;">Rodados</div>
+            <div style="font-size:10.5px;color:#b5905c;margin-top:2px;">Tus vehículos</div>
+          </div>
+        </div>
+      </a>
+
+      <a onclick="showTab('mascotas',null)" style="text-decoration:none;display:block;">
+        <div style="aspect-ratio:1;background:#f6faee;border:1px solid #dcecc0;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
+          <div style="font-size:42px;width:76px;height:76px;background:#e8f3d4;border-radius:20px;display:flex;align-items:center;justify-content:center;">🐾</div>
+          <div>
+            <div style="font-size:15px;font-weight:900;color:#5a7e1f;">Mascotas</div>
+            <div style="font-size:10.5px;color:#84995c;margin-top:2px;">Tus mascotas</div>
+          </div>
+        </div>
+      </a>
+
+      <a onclick="showTab('divisas',null)" style="text-decoration:none;display:block;">
+        <div style="aspect-ratio:1;background:#eafaf6;border:1px solid #bfe8dc;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
+          <div style="font-size:42px;width:76px;height:76px;background:#d3f0e6;border-radius:20px;display:flex;align-items:center;justify-content:center;">💱</div>
+          <div>
+            <div style="font-size:15px;font-weight:900;color:#16a085;">Divisas</div>
+            <div style="font-size:10.5px;color:#4ab89e;margin-top:2px;">Convertidor</div>
+          </div>
+        </div>
+      </a>
+
+      <a onclick="showTab('rutas-misiones',null)" style="text-decoration:none;display:block;">
+        <div style="aspect-ratio:1;background:#fdf6e3;border:1px solid #f0e0a8;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
+          <div style="font-size:42px;width:76px;height:76px;background:#f7ecc4;border-radius:20px;display:flex;align-items:center;justify-content:center;">🛣️</div>
+          <div>
+            <div style="font-size:15px;font-weight:900;color:#a67c00;">Rutas</div>
+            <div style="font-size:10.5px;color:#c9a032;margin-top:2px;">de Misiones</div>
+          </div>
+        </div>
+      </a>
+
+      <a onclick="showTab('rutas-argentina',null)" style="text-decoration:none;display:block;">
+        <div style="aspect-ratio:1;background:#eaf2fb;border:1px solid #bcd6f0;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
+          <div style="font-size:42px;width:76px;height:76px;background:#d3e6f7;border-radius:20px;display:flex;align-items:center;justify-content:center;">🇦🇷</div>
+          <div>
+            <div style="font-size:15px;font-weight:900;color:#2a5f94;">Rutas</div>
+            <div style="font-size:10.5px;color:#5f8db6;margin-top:2px;">de Argentina</div>
+          </div>
+        </div>
+      </a>
+
+      <a onclick="showTab('rutas-brasil',null)" style="text-decoration:none;display:block;">
+        <div style="aspect-ratio:1;background:#eef7e4;border:1px solid #c7e3ab;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
+          <div style="font-size:42px;width:76px;height:76px;background:#dcefc6;border-radius:20px;display:flex;align-items:center;justify-content:center;">🇧🇷</div>
+          <div>
+            <div style="font-size:15px;font-weight:900;color:#5a7e1f;">Rutas</div>
+            <div style="font-size:10.5px;color:#84995c;margin-top:2px;">Sur de Brasil</div>
+          </div>
+        </div>
+      </a>
+
+      <a onclick="showTab('fronteras',null)" style="text-decoration:none;display:block;">
+        <div style="aspect-ratio:1;background:#e8f1f8;border:1px solid #b9d3e8;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
+          <div style="font-size:42px;width:76px;height:76px;background:#d3e5f3;border-radius:20px;display:flex;align-items:center;justify-content:center;">🛂</div>
+          <div>
+            <div style="font-size:15px;font-weight:900;color:#1a5276;">Fronteras SimpleApp</div>
+            <div style="font-size:10.5px;color:#5d86a8;margin-top:2px;">Brasil · Paraguay · Uruguay</div>
+          </div>
+        </div>
+      </a>
+
+      <a onclick="showTab('planificador',null)" style="text-decoration:none;display:block;">
+        <div style="aspect-ratio:1;background:#e8f1f8;border:1px solid #b9d3e8;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
+          <div style="font-size:42px;width:76px;height:76px;background:#d3e5f3;border-radius:20px;display:flex;align-items:center;justify-content:center;">🗓️</div>
+          <div>
+            <div style="font-size:15px;font-weight:900;color:#1a5276;">Plan de Viaje SimpleApp</div>
+            <div style="font-size:10.5px;color:#5d86a8;margin-top:2px;">Armá tu viaje</div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <!-- FRASE DEL DÍA (movida arriba de noticias) -->
+  <div class="modo-normal-only">
+
+
 
   <div class="curio-item city-only-sv" data-city-only="San Vicente" onclick="showTab('farmacias',null)" style="cursor:pointer;border-left-color:var(--oro)">
     <div class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38" width="22" height="22" style="vertical-align:middle;"><circle cx="19" cy="19" r="19" fill="#0b3d1e"/><rect x="14" y="8" width="10" height="22" rx="3" fill="#2da653"/><rect x="8" y="14" width="22" height="10" rx="3" fill="#2da653"/></svg></div>
@@ -1890,6 +1920,13 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
     <div>
       <div class="t" style="color:#1a5276;">Fronteras SimpleApp</div>
       <div class="d">Estado de los pasos a Brasil, Paraguay y Uruguay.</div>
+    </div>
+  </div>
+  <div class="curio-item" onclick="showTab('planificador',null)" style="cursor:pointer;border-left-color:#8e44ad;">
+    <div class="ic">🗓️</div>
+    <div>
+      <div class="t" style="color:#6c3483;">Plan de Viaje SimpleApp</div>
+      <div class="d">Armá tu viaje: combustible, dónde dormir y comer.</div>
     </div>
   </div>
   </div>
@@ -2560,6 +2597,8 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 
 
     <a class="rm-btn rm-link" id="rm-a-ruta" target="_blank" rel="noopener">🧭 Ver ruta en Google Maps</a>
+    <div class="leyenda-maps" id="rm-leyenda" style="display:none"></div>
+    <a class="rm-btn2" style="cursor:pointer" onclick="planificarRuta('rm')">🗓️ Planificar este viaje (combustible, dormir, comer)</a>
     <div style="margin-top:10px;background:rgba(212,160,23,0.14);border:1px solid #d4a017;border-radius:10px;padding:11px 13px;font-size:13px;line-height:1.45;color:var(--text);">💡 Para ver estaciones, hoteles y lugares a lo largo de <b>todo el trayecto</b> (no solo un punto), una vez adentro de Google Maps tocá <b>"Agregar paradas"</b> y elegí la categoría que quieras.</div>
 
     <div class="rm-lbl" style="margin-top:14px">Buscar cerca de</div>
@@ -2632,6 +2671,8 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
     </div>
 
     <a class="rm-btn rm-link" id="ra-a-ruta" target="_blank" rel="noopener">🧭 Ver ruta en Google Maps</a>
+    <div class="leyenda-maps" id="ra-leyenda" style="display:none"></div>
+    <a class="rm-btn2" style="cursor:pointer" onclick="planificarRuta('ra')">🗓️ Planificar este viaje (combustible, dormir, comer)</a>
     <div style="margin-top:10px;background:rgba(212,160,23,0.14);border:1px solid #d4a017;border-radius:10px;padding:11px 13px;font-size:13px;line-height:1.45;color:var(--text);">💡 Para ver estaciones, hoteles y lugares a lo largo de <b>todo el trayecto</b> (no solo un punto), una vez adentro de Google Maps tocá <b>"Agregar paradas"</b> y elegí la categoría que quieras.</div>
 
     <div class="rm-lbl" style="margin-top:14px">Buscar cerca de</div>
@@ -2690,7 +2731,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 
     <div class="rm-lbl">Destino</div>
     <div class="rm-row">
-      <select id="rb-destino"><option value="Balneário Camboriú" selected>Balneário Camboriú (SC)</option><option value="Bombinhas">Bombinhas (SC)</option><option value="Caiobá">Caiobá (PR)</option><option value="Curitiba">Curitiba (PR)</option><option value="Dionísio Cerqueira">Dionísio Cerqueira (SC)</option><option value="Florianópolis">Florianópolis (SC)</option><option value="Foz do Iguaçu">Foz do Iguaçu (PR)</option><option value="Gramado">Gramado (RS)</option><option value="Guaratuba">Guaratuba (PR)</option><option value="Itapema">Itapema (SC)</option><option value="Porto Alegre">Porto Alegre (RS)</option><option value="Santa Rosa (RS)">Santa Rosa (RS)</option><option value="São Miguel do Oeste">São Miguel do Oeste (SC)</option><option value="Torres">Torres (RS)</option><option value="Três Passos">Três Passos (RS)</option></select>
+      <select id="rb-destino"><option value="Balneário Camboriú" selected>Balneário Camboriú (SC)</option><option value="Bombinhas">Bombinhas (SC)</option><option value="Caiobá">Caiobá (PR)</option><option value="Curitiba">Curitiba (PR)</option><option value="Palmas (PR)">Palmas (PR)</option><option value="Pato Branco">Pato Branco (PR)</option><option value="Dionísio Cerqueira">Dionísio Cerqueira (SC)</option><option value="Florianópolis">Florianópolis (SC)</option><option value="Foz do Iguaçu">Foz do Iguaçu (PR)</option><option value="Gramado">Gramado (RS)</option><option value="Guaratuba">Guaratuba (PR)</option><option value="Itapema">Itapema (SC)</option><option value="Porto Alegre">Porto Alegre (RS)</option><option value="Santa Rosa (RS)">Santa Rosa (RS)</option><option value="São Miguel do Oeste">São Miguel do Oeste (SC)</option><option value="Blumenau">Blumenau (SC)</option><option value="Chapecó">Chapecó (SC)</option><option value="Joaçaba">Joaçaba (SC)</option><option value="São Bento do Sul">São Bento do Sul (SC)</option><option value="Torres">Torres (RS)</option><option value="Três Passos">Três Passos (RS)</option></select>
       <button type="button" class="rm-ico" id="rb-swap" title="Invertir" aria-label="Invertir origen y destino">⇅</button>
     </div>
 
@@ -2707,7 +2748,15 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
     </select>
     <div class="rm-nota" style="padding:6px 0 0">Google no deja decirle “evitá este paso”, pero sí obligarlo a pasar por el que elijas. Si te muestra una ruta por un paso sin Migraciones (por ejemplo Paso Rosales fuera de temporada), elegí acá otro paso con control todo el año y la ruta se recalcula. Si no lo sabés, Bernardo de Irigoyen es el más seguro desde Misiones: es frontera seca (sin río ni balsa), así que no depende de la altura del río. Alba Posse y San Javier cruzan en balsa: se corta por crecida del río y tienen horario limitado, y Google puede no reconocer la balsa y armar otra ruta, así que verificá en Fronteras SimpleApp.</div>
 
+    <div class="rm-lbl" style="margin-top:12px">📍 Paradas en el camino (opcional)</div>
+    <select id="rb-parada1" style="width:100%;flex:none;margin-top:6px"><option value="">Parada 1 (opcional)</option><option value="Balneário Camboriú">Balneário Camboriú (SC)</option><option value="Bombinhas">Bombinhas (SC)</option><option value="Caiobá">Caiobá (PR)</option><option value="Curitiba">Curitiba (PR)</option><option value="Palmas (PR)">Palmas (PR)</option><option value="Pato Branco">Pato Branco (PR)</option><option value="Dionísio Cerqueira">Dionísio Cerqueira (SC)</option><option value="Florianópolis">Florianópolis (SC)</option><option value="Foz do Iguaçu">Foz do Iguaçu (PR)</option><option value="Gramado">Gramado (RS)</option><option value="Guaratuba">Guaratuba (PR)</option><option value="Itapema">Itapema (SC)</option><option value="Porto Alegre">Porto Alegre (RS)</option><option value="Santa Rosa (RS)">Santa Rosa (RS)</option><option value="São Miguel do Oeste">São Miguel do Oeste (SC)</option><option value="Blumenau">Blumenau (SC)</option><option value="Chapecó">Chapecó (SC)</option><option value="Joaçaba">Joaçaba (SC)</option><option value="São Bento do Sul">São Bento do Sul (SC)</option><option value="Torres">Torres (RS)</option><option value="Três Passos">Três Passos (RS)</option></select>
+    <select id="rb-parada2" style="width:100%;flex:none;margin-top:6px"><option value="">Parada 2 (opcional)</option><option value="Balneário Camboriú">Balneário Camboriú (SC)</option><option value="Bombinhas">Bombinhas (SC)</option><option value="Caiobá">Caiobá (PR)</option><option value="Curitiba">Curitiba (PR)</option><option value="Palmas (PR)">Palmas (PR)</option><option value="Pato Branco">Pato Branco (PR)</option><option value="Dionísio Cerqueira">Dionísio Cerqueira (SC)</option><option value="Florianópolis">Florianópolis (SC)</option><option value="Foz do Iguaçu">Foz do Iguaçu (PR)</option><option value="Gramado">Gramado (RS)</option><option value="Guaratuba">Guaratuba (PR)</option><option value="Itapema">Itapema (SC)</option><option value="Porto Alegre">Porto Alegre (RS)</option><option value="Santa Rosa (RS)">Santa Rosa (RS)</option><option value="São Miguel do Oeste">São Miguel do Oeste (SC)</option><option value="Blumenau">Blumenau (SC)</option><option value="Chapecó">Chapecó (SC)</option><option value="Joaçaba">Joaçaba (SC)</option><option value="São Bento do Sul">São Bento do Sul (SC)</option><option value="Torres">Torres (RS)</option><option value="Três Passos">Três Passos (RS)</option></select>
+    <select id="rb-parada3" style="width:100%;flex:none;margin-top:6px"><option value="">Parada 3 (opcional)</option><option value="Balneário Camboriú">Balneário Camboriú (SC)</option><option value="Bombinhas">Bombinhas (SC)</option><option value="Caiobá">Caiobá (PR)</option><option value="Curitiba">Curitiba (PR)</option><option value="Palmas (PR)">Palmas (PR)</option><option value="Pato Branco">Pato Branco (PR)</option><option value="Dionísio Cerqueira">Dionísio Cerqueira (SC)</option><option value="Florianópolis">Florianópolis (SC)</option><option value="Foz do Iguaçu">Foz do Iguaçu (PR)</option><option value="Gramado">Gramado (RS)</option><option value="Guaratuba">Guaratuba (PR)</option><option value="Itapema">Itapema (SC)</option><option value="Porto Alegre">Porto Alegre (RS)</option><option value="Santa Rosa (RS)">Santa Rosa (RS)</option><option value="São Miguel do Oeste">São Miguel do Oeste (SC)</option><option value="Blumenau">Blumenau (SC)</option><option value="Chapecó">Chapecó (SC)</option><option value="Joaçaba">Joaçaba (SC)</option><option value="São Bento do Sul">São Bento do Sul (SC)</option><option value="Torres">Torres (RS)</option><option value="Três Passos">Três Passos (RS)</option></select>
+    <div class="rm-nota" style="padding:6px 0 0">Orden en Google Maps: origen, tus paradas de Argentina, el paso de frontera, tus paradas de Brasil y al final el destino. Ya con la ruta abierta en Google Maps, podés buscar combustible o alojamiento cerca de cada parada.</div>
+
     <a class="rm-btn rm-link" id="rb-a-ruta" target="_blank" rel="noopener">🧭 Ver ruta en Google Maps</a>
+    <div class="leyenda-maps" id="rb-leyenda" style="display:none"></div>
+    <a class="rm-btn2" style="cursor:pointer" onclick="planificarRuta('rb')">🗓️ Planificar este viaje (combustible, dormir, comer)</a>
     <div style="margin-top:10px;background:rgba(212,160,23,0.14);border:1px solid #d4a017;border-radius:10px;padding:11px 13px;font-size:13px;line-height:1.45;color:var(--text);">💡 Para ver estaciones, hoteles y lugares a lo largo de <b>todo el trayecto</b> (no solo un punto), una vez adentro de Google Maps tocá <b>"Agregar paradas"</b> y elegí la categoría que quieras.</div>
 
     <div id="rb-fronteras-card" style="margin-top:14px;background:rgba(212,160,23,0.14);border:1.5px solid #d4a017;border-radius:12px;padding:12px 14px;">
@@ -2717,7 +2766,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
     </div>
 
     <div class="rm-lbl" style="margin-top:14px">Buscar cerca de</div>
-    <select id="rb-donde" style="width:100%;flex:none"><option value="yo" selected>Mi ubicación ahora</option><option value="loc:Balneário Camboriú">Balneário Camboriú (SC)</option><option value="loc:Bombinhas">Bombinhas (SC)</option><option value="loc:Caiobá">Caiobá (PR)</option><option value="loc:Curitiba">Curitiba (PR)</option><option value="loc:Dionísio Cerqueira">Dionísio Cerqueira (SC)</option><option value="loc:Florianópolis">Florianópolis (SC)</option><option value="loc:Foz do Iguaçu">Foz do Iguaçu (PR)</option><option value="loc:Gramado">Gramado (RS)</option><option value="loc:Guaratuba">Guaratuba (PR)</option><option value="loc:Itapema">Itapema (SC)</option><option value="loc:Porto Alegre">Porto Alegre (RS)</option><option value="loc:Santa Rosa (RS)">Santa Rosa (RS)</option><option value="loc:São Miguel do Oeste">São Miguel do Oeste (SC)</option><option value="loc:Torres">Torres (RS)</option><option value="loc:Três Passos">Três Passos (RS)</option></select>
+    <select id="rb-donde" style="width:100%;flex:none"><option value="dest" selected>Cerca del destino que elegí arriba</option><option value="orig">Cerca del origen que elegí arriba</option><option value="yo">Mi ubicación ahora (solo sirve si ya estás en Brasil)</option><option value="loc:Balneário Camboriú">Balneário Camboriú (SC)</option><option value="loc:Bombinhas">Bombinhas (SC)</option><option value="loc:Caiobá">Caiobá (PR)</option><option value="loc:Curitiba">Curitiba (PR)</option><option value="loc:Dionísio Cerqueira">Dionísio Cerqueira (SC)</option><option value="loc:Florianópolis">Florianópolis (SC)</option><option value="loc:Foz do Iguaçu">Foz do Iguaçu (PR)</option><option value="loc:Gramado">Gramado (RS)</option><option value="loc:Guaratuba">Guaratuba (PR)</option><option value="loc:Itapema">Itapema (SC)</option><option value="loc:Porto Alegre">Porto Alegre (RS)</option><option value="loc:Santa Rosa (RS)">Santa Rosa (RS)</option><option value="loc:São Miguel do Oeste">São Miguel do Oeste (SC)</option><option value="loc:Torres">Torres (RS)</option><option value="loc:Três Passos">Três Passos (RS)</option></select>
     <div class="rm-nota" style="padding:6px 0 0">Como Google no permite buscar "a lo largo de toda la ruta" desde un enlace, esto busca cerca de un solo punto. Elegí tu ubicación o una localidad de la lista.</div>
     <a class="rm-btn2 rm-link" id="rb-a-est" target="_blank" rel="noopener">⛽ Estaciones de servicio</a>
     <a class="rm-btn2 rm-link" id="rb-a-hot" target="_blank" rel="noopener">🏨 Hoteles y alojamiento</a>
@@ -2763,11 +2812,72 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 </div>
 
 <!-- ============ FRONTERAS SIMPLEAPP ============ -->
+<div id="planificador" class="section">
+
+  <div class="hero-banner">
+    <div class="hb-city">PLAN DE VIAJE SIMPLEAPP</div>
+    <div class="hb-sub">Armá tu viaje: combustible, dormir y comer</div>
+  </div>
+
+  <div class="pl-card">
+    <div class="pl-t">🗂️ Mis viajes</div>
+    <select id="pl-viajes" class="pl-in"></select>
+    <label class="pl-l">Nombre del viaje</label>
+    <input id="pl-nombre" class="pl-in" type="text" maxlength="60" placeholder="Ej: Vacaciones Camboriú 2027">
+    <div class="pl-acc">
+      <button type="button" id="pl-nuevo" class="pl-mini">➕ Viaje nuevo</button>
+      <button type="button" id="pl-dup" class="pl-mini">📑 Duplicar</button>
+    </div>
+    <div class="pl-nota">Cada viaje se guarda aparte con su nombre. Elegí uno de la lista para verlo o seguir armándolo.</div>
+  </div>
+
+  <div class="pl-card">
+    <div class="pl-t">🧭 Tu viaje</div>
+    <label class="pl-l">Origen</label>
+    <input id="pl-origen" class="pl-in" type="text" placeholder="Ej: Buenos Aires, Argentina">
+    <label class="pl-l">Destino</label>
+    <input id="pl-destino" class="pl-in" type="text" placeholder="Ej: Balneário Camboriú, Santa Catarina, Brasil">
+    <label class="pl-l">Cruce de frontera</label>
+    <select id="pl-paso" class="pl-in"></select>
+    <div class="pl-nota">Si elegís un paso, aparece como una parada más: movela con ▲ ▼ al lugar del camino donde corresponde. Confirmá siempre en Fronteras SimpleApp que el paso esté abierto.</div>
+  </div>
+
+  <div class="pl-card">
+    <div class="pl-t">📍 Paradas, en orden</div>
+    <div id="pl-lista"></div>
+    <div class="pl-l" style="margin-top:12px">Agregar parada</div>
+    <div class="pl-add">
+      <button type="button" class="pl-addb" data-add="combustible">⛽ Combustible</button>
+      <button type="button" class="pl-addb" data-add="dormir">🛏️ Dormir</button>
+      <button type="button" class="pl-addb" data-add="comer">🍽️ Comer</button>
+      <button type="button" class="pl-addb" data-add="otro">📍 Otra</button>
+    </div>
+    <div class="pl-nota">En cada parada escribís el lugar que elegiste. Con "Buscar en Maps" abrís Google Maps ya buscando ese tipo de lugar cerca del punto anterior, y después anotás acá el que elijas. Cada "Dormir" termina el día.</div>
+  </div>
+
+  <div class="pl-card">
+    <div class="pl-t">🗺️ Ruta en Google Maps</div>
+    <div id="pl-links"></div>
+  </div>
+
+  <div class="pl-card">
+    <div class="pl-t">📋 Resumen del viaje</div>
+    <div id="pl-resumen"></div>
+    <button type="button" id="pl-copiar" class="pl-btn" style="margin-top:12px">📤 Compartir o copiar el resumen</button>
+    <div id="pl-estado" class="pl-nota"></div>
+    <button type="button" id="pl-borrar" class="pl-btn pl-btn2">🗑️ Borrar este viaje</button>
+  </div>
+
+  <div style="text-align:center;margin:14px 0 8px;">
+    <button onclick="showTab('inicio', null)" style="background:rgba(107,63,31,0.06);border:1px solid var(--border);border-radius:20px;color:var(--muted);font-family:'Barlow',sans-serif;font-size:13px;font-weight:700;padding:9px 18px;cursor:pointer;">🏠 Volver al inicio</button>
+  </div>
+</div>
+
 <div id="fronteras" class="section">
 
 
   <div class="hero-banner">
-    <div class="hb-city">FRONTERAS</div>
+    <div class="hb-city">FRONTERAS SIMPLEAPP</div>
     <div class="hb-sub">Verificá el paso antes de salir</div>
   </div>
 
@@ -4498,6 +4608,7 @@ function showTab(id, btn) {
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if (id === 'fronteras' && typeof initFronteras === 'function') { try { initFronteras(); } catch (e) {} }
+  if (id === 'planificador' && typeof renderPlan === 'function') { try { renderPlan(); } catch (e) {} }
   var activeBtn = null;
   if (btn) {
     btn.classList.add('active');
@@ -4639,7 +4750,7 @@ function hdrMenuGo(id) {
 // clima o de Instagram con el botón "volver"), restauramos esa sección y esa
 // ciudad en vez de mostrar siempre "inicio" / San Vicente.
 document.addEventListener('DOMContentLoaded', function () {
-  var validTabs = ['inicio','farmacias','urbanos','colectivos','colectivos-caba','trenes-posadas','empresas','emergencias','calendario','juegos','noticias','rutas-misiones','rutas-argentina','rutas-brasil','fronteras','divisas','gastos','listas','mantenimiento','mascotas'];
+  var validTabs = ['inicio','farmacias','urbanos','colectivos','colectivos-caba','trenes-posadas','empresas','emergencias','calendario','juegos','noticias','rutas-misiones','rutas-argentina','rutas-brasil','fronteras','planificador','divisas','gastos','listas','mantenimiento','mascotas'];
   var rawHash = (window.location.hash || '').replace('#', '');
   var partes = rawHash.split('|');
   var hashTab = partes[0];
@@ -5824,6 +5935,12 @@ var CIUDADES = [
   {nombre:'Guaratuba',          lat:-25.8800, lng:-48.5670, provincia:'Paraná', pais:'BR', radar:'https://www.tiempoyradar.com.ar/tiempo/guaratuba/3192563'},
   {nombre:'Caiobá',             lat:-25.8312, lng:-48.5397, provincia:'Paraná', pais:'BR', radar:'https://www.tiempoyradar.com.ar/tiempo/caioba/38528108'},
   {nombre:'São Miguel do Oeste', lat:-26.7279, lng:-53.5177, provincia:'Santa Catarina', pais:'BR', radar:'https://www.tiempoyradar.com.ar/tiempo/sao-miguel-do-oeste/11945708'},
+  {nombre:'Pato Branco',        lat:-26.2286, lng:-52.6706, provincia:'Paraná', pais:'BR', radar:'https://www.tiempoyradar.com.ar/tiempo/pato-branco/7171299'},
+  {nombre:'Palmas (PR)',        lat:-26.4842, lng:-51.9903, provincia:'Paraná', pais:'BR', radar:'https://www.tiempoyradar.com.ar/tiempo/palmas/7006621'},
+  {nombre:'São Bento do Sul',   lat:-26.2503, lng:-49.3786, provincia:'Santa Catarina', pais:'BR', radar:'https://www.tiempoyradar.com.ar/tiempo/sao-bento-do-sul/3633251'},
+  {nombre:'Chapecó',           lat:-27.1004, lng:-52.6152, provincia:'Santa Catarina', pais:'BR', radar:'https://www.tiempoyradar.com.ar/tiempo/chapeco/1212475'},
+  {nombre:'Blumenau',          lat:-26.9194, lng:-49.0661, provincia:'Santa Catarina', pais:'BR', radar:'https://www.tiempoyradar.com.ar/tiempo/blumenau/11848281'},
+  {nombre:'Joaçaba',           lat:-27.1747, lng:-51.5058, provincia:'Santa Catarina', pais:'BR', radar:'https://www.tiempoyradar.com.ar/tiempo/joacaba/5950642'},
   {nombre:'Dionísio Cerqueira', lat:-26.2648, lng:-53.6351, provincia:'Santa Catarina', pais:'BR', radar:'https://www.tiempoyradar.com.ar/tiempo/dionisio-cerqueira/4310708'},
   {nombre:'Balneário Camboriú', lat:-26.9953, lng:-48.6356, provincia:'Santa Catarina', pais:'BR', radar:'https://www.tiempoyradar.com.ar/tiempo/camboriu/10109340'},
   {nombre:'Florianópolis',      lat:-27.5935, lng:-48.5585, provincia:'Santa Catarina', pais:'BR', radar:'https://www.tiempoyradar.com.ar/tiempo/florianopolis/6412221'},
@@ -6219,6 +6336,11 @@ function elegirRutasBrasilDesdeBienvenida() {
   showTab('rutas-brasil', null);
 }
 
+function elegirPlanDesdeBienvenida() {
+  cerrarPantallaConsultaInicial();
+  showTab('planificador', null);
+}
+
 function elegirFronterasDesdeBienvenida() {
   cerrarPantallaConsultaInicial();
   showTab('fronteras', null);
@@ -6496,7 +6618,7 @@ var CIUDADES_PLAYA = ['Florianópolis', 'Balneário Camboriú', 'Itapema', 'Bomb
 // Mapeamos cada ciudad brasileña de la app a su UF (estado) para poder
 // filtrar los avisos vigentes en esa provincia y ver si mencionan la ciudad.
 var UF_POR_CIUDAD_BR = {
-  'Foz do Iguaçu': 'PR', 'Curitiba': 'PR', 'Guaratuba': 'PR', 'Caiobá': 'PR',
+  'Foz do Iguaçu': 'PR', 'Curitiba': 'PR', 'Pato Branco': 'PR', 'Palmas (PR)': 'PR', 'São Bento do Sul': 'SC', 'Chapecó': 'SC', 'Blumenau': 'SC', 'Joaçaba': 'SC', 'Guaratuba': 'PR', 'Caiobá': 'PR',
   'São Miguel do Oeste': 'SC', 'Dionísio Cerqueira': 'SC', 'Balneário Camboriú': 'SC',
   'Florianópolis': 'SC', 'Itapema': 'SC', 'Bombinhas': 'SC',
   'Santa Rosa (RS)': 'RS', 'Três Passos': 'RS', 'Gramado': 'RS', 'Torres': 'RS', 'Porto Alegre': 'RS',
@@ -6937,7 +7059,7 @@ function aplicarCiudadActual() {
     // En este modo solo tienen sentido Inicio y las 4 mini-apps: cualquier
     // otra sección donde estuviera el usuario (Calendario, Negocios, Trivia,
     // Emergencia, etc.) se cierra y vuelve a Inicio.
-    if (['inicio', 'gastos', 'listas', 'mantenimiento', 'mascotas', 'divisas', 'rutas-misiones', 'rutas-argentina', 'rutas-brasil', 'fronteras'].indexOf(idActiva) === -1) {
+    if (['inicio', 'gastos', 'listas', 'mantenimiento', 'mascotas', 'divisas', 'rutas-misiones', 'rutas-argentina', 'rutas-brasil', 'fronteras', 'planificador'].indexOf(idActiva) === -1) {
       showTab('inicio', null);
     }
   }
@@ -10521,6 +10643,8 @@ document.addEventListener('DOMContentLoaded', function () {
 .rm-shield.rn { background:#1f4e9c; }
 .rm-shield.rp { background:#d9822b; }
 
+#rutas-brasil .rm-btn2, #rutas-misiones a.rm-btn2, #rutas-argentina a.rm-btn2 { display:block; box-sizing:border-box; width:100%; text-align:center; text-decoration:none; margin-top:10px; background:var(--card2); color:var(--text); border:2px solid var(--oro); border-radius:12px; padding:12px; font-family:'Barlow',sans-serif; font-size:15px; font-weight:800; cursor:pointer; }
+.leyenda-maps{clear:both;}
 #rutas-misiones .rm-btn2 { width:100%; margin-top:8px; background:var(--card2); color:var(--text); border:2px solid var(--oro); border-radius:12px; padding:12px; font-family:'Barlow',sans-serif; font-size:15px; font-weight:800; cursor:pointer; }
 #rutas-argentina .rm-btn2 { width:100%; margin-top:8px; background:var(--card2); color:var(--text); border:2px solid var(--oro); border-radius:12px; padding:12px; font-family:'Barlow',sans-serif; font-size:15px; font-weight:800; cursor:pointer; }
 #rutas-misiones .rm-btn2.on { background:var(--oro); color:#fff; }
@@ -10592,6 +10716,40 @@ document.addEventListener('DOMContentLoaded', function () {
 #rutas-brasil a.rm-btn2 { color:var(--text); }
 #rutas-brasil .rm-pasos { margin:6px 0 10px; padding-left:20px; font-size:14px; line-height:1.5; }
 #rutas-argentina .rm-pasos { margin:6px 0 10px; padding-left:20px; font-size:14px; line-height:1.5; }
+
+
+.leyenda-maps{margin:8px 0 2px;padding:8px 10px;border-radius:10px;background:rgba(41,128,185,.08);border-left:3px solid #2980b9;font-size:11.5px;line-height:1.7;color:var(--texto,inherit)}
+.leyenda-maps b{display:inline-block;min-width:18px;height:18px;line-height:18px;text-align:center;border-radius:50%;background:#2980b9;color:#fff;font-size:10.5px;margin-right:6px}
+.leyenda-maps .lm-t{font-weight:800;margin-bottom:2px;font-size:11px}
+/* ============ PLANIFICADOR DE VIAJE SIMPLEAPP ============ */
+#planificador .hero-banner::before { content:'🗓️'; }
+#planificador .pl-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px; margin-bottom:12px; }
+#planificador .pl-t { font-size:15px; font-weight:900; color:var(--text); margin-bottom:6px; }
+#planificador .pl-l { display:block; font-size:11px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin:10px 0 4px; }
+#planificador .pl-in { width:100%; box-sizing:border-box; background:var(--card); border:1.5px solid var(--border); border-radius:10px; padding:10px 12px; font-family:'Barlow',sans-serif; font-size:14px; color:var(--text); margin-top:6px; }
+#planificador .pl-nota { font-size:11.5px; color:var(--muted); line-height:1.45; margin-top:8px; }
+#planificador .pl-vacio { font-size:13px; color:var(--muted); text-align:center; padding:12px 6px; }
+#planificador .pl-item { border:1px solid var(--border); border-left:5px solid #7f8c8d; border-radius:12px; padding:10px 12px; margin-top:10px; background:rgba(255,255,255,0.5); }
+#planificador .pl-t-combustible { border-left-color:#e67e22; }
+#planificador .pl-t-dormir { border-left-color:#2980b9; }
+#planificador .pl-t-comer { border-left-color:#16a085; }
+#planificador .pl-t-frontera { border-left-color:#c0392b; }
+#planificador .pl-item-h { display:flex; justify-content:space-between; align-items:center; }
+#planificador .pl-item-t { font-size:13px; font-weight:800; color:var(--text); }
+#planificador .pl-badge { font-size:11px; font-weight:800; background:rgba(107,63,31,0.1); color:var(--muted); border-radius:20px; padding:2px 9px; }
+#planificador .pl-fr { font-size:13px; font-weight:700; color:var(--text); margin-top:6px; }
+#planificador .pl-acc { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+#planificador .pl-mini { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:7px 11px; font-family:'Barlow',sans-serif; font-size:12px; font-weight:700; color:var(--azul2,#2471a3); text-decoration:none; cursor:pointer; }
+#planificador .pl-mini:disabled { opacity:.35; cursor:default; }
+#planificador .pl-del { color:#c0392b; }
+#planificador .pl-add { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+#planificador .pl-addb { background:var(--card); border:1.5px solid var(--border); border-radius:10px; padding:11px 8px; font-family:'Barlow',sans-serif; font-size:13px; font-weight:800; color:var(--text); cursor:pointer; }
+#planificador .pl-btn { display:block; box-sizing:border-box; width:100%; text-align:center; background:linear-gradient(135deg,#6b3f1f,#8b5a2b); color:#fff; border:0; border-radius:12px; padding:13px 10px; font-family:'Barlow',sans-serif; font-size:14px; font-weight:800; text-decoration:none; cursor:pointer; margin-top:8px; }
+#planificador .pl-btn2 { background:var(--card); color:#c0392b; border:1px solid var(--border); }
+#planificador .pl-res-h { font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px; }
+#planificador .pl-dia { font-family:'Bebas Neue',sans-serif; font-size:19px; letter-spacing:2px; color:var(--verde,#2e7d32); margin:12px 0 4px; }
+#planificador .pl-res-i { display:flex; gap:8px; font-size:13px; line-height:1.4; margin-bottom:6px; }
+#planificador .pl-res-n { font-size:12px; color:var(--muted); }
 
 /* ============ FRONTERAS SIMPLEAPP ============ */
 #fronteras { --ok:#2e7d32; }
@@ -16031,6 +16189,8 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
     if (!esYo(o) && o.trim()) u += '&origin=' + q(lugar(o));   // sin origen, Google usa tu ubicación
     if (d.trim()) u += '&destination=' + q(lugar(d));
     $('rm-a-ruta').href = u;
+    (function(){var L=$('rm-leyenda');if(!L)return;var n=[(esYo(o)||!String(o).trim())?'Mi ubicación':o,(esYo(d)||!String(d).trim())?'Mi ubicación':d];
+      L.style.display='block';L.innerHTML='<div class="lm-t">📍 En Google Maps verás estas letras:</div>'+n.map(function(x,i){return '<div><b>'+String.fromCharCode(65+i)+'</b>'+String(x).replace(/</g,'&lt;')+'</div>';}).join('');})();
 
     // Búsquedas por categoría cerca del origen, destino, mi ubicación, u otra
     // localidad del camino (para cubrir tramos intermedios de la ruta, ya que
@@ -16121,10 +16281,12 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
     if (origenQ) u += '&origin=' + origenQ;
     if (destinoQ) u += '&destination=' + destinoQ;
     $('ra-a-ruta').href = u;
+    (function(){var L=$('ra-leyenda');if(!L)return;var n=[(esYo(o)||!String(o).trim())?'Mi ubicación':o,(esYo(d)||!String(d).trim())?'Mi ubicación':d];
+      L.style.display='block';L.innerHTML='<div class="lm-t">📍 En Google Maps verás estas letras:</div>'+n.map(function(x,i){return '<div><b>'+String.fromCharCode(65+i)+'</b>'+String(x).replace(/</g,'&lt;')+'</div>';}).join('');})();
 
     var donde = $('ra-donde').value, ref = '';
     if (donde.indexOf('loc:') === 0) ref = lugar(donde.slice(4));
-    var cerca = ref ? ' cerca de ' + ref : ' cerca de mí';
+    var cerca = ref ? ' cerca de ' + decodeURIComponent(ref) : ' cerca de mí';
     $('ra-a-est').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('estación de servicio' + cerca);
     $('ra-a-hot').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('hoteles' + cerca);
     $('ra-a-tur').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('lugares turísticos qué hacer' + cerca);
@@ -16184,13 +16346,25 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
   // (por ejemplo, salir desde San Vicente, Misiones, hacia Florianópolis).
   // Por eso ya no podemos asumir ", Brasil" para todas: buscamos el país y
   // la provincia/estado real de cada ciudad para armar una búsqueda precisa.
-  var PROVINCIA_POR_CIUDAD = { 'San Vicente': 'Misiones', 'El Soberbio': 'Misiones', 'Dos de Mayo': 'Misiones', 'Aristóbulo del Valle': 'Misiones', 'Posadas': 'Misiones', 'Oberá': 'Misiones', 'Eldorado': 'Misiones', 'Puerto Iguazú': 'Misiones', 'Jardín América': 'Misiones', 'Leandro N. Alem': 'Misiones', 'Cerro Azul': 'Misiones', 'San Pedro': 'Misiones', 'Apóstoles': 'Misiones', 'Montecarlo': 'Misiones', 'San Javier': 'Misiones', 'Puerto Esperanza': 'Misiones', 'Puerto Rico': 'Misiones', 'Capioví': 'Misiones', 'Puerto Piray': 'Misiones', 'Bernardo de Irigoyen': 'Misiones', 'Ituzaingó': 'Corrientes', 'Santo Tomé': 'Corrientes', 'Gobernador Virasoro': 'Corrientes', 'Corrientes': 'Corrientes', 'Resistencia': 'Chaco', 'Presidencia Roque Sáenz Peña': 'Chaco', 'Formosa': 'Formosa', 'Clorinda': 'Formosa', 'Buenos Aires': 'CABA', 'La Plata': 'Buenos Aires', 'San Isidro': 'Buenos Aires', 'Quilmes': 'Buenos Aires', 'Tigre': 'Buenos Aires', 'Avellaneda': 'Buenos Aires', 'Morón': 'Buenos Aires', 'Lomas de Zamora': 'Buenos Aires', 'San Justo': 'Buenos Aires', 'Mar del Plata': 'Buenos Aires', 'Luján': 'Buenos Aires', 'San Fernando del Valle de Catamarca': 'Catamarca', 'Rawson': 'Chubut', 'Córdoba': 'Córdoba', 'Villa Carlos Paz': 'Córdoba', 'Paraná': 'Entre Ríos', 'San Salvador de Jujuy': 'Jujuy', 'Santa Rosa': 'La Pampa', 'La Rioja': 'La Rioja', 'Mendoza': 'Mendoza', 'Neuquén': 'Neuquén', 'Viedma': 'Río Negro', 'Salta': 'Salta', 'San Juan': 'San Juan', 'San Luis': 'San Luis', 'Río Gallegos': 'Santa Cruz', 'Santa Fe': 'Santa Fe', 'Rosario': 'Santa Fe', 'Santiago del Estero': 'Santiago del Estero', 'Bariloche': 'Río Negro', 'Bahía Blanca': 'Buenos Aires', 'El Calafate': 'Santa Cruz', 'Chajarí': 'Entre Ríos', 'Ushuaia': 'Tierra del Fuego', 'Puerto Argentino/Islas Malvinas': 'Tierra del Fuego', 'San Miguel de Tucumán': 'Tucumán', 'Asunción': 'Distrito Capital', 'Encarnación': 'Itapúa', 'Ciudad del Este': 'Alto Paraná', 'Foz do Iguaçu': 'Paraná', 'Curitiba': 'Paraná', 'Guaratuba': 'Paraná', 'Caiobá': 'Paraná', 'São Miguel do Oeste': 'Santa Catarina', 'Dionísio Cerqueira': 'Santa Catarina', 'Balneário Camboriú': 'Santa Catarina', 'Florianópolis': 'Santa Catarina', 'Itapema': 'Santa Catarina', 'Bombinhas': 'Santa Catarina', 'Santa Rosa (RS)': 'Rio Grande do Sul', 'Três Passos': 'Rio Grande do Sul', 'Gramado': 'Rio Grande do Sul', 'Torres': 'Rio Grande do Sul', 'Porto Alegre': 'Rio Grande do Sul', 'São Paulo': 'São Paulo', 'La Paz (Bolivia)': 'La Paz', 'Sucre': 'Chuquisaca', 'Santiago de Chile': 'Región Metropolitana', 'Valparaíso': 'Valparaíso', 'Brasília': 'Distrito Federal', 'Río de Janeiro': 'Río de Janeiro', 'Montevideo': 'Montevideo', 'Punta del Este': 'Maldonado' };
-  var PAIS_POR_CIUDAD = { 'San Vicente': 'Argentina', 'El Soberbio': 'Argentina', 'Dos de Mayo': 'Argentina', 'Aristóbulo del Valle': 'Argentina', 'Posadas': 'Argentina', 'Oberá': 'Argentina', 'Eldorado': 'Argentina', 'Puerto Iguazú': 'Argentina', 'Jardín América': 'Argentina', 'Leandro N. Alem': 'Argentina', 'Cerro Azul': 'Argentina', 'San Pedro': 'Argentina', 'Apóstoles': 'Argentina', 'Montecarlo': 'Argentina', 'San Javier': 'Argentina', 'Puerto Esperanza': 'Argentina', 'Puerto Rico': 'Argentina', 'Capioví': 'Argentina', 'Puerto Piray': 'Argentina', 'Bernardo de Irigoyen': 'Argentina', 'Ituzaingó': 'Argentina', 'Santo Tomé': 'Argentina', 'Gobernador Virasoro': 'Argentina', 'Corrientes': 'Argentina', 'Resistencia': 'Argentina', 'Presidencia Roque Sáenz Peña': 'Argentina', 'Formosa': 'Argentina', 'Clorinda': 'Argentina', 'Buenos Aires': 'Argentina', 'La Plata': 'Argentina', 'San Isidro': 'Argentina', 'Quilmes': 'Argentina', 'Tigre': 'Argentina', 'Avellaneda': 'Argentina', 'Morón': 'Argentina', 'Lomas de Zamora': 'Argentina', 'San Justo': 'Argentina', 'Mar del Plata': 'Argentina', 'Luján': 'Argentina', 'San Fernando del Valle de Catamarca': 'Argentina', 'Rawson': 'Argentina', 'Córdoba': 'Argentina', 'Villa Carlos Paz': 'Argentina', 'Paraná': 'Argentina', 'San Salvador de Jujuy': 'Argentina', 'Santa Rosa': 'Argentina', 'La Rioja': 'Argentina', 'Mendoza': 'Argentina', 'Neuquén': 'Argentina', 'Viedma': 'Argentina', 'Salta': 'Argentina', 'San Juan': 'Argentina', 'San Luis': 'Argentina', 'Río Gallegos': 'Argentina', 'Santa Fe': 'Argentina', 'Rosario': 'Argentina', 'Santiago del Estero': 'Argentina', 'Bariloche': 'Argentina', 'Bahía Blanca': 'Argentina', 'El Calafate': 'Argentina', 'Chajarí': 'Argentina', 'Ushuaia': 'Argentina', 'Puerto Argentino/Islas Malvinas': 'FK', 'San Miguel de Tucumán': 'Argentina', 'Asunción': 'Paraguay', 'Encarnación': 'Paraguay', 'Ciudad del Este': 'Paraguay', 'Foz do Iguaçu': 'Brasil', 'Curitiba': 'Brasil', 'Guaratuba': 'Brasil', 'Caiobá': 'Brasil', 'São Miguel do Oeste': 'Brasil', 'Dionísio Cerqueira': 'Brasil', 'Balneário Camboriú': 'Brasil', 'Florianópolis': 'Brasil', 'Itapema': 'Brasil', 'Bombinhas': 'Brasil', 'Santa Rosa (RS)': 'Brasil', 'Três Passos': 'Brasil', 'Gramado': 'Brasil', 'Torres': 'Brasil', 'Porto Alegre': 'Brasil', 'São Paulo': 'Brasil', 'La Paz (Bolivia)': 'Bolivia', 'Sucre': 'Bolivia', 'Santiago de Chile': 'Chile', 'Valparaíso': 'Chile', 'Brasília': 'Brasil', 'Río de Janeiro': 'Brasil', 'Montevideo': 'Uruguay', 'Punta del Este': 'Uruguay' };
+  var PROVINCIA_POR_CIUDAD = { 'San Vicente': 'Misiones', 'El Soberbio': 'Misiones', 'Dos de Mayo': 'Misiones', 'Aristóbulo del Valle': 'Misiones', 'Posadas': 'Misiones', 'Oberá': 'Misiones', 'Eldorado': 'Misiones', 'Puerto Iguazú': 'Misiones', 'Jardín América': 'Misiones', 'Leandro N. Alem': 'Misiones', 'Cerro Azul': 'Misiones', 'San Pedro': 'Misiones', 'Apóstoles': 'Misiones', 'Montecarlo': 'Misiones', 'San Javier': 'Misiones', 'Puerto Esperanza': 'Misiones', 'Puerto Rico': 'Misiones', 'Capioví': 'Misiones', 'Puerto Piray': 'Misiones', 'Bernardo de Irigoyen': 'Misiones', 'Ituzaingó': 'Corrientes', 'Santo Tomé': 'Corrientes', 'Gobernador Virasoro': 'Corrientes', 'Corrientes': 'Corrientes', 'Resistencia': 'Chaco', 'Presidencia Roque Sáenz Peña': 'Chaco', 'Formosa': 'Formosa', 'Clorinda': 'Formosa', 'Buenos Aires': 'CABA', 'La Plata': 'Buenos Aires', 'San Isidro': 'Buenos Aires', 'Quilmes': 'Buenos Aires', 'Tigre': 'Buenos Aires', 'Avellaneda': 'Buenos Aires', 'Morón': 'Buenos Aires', 'Lomas de Zamora': 'Buenos Aires', 'San Justo': 'Buenos Aires', 'Mar del Plata': 'Buenos Aires', 'Luján': 'Buenos Aires', 'San Fernando del Valle de Catamarca': 'Catamarca', 'Rawson': 'Chubut', 'Córdoba': 'Córdoba', 'Villa Carlos Paz': 'Córdoba', 'Paraná': 'Entre Ríos', 'San Salvador de Jujuy': 'Jujuy', 'Santa Rosa': 'La Pampa', 'La Rioja': 'La Rioja', 'Mendoza': 'Mendoza', 'Neuquén': 'Neuquén', 'Viedma': 'Río Negro', 'Salta': 'Salta', 'San Juan': 'San Juan', 'San Luis': 'San Luis', 'Río Gallegos': 'Santa Cruz', 'Santa Fe': 'Santa Fe', 'Rosario': 'Santa Fe', 'Santiago del Estero': 'Santiago del Estero', 'Bariloche': 'Río Negro', 'Bahía Blanca': 'Buenos Aires', 'El Calafate': 'Santa Cruz', 'Chajarí': 'Entre Ríos', 'Ushuaia': 'Tierra del Fuego', 'Puerto Argentino/Islas Malvinas': 'Tierra del Fuego', 'San Miguel de Tucumán': 'Tucumán', 'Asunción': 'Distrito Capital', 'Encarnación': 'Itapúa', 'Ciudad del Este': 'Alto Paraná', 'Foz do Iguaçu': 'Paraná', 'Curitiba': 'Paraná', 'Pato Branco': 'Paraná', 'Palmas (PR)': 'Paraná', 'São Bento do Sul': 'Santa Catarina', 'Chapecó': 'Santa Catarina', 'Blumenau': 'Santa Catarina', 'Joaçaba': 'Santa Catarina', 'Guaratuba': 'Paraná', 'Caiobá': 'Paraná', 'São Miguel do Oeste': 'Santa Catarina', 'Dionísio Cerqueira': 'Santa Catarina', 'Balneário Camboriú': 'Santa Catarina', 'Florianópolis': 'Santa Catarina', 'Itapema': 'Santa Catarina', 'Bombinhas': 'Santa Catarina', 'Santa Rosa (RS)': 'Rio Grande do Sul', 'Três Passos': 'Rio Grande do Sul', 'Gramado': 'Rio Grande do Sul', 'Torres': 'Rio Grande do Sul', 'Porto Alegre': 'Rio Grande do Sul', 'São Paulo': 'São Paulo', 'La Paz (Bolivia)': 'La Paz', 'Sucre': 'Chuquisaca', 'Santiago de Chile': 'Región Metropolitana', 'Valparaíso': 'Valparaíso', 'Brasília': 'Distrito Federal', 'Río de Janeiro': 'Río de Janeiro', 'Montevideo': 'Montevideo', 'Punta del Este': 'Maldonado' };
+  var PAIS_POR_CIUDAD = { 'San Vicente': 'Argentina', 'El Soberbio': 'Argentina', 'Dos de Mayo': 'Argentina', 'Aristóbulo del Valle': 'Argentina', 'Posadas': 'Argentina', 'Oberá': 'Argentina', 'Eldorado': 'Argentina', 'Puerto Iguazú': 'Argentina', 'Jardín América': 'Argentina', 'Leandro N. Alem': 'Argentina', 'Cerro Azul': 'Argentina', 'San Pedro': 'Argentina', 'Apóstoles': 'Argentina', 'Montecarlo': 'Argentina', 'San Javier': 'Argentina', 'Puerto Esperanza': 'Argentina', 'Puerto Rico': 'Argentina', 'Capioví': 'Argentina', 'Puerto Piray': 'Argentina', 'Bernardo de Irigoyen': 'Argentina', 'Ituzaingó': 'Argentina', 'Santo Tomé': 'Argentina', 'Gobernador Virasoro': 'Argentina', 'Corrientes': 'Argentina', 'Resistencia': 'Argentina', 'Presidencia Roque Sáenz Peña': 'Argentina', 'Formosa': 'Argentina', 'Clorinda': 'Argentina', 'Buenos Aires': 'Argentina', 'La Plata': 'Argentina', 'San Isidro': 'Argentina', 'Quilmes': 'Argentina', 'Tigre': 'Argentina', 'Avellaneda': 'Argentina', 'Morón': 'Argentina', 'Lomas de Zamora': 'Argentina', 'San Justo': 'Argentina', 'Mar del Plata': 'Argentina', 'Luján': 'Argentina', 'San Fernando del Valle de Catamarca': 'Argentina', 'Rawson': 'Argentina', 'Córdoba': 'Argentina', 'Villa Carlos Paz': 'Argentina', 'Paraná': 'Argentina', 'San Salvador de Jujuy': 'Argentina', 'Santa Rosa': 'Argentina', 'La Rioja': 'Argentina', 'Mendoza': 'Argentina', 'Neuquén': 'Argentina', 'Viedma': 'Argentina', 'Salta': 'Argentina', 'San Juan': 'Argentina', 'San Luis': 'Argentina', 'Río Gallegos': 'Argentina', 'Santa Fe': 'Argentina', 'Rosario': 'Argentina', 'Santiago del Estero': 'Argentina', 'Bariloche': 'Argentina', 'Bahía Blanca': 'Argentina', 'El Calafate': 'Argentina', 'Chajarí': 'Argentina', 'Ushuaia': 'Argentina', 'Puerto Argentino/Islas Malvinas': 'FK', 'San Miguel de Tucumán': 'Argentina', 'Asunción': 'Paraguay', 'Encarnación': 'Paraguay', 'Ciudad del Este': 'Paraguay', 'Foz do Iguaçu': 'Brasil', 'Curitiba': 'Brasil', 'Pato Branco': 'Brasil', 'Palmas (PR)': 'Brasil', 'São Bento do Sul': 'Brasil', 'Chapecó': 'Brasil', 'Blumenau': 'Brasil', 'Joaçaba': 'Brasil', 'Guaratuba': 'Brasil', 'Caiobá': 'Brasil', 'São Miguel do Oeste': 'Brasil', 'Dionísio Cerqueira': 'Brasil', 'Balneário Camboriú': 'Brasil', 'Florianópolis': 'Brasil', 'Itapema': 'Brasil', 'Bombinhas': 'Brasil', 'Santa Rosa (RS)': 'Brasil', 'Três Passos': 'Brasil', 'Gramado': 'Brasil', 'Torres': 'Brasil', 'Porto Alegre': 'Brasil', 'São Paulo': 'Brasil', 'La Paz (Bolivia)': 'Bolivia', 'Sucre': 'Bolivia', 'Santiago de Chile': 'Chile', 'Valparaíso': 'Chile', 'Brasília': 'Brasil', 'Río de Janeiro': 'Brasil', 'Montevideo': 'Uruguay', 'Punta del Este': 'Uruguay' };
   function lugar(v) {
     var prov = PROVINCIA_POR_CIUDAD[v];
     var pais = PAIS_POR_CIUDAD[v] || 'Brasil';
     return encodeURIComponent(v + (prov ? ', ' + prov : '') + ', ' + pais);
   }
+  // Lo usa el Plan de Viaje: completa provincia y país de las ciudades conocidas
+  window.__lugarCiudadTexto = function (txt) {
+    var t = (txt || '').trim();
+    if (!t || t.indexOf(',') >= 0) return t;
+    var alias = { 'Palmas': 'Palmas (PR)', 'Santa Rosa': 'Santa Rosa' };
+    var k = PROVINCIA_POR_CIUDAD[t] ? t : (alias[t] && PROVINCIA_POR_CIUDAD[alias[t]] ? alias[t] : null);
+    if (!k) { var low = t.toLowerCase(); Object.keys(PROVINCIA_POR_CIUDAD).forEach(function (c) { if (!k && c.toLowerCase() === low) k = c; }); }
+    if (!k) return t;
+    var nombre = k.replace(/\s*\([A-Z]{2}\)$/, '');
+    var prov = PROVINCIA_POR_CIUDAD[k], pais = PAIS_POR_CIUDAD[k] || 'Brasil';
+    return nombre + (prov && prov !== nombre ? ', ' + prov : '') + ', ' + pais;
+  };
 
   function actualizar() {
     var o = $('rb-origen').value, d = $('rb-destino').value;
@@ -16200,13 +16374,43 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
     if (origenQ) u += '&origin=' + origenQ;
     if (destinoQ) u += '&destination=' + destinoQ;
     var paso = $('rb-paso') ? $('rb-paso').value : '';
-    if (paso) u += '&waypoints=' + encodeURIComponent(paso);
+    var pts = [];
+    // Orden: origen → paradas del país de origen → cruce de frontera → paradas del otro país → destino
+    var paisO = esYo(o) ? 'Argentina' : (PAIS_POR_CIUDAD[o] || 'Brasil');
+    var antes = [], despues = [];
+    [1, 2, 3].forEach(function (n) {
+      var el = $('rb-parada' + n);
+      if (el && el.value) {
+        var it = { txt: decodeURIComponent(lugar(el.value)), nom: el.value };
+        var mismo = (PAIS_POR_CIUDAD[el.value] || 'Brasil') === paisO;
+        (paso && !mismo ? despues : antes).push(it);
+      }
+    });
+    var ordenados = antes.slice();
+    var pasoIdx = -1;
+    if (paso) { pasoIdx = ordenados.length; ordenados.push({ txt: paso, nom: null }); }
+    despues.forEach(function (x) { ordenados.push(x); });
+    ordenados.forEach(function (x) { pts.push(x.txt); });
+    window._rbOrdenNombres = ordenados;
+    if (pts.length) u += '&waypoints=' + pts.map(encodeURIComponent).join('%7C');
     $('rb-a-ruta').href = u;
+    (function(){
+      var nombres=[];
+      nombres.push(esYo(o)?'Mi ubicación':o);
+      var pe=document.querySelector('#rb-paso option:checked');
+      (window._rbOrdenNombres||[]).forEach(function(x){nombres.push(x.nom||(pe?'Cruce: '+pe.textContent.replace(/^[^A-Za-zÀ-ú]+/,'').split(' · ')[0].trim():x.txt));});
+      nombres.push(esYo(d)?'Mi ubicación':d);
+      var L=$('rb-leyenda');if(!L)return;
+      L.style.display='block';
+      L.innerHTML='<div class="lm-t">📍 En Google Maps verás estas letras:</div>'+nombres.map(function(x,k){return '<div><b>'+String.fromCharCode(65+k)+'</b>'+x.replace(/</g,'&lt;')+'</div>';}).join('');
+    })();
 
 
     var donde = $('rb-donde').value, ref = '';
     if (donde.indexOf('loc:') === 0) ref = lugar(donde.slice(4));
-    var cerca = ref ? ' cerca de ' + ref : ' cerca de mí';
+    else if (donde === 'dest' && !esYo(d)) ref = lugar(d);
+    else if (donde === 'orig' && !esYo(o)) ref = lugar(o);
+    var cerca = ref ? ' cerca de ' + decodeURIComponent(ref) : ' cerca de mí';
     $('rb-a-est').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('posto de combustível' + cerca);
     $('rb-a-hot').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('hotéis' + cerca);
     $('rb-a-tur').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('pontos turísticos o que fazer' + cerca);
@@ -16226,6 +16430,7 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
     actualizar();
   });
   $('rb-paso').addEventListener('change', actualizar);
+  [1, 2, 3].forEach(function (n) { $('rb-parada' + n).addEventListener('change', actualizar); });
   $('rb-donde').addEventListener('change', actualizar);
   actualizar();
 
@@ -16945,6 +17150,304 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
     iniciarMapa();
     render();
   };
+})();
+</script>
+<script>
+// ===== PLANIFICADOR DE VIAJE SIMPLEAPP =====
+(function () {
+  'use strict';
+  var KEY = 'planViajeSimpleApp';   // clave de respaldo en localStorage
+  var NS = 'planViaje';             // casilla (namespace) dentro del AppBridge compartido
+  var PASOS = [
+    ['', 'Sin cruce de frontera (viaje dentro del país)'],
+    ['Dionísio Cerqueira, Santa Catarina, Brasil', 'Bernardo de Irigoyen ↔ Dionísio Cerqueira · frontera seca, 24 hs'],
+    ['Santo Antônio do Sudoeste, Paraná, Brasil', 'San Antonio ↔ Santo Antônio do Sudoeste · frontera seca'],
+    ['Foz do Iguaçu, Paraná, Brasil', 'Puerto Iguazú ↔ Foz do Iguaçu · 24 hs'],
+    ['Porto Mauá, Rio Grande do Sul, Brasil', 'Alba Posse ↔ Porto Mauá · balsa'],
+    ['Porto Xavier, Rio Grande do Sul, Brasil', 'San Javier ↔ Porto Xavier · balsa'],
+    ['São Borja, Rio Grande do Sul, Brasil', 'Santo Tomé ↔ São Borja · 24 hs, puente'],
+    ['Uruguaiana, Rio Grande do Sul, Brasil', 'Paso de los Libres ↔ Uruguaiana · 24 hs, puente']
+  ];
+  var TIPOS = {
+    combustible: { ic: '⛽', n: 'Cargar combustible', ph: 'Ej: ciudad o estación donde vas a cargar', es: 'estación de servicio', pt: 'posto de combustível' },
+    dormir:      { ic: '🛏️', n: 'Dormir', ph: 'Ej: ciudad u hotel donde te quedás', es: 'hoteles', pt: 'hotéis' },
+    comer:       { ic: '🍽️', n: 'Comer', ph: 'Ej: ciudad o restaurante', es: 'restaurantes', pt: 'restaurantes' },
+    otro:        { ic: '📍', n: 'Otra parada', ph: 'Ej: lugar que querés visitar', es: 'qué ver y hacer', pt: 'o que fazer' },
+    frontera:    { ic: '🛂', n: 'Cruce de frontera', ph: '', es: '', pt: '' }
+  };
+  var seq = 1;
+  function nuevoId() { return 'p' + Date.now().toString(36) + (seq++); }
+  function nuevoPlan(nombre) { return { id: nuevoId(), nombre: nombre || '', origen: 'Buenos Aires, Argentina', destino: 'Balneário Camboriú, Santa Catarina, Brasil', paso: '', items: [] }; }
+  var plan = nuevoPlan('Viaje 1');
+  var store = { viajes: [plan] };
+
+  function $(id) { return document.getElementById(id); }
+  function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  // Guarda igual que las otras mini-apps (Listas, Rodados, Mascotas): primero en el
+  // AppBridge compartido (que escribe en App Inventor / TinyDB) y, de respaldo, en localStorage.
+  function guardar() {
+    var data = { actual: plan.id, viajes: store.viajes };
+    try { if (window.AppBridge && typeof window.AppBridge.save === 'function') window.AppBridge.save(NS, data); } catch (e) {}
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
+  }
+  function normalizar(p, n) {
+    if (!p || typeof p !== 'object' || !Array.isArray(p.items)) return null;
+    return { id: String(p.id || nuevoId()), nombre: String(p.nombre || ('Viaje ' + n)), origen: String(p.origen || ''), destino: String(p.destino || ''), paso: String(p.paso || ''),
+      items: p.items.filter(function (i) { return i && TIPOS[i.tipo]; }).map(function (i) { return { id: i.id || nuevoId(), tipo: i.tipo, lugar: String(i.lugar || ''), nota: String(i.nota || '') }; }) };
+  }
+  // Acepta el formato nuevo (varios viajes) y el anterior (un solo plan).
+  function aplicar(p) {
+    if (typeof p === 'string') { try { p = JSON.parse(p); } catch (e) { return false; } }
+    if (!p || typeof p !== 'object') return false;
+    var lista = [];
+    if (Array.isArray(p.viajes)) p.viajes.forEach(function (v, k) { var t = normalizar(v, k + 1); if (t) lista.push(t); });
+    else { var u = normalizar(p, 1); if (u) { if (!p.nombre) u.nombre = 'Mi viaje'; lista.push(u); } }
+    if (!lista.length) return false;
+    store.viajes = lista;
+    plan = lista.filter(function (v) { return v.id === p.actual; })[0] || lista[0];
+    return true;
+  }
+  function cargar() {
+    var ok = false;
+    try { if (window.AppBridge && typeof window.AppBridge.load === 'function') ok = aplicar(window.AppBridge.load(NS)); } catch (e) {}
+    if (!ok) { try { ok = aplicar(localStorage.getItem(KEY)); } catch (e) {} }
+    return ok;
+  }
+  function refrescarUI() {
+    var sel = $('pl-viajes');
+    sel.innerHTML = store.viajes.map(function (v) { return '<option value="' + esc(v.id) + '">' + esc(v.nombre || 'Sin nombre') + '</option>'; }).join('');
+    sel.value = plan.id;
+    $('pl-nombre').value = plan.nombre;
+    $('pl-origen').value = plan.origen; $('pl-destino').value = plan.destino;
+    $('pl-paso').value = plan.paso; if ($('pl-paso').value !== plan.paso) $('pl-paso').value = '';
+    renderTodo();
+  }
+  function nombreLibre() { var n = store.viajes.length + 1; return 'Viaje ' + n; }
+
+  function idxFrontera() { for (var i = 0; i < plan.items.length; i++) if (plan.items[i].tipo === 'frontera') return i; return -1; }
+
+  // Día de cada parada: arranca en 1 y cada "Dormir" cierra el día.
+  function calcularDias() {
+    var dia = 1;
+    plan.items.forEach(function (it) { it.dia = dia; if (it.tipo === 'dormir') dia++; });
+    return dia;
+  }
+  function enBrasil(i) { var f = idxFrontera(); return f >= 0 && i > f; }
+
+  function urlBuscar(i) {
+    var it = plan.items[i], t = TIPOS[it.tipo];
+    var cerca = (it.lugar || '').trim();
+    if (!cerca) { for (var k = i - 1; k >= 0 && !cerca; k--) cerca = (plan.items[k].lugar || '').trim(); }
+    if (!cerca) cerca = (plan.origen || '').trim();
+    var pt = enBrasil(i);
+    var q = (pt ? t.pt : t.es) + (pt ? ' perto de ' : ' cerca de ') + cerca;
+    return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+  }
+
+  function puntosRuta() {
+    var pts = [];
+    var R = window.__lugarCiudadTexto || function (x) { return x; };
+    if ((plan.origen || '').trim()) pts.push(R(plan.origen));
+    plan.items.forEach(function (it) { if ((it.lugar || '').trim()) pts.push(R(it.lugar)); });
+    if ((plan.destino || '').trim()) pts.push(R(plan.destino));
+    return pts;
+  }
+  function urlRuta(pts) {
+    var u = 'https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=' + encodeURIComponent(pts[0]) + '&destination=' + encodeURIComponent(pts[pts.length - 1]);
+    var mid = pts.slice(1, -1);
+    if (mid.length) u += '&waypoints=' + mid.map(encodeURIComponent).join('%7C');
+    return u;
+  }
+
+  function leyenda(pts) {
+    return '<div class="leyenda-maps"><div class="lm-t">📍 En Google Maps verás estas letras:</div>' + pts.map(function (x, k) { return '<div><b>' + String.fromCharCode(65 + k) + '</b>' + esc(x) + '</div>'; }).join('') + '</div>';
+  }
+
+  function renderLinks() {
+    var cont = $('pl-links'); if (!cont) return;
+    var pts = puntosRuta();
+    if (pts.length < 2) { cont.innerHTML = '<div class="pl-vacio">Completá el origen y el destino para armar la ruta.</div>'; return; }
+    var MAXPTS = 11; // origen + 9 paradas + destino por enlace
+    if (pts.length <= MAXPTS) {
+      cont.innerHTML = '<a class="pl-btn" target="_blank" rel="noopener" href="' + esc(urlRuta(pts)) + '">🧭 Abrir ruta completa en Google Maps</a>' + leyenda(pts);
+      return;
+    }
+    var html = '<div class="pl-nota">Google Maps acepta hasta 9 paradas por ruta. Como tu viaje tiene más, lo dividí en tramos que se siguen uno a otro.</div>';
+    var ini = 0, n = 1;
+    while (ini < pts.length - 1) {
+      var fin = Math.min(ini + MAXPTS - 1, pts.length - 1);
+      html += '<a class="pl-btn" target="_blank" rel="noopener" href="' + esc(urlRuta(pts.slice(ini, fin + 1))) + '">🧭 Tramo ' + n + ': ' + esc(pts[ini]) + ' → ' + esc(pts[fin]) + '</a>' + leyenda(pts.slice(ini, fin + 1));
+      ini = fin; n++;
+    }
+    cont.innerHTML = html;
+  }
+
+  function textoResumen() {
+    var dias = calcularDias();
+    var l = ['🧭 ' + (plan.nombre ? plan.nombre + ': ' : 'Viaje: ') + (plan.origen || '?') + ' → ' + (plan.destino || '?'), ''];
+    var diaAct = 0;
+    plan.items.forEach(function (it) {
+      if (it.dia !== diaAct) { diaAct = it.dia; l.push('— Día ' + diaAct + ' —'); }
+      var t = TIPOS[it.tipo];
+      l.push(t.ic + ' ' + t.n + (it.lugar ? ': ' + it.lugar : '') + (it.nota ? ' (' + it.nota + ')' : ''));
+    });
+    if (plan.items.length === 0) l.push('(sin paradas cargadas todavía)');
+    l.push('', '🏁 Llegada: ' + (plan.destino || '?'));
+    l.push('', 'Armado con Info SimpleApp');
+    return l.join('\n');
+  }
+
+  function renderResumen() {
+    var cont = $('pl-resumen'); if (!cont) return;
+    var dias = calcularDias();
+    if (plan.items.length === 0) { cont.innerHTML = '<div class="pl-vacio">Cuando agregues paradas, acá aparece el resumen del viaje día por día.</div>'; return; }
+    var html = '<div class="pl-res-h">' + esc(plan.origen || '?') + ' → ' + esc(plan.destino || '?') + '</div>';
+    var diaAct = 0;
+    plan.items.forEach(function (it) {
+      if (it.dia !== diaAct) { diaAct = it.dia; html += '<div class="pl-dia">Día ' + diaAct + '</div>'; }
+      var t = TIPOS[it.tipo];
+      html += '<div class="pl-res-i"><span class="pl-res-ic">' + t.ic + '</span><div><b>' + esc(t.n) + '</b>' + (it.lugar ? ': ' + esc(it.lugar) : ' <i>(sin lugar)</i>') + (it.nota ? '<div class="pl-res-n">' + esc(it.nota) + '</div>' : '') + '</div></div>';
+    });
+    html += '<div class="pl-dia">Llegada</div><div class="pl-res-i"><span class="pl-res-ic">🏁</span><div><b>' + esc(plan.destino || '?') + '</b></div></div>';
+    cont.innerHTML = html;
+  }
+
+  function renderLista() {
+    var cont = $('pl-lista'); if (!cont) return;
+    calcularDias();
+    if (plan.items.length === 0) { cont.innerHTML = '<div class="pl-vacio">Todavía no agregaste paradas. Usá los botones de abajo: combustible, dormir, comer u otra parada.</div>'; return; }
+    var html = '';
+    plan.items.forEach(function (it, i) {
+      var t = TIPOS[it.tipo];
+      html += '<div class="pl-item pl-t-' + it.tipo + '" data-i="' + i + '">' +
+        '<div class="pl-item-h"><span class="pl-item-t">' + t.ic + ' ' + esc(t.n) + '</span><span class="pl-badge">Día ' + it.dia + '</span></div>';
+      if (it.tipo === 'frontera') {
+        html += '<div class="pl-fr">' + esc(it.lugar) + '</div>' +
+          '<div class="pl-nota">Verificá el estado del paso en Fronteras SimpleApp antes de salir.</div>';
+      } else {
+        html += '<input class="pl-in" data-k="lugar" type="text" value="' + esc(it.lugar) + '" placeholder="' + esc(t.ph) + '">';
+      }
+      html += '<input class="pl-in" data-k="nota" type="text" value="' + esc(it.nota) + '" placeholder="Nota (horario, nombre del lugar, reserva…)">' +
+        '<div class="pl-acc">' +
+        (it.tipo === 'frontera' ? '' : '<a class="pl-mini" target="_blank" rel="noopener" data-b="1" href="' + esc(urlBuscar(i)) + '">🔎 Buscar en Maps</a>') +
+        '<button type="button" class="pl-mini" data-a="up"' + (i === 0 ? ' disabled' : '') + '>▲</button>' +
+        '<button type="button" class="pl-mini" data-a="down"' + (i === plan.items.length - 1 ? ' disabled' : '') + '>▼</button>' +
+        '<button type="button" class="pl-mini pl-del" data-a="del">🗑️</button></div></div>';
+    });
+    cont.innerHTML = html;
+  }
+
+  function renderTodo() { renderLista(); renderLinks(); renderResumen(); }
+
+  function agregar(tipo) {
+    plan.items.push({ id: nuevoId(), tipo: tipo, lugar: '', nota: '' });
+    guardar(); renderTodo();
+  }
+  function setPaso(v) {
+    var f = idxFrontera();
+    plan.paso = v;
+    if (!v) { if (f >= 0) plan.items.splice(f, 1); }
+    else if (f >= 0) { plan.items[f].lugar = v; }
+    else { plan.items.push({ id: nuevoId(), tipo: 'frontera', lugar: v, nota: '' }); }
+    guardar(); renderTodo();
+  }
+
+  function init() {
+    if (!$('planificador') || $('planificador').getAttribute('data-ok')) return;
+    $('planificador').setAttribute('data-ok', '1');
+    cargar();
+    var sel = $('pl-paso');
+    sel.innerHTML = PASOS.map(function (p) { return '<option value="' + esc(p[0]) + '">' + esc(p[1]) + '</option>'; }).join('');
+    $('pl-viajes').addEventListener('change', function () {
+      var v = store.viajes.filter(function (x) { return x.id === this.value; }, this)[0];
+      if (v) { plan = v; guardar(); refrescarUI(); }
+    });
+    $('pl-nombre').addEventListener('input', function () {
+      plan.nombre = this.value; guardar();
+      var o = $('pl-viajes').querySelector('option[value="' + plan.id + '"]'); if (o) o.textContent = plan.nombre || 'Sin nombre';
+    });
+    $('pl-nuevo').addEventListener('click', function () { plan = nuevoPlan(nombreLibre()); store.viajes.push(plan); guardar(); refrescarUI(); $('pl-nombre').focus(); });
+    $('pl-dup').addEventListener('click', function () {
+      var c = JSON.parse(JSON.stringify(plan)); c.id = nuevoId(); c.nombre = (plan.nombre || 'Viaje') + ' (copia)';
+      c.items.forEach(function (i) { i.id = nuevoId(); });
+      store.viajes.push(c); plan = c; guardar(); refrescarUI();
+    });
+    $('pl-origen').addEventListener('input', function () { plan.origen = this.value; guardar(); renderLinks(); renderResumen(); });
+    $('pl-destino').addEventListener('input', function () { plan.destino = this.value; guardar(); renderLinks(); renderResumen(); });
+    sel.addEventListener('change', function () { setPaso(this.value); });
+    document.querySelectorAll('#planificador [data-add]').forEach(function (b) { b.addEventListener('click', function () { agregar(this.getAttribute('data-add')); }); });
+    var lista = $('pl-lista');
+    lista.addEventListener('input', function (e) {
+      var inp = e.target; if (!inp.getAttribute || !inp.getAttribute('data-k')) return;
+      var card = inp.closest('.pl-item'); var i = +card.getAttribute('data-i');
+      plan.items[i][inp.getAttribute('data-k')] = inp.value;
+      guardar(); renderLinks(); renderResumen();
+      var a = card.querySelector('a[data-b]'); if (a) a.href = urlBuscar(i);
+    });
+    lista.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-a]') : null; if (!b || b.disabled) return;
+      var i = +b.closest('.pl-item').getAttribute('data-i'), a = b.getAttribute('data-a');
+      if (a === 'del') {
+        if (plan.items[i].tipo === 'frontera') { plan.paso = ''; $('pl-paso').value = ''; }
+        plan.items.splice(i, 1);
+      } else {
+        var j = a === 'up' ? i - 1 : i + 1; if (j < 0 || j >= plan.items.length) return;
+        var t = plan.items[i]; plan.items[i] = plan.items[j]; plan.items[j] = t;
+      }
+      guardar(); renderTodo();
+    });
+    $('pl-copiar').addEventListener('click', function () {
+      var txt = textoResumen(), est = $('pl-estado');
+      function ok(m) { est.textContent = m; }
+      if (navigator.share) { navigator.share({ text: txt }).catch(function () {}); return; }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(function () { ok('Copiado: ya podés pegarlo en WhatsApp o donde quieras.'); }, function () { ok('No se pudo copiar. Mantené apretado el texto del resumen para copiarlo.'); });
+      else ok('Tu celular no permite copiar desde acá. Mantené apretado el texto del resumen para copiarlo.');
+    });
+    $('pl-borrar').addEventListener('click', function () {
+      if (!confirm('¿Borrar el viaje "' + (plan.nombre || 'sin nombre') + '"? No se puede deshacer.')) return;
+      var k = store.viajes.indexOf(plan);
+      store.viajes.splice(k, 1);
+      if (!store.viajes.length) store.viajes.push(nuevoPlan('Viaje 1'));
+      plan = store.viajes[Math.max(0, k - 1)] || store.viajes[0];
+      guardar(); refrescarUI();
+    });
+    refrescarUI();
+  }
+  // Abre el planificador con el viaje que se está armando en una pantalla de Rutas
+  // (rm = Misiones, ra = Argentina, rb = Sur de Brasil). Lee el enlace de Google Maps
+  // que esa pantalla ya armó: origen, destino y paradas intermedias.
+  var COORD_PASOS = { '-25.5999,-54.5620': 3, '-28.5500,-56.0300': 6, '-29.7370,-57.0700': 7 };
+  window.planificarRuta = function (pre) {
+    init();
+    var a = document.getElementById(pre + '-a-ruta'), q = {};
+    try {
+      var url = new URL(a.href);
+      url.searchParams.forEach(function (v, k) { q[k] = v; });
+    } catch (e) { return; }
+    var wps = (q.waypoints || '').split('|').filter(function (x) { return x; });
+    var items = [], paso = '';
+    wps.forEach(function (w) {
+      var k = COORD_PASOS[w] ? PASOS[COORD_PASOS[w]][0] : w;
+      var esPaso = PASOS.some(function (p, i) { return i > 0 && p[0] === k; });
+      if (esPaso && !paso) { paso = k; items.push({ id: nuevoId(), tipo: 'frontera', lugar: k, nota: '' }); }
+      else items.push({ id: nuevoId(), tipo: 'otro', lugar: k, nota: '' });
+    });
+    var corto = function (t) { return (t || '').split(',')[0].trim(); };
+    var nom = (corto(q.origin) && corto(q.destination)) ? (corto(q.origin) + ' → ' + corto(q.destination)) : nombreLibre();
+    plan = { id: nuevoId(), nombre: nom, origen: q.origin || '', destino: q.destination || '', paso: paso, items: items };
+    store.viajes.push(plan);
+    guardar(); refrescarUI();
+    window.showTab('planificador', null);
+  };
+  window.renderPlan = function () {
+    init();
+    // Red de seguridad: si al abrir la app los datos de App Inventor todavía no estaban
+    // listos, y el plan sigue vacío, lo volvemos a leer al entrar a esta pantalla.
+    if (store.viajes.length === 1 && plan.items.length === 0 && cargar()) refrescarUI();
+    else renderTodo();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
 <script>
