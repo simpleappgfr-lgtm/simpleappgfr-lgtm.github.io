@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Info SimpleApp — La navaja suiza de Misiones | Clima, SOS, rutas y noticias</title>
-<meta name="description" content="App gratuita para Misiones, el NEA y Sudamérica: clima y alertas oficiales, emergencias, rutas, noticias y cotizaciones. Usala en el navegador o en Play.">
-<meta name="keywords" content="Info SimpleApp, clima Misiones, farmacias de turno San Vicente, colectivos Posadas, alertas meteorológicas SMN, rutas Misiones, emergencias Argentina, noticias Misiones, app Misiones, app NEA">
+<title>Info SimpleApp — La navaja suiza de Misiones | Clima, rutas, fronteras y mini-apps</title>
+<meta name="description" content="App gratuita para vivir y viajar por Misiones y Sudamérica: clima, rutas, fronteras, plan de viaje, listas de compras, gastos y más. En Play o en el navegador.">
+<meta name="keywords" content="Info SimpleApp, listas de compras, plan de viaje, pasos fronterizos, clima Misiones, farmacias de turno San Vicente, colectivos Posadas, alertas meteorológicas SMN, rutas Misiones, emergencias Argentina, noticias Misiones, app Misiones, app NEA">
 <link rel="canonical" href="https://simpleappgfr-lgtm.github.io/">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Info SimpleApp — La navaja suiza de Misiones">
-<meta property="og:description" content="Clima, alertas oficiales, emergencias, rutas, noticias y mini-apps para Misiones, el NEA y Sudamérica. Gratis.">
+<meta property="og:description" content="Clima, alertas oficiales, rutas, fronteras, plan de viaje y mini-apps (listas de compras, gastos, mascotas, vehículos) para Misiones, el NEA y Sudamérica. Gratis.">
 <meta property="og:image" content="https://play-lh.googleusercontent.com/_gP2EtfYW0pBD6s2xqbJArpQYaNIbVJHmuwuIWhJMlqJ2CGPBTnShEpOnxkncbkmNZeLqgwNKtpQCGY9BAbiMw=s512">
 <meta property="og:url" content="https://simpleappgfr-lgtm.github.io/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Info SimpleApp — La navaja suiza de Misiones">
-<meta name="twitter:description" content="Clima, alertas oficiales, emergencias, rutas, noticias y mini-apps para Misiones, el NEA y Sudamérica. Gratis.">
+<meta name="twitter:description" content="Clima, alertas oficiales, rutas, fronteras, plan de viaje y mini-apps (listas de compras, gastos, mascotas, vehículos) para Misiones, el NEA y Sudamérica. Gratis.">
 <meta name="twitter:image" content="https://play-lh.googleusercontent.com/_gP2EtfYW0pBD6s2xqbJArpQYaNIbVJHmuwuIWhJMlqJ2CGPBTnShEpOnxkncbkmNZeLqgwNKtpQCGY9BAbiMw=s512">
 
 <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -30,7 +30,7 @@
   "name": "Info SimpleApp - Todo en uno",
   "operatingSystem": "ANDROID",
   "applicationCategory": "UtilitiesApplication",
-  "description": "App todo en uno para vivir y viajar por Misiones, el NEA y Sudamérica: clima, alertas meteorológicas oficiales, emergencias, rutas, noticias, feriados, cotizaciones y mini-apps.",
+  "description": "App todo en uno para vivir y viajar por Misiones, el NEA y Sudamérica: clima, alertas meteorológicas oficiales, emergencias, rutas, fronteras, plan de viaje, noticias, feriados, cotizaciones y mini-apps (listas de compras, gastos, mantenimiento de vehículos, mascotas y divisas).",
   "image": "https://play-lh.googleusercontent.com/_gP2EtfYW0pBD6s2xqbJArpQYaNIbVJHmuwuIWhJMlqJ2CGPBTnShEpOnxkncbkmNZeLqgwNKtpQCGY9BAbiMw=s512",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "ARS" },
   "installUrl": "https://play.google.com/store/apps/details?id=info.simpleapp"
@@ -43,6 +43,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="/flags-windows.js"></script>
 
 <style>
   :root{
@@ -224,6 +225,75 @@
     .dp-grid{grid-template-columns:1fr;}
     .hero-badge{display:none;}
   }
+
+  /* ===== NUEVO: secciones de mini-apps y viajes ===== */
+  .kicker{font-size:14px;font-weight:700;color:var(--oro);margin-bottom:8px;}
+  .tag-nuevo{display:inline-block;vertical-align:middle;margin-left:8px;background:var(--oro);color:#fff;font-family:'Barlow',sans-serif;font-size:11.5px;font-weight:800;letter-spacing:.3px;padding:2px 9px;border-radius:30px;}
+  .minis{padding:76px 0 70px;background:var(--crema-2);border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);}
+  .minis h2,.viajes h2,.info h2{font-size:clamp(32px,4.5vw,46px);max-width:20ch;margin-bottom:12px;}
+  .sec-sub{font-size:16px;color:var(--tierra-3);max-width:60ch;margin:0 0 38px;}
+  .acc{max-width:920px;display:flex;flex-direction:column;gap:12px;}
+  .acc details,.acc .fijo{background:#fff;border:1px solid var(--linea);border-radius:16px;box-shadow:0 6px 18px rgba(44,26,14,0.05);}
+  .acc details[open]{border-color:var(--oro-2);box-shadow:0 12px 30px rgba(44,26,14,0.10);}
+  .acc summary,.acc .fijo{display:grid;grid-template-columns:48px 1fr 24px;gap:14px;align-items:center;padding:16px 20px;}
+  .acc .fijo{grid-template-columns:48px 1fr;}
+  .acc summary{list-style:none;cursor:pointer;border-radius:16px;}
+  .acc summary::-webkit-details-marker{display:none;}
+  .acc summary:hover{background:var(--crema);}
+  .acc summary:focus-visible{outline:3px solid var(--oro-2);outline-offset:-3px;}
+  .acc .a-ic{width:48px;height:48px;border-radius:14px;background:var(--crema-2);display:flex;align-items:center;justify-content:center;font-size:24px;}
+  .acc .a-t{display:block;font-weight:800;font-size:17px;color:var(--tierra-2);}
+  .acc .a-d{display:block;font-size:14px;color:var(--tierra-3);margin-top:2px;}
+  .acc .a-chev{width:11px;height:11px;border-right:2.5px solid var(--oro);border-bottom:2.5px solid var(--oro);transform:rotate(45deg);justify-self:center;margin-top:-4px;transition:transform .2s;}
+  .acc details[open] .a-chev{transform:rotate(-135deg);margin-top:4px;}
+  .acc .a-body{padding:6px 24px 26px 82px;border-top:1px solid var(--crema-2);}
+  .acc .a-body p{font-size:14.5px;color:var(--tierra-3);margin:14px 0 0;max-width:68ch;}
+  .acc .a-body ul{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .acc .a-body li{font-size:14.5px;color:var(--tierra-3);max-width:68ch;}
+  .acc .a-body li b{color:var(--tierra-1);}
+  .acc .a-nota{font-size:13px;color:var(--tierra-3);opacity:.85;margin:14px 0 0;}
+  .acc .a-sub{font-weight:800;font-size:14px;color:var(--tierra-2);margin:20px 0 4px;}
+  .rubros{display:flex;flex-direction:column;}
+  .rubro{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:13px 0;border-top:1px solid var(--crema-2);}
+  .rubro:first-child{border-top:0;}
+  .rubro .ri{font-size:22px;line-height:1.2;}
+  .rubro .rn{font-weight:800;font-size:15.5px;color:var(--tierra-1);margin-bottom:5px;}
+  .rubro .rn small{font-weight:600;font-size:12.5px;color:var(--oro);margin-left:6px;}
+  .rubro .rl{font-size:12.5px;font-weight:700;color:var(--tierra-3);margin:9px 0 5px;}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;}
+  .chips span{font-size:12.5px;background:var(--crema);border:1px solid var(--linea);padding:3px 10px;border-radius:30px;color:var(--tierra-2);font-weight:600;}
+  .modo-apps{margin-top:22px;font-size:14px;color:var(--tierra-3);}
+  .porque{padding:68px 0 64px;}
+  .porque h2{font-size:clamp(30px,4.2vw,42px);max-width:22ch;margin-bottom:34px;}
+  .porque-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--linea);border:1px solid var(--linea);border-radius:18px;overflow:hidden;}
+  .pq{background:var(--crema);padding:26px 26px 28px;}
+  .pq h3{font-family:'Barlow',sans-serif;font-weight:800;font-size:18px;color:var(--tierra-2);margin-bottom:8px;line-height:1.25;}
+  .pq p{font-size:14.5px;color:var(--tierra-3);margin:0;max-width:40ch;}
+  @media (max-width:900px){ .porque-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .porque-grid{grid-template-columns:1fr;} .pq{padding:22px;} }
+  .hero .lead.lead2,.lead.lead2{font-size:16px;opacity:.85;margin-top:14px;}
+  .viajes{padding:76px 0 40px;}
+  .viajes .acc{margin-top:8px;}
+  .viajes .f-parada{margin-bottom:40px;}
+  .viajes .f-parada.nueva .pin{background:var(--oro);}
+  .info{padding:20px 0 70px;}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px 44px;margin-top:30px;}
+  .info-item{border-left:3px solid var(--oro-2);padding-left:18px;}
+  .info-item h3{font-family:'Barlow',sans-serif;font-weight:800;font-size:18px;color:var(--tierra-1);margin-bottom:6px;}
+  .info-item p{font-size:14.5px;color:var(--tierra-3);margin:0 0 8px;max-width:56ch;}
+  .privacidad{max-width:760px;margin:0 auto 40px;padding:26px 30px;border:1px solid var(--linea);border-radius:18px;background:var(--crema-2);}
+  .privacidad h3{font-family:'Barlow',sans-serif;font-weight:800;font-size:18px;color:var(--tierra-2);margin-bottom:8px;}
+  .privacidad p{font-size:14.5px;color:var(--tierra-3);margin:0;line-height:1.6;}
+  @media (max-width:600px){
+    .acc summary,.acc .fijo{grid-template-columns:42px 1fr 18px;gap:12px;padding:14px;}
+    .acc .fijo{grid-template-columns:42px 1fr;}
+    .acc .a-ic{width:42px;height:42px;font-size:21px;}
+    .acc .a-body{padding:4px 18px 22px 18px;}
+  }
+  @media (max-width:860px){
+    .info-grid{grid-template-columns:1fr;}
+  }
+  .chip-org{font-size:12.5px;background:var(--crema-2);border:1px solid var(--linea);padding:4px 11px;border-radius:30px;color:var(--tierra-2);font-weight:600;}
 </style>
 </head>
 <body>
@@ -243,8 +313,9 @@
     <div>
       <div class="eyebrow-route">🛣️ Nació en Misiones, cruza seis países</div>
       <h1>La <em>navaja suiza</em><br>de Misiones.</h1>
-      <p class="hero-aclaracion">la App todo en uno para el día a día</p>
-      <p class="lead">Clima, alertas oficiales, emergencias, rutas y noticias de más de 90 localidades en Argentina, Paraguay, Brasil, Uruguay, Chile y Bolivia. Todo en una sola app, gratis.</p>
+      <p class="hero-aclaracion">la App todo en uno</p>
+      <p class="lead">Todo lo del día a día, sin salir de la app: clima y alertas oficiales, emergencias, rutas, fronteras y noticias, más mini-apps para tus compras, gastos, vehículos, mascotas y divisas. Más de 90 localidades en Argentina, Paraguay, Brasil, Uruguay, Chile y Bolivia. Gratis, liviana y sin registro.</p>
+      <p class="lead lead2">Combina la información que viene de afuera con la que generás vos mismo: tus compras, tus gastos, el mantenimiento de tu auto y el cuidado de tus mascotas. Y sigue creciendo: sumamos contenidos, localidades y mini-apps.</p>
       <div class="hero-ctas">
         <a href="https://play.google.com/store/apps/details?id=info.simpleapp" target="_blank" rel="noopener">
           <img src="https://play.google.com/intl/es/badges/static/images/badges/es_badge_web_generic.png" alt="Disponible en Google Play" style="height:62px;">
@@ -253,12 +324,6 @@
         <span class="hero-sub-note">Gratis · Menos de 10 MB · Sin datos compartidos con terceros</span>
       </div>
       <p class="web-nota"><b>¿Sin Android o sin ganas de instalar?</b> Usá la versión web desde cualquier celular o computadora. Para tenerla como una app más: en Android, menú de Chrome → <i>Instalar app</i>; en iPhone, <i>Compartir → Añadir a pantalla de inicio</i>. La versión web necesita conexión a internet y guarda sus datos aparte de la app de Google Play.</p>
-
-      <div class="hero-ventajas">
-        <div class="ventaja"><span class="vicono">📶</span>Mucho de lo que guardás funciona sin conexión, y lo demás carga rápido aunque estés en otro país con poca señal</div>
-        <div class="ventaja"><span class="vicono">🚫</span>Sin publicidad invasiva que te interrumpa</div>
-        <div class="ventaja"><span class="vicono">✍️</span>No solo mostramos información de terceros: también podés cargar la tuya propia (gastos, mantenimiento de tu auto, tus mascotas) sin salir de la app</div>
-      </div>
 
       <div class="ruta-paises">
         <div class="parada"><div class="punto"></div><span>🇦🇷 Argentina</span></div>
@@ -280,72 +345,312 @@
         <img src="https://play-lh.googleusercontent.com/6RQm8AzT1xMALR5feqVFAo7zyMAK8W-Ad5OURV4fEJjxChLK8YzY5yEGCKYi-PBRWa321C2MruPmWB164F-Wbg=w720" alt="Captura de Info SimpleApp">
       </div>
       <div class="hero-badge hero-badge-1">⚠️ Alertas del SMN, INMET y más</div>
-      <div class="hero-badge hero-badge-2">🛣️ Rutas con combustible y hoteles</div>
+      <div class="hero-badge hero-badge-2">🛒 Listas, gastos y 4 mini-apps más</div>
     </div>
   </div>
 </header>
+
+<section class="porque" id="por-que">
+  <div class="wrap">
+    <div class="kicker">Por qué instalarla</div>
+    <h2>Una app para todo lo que necesitás</h2>
+    <div class="porque-grid">
+      <div class="pq"><h3>🧰 Todo en uno</h3><p>Clima, alertas, emergencias, rutas, fronteras, noticias y mini-apps en el mismo lugar. No hace falta abrir una app distinta para cada cosa.</p></div>
+      <div class="pq"><h3>🪶 Poco espacio</h3><p>Pesa menos de 10 MB. Entra aunque tu celular ande justo de memoria.</p></div>
+      <div class="pq"><h3>🆓 Gratis</h3><p>Se descarga y se usa sin costo.</p></div>
+      <div class="pq"><h3>🚫 Publicidad no invasiva</h3><p>Nada que te interrumpa cuando necesitás algo urgente, como una alerta o un teléfono de emergencia.</p></div>
+      <div class="pq"><h3>📶 Funciona sin señal</h3><p>Gran parte de la app funciona sin conexión, y lo demás carga rápido aunque estés en otro país con poca señal.</p></div>
+      <div class="pq"><h3>🔒 Sin registro, sin invadirte</h3><p>No pide registrarte ni crear una cuenta. Tus gastos, listas y mascotas se guardan en tu celular, y de las noticias mostramos solo los títulos, sin registrar qué leés.</p></div>
+    </div>
+  </div>
+</section>
 
 <section class="dos-publicos">
   <div class="wrap dp-grid">
     <div class="dp-card">
       <h3>🏠 Si vivís acá</h3>
-      <p>Todo lo de tu ciudad en una sola app: clima, alertas meteorológicas, teléfonos de emergencia, feriados, cotizaciones y noticias. En algunas localidades, además, sumamos cosas propias del lugar: farmacias de turno, colectivos urbanos, trenes y más.</p>
+      <p>Todo lo de tu ciudad en una sola app: clima, alertas meteorológicas, teléfonos de emergencia, feriados, cotizaciones, noticias y tus herramientas del día a día. En San Vicente (Misiones), farmacias de turno y colectivos. En Posadas, colectivos urbanos, el tren a Encarnación y apps útiles para descargar. En Buenos Aires, Subte, trenes y colectivos.</p>
     </div>
     <div class="dp-card">
       <h3>🧳 Si estás de viaje</h3>
-      <p>Llegá informado: clima antes de salir, alertas vigentes, a quién llamar en una emergencia según el país, feriados, conversión de tu dinero y tu ruta armada con combustible, hoteles y turismo incluidos.</p>
+      <p>Llegá informado: mirá el clima antes de salir, revisá si hay alertas meteorológicas, sabé a quién llamar en una emergencia según el país, consultá los feriados, convertí tu dinero, verificá el paso de frontera y armá tu ruta y tu plan de viaje con combustible, hoteles y turismo incluidos.</p>
+      <p><b>Sobre las fronteras:</b> Google Maps no sabe si un paso está abierto, ni si tiene Migraciones y Aduana, ni si la balsa está funcionando. Tampoco se entera de otros imprevistos como cierres por crecida del río, horarios limitados o temporadas. Por eso, antes de cruzar, consultá el estado del paso en Fronteras SimpleApp.</p>
     </div>
   </div>
 </section>
 
-<section class="funciones">
+<section class="minis" id="mini-apps">
   <div class="wrap">
-    <div class="kicker">El recorrido de la app</div>
-    <h2>Seis paradas, una sola app</h2>
+    <div class="kicker">Para tu día a día</div>
+    <h2>Mini-apps incluidas, sin instalar nada aparte</h2>
+    <p class="sec-sub">Además de mostrarte información, Info SimpleApp te deja cargar la tuya: tus compras, tus gastos, tu auto, tus mascotas. Tocá cada una para ver qué trae por dentro.</p>
 
-    <div class="ruta-funciones">
-      <div class="f-parada">
-        <div class="pin">🌤️</div>
-        <div>
-          <h3>Clima y alertas oficiales</h3>
-          <p>Pronóstico en vivo, altura de ríos con avisos de crecida, mar y playa en ciudades costeras, y alertas meteorológicas de los organismos oficiales de cada país. Combinamos tres fuentes distintas (Tiempo y Radar, Open-Meteo, y el organismo meteorológico oficial de cada país) para que tengas más de un punto de referencia, no uno solo.</p>
-          <div class="lista-chica"><span>SMN · Argentina</span><span>INMET · Brasil</span><span>INUMET · Uruguay</span><span>DMH · Paraguay</span><span>SENAPRED · Chile</span><span>SENAMHI · Bolivia</span></div>
+    <div class="acc">
+
+      <details name="mini" open>
+        <summary>
+          <span class="a-ic">🛒</span>
+          <span><span class="a-t">Listas de Compras SimpleApp</span><span class="a-d">Una lista para cada compra: súper, ferretería, librería, repuestos, farmacia y eventos.</span></span>
+          <span class="a-chev"></span>
+        </summary>
+        <div class="a-body">
+          <p>Cada rubro tiene su propia lista, independiente de las demás. Escribí varios productos juntos, separados por coma (“aceite, arroz, pan”), y se cargan de una vez.</p>
+          <ul>
+            <li><b>Marcá lo comprado.</b> Arriba de la lista ves cuántos productos te quedan pendientes, cuántos ya compraste y el presupuesto acumulado.</li>
+            <li><b>Clasificá por sector.</b> La app sugiere el sector de cada producto según su nombre y aprende dónde va cada uno. Después filtrás por sector para ir pasillo por pasillo.</li>
+            <li><b>Por proyecto.</b> Dos de los rubros funcionan por proyecto: agrupás los productos según la obra o el evento para el que los necesitás, o usás una lista general.</li>
+            <li><b>Respaldo.</b> Tus listas se guardan en tu celular. Copiás un respaldo y lo restaurás si alguna vez perdés los datos.</li>
+          </ul>
+          <div class="a-sub">Los seis rubros</div>
+          <div class="rubros">
+            <div class="rubro"><div class="ri">🛒</div><div><div class="rn">Supermercado</div>
+              <div class="chips"><span>Almacén</span><span>Verdulería</span><span>Panadería</span><span>Carnicería</span><span>Lácteos</span><span>Bebidas</span><span>Limpieza</span><span>Perfumería</span><span>Congelados</span><span>Dietética</span></div></div></div>
+            <div class="rubro"><div class="ri">🔧</div><div><div class="rn">Ferretería <small>por proyecto</small></div>
+              <div class="chips"><span>Electricidad</span><span>Plomería</span><span>Construcción</span><span>Pintura</span><span>Herramientas</span><span>Tornillería</span></div>
+              <div class="rl">Proyectos de ejemplo</div>
+              <div class="chips"><span>🏠 Construcción de casa</span><span>🛏️ Construcción de habitación</span><span>🚙 Reparación de garage</span><span>🚿 Renovación de baño</span><span>🍳 Renovación de cocina</span><span>🎨 Pintura general</span><span>⚡ Instalación eléctrica</span><span>🚰 Plomería</span><span>🚪 Cerca / portón</span></div></div></div>
+            <div class="rubro"><div class="ri">📚</div><div><div class="rn">Librería</div>
+              <div class="chips"><span>Útiles escolares</span><span>Oficina</span><span>Arte y manualidades</span><span>Papelería</span><span>Tecnología</span></div></div></div>
+            <div class="rubro"><div class="ri">🚗</div><div><div class="rn">Repuestos de vehículos</div>
+              <div class="chips"><span>Motor</span><span>Frenos</span><span>Suspensión</span><span>Eléctrico</span><span>Filtros y aceites</span><span>Neumáticos</span><span>Carrocería</span></div></div></div>
+            <div class="rubro"><div class="ri">💊</div><div><div class="rn">Farmacia</div>
+              <div class="chips"><span>Medicamentos</span><span>Primeros auxilios</span><span>Higiene personal</span><span>Cuidado del bebé</span><span>Cosmética</span><span>Vitaminas y suplementos</span><span>Cuidado del adulto mayor</span></div></div></div>
+            <div class="rubro"><div class="ri">🎉</div><div><div class="rn">Eventos Especiales <small>por evento</small></div>
+              <div class="chips"><span>Decoración</span><span>Comida y bebida</span><span>Vestimenta</span><span>Regalos</span><span>Salón / lugar</span><span>Música</span></div>
+              <div class="rl">Eventos de ejemplo</div>
+              <div class="chips"><span>🎂 Cumpleaños</span><span>🍼 Baby Shower</span><span>👶 Bautismo</span><span>💍 Casamiento</span><span>🎓 Graduación</span><span>🥳 Despedida de soltero/a</span><span>🎄 Navidad</span><span>🎆 Año Nuevo</span><span>💑 Aniversario</span><span>🏡 Inauguración de casa</span></div></div></div>
+          </div>
         </div>
+      </details>
+
+      <details name="mini">
+        <summary>
+          <span class="a-ic">💰</span>
+          <span><span class="a-t">Gastos SimpleApp</span><span class="a-d">Registrá los gastos del hogar y mirá en qué se te va la plata, mes a mes.</span></span>
+          <span class="a-chev"></span>
+        </summary>
+        <div class="a-body">
+          <ul>
+            <li><b>Cargá cada gasto</b> con categoría, fecha, monto y concepto. Podés sumar el medio de pago (efectivo, débito, crédito o transferencia) y notas.</li>
+            <li><b>Categorías.</b> Vienen Servicios, Supermercado, Vehículos, Mantenimiento del hogar, Salud, Seguros y Varios, y podés crear las tuyas.</li>
+            <li><b>Historial.</b> Filtrá por año, mes o categoría, o buscá por texto. Tocá un gasto para editarlo o borrarlo.</li>
+            <li><b>Estadísticas.</b> Elegí un año y mirá el gasto mes a mes. Tocá una barra para ver el detalle por categoría de ese mes.</li>
+            <li><b>Compartir.</b> Armá un resumen del período (total, promedio y gasto por categoría) y mandalo por WhatsApp, por ejemplo a tu familia, o copiá el informe.</li>
+            <li><b>Copia de seguridad.</b> Los datos quedan en tu celular. Copiás el texto de respaldo y lo pegás para restaurar si cambiás de celular.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details name="mini">
+        <summary>
+          <span class="a-ic">🚗</span>
+          <span><span class="a-t">Rodados SimpleApp</span><span class="a-d">Services, combustible, repuestos y vencimientos de tus vehículos.</span></span>
+          <span class="a-chev"></span>
+        </summary>
+        <div class="a-body">
+          <p>Podés cargar cualquier tipo de vehículo (auto, camioneta, camión, moto) y todas las pestañas muestran el que tengas activo.</p>
+          <ul>
+            <li><b>Vehículos.</b> Marca, modelo, año, patente, combustible (nafta, diésel, GNC, nafta/GNC, eléctrico o híbrido) y kilometraje. Conviene mantener el kilometraje al día: de ahí se calcula casi todo lo demás.</li>
+            <li><b>Mantenimiento.</b> Anotá cada service, cambio de aceite o de frenos con fecha, kilometraje, costo y taller, y el próximo kilometraje o fecha.</li>
+            <li><b>Combustible.</b> Registrá cada carga con litros, costo y kilometraje. Con varias cargas, la app estima tu consumo y lo que gastás.</li>
+            <li><b>Repuestos.</b> Pastillas, filtros, correas: costo, proveedor y, si querés, vinculados a un mantenimiento.</li>
+            <li><b>Recordatorios.</b> Te muestra qué se viene venciendo, según el intervalo típico o el que vos configures, y te avisa al abrir la app. Son valores estimados: no reemplazan la recomendación de tu mecánico.</li>
+            <li><b>Historial e informe.</b> Línea de tiempo con todos los registros y un resumen de gastos, más un informe para compartir por WhatsApp.</li>
+            <li><b>Respaldo.</b> Tus datos viven en tu celular: hacé un respaldo de vez en cuando.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details name="mini">
+        <summary>
+          <span class="a-ic">🐾</span>
+          <span><span class="a-t">Mascotas SimpleApp</span><span class="a-d">Vacunas, controles y avisos para tus perros, gatos y otras mascotas.</span></span>
+          <span class="a-chev"></span>
+        </summary>
+        <div class="a-body">
+          <p>Para llevar el control de tus mascotas: perros, gatos, peces, pájaros y hámsters.</p>
+          <ul>
+            <li><b>Espacios.</b> Primero creás dónde vive tu mascota: casa, patio, balcón…</li>
+            <li><b>Animales.</b> Creás los tipos que tenés (perros, gatos…) y cargás cada animal de forma individual, con su nombre o ID, o por lote, con la cantidad. Podés anotar sexo, peso, raza, señas y fecha de nacimiento.</li>
+            <li><b>Vacunas y sanidad.</b> Registrá cada vacuna (por ejemplo, la antirrábica anual de tu perro) y los controles y tratamientos.</li>
+            <li><b>Eventos.</b> Anotá lo importante, como crías o tratamientos.</li>
+            <li><b>Alertas.</b> La app te avisa cuándo toca el próximo control y te muestra cuántas alertas tenés pendientes.</li>
+            <li><b>Perfiles separados.</b> Si tenés mascotas en lugares distintos (tu casa y la de tus papás), creás un perfil para cada uno, con sus propios animales, espacios y registros.</li>
+            <li><b>Historial y respaldo.</b> Revisá todo lo registrado y guardá una copia de seguridad.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details name="mini">
+        <summary>
+          <span class="a-ic">💱</span>
+          <span><span class="a-t">Divisas SimpleApp</span><span class="a-d">Convertí pesos, dólar, real, guaraní y más, y calculá cuánto te sale cambiar.</span></span>
+          <span class="a-chev"></span>
+        </summary>
+        <div class="a-body">
+          <p>Convertí entre peso argentino, dólar (blue y oficial), real (blue y oficial), guaraní, peso uruguayo, peso chileno, boliviano, euro y libra esterlina.</p>
+          <ul>
+            <li><b>Compra y venta.</b> Para dólar y real ves los dos precios: el de compra (lo que te pagan si vendés) y el de venta (lo que pagás si comprás). El resto tiene un único valor de referencia.</li>
+            <li><b>¿Te ofrecen otra cotización?</b> Elegí si vas a vender o a comprar y escribí lo que te ofrecen por 1 unidad, en pesos. La app calcula el resultado para que lo compares con la cotización de referencia.</li>
+            <li><b>¿Cuánto me sale lo que compré?</b> Si compraste la moneda a un precio distinto al del mercado (en la frontera, por ejemplo), cargás a cuánto la compraste y cuánto te cobran, y la app calcula el costo real en pesos.</li>
+            <li><b>Cotizaciones del día.</b> Mirá todas juntas, con compra y venta o con el valor de referencia.</li>
+          </ul>
+          <p class="a-nota">Son valores de referencia: pueden variar según dónde cambies.</p>
+        </div>
+      </details>
+
+      <details name="mini">
+        <summary>
+          <span class="a-ic">🧠</span>
+          <span><span class="a-t">Trivia</span><span class="a-d">Preguntas por categorías para jugar solo o entre amigos, directo desde la app.</span></span>
+          <span class="a-chev"></span>
+        </summary>
+        <div class="a-body">
+          <p>Un juego de preguntas y respuestas con ruleta, para pasar el rato sin salir de la app.</p>
+          <ul>
+            <li><b>Nueve categorías.</b> Más de 300 preguntas repartidas entre ellas.</li>
+            <li><b>Ruleta.</b> Girás la ruleta y te toca una categoría para responder.</li>
+            <li><b>Cómo se gana.</b> Tenés 3 vidas y sumás puntos con cada acierto. Una categoría se completa con 2 aciertos, y ganás cuando completás las nueve.</li>
+            <li><b>Otra partida.</b> Al terminar ves tu puntaje final y podés jugar de nuevo.</li>
+          </ul>
+          <div class="chips" style="margin-top:14px;"><span>🧪 Ciencia</span><span>⚽ Deportes</span><span>🎬 Películas</span><span>📜 Historia</span><span>🌍 Geografía</span><span>📰 Actualidad</span><span>🎵 Música</span><span>💻 Tecnología</span><span>🧳 Turismo</span></div>
+          <p class="a-nota">Las preguntas se crearon con inteligencia artificial y pueden contener errores.</p>
+        </div>
+      </details>
+
+
+    </div>
+    <p class="modo-apps">¿Solo querés las mini-apps? Elegí el modo <b>Aplicaciones SimpleApp</b>: una pantalla simple, sin el resto.</p>
+  </div>
+</section>
+
+<section class="viajes" id="viajes">
+  <div class="wrap">
+    <div class="kicker">Para viajar</div>
+    <h2>Ruta, frontera y plan de viaje</h2>
+    <p class="sec-sub">Del “por dónde voy” al “dónde cargo, duermo y cruzo”, en el mismo lugar.</p>
+
+    <div class="acc">
+      <details name="viaje">
+        <summary>
+          <span class="a-ic">🛣️</span>
+          <span><span class="a-t">Rutas de Misiones SimpleApp</span><span class="a-d">Origen y destino entre 37 localidades misioneras, combustible, hoteles y estado de rutas.</span></span>
+          <span class="a-chev"></span>
+        </summary>
+        <div class="a-body">
+          <p>Elegí origen y destino y abrí la ruta directo en Google Maps, o buscá estaciones de servicio.</p>
+          <ul>
+            <li><b>37 localidades de Misiones</b> para elegir como origen o destino, o tu ubicación actual.</li>
+            <li><b>Cerca de un punto.</b> Estaciones de servicio, hoteles y alojamiento, y qué hacer y lugares turísticos.</li>
+            <li><b>Cortes y tránsito.</b> Acceso al mapa de Waze (cortes y accidentes) y al estado de rutas de Misiones (Ruta0).</li>
+            <li><b>Mapa sin conexión.</b> Una guía paso a paso para descargar Misiones en Google Maps y usarlo sin señal.</li>
+            <li><b>Planificar el viaje.</b> Un botón lleva la ruta a Plan de Viaje SimpleApp.</li>
+          </ul>
+          <p class="a-nota">Los avisos de cortes dependen de lo que reporten otros usuarios, así que en rutas poco transitadas pueden faltar o llegar tarde.</p>
+        </div>
+      </details>
+      <details name="viaje">
+        <summary>
+          <span class="a-ic">🇦🇷</span>
+          <span><span class="a-t">Rutas de Argentina SimpleApp</span><span class="a-d">Rutas entre ciudades de todo el país, con combustible, hoteles y turismo.</span></span>
+          <span class="a-chev"></span>
+        </summary>
+        <div class="a-body">
+          <p>La misma idea que Rutas de Misiones, pero para recorrer todo el país.</p>
+          <ul>
+            <li><b>Ciudades de todas las provincias,</b> de Misiones a Ushuaia, con la provincia indicada al lado de cada nombre.</li>
+            <li><b>Ruta en Google Maps</b> con origen y destino, e intercambio rápido entre ambos.</li>
+            <li><b>Cerca de un punto.</b> Estaciones de servicio, hoteles y alojamiento, y qué hacer y lugares turísticos.</li>
+            <li><b>Planificar el viaje.</b> Pasá la ruta a Plan de Viaje SimpleApp para sumar paradas.</li>
+          </ul>
+          <p class="a-nota">Para ver estaciones u hoteles a lo largo de todo el trayecto, la app te explica cómo hacerlo dentro de Google Maps con “Agregar paradas”.</p>
+        </div>
+      </details>
+      <details name="viaje">
+        <summary>
+          <span class="a-ic">🇧🇷</span>
+          <span><span class="a-t">Rutas del Sur de Brasil SimpleApp</span><span class="a-d">Viajá desde Argentina a Paraná, Santa Catarina y Rio Grande do Sul, eligiendo el paso.</span></span>
+          <span class="a-chev"></span>
+        </summary>
+        <div class="a-body">
+          <p>Pensada para cruzar a Brasil: cubre Paraná, Santa Catarina y Rio Grande do Sul.</p>
+          <ul>
+            <li><b>Origen y destino.</b> Salí desde ciudades argentinas (y otras de la región) hacia destinos brasileños como Florianópolis, Balneário Camboriú, Curitiba, Gramado, Porto Alegre o Foz do Iguaçu.</li>
+            <li><b>Elegí el paso de frontera.</b> Google no deja decirle “evitá este paso”, pero sí obligarlo a pasar por el que elijas. Si te propone uno sin Migraciones, elegís otro con control y la ruta se recalcula.</li>
+            <li><b>Paradas en el camino.</b> Sumás paradas de Argentina y de Brasil, en el orden correcto: origen, paradas, paso, paradas, destino.</li>
+            <li><b>Multas.</b> Si viajás con patente argentina, enlaces para consultar multas en Brasil (Detran-RS, Detran-SC y otros), porque impagas pueden retener el vehículo al volver.</li>
+          </ul>
+          <p class="a-nota">Desde Misiones, Bernardo de Irigoyen es el más seguro: es frontera seca, sin río ni balsa. Las balsas se cortan por crecida y tienen horario limitado.</p>
+        </div>
+      </details>
+      <details name="viaje">
+        <summary>
+          <span class="a-ic">🛂</span>
+          <span><span class="a-t">Fronteras SimpleApp <span class="tag-nuevo">Nuevo</span></span><span class="a-d">Verificá cada paso antes de salir: Migraciones, Aduana, horarios y temporadas.</span></span>
+          <span class="a-chev"></span>
+        </summary>
+        <div class="a-body">
+          <p>Google Maps elige la ruta más corta, pero no sabe si un puente o una balsa tiene Migraciones y Aduana, ni qué días y horarios funciona. Esta sección sí te lo recuerda.</p>
+          <ul>
+            <li><b>Estado de cada paso.</b> ✅ control completo, 🔶 revisar horario o condición, ⛔ no opera.</li>
+            <li><b>Mapa de pasos fronterizos</b> y enlace al estado oficial en argentina.gob.ar.</li>
+            <li><b>Por qué verificar.</b> Pasos estacionales, balsas que suspenden por crecida, horarios distintos en cada lado y pasos de tránsito vecinal.</li>
+            <li><b>Lista “antes de salir”.</b> Confirmar el estado el día del viaje, sumar el paso como parada en Google Maps y llevar un plan B de 24 hs.</li>
+          </ul>
+          <div class="chips" style="margin-top:14px;"><span>🇧🇷 Brasil</span><span>🇵🇾 Paraguay</span><span>🇺🇾 Uruguay</span></div>
+        </div>
+      </details>
+      <details name="viaje">
+        <summary>
+          <span class="a-ic">🗓️</span>
+          <span><span class="a-t">Plan de Viaje SimpleApp <span class="tag-nuevo">Nuevo</span></span><span class="a-d">Armá tu viaje con paradas para cargar combustible, dormir y comer.</span></span>
+          <span class="a-chev"></span>
+        </summary>
+        <div class="a-body">
+          <p>Armá el viaje paso a paso y llevalo a Google Maps.</p>
+          <ul>
+            <li><b>Origen, destino y cruce de frontera.</b> Si elegís un paso, aparece como una parada más.</li>
+            <li><b>Paradas en orden.</b> Las movés hacia arriba o abajo hasta que quede el recorrido que querés.</li>
+            <li><b>Tipos de parada.</b> Combustible, dormir, comer u otra parada, cada una buscada cerca del punto anterior.</li>
+            <li><b>Mis viajes.</b> Guardá varios viajes, cada uno con su nombre, y duplicalos.</li>
+            <li><b>Compartir.</b> Enviá el resumen del viaje.</li>
+          </ul>
+          <p class="a-nota">Confirmá siempre en Fronteras SimpleApp que el paso esté abierto.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="info" id="informacion">
+  <div class="wrap">
+    <div class="kicker">Lo de tu ciudad, al instante</div>
+    <h2>Clima, emergencias, transporte y noticias</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <h3>🌤️ Clima y alertas oficiales</h3>
+        <p>Pronóstico en vivo para cada localidad. Altura de ríos en tiempo real (Paraná, Uruguay, Iguazú) con avisos de crecida. Mar y playa (oleaje, temperatura del agua, índice UV) en ciudades costeras de Argentina, Brasil, Uruguay y Chile.</p>
+        <div class="lista-chica" style="display:flex;flex-wrap:wrap;gap:8px;"><span class="chip-org">SMN · Argentina</span><span class="chip-org">INMET · Brasil</span><span class="chip-org">INUMET · Uruguay</span><span class="chip-org">DMH · Paraguay</span><span class="chip-org">SENAPRED · Chile</span><span class="chip-org">SENAMHI · Bolivia</span></div>
       </div>
-      <div class="f-parada">
-        <div class="pin">🆘</div>
-        <div>
-          <h3>Emergencias</h3>
-          <p>Números de emergencia de los seis países, con aclaraciones claras sobre cuándo funciona cada uno según dónde estés.</p>
-        </div>
+      <div class="info-item">
+        <h3>🆘 Emergencias</h3>
+        <p>Números de emergencia de Argentina, Paraguay, Brasil, Uruguay, Chile y Bolivia, con aclaraciones claras sobre cuándo funciona cada número según el país donde estés.</p>
       </div>
-      <div class="f-parada">
-        <div class="pin">🛣️</div>
-        <div>
-          <h3>Rutas SimpleApp</h3>
-          <p>Armá tu ruta y abrila directo en Google Maps. Combustible, hoteles y turismo cerca de cada punto del trayecto, estado de rutas en vivo y cómo descargar el mapa sin conexión. Tres versiones: Misiones, toda Argentina y el sur de Brasil.</p>
-        </div>
+      <div class="info-item">
+        <h3>🚍 Transporte urbano</h3>
+        <p><b>Buenos Aires:</b> Subte, trenes del área metropolitana y colectivos. <b>Posadas:</b> colectivos urbanos, tren internacional a Encarnación y apps útiles para descargar (SEM Mobile, Uber, SUBE Misionero). <b>San Vicente:</b> horarios de colectivos urbanos y farmacias de turno.</p>
       </div>
-      <div class="f-parada">
-        <div class="pin">🚍</div>
-        <div>
-          <h3>Transporte urbano</h3>
-          <p>En las localidades donde está disponible: subte, trenes urbanos e interurbanos, colectivos urbanos, trenes internacionales y apps útiles para descargar, según lo que tenga cada ciudad.</p>
-        </div>
+      <div class="info-item">
+        <h3>📰 Noticias</h3>
+        <p>Titulares de diarios importantes, mezclados por sección: Economía y Finanzas, Política, Tecnología, Autos, Turismo, Nacional, Mundo, Lifestyle, Deportes y Espectáculos. Tocás una noticia y leés la nota completa en el sitio del diario. Con carga rápida y un modo Noticias, solo con Noticias, Calendario y Negocios.</p>
       </div>
-      <div class="f-parada">
-        <div class="pin">📰</div>
-        <div>
-          <h3>Noticias y cotizaciones</h3>
-          <p>Titulares por sección de diarios importantes, con acceso a la nota completa en el sitio del diario. Dólar, real y guaraní actualizados.</p>
-        </div>
+      <div class="info-item">
+        <h3>📆 Calendario de feriados</h3>
+        <p>Se adapta automáticamente al país de la ciudad elegida.</p>
       </div>
-      <div class="f-parada">
-        <div class="pin">📲</div>
-        <div>
-          <h3>Mini-apps para el día a día</h3>
-          <p>Gastos, listas de compras, mantenimiento de vehículos, cuidado de mascotas, conversor de divisas y trivia — todo adentro, sin instalar nada aparte.</p>
-        </div>
+      <div class="info-item">
+        <h3>💵 Cotizaciones</h3>
+        <p>Dólar, real y guaraní actualizados, y el convertidor de Divisas para comparar.</p>
       </div>
     </div>
   </div>
@@ -357,7 +662,7 @@
     <p class="sub">Con más detalle en Misiones, Corrientes, Chaco y Formosa — y cobertura en seis países.</p>
     <div class="paises-grid">
       <div class="pais-card"><div class="bandera">🇦🇷</div><h4>Argentina</h4><p>23 provincias + CABA</p></div>
-      <div class="pais-card"><div class="bandera">🇵🇾</div><h4>Paraguay</h4><p>Asunción, Encarnación, CDE</p></div>
+      <div class="pais-card"><div class="bandera">🇵🇾</div><h4>Paraguay</h4><p>Asunción, Encarnación, Ciudad del Este</p></div>
       <div class="pais-card"><div class="bandera">🇧🇷</div><h4>Brasil</h4><p>PR, SC, RS, SP, RJ, DF</p></div>
       <div class="pais-card"><div class="bandera">🇺🇾</div><h4>Uruguay</h4><p>Montevideo, Punta del Este</p></div>
       <div class="pais-card"><div class="bandera">🇨🇱</div><h4>Chile</h4><p>Santiago, Valparaíso</p></div>
@@ -380,20 +685,6 @@
   </div>
 </section>
 
-<section class="miniapps">
-  <div class="wrap">
-    <h2>Mini-apps incluidas</h2>
-    <div class="mini-list">
-      <div class="mini-item"><b>💰 Gastos SimpleApp</b><span>Registrá los gastos del hogar por categoría, armá tu presupuesto mensual y mirá en qué se te va la plata, sin planillas.</span></div>
-      <div class="mini-item"><b>🛒 Listas de Compras</b><span>Listas que se organizan solas por rubro (verdulería, almacén, limpieza...) y aprenden a clasificar lo que vas agregando, para que no se te pierda nada en el súper.</span></div>
-      <div class="mini-item"><b>🚗 Rodados SimpleApp</b><span>Llevá el mantenimiento de tus vehículos: cambios de aceite, service, vencimientos y gastos, para no perder la cuenta de cuándo tocó cada cosa.</span></div>
-      <div class="mini-item"><b>🐾 Mascotas SimpleApp</b><span>Vacunas, desparasitaciones y controles de tus mascotas, con recordatorios para no pasarte la fecha de la próxima dosis.</span></div>
-      <div class="mini-item"><b>💱 Divisas SimpleApp</b><span>Convertí entre peso, dólar (oficial y blue), real, guaraní y más, y compará si la cotización que te ofrecen es conveniente o no.</span></div>
-      <div class="mini-item"><b>🧠 Trivia</b><span>Preguntas por categorías para jugar solo o entre amigos, directo desde la app.</span></div>
-    </div>
-  </div>
-</section>
-
 <section class="wrap">
   <div class="cta-final">
     <h2>Llevala en el bolsillo</h2>
@@ -406,9 +697,13 @@
 </section>
 
 <section class="wrap">
+  <div class="privacidad">
+    <h3>🔒 Tu privacidad</h3>
+    <p>Info SimpleApp muestra solo los títulos de las noticias y te lleva al sitio del diario. No almacenamos las noticias ni registramos qué leés.</p>
+  </div>
   <div class="en-construccion">
     <h3>Un proyecto que sigue creciendo</h3>
-    <p>El objetivo de Info SimpleApp es combinar dos tipos de información en un solo lugar: la que viene de afuera (clima, alertas oficiales, noticias, cotizaciones) y la que generás vos mismo adentro de la app (tus gastos, el mantenimiento de tu auto, el cuidado de tus mascotas y mucho más). Es un proyecto en construcción permanente: seguimos sumando contenidos, localidades y mini-apps. Si tu ciudad todavía no está, escribinos y vemos la posibilidad de incluirla. Y si encontrás un error o tenés una idea para mejorarla, también contanos: <a href="mailto:simpleappgfr@gmail.com">simpleappgfr@gmail.com</a>.</p>
+    <p>El objetivo de Info SimpleApp es combinar dos tipos de información en un solo lugar: la que viene de afuera (clima, alertas oficiales, noticias, cotizaciones) y la que generás vos mismo adentro de la app (tus compras, tus gastos, el mantenimiento de tu auto, el cuidado de tus mascotas y mucho más). Es un proyecto en construcción permanente: seguimos sumando contenidos, localidades y mini-apps. Si tu ciudad todavía no está, escribinos y vemos la posibilidad de incluirla. Y si encontrás un error o tenés una idea para mejorarla, también contanos: <a href="mailto:simpleappgfr@gmail.com">simpleappgfr@gmail.com</a>.</p>
   </div>
 </section>
 
@@ -418,6 +713,7 @@
 
 <footer>
   Hecho en Misiones por SimpleApp Aplicaciones · <a href="mailto:simpleappgfr@gmail.com">simpleappgfr@gmail.com</a> · <a href="https://sites.google.com/view/infosimpleapp/p%C3%A1gina-principal" target="_blank" rel="noopener">Política de Privacidad</a>
+  <br><span style="font-size:11.5px;opacity:.8;">Banderas: <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">Twemoji</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>)</span>
 </footer>
 
 <script defer src="/analytics.js"></script>
