@@ -1043,6 +1043,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       <div class="hdr-sub hdr-city-trigger" id="hdr-city-trigger" onclick="toggleCityMenu(event)"><span id="hdr-city-icon">📍</span> <span id="hdr-city-label">SAN VICENTE · MISIONES · ARG</span> <span class="hdr-city-arrow">▾</span></div>
       <div style="font-size:8.5px;color:rgba(255,255,255,0.65);margin-top:2px;letter-spacing:0.3px;">Tocá para cambiar de ciudad, ver las aplicaciones o las noticias</div>
     </div>
+    <div id="ini-conexion" class="ini-con ini-con-chk" role="status">⏳ …</div>
   </div>
 </header>
 
@@ -1076,6 +1077,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   <button onclick="hdrMenuGo('rutas-brasil')"><span class="hdr-dd-ic">🇧🇷</span>Rutas del Sur de Brasil SimpleApp</button>
   <button onclick="hdrMenuGo('fronteras')"><span class="hdr-dd-ic">🛂</span>Fronteras SimpleApp</button>
   <button onclick="hdrMenuGo('planificador')"><span class="hdr-dd-ic">🗓️</span>Plan de Viaje SimpleApp</button>
+  <button onclick="hdrMenuGo('navaja')"><span class="hdr-dd-ic">🧰</span>Navaja Suiza SimpleApp</button>
   <div class="hdr-dd-section-title">⚙️ Ajustes</div>
   <button onclick="reactivarPantallaBienvenida()"><span class="hdr-dd-ic">🔄</span>Mostrar pantalla de bienvenida</button>
 </div>
@@ -1180,6 +1182,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   <button onclick="showTab('rutas-brasil',this)">🇧🇷 <span class="nav-label">Rutas Brasil</span></button>
   <button onclick="showTab('fronteras',this)">🛂 <span class="nav-label">Fronteras SimpleApp</span></button>
   <button onclick="showTab('planificador',this)">🗓️ <span class="nav-label">Plan de Viaje SimpleApp</span></button>
+  <button onclick="showTab('navaja',this)">🧰 <span class="nav-label">Navaja Suiza SimpleApp</span></button>
 </nav>
 
 <!-- ============ INICIO ============ -->
@@ -1205,8 +1208,9 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 
   <div class="stage-title">🌤️ Tiempo en <span id="clima-stage-ciudad">San Vicente</span></div>
 
-  <a href="https://www.tiempoyradar.com.ar/tiempo/san-vicente/17138378" target="_blank" rel="noopener" id="clima-link-radar"
-    style="display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#0a1a30,#102545);border:1px solid #2a4a7a;border-radius:10px 10px 0 0;padding:9px 12px;text-decoration:none;cursor:pointer;transition:opacity 0.15s;"
+  <div style="font-size:11px;font-weight:800;color:#90caf9;letter-spacing:0.5px;margin:2px 2px 5px;">📡 Clima según Open-Meteo <span style="font-weight:600;color:var(--muted);">(modelo meteorológico)</span></div>
+  <a href="https://www.tiempoyradar.com.ar/tiempo/san-vicente/17138378" onclick="return false;" id="clima-link-radar"
+    style="cursor:default;display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#0a1a30,#102545);border:1px solid #2a4a7a;border-radius:10px 10px 0 0;padding:9px 12px;text-decoration:none;cursor:pointer;transition:opacity 0.15s;"
     ontouchstart="this.style.opacity='0.75'" ontouchend="this.style.opacity='1'">
     <div id="clima-icono" style="font-size:26px;flex-shrink:0;">🌦️</div>
     <div style="flex:1;">
@@ -1215,14 +1219,13 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
         <span id="clima-desc" style="font-size:10.5px;font-weight:700;color:#cfe3ff;">Cargando clima...</span>
       </div>
       <div style="font-size:9.5px;color:#90caf9;margin-top:1px;" id="clima-ciudad-sub">San Vicente · Misiones</div>
-      <div style="font-size:8.5px;color:rgba(255,255,255,0.45);margin-top:2px;">Tocá para ver el pronóstico extendido y el radar en vivo</div>
     </div>
-    <div style="font-size:15px;color:#2a4a7a;">›</div>
   </a>
 
-  <div id="clima-aviso-tormenta-wrap" style="display:none;background:rgba(240,178,92,0.14);border:1px solid #d4a017;border-left:none;border-right:none;padding:8px 12px;font-size:10.5px;line-height:1.4;color:var(--text);">
-    <div id="clima-aviso-tormenta-texto" style="font-weight:800;color:#d4a017;"></div>
-    <div style="font-size:9px;color:var(--muted);margin-top:3px;">Esto es una estimación de nuestro pronóstico (Open-Meteo), no una alerta oficial. Para confirmar, revisá <a href="#" id="clima-aviso-link-radar" style="color:#d4a017;font-weight:700;">Tiempo y Radar</a> y, si tu ciudad es de Argentina, la tarjeta del SMN más abajo.</div>
+  <div id="clima-aviso-tormenta-wrap" style="background:rgba(144,202,249,0.10);border:1px solid #2a4a7a;border-top:none;border-bottom:none;padding:8px 12px;font-size:10.5px;line-height:1.4;color:var(--text);">
+    <div style="font-size:9px;font-weight:800;color:#90caf9;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:2px;">Alerta Open-Meteo (estimada)</div>
+    <div id="clima-aviso-tormenta-texto" style="font-weight:800;color:#90caf9;">Consultando el pronóstico…</div>
+    <div style="font-size:9px;color:var(--muted);margin-top:3px;">Es una estimación del modelo, no una alerta oficial. Para confirmar, mirá Tiempo y Radar y las alertas oficiales (SMN / INMET) más abajo.</div>
   </div>
 
   <div style="background:linear-gradient(135deg,#102545,#0a1a30);border:1px solid #2a4a7a;border-top:none;border-radius:0 0 10px 10px;margin-bottom:14px;padding:7px 12px;">
@@ -1290,6 +1293,13 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 
   <div style="font-size:9.5px;color:var(--muted);line-height:1.4;margin:-8px 0 14px 2px;">
     Datos: <strong>Open-Meteo</strong>. Valores estimados de un modelo regional; pueden no coincidir exactamente con lo que se observa en el momento.
+  </div>
+
+  <div style="font-size:11px;font-weight:800;color:#90caf9;letter-spacing:0.5px;margin:4px 2px 5px;">🌦️ Clima según Tiempo y Radar</div>
+  <div onclick="abrirLink(document.getElementById('clima-link-radar').href)" style="display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#0a1a30,#102545);border:1px solid #2a4a7a;border-radius:10px;padding:10px 12px;margin-bottom:16px;cursor:pointer;">
+    <div style="font-size:24px;">🌦️</div>
+    <div style="flex:1;"><div style="font-size:12px;font-weight:800;color:#fff;">Tiempo y Radar</div><div style="font-size:9.5px;color:#90caf9;">Pronóstico extendido y radar en vivo de <span id="clima-tyr-ciudad">tu ciudad</span></div></div>
+    <div style="font-size:15px;color:#2a4a7a;">›</div>
   </div>
 
   <!-- ALERTAS METEOROLÓGICAS DE BRASIL (INMET) -->
@@ -1621,6 +1631,14 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       </div>
     </a>
 
+    <a onclick="showTab('navaja',null)" style="text-decoration:none;cursor:pointer;" class="link-util">
+      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #6d4c41;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
+        <div style="font-size:18px;">🧰</div>
+        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Navaja Suiza SimpleApp</div>
+        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Lámpara, conversor, brújula y más</div>
+      </div>
+    </a>
+
   </div>
 
   <!-- PANTALLA GRANDE EXCLUSIVA DEL MODO "APLICACIONES SIMPLEAPP" -->
@@ -1730,6 +1748,16 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
           <div>
             <div style="font-size:15px;font-weight:900;color:#1a5276;">Plan de Viaje SimpleApp</div>
             <div style="font-size:10.5px;color:#5d86a8;margin-top:2px;">Armá tu viaje</div>
+          </div>
+        </div>
+      </a>
+
+      <a onclick="showTab('navaja',null)" style="text-decoration:none;display:block;">
+        <div style="aspect-ratio:1;background:#f1ebe7;border:1px solid #d7c4b8;border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 3px 10px rgba(0,0,0,0.06);text-align:center;">
+          <div style="font-size:42px;width:76px;height:76px;background:#e6d6cb;border-radius:20px;display:flex;align-items:center;justify-content:center;">🧰</div>
+          <div>
+            <div style="font-size:15px;font-weight:900;color:#5d4037;">Navaja Suiza SimpleApp</div>
+            <div style="font-size:10.5px;color:#8d6e63;margin-top:2px;">Herramientas útiles</div>
           </div>
         </div>
       </a>
@@ -2756,6 +2784,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 
     <a class="rm-btn rm-link" id="rb-a-ruta" target="_blank" rel="noopener">🧭 Ver ruta en Google Maps</a>
     <div class="leyenda-maps" id="rb-leyenda" style="display:none"></div>
+    <a class="rm-btn2 rm-link" id="rb-a-clima" href="https://app.temponarota.com.br" target="_blank" rel="noopener">🌦️ Clima en la ruta (Tempo na Rota)</a>
     <a class="rm-btn2" style="cursor:pointer" onclick="planificarRuta('rb')">🗓️ Planificar este viaje (combustible, dormir, comer)</a>
     <div style="margin-top:10px;background:rgba(212,160,23,0.14);border:1px solid #d4a017;border-radius:10px;padding:11px 13px;font-size:13px;line-height:1.45;color:var(--text);">💡 Para ver estaciones, hoteles y lugares a lo largo de <b>todo el trayecto</b> (no solo un punto), una vez adentro de Google Maps tocá <b>"Agregar paradas"</b> y elegí la categoría que quieras.</div>
 
@@ -2812,6 +2841,18 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 </div>
 
 <!-- ============ FRONTERAS SIMPLEAPP ============ -->
+<div id="navaja" class="section">
+  <div class="hero-banner">
+    <div class="hb-city">NAVAJA SUIZA SIMPLEAPP</div>
+    <div class="hb-sub">Herramientas útiles: conversor, anotador, brújula y más</div>
+  </div>
+  <div id="nv-grid" class="nv-grid"></div>
+  <div id="nv-panel" class="nv-panel" style="display:none">
+    <button type="button" class="nv-volver" id="nv-volver">← Volver a las herramientas</button>
+    <div id="nv-cuerpo"></div>
+  </div>
+</div>
+
 <div id="planificador" class="section">
 
   <div class="hero-banner">
@@ -2853,11 +2894,16 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       <button type="button" class="pl-addb" data-add="otro">📍 Otra</button>
     </div>
     <div class="pl-nota">En cada parada escribís el lugar que elegiste. Con "Buscar en Maps" abrís Google Maps ya buscando ese tipo de lugar cerca del punto anterior, y después anotás acá el que elijas. Cada "Dormir" termina el día.</div>
+    <div class="pl-nota">📅 <b>Cómo se arman los días:</b> los días se cuentan solos. Todo lo que agregues va en el Día 1 hasta que pongas una parada 🛏️ <b>Dormir</b>: ese lugar cierra el día y lo que sigue pasa al Día 2, y así. Para cambiar una parada de día, movela con ▲▼ antes o después de un "Dormir".</div>
+    <div class="pl-nota">⛽ <b>Cargar nafta sobre la ruta:</b> si escribís solo la ciudad (ej. Chapecó), Maps marca el centro de la ciudad y la ruta se desvía para entrar. Para que pase por la ruta, escribí el nombre de la estación o la ruta, por ejemplo "Posto Ipiranga BR-282, Chapecó" o "Shell Ruta 14, Bernardo de Irigoyen". Usá "Buscar en Maps" para ver las estaciones que están sobre el camino.</div>
+    <div class="pl-nota">📍 <b>Orden y letras en Google Maps:</b> la salida es el círculo gris sin letra. Las paradas llevan A, B, C… en el orden de la lista y el destino lleva la última letra. El cruce de frontera también lleva letra. Argentina va antes del cruce y Brasil después; la lista se ordena sola.</div>
   </div>
 
   <div class="pl-card">
     <div class="pl-t">🗺️ Ruta en Google Maps</div>
     <div id="pl-links"></div>
+    <a class="pl-btn pl-btn2" href="https://app.temponarota.com.br" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none">🌦️ Clima en la ruta (Tempo na Rota)</a>
+    <div class="pl-nota">Se abre la app Tempo na Rota: armá ahí la misma ruta para ver el pronóstico a lo largo del camino (sur de Brasil).</div>
   </div>
 
   <div class="pl-card">
@@ -4604,6 +4650,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 <script>
 // ===== NAVEGACIÓN =====
 function showTab(id, btn) {
+  if (id !== 'navaja' && typeof navajaSalir === 'function') { try { navajaSalir(); } catch (e) {} }
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -4750,7 +4797,7 @@ function hdrMenuGo(id) {
 // clima o de Instagram con el botón "volver"), restauramos esa sección y esa
 // ciudad en vez de mostrar siempre "inicio" / San Vicente.
 document.addEventListener('DOMContentLoaded', function () {
-  var validTabs = ['inicio','farmacias','urbanos','colectivos','colectivos-caba','trenes-posadas','empresas','emergencias','calendario','juegos','noticias','rutas-misiones','rutas-argentina','rutas-brasil','fronteras','planificador','divisas','gastos','listas','mantenimiento','mascotas'];
+  var validTabs = ['inicio','farmacias','urbanos','colectivos','colectivos-caba','trenes-posadas','empresas','emergencias','calendario','juegos','noticias','rutas-misiones','rutas-argentina','rutas-brasil','fronteras','planificador','navaja','divisas','gastos','listas','mantenimiento','mascotas'];
   var rawHash = (window.location.hash || '').replace('#', '');
   var partes = rawHash.split('|');
   var hashTab = partes[0];
@@ -7059,7 +7106,7 @@ function aplicarCiudadActual() {
     // En este modo solo tienen sentido Inicio y las 4 mini-apps: cualquier
     // otra sección donde estuviera el usuario (Calendario, Negocios, Trivia,
     // Emergencia, etc.) se cierra y vuelve a Inicio.
-    if (['inicio', 'gastos', 'listas', 'mantenimiento', 'mascotas', 'divisas', 'rutas-misiones', 'rutas-argentina', 'rutas-brasil', 'fronteras', 'planificador'].indexOf(idActiva) === -1) {
+    if (['inicio', 'gastos', 'listas', 'mantenimiento', 'mascotas', 'divisas', 'rutas-misiones', 'rutas-argentina', 'rutas-brasil', 'fronteras', 'planificador', 'navaja'].indexOf(idActiva) === -1) {
       showTab('inicio', null);
     }
   }
@@ -7184,7 +7231,8 @@ function cargarClimaInicio(lat, lng) {
   if (!elTemp) return;
 
   var elAvisoWrapInicial = document.getElementById('clima-aviso-tormenta-wrap');
-  if (elAvisoWrapInicial) elAvisoWrapInicial.style.display = 'none'; // se vuelve a mostrar solo si corresponde a la ciudad nueva
+  if (elAvisoWrapInicial) { var _t = document.getElementById('clima-aviso-tormenta-texto'); if (_t) _t.textContent = 'Consultando el pronóstico…'; }
+  var _tc = document.getElementById('clima-tyr-ciudad'), _sc = document.getElementById('clima-stage-ciudad'); if (_tc && _sc) _tc.textContent = _sc.textContent;
 
   var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lng
     + '&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m,wind_direction_10m,weather_code,precipitation'
@@ -7286,7 +7334,20 @@ function cargarClimaInicio(lat, lng) {
             elAvisoTexto.textContent = '⚠️ ' + (esAhora ? 'Posible tormenta ahora' : 'Posible tormenta estimada para las ' + horaTexto) + ' (según el pronóstico)';
             elAvisoWrap.style.display = 'block';
           } else {
-            elAvisoWrap.style.display = 'none';
+            var tMin = null, tMax = null, pMax = 0;
+            if (idxActual !== -1) {
+              for (var q = idxActual; q < Math.min(idxActual + 12, data.hourly.weather_code.length); q++) {
+                var tq = data.hourly.temperature_2m ? data.hourly.temperature_2m[q] : null;
+                if (tq != null) { if (tMin === null || tq < tMin) tMin = tq; if (tMax === null || tq > tMax) tMax = tq; }
+                var pq = data.hourly.precipitation_probability ? data.hourly.precipitation_probability[q] : null;
+                if (pq != null && pq > pMax) pMax = pq;
+              }
+            }
+            var msg = '✅ Sin tormentas previstas en las próximas 12 horas.';
+            if (tMin !== null) msg += ' Temperatura entre ' + Math.round(tMin) + '°C y ' + Math.round(tMax) + '°C';
+            if (idxActual !== -1) msg += (tMin !== null ? ', ' : ' ') + (pMax >= 60 ? 'con alta probabilidad de lluvia (' + pMax + '%).' : pMax >= 30 ? 'con probabilidad de lluvia (' + pMax + '%).' : 'poca probabilidad de lluvia (' + pMax + '%).');
+            elAvisoTexto.textContent = msg;
+            elAvisoWrap.style.display = 'block';
           }
           if (elAvisoLink) {
             var hrefRadar = document.getElementById('clima-link-radar');
@@ -7297,7 +7358,7 @@ function cargarClimaInicio(lat, lng) {
     })
     .catch(function () {
       var elAvisoWrapErr = document.getElementById('clima-aviso-tormenta-wrap');
-      if (elAvisoWrapErr) elAvisoWrapErr.style.display = 'none';
+      var _te = document.getElementById('clima-aviso-tormenta-texto'); if (_te) _te.textContent = 'Sin datos del pronóstico por ahora (sin conexión).';
       elDesc.textContent = 'Ver clima actual';
       elTemp.textContent = '—°C';
       if (elHumedad) elHumedad.textContent = '—%';
@@ -10721,8 +10782,41 @@ document.addEventListener('DOMContentLoaded', function () {
 .leyenda-maps{margin:8px 0 2px;padding:8px 10px;border-radius:10px;background:rgba(41,128,185,.08);border-left:3px solid #2980b9;font-size:11.5px;line-height:1.7;color:var(--texto,inherit)}
 .leyenda-maps b{display:inline-block;min-width:18px;height:18px;line-height:18px;text-align:center;border-radius:50%;background:#2980b9;color:#fff;font-size:10.5px;margin-right:6px}
 .leyenda-maps .lm-t{font-weight:800;margin-bottom:2px;font-size:11px}
+.leyenda-maps b.lm-o{background:#8a8f94;font-size:9px}
+.leyenda-maps i{opacity:.7;font-size:10.5px}
 /* ============ PLANIFICADOR DE VIAJE SIMPLEAPP ============ */
 #planificador .hero-banner::before { content:'🗓️'; }
+#navaja .hero-banner::before { content:'🧰'; }
+#navaja .nv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+#navaja .nv-t{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 6px;text-align:center;cursor:pointer;font-family:'Barlow',sans-serif}
+#navaja .nv-t .i{font-size:34px;line-height:1.1}
+#navaja .nv-t .n{font-size:12px;font-weight:800;color:var(--text);margin-top:5px}
+#navaja .nv-volver{background:none;border:1.5px solid var(--border);color:var(--text);border-radius:10px;padding:8px 12px;font-weight:800;font-size:13px;margin:12px 0 10px;cursor:pointer}
+#navaja .nv-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px}
+#navaja .nv-h{font-size:16px;font-weight:900;color:var(--text);margin-bottom:8px}
+#navaja .nv-in{width:100%;box-sizing:border-box;background:var(--card);color:var(--text);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:16px;margin:4px 0}
+#navaja .nv-b{background:var(--verde2,#2e7d32);color:#fff;border:none;border-radius:10px;padding:11px 14px;font-weight:800;font-size:14px;margin:4px 4px 4px 0;cursor:pointer}
+#navaja .nv-b2{background:#8d6e63}
+#navaja .nv-big{font-size:42px;font-weight:900;text-align:center;font-variant-numeric:tabular-nums;margin:10px 0;color:var(--text)}
+#navaja .nv-nota{font-size:11.5px;color:var(--muted);line-height:1.45;margin-top:8px}
+#navaja .nv-fila{display:flex;gap:8px;align-items:center}
+#navaja .nv-fila>*{flex:1;min-width:0}
+#navaja .nv-calc{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:8px}
+#navaja .nv-calc button{padding:14px 0;font-size:20px;font-weight:800;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer}
+#navaja .nv-calc .op{background:#ffe0b2}
+#navaja .nv-calc .ig{background:var(--verde2,#2e7d32);color:#fff}
+#navaja .nv-disp{background:#1e1e1e;color:#7CFC00;font-size:30px;text-align:right;padding:12px;border-radius:10px;min-height:44px;overflow:auto;white-space:nowrap;font-variant-numeric:tabular-nums}
+#navaja .nv-brujula{width:220px;height:220px;border-radius:50%;border:6px solid #455a64;margin:12px auto;position:relative;background:#eceff1}
+#navaja .nv-aguja{position:absolute;left:50%;top:8px;width:0;height:0;margin-left:-9px;border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:96px solid #c62828;transform-origin:50% 102px}
+#navaja .nv-N{position:absolute;top:2px;left:0;right:0;text-align:center;font-weight:900;color:#c62828}
+#navaja .nv-nivel{width:240px;height:240px;border-radius:50%;border:6px solid #455a64;margin:12px auto;position:relative;background:#e8f5e9;overflow:hidden}
+#navaja .nv-burbuja{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(46,125,50,.75);border:2px solid #1b5e20;left:98px;top:98px}
+#navaja .nv-cruz:before,#navaja .nv-cruz:after{content:'';position:absolute;background:#90a4ae}
+#navaja .nv-cruz:before{left:50%;top:0;bottom:0;width:1px}
+#navaja .nv-cruz:after{top:50%;left:0;right:0;height:1px}
+#navaja .nv-regla{position:relative;height:60px;background:#f5deb3;border:1px solid #8d6e63;border-radius:6px;overflow:hidden;margin-top:12px}
+#navaja .nv-video{width:100%;border-radius:12px;background:#000;transform-origin:center}
+
 #planificador .pl-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px; margin-bottom:12px; }
 #planificador .pl-t { font-size:15px; font-weight:900; color:var(--text); margin-bottom:6px; }
 #planificador .pl-l { display:block; font-size:11px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin:10px 0 4px; }
@@ -10808,7 +10902,6 @@ document.addEventListener('DOMContentLoaded', function () {
 #fronteras #fr-resumen-rios .res-alerta a { color:var(--azul2); font-weight:700; text-decoration:underline; cursor:pointer; }
 #fronteras .rio-retry { margin-top:6px; background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:6px 12px; font-family:'Barlow',sans-serif; font-size:12px; font-weight:700; color:var(--text); cursor:pointer; }
 #fronteras .rio-links a { display:inline-block; margin:6px 12px 0 0; font-size:12px; font-weight:700; color:var(--azul2); text-decoration:none; }
-</style>
 <script>
 /* ======================================================================
    PUENTE COMPARTIDO DE GUARDADO (AppBridge)
@@ -16166,6 +16259,22 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
 </script>
 
 <script>
+// Leyenda de Google Maps: el punto de salida va como círculo gris SIN letra;
+// las letras A, B, C... empiezan en la primera parada y terminan en el destino.
+window.__VIA_CRUCE = false; // Maps ignora via: y le pone letra igual
+window.__leyendaMapsHtml = function (nombres) {
+  var e = function (t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
+  var h = '<div class="lm-t">📍 Así lo vas a ver en Google Maps:</div>';
+  h += '<div><b class="lm-o">●</b>Salida: ' + e(nombres[0]) + ' <i>(círculo gris, sin letra)</i></div>';
+  var L = 0;
+  for (var k = 1; k < nombres.length; k++) {
+    if (String(nombres[k]).charAt(0) === '\u0001' && window.__VIA_CRUCE !== false) { h += '<div><b class="lm-o">↦</b>' + e(String(nombres[k]).slice(1)) + ' <i>(solo pasa por acá, sin letra)</i></div>'; continue; }
+    h += '<div><b>' + String.fromCharCode(65 + L++) + '</b>' + e(String(nombres[k]).replace(/^\u0001/, '')) + '</div>';
+  }
+  return h;
+};
+</script>
+<script>
 // ===== RUTAS Y COMBUSTIBLE · MISIONES (enlaces a Google Maps) =====
 (function () {
   'use strict';
@@ -16190,7 +16299,7 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
     if (d.trim()) u += '&destination=' + q(lugar(d));
     $('rm-a-ruta').href = u;
     (function(){var L=$('rm-leyenda');if(!L)return;var n=[(esYo(o)||!String(o).trim())?'Mi ubicación':o,(esYo(d)||!String(d).trim())?'Mi ubicación':d];
-      L.style.display='block';L.innerHTML='<div class="lm-t">📍 En Google Maps verás estas letras:</div>'+n.map(function(x,i){return '<div><b>'+String.fromCharCode(65+i)+'</b>'+String(x).replace(/</g,'&lt;')+'</div>';}).join('');})();
+      L.style.display='block';L.innerHTML=window.__leyendaMapsHtml(n);})();
 
     // Búsquedas por categoría cerca del origen, destino, mi ubicación, u otra
     // localidad del camino (para cubrir tramos intermedios de la ruta, ya que
@@ -16282,7 +16391,7 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
     if (destinoQ) u += '&destination=' + destinoQ;
     $('ra-a-ruta').href = u;
     (function(){var L=$('ra-leyenda');if(!L)return;var n=[(esYo(o)||!String(o).trim())?'Mi ubicación':o,(esYo(d)||!String(d).trim())?'Mi ubicación':d];
-      L.style.display='block';L.innerHTML='<div class="lm-t">📍 En Google Maps verás estas letras:</div>'+n.map(function(x,i){return '<div><b>'+String.fromCharCode(65+i)+'</b>'+String(x).replace(/</g,'&lt;')+'</div>';}).join('');})();
+      L.style.display='block';L.innerHTML=window.__leyendaMapsHtml(n);})();
 
     var donde = $('ra-donde').value, ref = '';
     if (donde.indexOf('loc:') === 0) ref = lugar(donde.slice(4));
@@ -16390,7 +16499,7 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
     var pasoIdx = -1;
     if (paso) { pasoIdx = ordenados.length; ordenados.push({ txt: paso, nom: null }); }
     despues.forEach(function (x) { ordenados.push(x); });
-    ordenados.forEach(function (x) { pts.push(x.txt); });
+    ordenados.forEach(function (x, i) { pts.push((i === pasoIdx && window.__VIA_CRUCE !== false ? 'via:' : '') + x.txt); });
     window._rbOrdenNombres = ordenados;
     if (pts.length) u += '&waypoints=' + pts.map(encodeURIComponent).join('%7C');
     $('rb-a-ruta').href = u;
@@ -16398,11 +16507,11 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
       var nombres=[];
       nombres.push(esYo(o)?'Mi ubicación':o);
       var pe=document.querySelector('#rb-paso option:checked');
-      (window._rbOrdenNombres||[]).forEach(function(x){nombres.push(x.nom||(pe?'Cruce: '+pe.textContent.replace(/^[^A-Za-zÀ-ú]+/,'').split(' · ')[0].trim():x.txt));});
+      (window._rbOrdenNombres||[]).forEach(function(x){nombres.push((x.nom?'':'\u0001')+(x.nom||(pe?'Cruce: '+pe.textContent.replace(/^[^A-Za-zÀ-ú]+/,'').split(' · ')[0].trim():x.txt)));});
       nombres.push(esYo(d)?'Mi ubicación':d);
       var L=$('rb-leyenda');if(!L)return;
       L.style.display='block';
-      L.innerHTML='<div class="lm-t">📍 En Google Maps verás estas letras:</div>'+nombres.map(function(x,k){return '<div><b>'+String.fromCharCode(65+k)+'</b>'+x.replace(/</g,'&lt;')+'</div>';}).join('');
+      L.innerHTML=window.__leyendaMapsHtml(nombres);
     })();
 
 
@@ -17249,19 +17358,19 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
     var pts = [];
     var R = window.__lugarCiudadTexto || function (x) { return x; };
     if ((plan.origen || '').trim()) pts.push(R(plan.origen));
-    plan.items.forEach(function (it) { if ((it.lugar || '').trim()) pts.push(R(it.lugar)); });
+    plan.items.forEach(function (it) { if ((it.lugar || '').trim()) pts.push((it.tipo === 'frontera' ? '\u0001' : '') + R(it.lugar)); });
     if ((plan.destino || '').trim()) pts.push(R(plan.destino));
     return pts;
   }
   function urlRuta(pts) {
     var u = 'https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=' + encodeURIComponent(pts[0]) + '&destination=' + encodeURIComponent(pts[pts.length - 1]);
     var mid = pts.slice(1, -1);
-    if (mid.length) u += '&waypoints=' + mid.map(encodeURIComponent).join('%7C');
+    if (mid.length) u += '&waypoints=' + mid.map(function (m) { return m.charAt(0) === '\u0001' ? (window.__VIA_CRUCE !== false ? 'via:' : '') + encodeURIComponent(m.slice(1)) : encodeURIComponent(m); }).join('%7C');
     return u;
   }
 
   function leyenda(pts) {
-    return '<div class="leyenda-maps"><div class="lm-t">📍 En Google Maps verás estas letras:</div>' + pts.map(function (x, k) { return '<div><b>' + String.fromCharCode(65 + k) + '</b>' + esc(x) + '</div>'; }).join('') + '</div>';
+    return '<div class="leyenda-maps">' + window.__leyendaMapsHtml(pts) + '</div>';
   }
 
   function renderLinks() {
@@ -17298,18 +17407,36 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
     return l.join('\n');
   }
 
+  function normC(t){return String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\(.*?\)/g,'').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();}
+  function coordDe(txt){
+    var n=' '+normC(txt)+' ', best=null, bl=0;
+    (window.CIUDADES||[]).forEach(function(c){var k=normC(c.nombre); if(k.length>bl && n.indexOf(' '+k+' ')>=0){best=c;bl=k.length;}});
+    return best?{lat:best.lat,lng:best.lng}:null;
+  }
+  function kmAprox(a,b){
+    var R=6371,r=Math.PI/180,dl=(b.lat-a.lat)*r,dn=(b.lng-a.lng)*r;
+    var h=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dn/2)*Math.sin(dn/2);
+    return 2*R*Math.asin(Math.sqrt(h))*1.25;
+  }
+  function fmtKm(k){return '~'+(Math.round(k/10)*10).toLocaleString('es-AR')+' km';}
+
   function renderResumen() {
     var cont = $('pl-resumen'); if (!cont) return;
     var dias = calcularDias();
     if (plan.items.length === 0) { cont.innerHTML = '<div class="pl-vacio">Cuando agregues paradas, acá aparece el resumen del viaje día por día.</div>'; return; }
     var html = '<div class="pl-res-h">' + esc(plan.origen || '?') + ' → ' + esc(plan.destino || '?') + '</div>';
-    var diaAct = 0;
+    var diaAct = 0, prevC = coordDe(plan.origen), total = 0, cuenta = 0;
     plan.items.forEach(function (it) {
       if (it.dia !== diaAct) { diaAct = it.dia; html += '<div class="pl-dia">Día ' + diaAct + '</div>'; }
+      var cc = coordDe(it.lugar), kmTxt = '';
+      if (cc) { if (prevC) { var kk = kmAprox(prevC, cc); total += kk; cuenta++; kmTxt = '<div class="pl-res-n">↳ ' + fmtKm(kk) + ' desde el punto anterior (aprox.)</div>'; } prevC = cc; }
       var t = TIPOS[it.tipo];
-      html += '<div class="pl-res-i"><span class="pl-res-ic">' + t.ic + '</span><div><b>' + esc(t.n) + '</b>' + (it.lugar ? ': ' + esc(it.lugar) : ' <i>(sin lugar)</i>') + (it.nota ? '<div class="pl-res-n">' + esc(it.nota) + '</div>' : '') + '</div></div>';
+      html += '<div class="pl-res-i"><span class="pl-res-ic">' + t.ic + '</span><div><b>' + esc(t.n) + '</b>' + (it.lugar ? ': ' + esc(it.lugar) : ' <i>(sin lugar)</i>') + (it.nota ? '<div class="pl-res-n">' + esc(it.nota) + '</div>' : '') + kmTxt + '</div></div>';
     });
-    html += '<div class="pl-dia">Llegada</div><div class="pl-res-i"><span class="pl-res-ic">🏁</span><div><b>' + esc(plan.destino || '?') + '</b></div></div>';
+    var dc = coordDe(plan.destino), kmD = '';
+    if (dc && prevC) { var k2 = kmAprox(prevC, dc); total += k2; cuenta++; kmD = '<div class="pl-res-n">↳ ' + fmtKm(k2) + ' desde el punto anterior (aprox.)</div>'; }
+    html += '<div class="pl-dia">Llegada</div><div class="pl-res-i"><span class="pl-res-ic">🏁</span><div><b>' + esc(plan.destino || '?') + '</b>' + kmD + '</div></div>';
+    if (cuenta) html += '<div class="pl-res-n" style="margin-top:8px"><b>Total aprox.: ' + fmtKm(total) + '</b> · calculado en línea recta + 25%, es una estimación. Los km reales los ves en Google Maps.</div>';
     cont.innerHTML = html;
   }
 
@@ -17340,6 +17467,27 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
 
   function renderTodo() { renderLista(); renderLinks(); renderResumen(); }
 
+  // Ordena solo: lo de Argentina antes del cruce y lo de Brasil después (si la ciudad es conocida)
+  function ladoItem(it) {
+    var R = window.__lugarCiudadTexto; if (!R || it.tipo === 'frontera') return null;
+    var t = (it.lugar || '').trim(); if (!t) return null;
+    var r = R(t); if (r === t) return null;
+    return r.split(',').pop().trim() === 'Argentina' ? 'AR' : 'EX';
+  }
+  function autoOrdenar() {
+    var f = idxFrontera(); if (f < 0) return false;
+    var antes = [], despues = [];
+    plan.items.forEach(function (it, i) {
+      if (i === f) return;
+      var l = ladoItem(it);
+      if (l === 'AR') antes.push(it); else if (l === 'EX') despues.push(it); else (i < f ? antes : despues).push(it);
+    });
+    var nuevo = antes.concat([plan.items[f]], despues);
+    var cambio = nuevo.some(function (x, k) { return x !== plan.items[k]; });
+    if (cambio) plan.items = nuevo;
+    return cambio;
+  }
+
   function agregar(tipo) {
     plan.items.push({ id: nuevoId(), tipo: tipo, lugar: '', nota: '' });
     guardar(); renderTodo();
@@ -17350,6 +17498,7 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
     if (!v) { if (f >= 0) plan.items.splice(f, 1); }
     else if (f >= 0) { plan.items[f].lugar = v; }
     else { plan.items.push({ id: nuevoId(), tipo: 'frontera', lugar: v, nota: '' }); }
+    autoOrdenar();
     guardar(); renderTodo();
   }
 
@@ -17384,6 +17533,10 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
       plan.items[i][inp.getAttribute('data-k')] = inp.value;
       guardar(); renderLinks(); renderResumen();
       var a = card.querySelector('a[data-b]'); if (a) a.href = urlBuscar(i);
+    });
+    lista.addEventListener('change', function (e) {
+      var inp = e.target; if (!inp.getAttribute || inp.getAttribute('data-k') !== 'lugar') return;
+      if (autoOrdenar()) { guardar(); renderTodo(); }
     });
     lista.addEventListener('click', function (e) {
       var b = e.target.closest ? e.target.closest('[data-a]') : null; if (!b || b.disabled) return;
@@ -17448,6 +17601,422 @@ document.addEventListener('DOMContentLoaded', gsInitApp);
     else renderTodo();
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script><style>
+.ini-con{position:absolute;top:0;right:0;z-index:2;padding:3px 8px;border-radius:0 0 0 10px;font-size:10px;font-weight:800;text-align:center;white-space:nowrap;line-height:1.3}
+.ini-con-chk{background:#eceff1;color:#455a64}
+.ini-con-on{background:#e8f5e9;color:#2e7d32}
+.ini-con-off{background:#ffebee;color:#c62828}
+</style>
+<script>
+(function(){
+  function pintar(est){
+    var el=document.getElementById('ini-conexion'); if(!el) return;
+    el.className='ini-con '+(est?'ini-con-on':'ini-con-off');
+    el.textContent=est?'🟢 En línea':'🔴 Sin internet';
+  }
+  function probar(){
+    if(navigator.onLine===false){pintar(false);return;}
+    var c=(typeof AbortController!=='undefined')?new AbortController():null;
+    var t=setTimeout(function(){if(c)c.abort();},4000);
+    fetch('https://dolarapi.com/v1/dolares/oficial',c?{signal:c.signal,cache:'no-store'}:{cache:'no-store'})
+      .then(function(r){clearTimeout(t);pintar(!!(r&&r.ok));})
+      .catch(function(){clearTimeout(t);pintar(false);});
+  }
+  window.addEventListener('online',probar);
+  window.addEventListener('offline',function(){pintar(false);});
+  probar(); setInterval(probar,20000);
+})();
+</script>
+<script>
+(function(){
+  'use strict';
+  function $(id){return document.getElementById(id);}
+  var HERR=[['conversor','📐','Conversor de unidades'],['divisas','💱','Conversor de divisas'],['temporizador','⏳','Temporizador'],['cronometro','⏱️','Cronómetro'],['brujula','🧭','Brújula'],['nivel','⚖️','Nivel'],['calculadora','🧮','Calculadora'],['anotador','📝','Anotador']];
+  var limpiar=[]; // funciones que detienen sensores/timers al salir
+  function parar(){limpiar.forEach(function(f){try{f();}catch(e){}});limpiar=[];}
+
+  function grilla(){
+    var h='';HERR.forEach(function(t){h+='<div class="nv-t" data-t="'+t[0]+'"><div class="i">'+t[1]+'</div><div class="n">'+t[2]+'</div></div>';});
+    $('nv-grid').innerHTML=h;
+  }
+  function abrir(id){
+    parar();
+    $('nv-grid').style.display='none';$('nv-panel').style.display='block';
+    var f=HERRAM[id];$('nv-cuerpo').innerHTML='';if(f)f($('nv-cuerpo'));
+    try{window.scrollTo(0,0);}catch(e){}
+  }
+  function volver(){parar();$('nv-panel').style.display='none';$('nv-grid').style.display='grid';$('nv-cuerpo').innerHTML='';}
+
+  var UNI={
+    'Longitud':{ic:'📏',u:{'mm':0.001,'cm':0.01,'m':1,'km':1000,'pulgada':0.0254,'pie':0.3048,'yarda':0.9144,'milla':1609.344,'milla náutica':1852}},
+    'Peso':{ic:'⚖️',u:{'kg':1,'g':0.001,'mg':0.000001,'t':1000,'ton (US)':907.18474,'ton (UK)':1016.0469088,'lb':0.45359237,'oz':0.028349523,'st':6.35029318,'cwt (US)':45.359237,'cwt (UK)':50.80234544,'gr':0.00006479891}},
+    'Temperatura':{ic:'🌡️',u:{'°C':1,'°F':1,'K':1}},
+    'Volumen':{ic:'🧪',u:{'ml':0.001,'cm³':0.001,'litro':1,'m³':1000,'galón (EE.UU.)':3.785411784,'galón (Reino Unido)':4.54609,'pinta (EE.UU.)':0.473176473,'taza':0.2365882365,'cucharada':0.01478676,'onza líquida':0.0295735,'barril':158.987}},
+    'Presión':{ic:'🎈',u:{'Pa':1,'kPa':1000,'bar':100000,'atm':101325,'psi':6894.757,'mmHg':133.322,'kgf/cm²':98066.5}},
+    'Área':{ic:'⬛',u:{'cm²':0.0001,'pulgada²':0.00064516,'pie²':0.09290304,'yarda²':0.83612736,'m²':1,'acre':4046.8564,'hectárea':10000,'km²':1000000}},
+    'Velocidad':{ic:'🏎️',u:{'km/h':0.2777777778,'m/s':1,'mph':0.44704,'nudo':0.5144444444,'Mach':340.29}},
+    'Potencia':{ic:'⚡',u:{'W':1,'kW':1000,'CV':735.49875,'HP':745.69987,'BTU/h':0.29307107}},
+    'Energía':{ic:'🔋',u:{'J':1,'kJ':1000,'cal':4.184,'kcal':4184,'Wh':3600,'kWh':3600000,'BTU':1055.056}},
+    'Kilometraje':{ic:'⛽',u:{'km/l':1,'l/100 km':1,'mpg (EE.UU.)':1,'mpg (R. Unido)':1}},
+    'Datos':{ic:'💾',u:{'bit':0.125,'Byte':1,'KB':1024,'MB':1048576,'GB':1073741824,'TB':1099511627776}}
+  };
+  function aBase(cat,u,v){
+    if(cat==='Temperatura')return u==='°C'?v:(u==='°F'?(v-32)*5/9:v-273.15);
+    if(cat==='Kilometraje')return u==='km/l'?v:(u==='l/100 km'?(v===0?0:100/v):(u==='mpg (EE.UU.)'?v/2.352145833:v/2.8248105));
+    return v*UNI[cat].u[u];
+  }
+  function deBase(cat,u,b){
+    if(cat==='Temperatura')return u==='°C'?b:(u==='°F'?b*9/5+32:b+273.15);
+    if(cat==='Kilometraje')return u==='km/l'?b:(u==='l/100 km'?(b===0?0:100/b):(u==='mpg (EE.UU.)'?b*2.352145833:b*2.8248105));
+    return b/UNI[cat].u[u];
+  }
+  function fmtN(r){
+    if(!isFinite(r))return '—';
+    var ab=Math.abs(r);
+    if(ab!==0&&(ab>=1e12||ab<1e-6))return r.toExponential(4).replace('.',',');
+    return (Math.round(r*1e8)/1e8).toLocaleString('es-AR',{maximumFractionDigits:8});
+  }
+  var NOM={'mm':'Milímetros','cm':'Centímetros','m':'Metros','km':'Kilómetros','pulgada':'Pulgadas','pie':'Pies','yarda':'Yardas','milla':'Millas','milla náutica':'Millas náuticas',
+    'kg':'Kilogramos','g':'Gramos','mg':'Miligramos','t':'Toneladas','ton (US)':'Toneladas (corta)','ton (UK)':'Toneladas (larga)','lb':'Libras','oz':'Onzas','st':'Piedra','cwt (US)':'Quintal (corto)','cwt (UK)':'Quintal (largo)','gr':'Granos',
+    '°C':'Grados Celsius','°F':'Grados Fahrenheit','K':'Kelvin',
+    'ml':'Mililitros','cm³':'Centímetros cúbicos','litro':'Litros','m³':'Metros cúbicos','galón (EE.UU.)':'Galones (EE.UU.)','galón (Reino Unido)':'Galones (Reino Unido)','pinta (EE.UU.)':'Pintas (EE.UU.)','taza':'Tazas','cucharada':'Cucharadas','onza líquida':'Onzas líquidas','barril':'Barriles',
+    'Pa':'Pascales','kPa':'Kilopascales','bar':'Bares','atm':'Atmósferas','psi':'Libras por pulgada²','mmHg':'Milímetros de mercurio','kgf/cm²':'Kilogramos fuerza por cm²',
+    'cm²':'Centímetros cuadrados','pulgada²':'Pulgadas cuadradas','pie²':'Pies cuadrados','yarda²':'Yardas cuadradas','m²':'Metros cuadrados','acre':'Acres','hectárea':'Hectáreas','km²':'Kilómetros cuadrados',
+    'km/h':'Kilómetros por hora','m/s':'Metros por segundo','mph':'Millas por hora','nudo':'Nudos','Mach':'Mach',
+    'W':'Vatios','kW':'Kilovatios','CV':'Caballos de vapor','HP':'Caballos de fuerza','BTU/h':'BTU por hora',
+    'J':'Julios','kJ':'Kilojulios','cal':'Calorías','kcal':'Kilocalorías','Wh':'Vatios hora','kWh':'Kilovatios hora','BTU':'BTU',
+    'km/l':'Kilómetros por litro','l/100 km':'Litros cada 100 km','mpg (EE.UU.)':'Millas por galón (EE.UU.)','mpg (R. Unido)':'Millas por galón (R. Unido)',
+    'bit':'Bits','Byte':'Bytes','KB':'Kilobytes','MB':'Megabytes','GB':'Gigabytes','TB':'Terabytes'};
+  var SIM={'pulgada':'in','pie':'ft','yarda':'yd','milla':'mi','milla náutica':'nmi','litro':'l','galón (EE.UU.)':'gal (US)','galón (Reino Unido)':'gal (UK)','pinta (EE.UU.)':'pt','taza':'taza','cucharada':'cda','onza líquida':'fl oz','barril':'bbl','pulgada²':'in²','pie²':'ft²','yarda²':'yd²','acre':'ac','hectárea':'ha','nudo':'kn'};
+  function nomU(u){return '<span>'+(NOM[u]||u)+', <b style="color:#3949ab">'+(SIM[u]||u)+'</b></span>';}
+  function conversor(c){
+    var cats=Object.keys(UNI);
+    var cat=null,de=null,paso=0;
+    var BOX='background:#fffaf2;border:2px solid #d7c4b8;border-radius:6px;padding:2px;color:#3e2723';
+    var FILA='background:linear-gradient(#ffffff,#f1e8dc);color:#3e2723;border:1px solid #e0d2c0;font-size:18px;padding:16px 12px;margin-top:2px;cursor:pointer';
+    function tabs(act){
+      function t(n,txt,on){return '<div class="cv-tab" data-p="'+n+'" style="flex:0 0 auto;padding:12px 12px;font-size:17px;color:#3e2723;background:linear-gradient(#ffffff,#eadfce);border:'+(on?'2':'1')+'px solid '+(on?'#8d6e63':'#d7c4b8')+';border-bottom:none;cursor:pointer">'+txt+'</div>';}
+      return '<div style="display:flex;background:#e6d8c6;border-radius:6px 6px 0 0;padding-top:6px;gap:2px">'+t(1,'Categoría',act===1)+(cat?t(2,'Unidad',act===2):'')+(cat&&paso===3?t(3,'Resultado',act===3):'')+'</div>';
+    }
+    function pintar(act,cuerpo){
+      c.innerHTML='<div class="nv-h">📐 Conversor de unidades</div>'+tabs(act)+'<div style="'+BOX+'">'+cuerpo+'</div>';
+      c.onclick=function(e){
+        var t=e.target;
+        while(t&&t!==c&&!(t.getAttribute&&(t.getAttribute('data-c')||t.getAttribute('data-u')||t.getAttribute('data-p'))))t=t.parentNode;
+        if(!t||!t.getAttribute)return;
+        if(t.getAttribute('data-p')){var n=parseInt(t.getAttribute('data-p'),10);if(n===1)pantCat();else if(n===2)pantUni();else pantRes();return;}
+        if(t.getAttribute('data-c')){cat=t.getAttribute('data-c');de=null;paso=2;pantUni();return;}
+        if(t.getAttribute('data-u')){de=t.getAttribute('data-u');paso=3;pantRes();}
+      };
+    }
+    function pantCat(){
+      var h='<div style="text-align:center;color:#6d4c41;font-size:17px;padding:4px 0">Seleccionar una categoría</div>';
+      cats.forEach(function(k){h+='<div data-c="'+k+'" style="'+FILA+'">'+UNI[k].ic+'  '+k+'</div>';});
+      paso=1;pintar(1,h);
+    }
+    function pantUni(){
+      var h='<div style="text-align:center;color:#6d4c41;font-size:17px;padding:4px 0">Seleccionar la unidad de inicio</div>';
+      Object.keys(UNI[cat].u).forEach(function(u){h+='<div data-u="'+u.replace(/"/g,'&quot;')+'" style="'+FILA+(u===de?';background:#ffe082':'')+'">'+nomU(u)+'</div>';});
+      pintar(2,h);
+    }
+    function pantRes(){
+      if(!de)de=Object.keys(UNI[cat].u)[0];
+      var h='<div style="padding:8px"><div style="font-size:17px;font-weight:900;margin-bottom:6px">'+UNI[cat].ic+' '+cat+' · desde '+nomU(de)+'</div><input id="cv-val" type="number" inputmode="decimal" value="1" style="width:100%;box-sizing:border-box;background:#fff;color:#3e2723;border:1px solid #d7c4b8;border-bottom:3px solid #26a69a;font-size:26px;padding:10px"><div id="cv-res" style="margin-top:10px"></div></div>';
+      pintar(3,h);
+      function calc(){
+        var v=parseFloat($('cv-val').value),out='';
+        if(isNaN(v)){$('cv-res').innerHTML='';return;}
+        var b=aBase(cat,de,v);
+        Object.keys(UNI[cat].u).forEach(function(u){
+          var sel=u===de;
+          out+='<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 10px;margin-top:2px;background:'+(sel?'#ffe082':'linear-gradient(#ffffff,#f1e8dc)')+';font-size:16px">'+nomU(u)+'<b style="text-align:right;word-break:break-all">'+fmtN(deBase(cat,u,b))+'</b></div>';
+        });
+        $('cv-res').innerHTML=out;
+      }
+      $('cv-val').oninput=calc;calc();
+    }
+    pantCat();
+  }
+
+  function pitido(){try{var A=window.AudioContext||window.webkitAudioContext;var x=new A();var n=0;var iv=setInterval(function(){var o=x.createOscillator();o.frequency.value=880;o.connect(x.destination);o.start();setTimeout(function(){o.stop();},250);if(++n>=6)clearInterval(iv);},450);}catch(e){}try{navigator.vibrate&&navigator.vibrate([300,150,300,150,300]);}catch(e){}}
+  function f2(n){return (n<10?'0':'')+n;}
+  function temporizador(c){
+    c.innerHTML='<div class="nv-card"><div class="nv-h">⏳ Temporizador</div><div class="nv-fila"><input id="tm-m" class="nv-in" type="number" inputmode="numeric" min="0" value="5"><input id="tm-s" class="nv-in" type="number" inputmode="numeric" min="0" max="59" value="0"></div><div class="nv-nota" style="margin-top:0">minutos · segundos</div><div class="nv-big" id="tm-d">05:00</div><button class="nv-b" id="tm-go">▶ Iniciar</button><button class="nv-b nv-b2" id="tm-rs">↺ Reiniciar</button><div class="nv-nota">Suena y vibra al terminar. Dejá la app abierta mientras corre.</div></div>';
+    var fin=0,iv=null;
+    function mostrar(ms){var s=Math.max(0,Math.ceil(ms/1000));$('tm-d').textContent=f2(Math.floor(s/60))+':'+f2(s%60);}
+    function leer(){return ((parseInt($('tm-m').value,10)||0)*60+(parseInt($('tm-s').value,10)||0))*1000;}
+    function stop(){if(iv){clearInterval(iv);iv=null;}$('tm-go').textContent='▶ Iniciar';}
+    $('tm-go').onclick=function(){
+      if(iv){stop();return;}
+      var rest=iv===null&&fin>Date.now()?fin-Date.now():leer();if(rest<=0)return;
+      fin=Date.now()+rest;$('tm-go').textContent='⏸ Pausar';
+      iv=setInterval(function(){var r=fin-Date.now();mostrar(r);if(r<=0){stop();fin=0;pitido();}},200);
+    };
+    $('tm-rs').onclick=function(){stop();fin=0;mostrar(leer());};
+    $('tm-m').oninput=$('tm-s').oninput=function(){if(!iv){fin=0;mostrar(leer());}};
+    limpiar.push(stop);
+  }
+  function cronometro(c){
+    c.innerHTML='<div class="nv-card"><div class="nv-h">⏱️ Cronómetro</div><div class="nv-big" id="cr-d">00:00.0</div><button class="nv-b" id="cr-go">▶ Iniciar</button><button class="nv-b nv-b2" id="cr-vu">🏁 Vuelta</button><button class="nv-b nv-b2" id="cr-rs">↺ Reiniciar</button><div id="cr-v" class="nv-nota"></div></div>';
+    var t0=0,acum=0,iv=null,vu=[];
+    function ms(){return acum+(iv?Date.now()-t0:0);}
+    function fmt(x){var d=Math.floor(x/100)%10,s=Math.floor(x/1000)%60,m=Math.floor(x/60000);return f2(m)+':'+f2(s)+'.'+d;}
+    function pint(){$('cr-d').textContent=fmt(ms());}
+    $('cr-go').onclick=function(){if(iv){acum+=Date.now()-t0;clearInterval(iv);iv=null;$('cr-go').textContent='▶ Seguir';}else{t0=Date.now();iv=setInterval(pint,100);$('cr-go').textContent='⏸ Pausar';}};
+    $('cr-vu').onclick=function(){if(!ms())return;vu.push(fmt(ms()));$('cr-v').innerHTML=vu.map(function(x,i){return 'Vuelta '+(i+1)+': <b>'+x+'</b>';}).reverse().join('<br>');};
+    $('cr-rs').onclick=function(){if(iv){clearInterval(iv);iv=null;}acum=0;vu=[];$('cr-v').innerHTML='';$('cr-go').textContent='▶ Iniciar';pint();};
+    limpiar.push(function(){if(iv){clearInterval(iv);iv=null;}});
+  }
+  function brujula(c){
+    c.innerHTML='<div class="nv-card"><div class="nv-h">🧭 Brújula</div><svg viewBox="0 0 200 200" width="100%" style="max-width:300px;display:block;margin:6px auto"><defs><radialGradient id="brg" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#37474f"/><stop offset="1" stop-color="#102027"/></radialGradient><linearGradient id="brb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eceff1"/><stop offset="0.5" stop-color="#78909c"/><stop offset="1" stop-color="#37474f"/></linearGradient></defs><circle cx="100" cy="100" r="98" fill="url(#brb)"/><circle cx="100" cy="100" r="94" fill="url(#brg)"/><g id="br-dial" style="transform-origin:100px 100px"><line x1="100.0" y1="8.0" x2="100.0" y2="22.0" stroke="#c62828" stroke-width="2"/><line x1="108.0" y1="8.4" x2="107.6" y2="13.3" stroke="#90a4ae" stroke-width="1"/><line x1="116.0" y1="9.4" x2="115.1" y2="14.3" stroke="#90a4ae" stroke-width="1"/><line x1="123.8" y1="11.1" x2="121.5" y2="19.8" stroke="#90a4ae" stroke-width="1"/><line x1="131.5" y1="13.5" x2="129.8" y2="18.2" stroke="#90a4ae" stroke-width="1"/><line x1="138.9" y1="16.6" x2="136.8" y2="21.2" stroke="#90a4ae" stroke-width="1"/><line x1="146.0" y1="20.3" x2="141.5" y2="28.1" stroke="#90a4ae" stroke-width="1"/><line x1="152.8" y1="24.6" x2="149.9" y2="28.7" stroke="#90a4ae" stroke-width="1"/><line x1="159.1" y1="29.5" x2="155.9" y2="33.4" stroke="#90a4ae" stroke-width="1"/><line x1="165.1" y1="34.9" x2="155.2" y2="44.8" stroke="#eceff1" stroke-width="2"/><line x1="170.5" y1="40.9" x2="166.6" y2="44.1" stroke="#90a4ae" stroke-width="1"/><line x1="175.4" y1="47.2" x2="171.3" y2="50.1" stroke="#90a4ae" stroke-width="1"/><line x1="179.7" y1="54.0" x2="171.9" y2="58.5" stroke="#90a4ae" stroke-width="1"/><line x1="183.4" y1="61.1" x2="178.8" y2="63.2" stroke="#90a4ae" stroke-width="1"/><line x1="186.5" y1="68.5" x2="181.8" y2="70.2" stroke="#90a4ae" stroke-width="1"/><line x1="188.9" y1="76.2" x2="180.2" y2="78.5" stroke="#90a4ae" stroke-width="1"/><line x1="190.6" y1="84.0" x2="185.7" y2="84.9" stroke="#90a4ae" stroke-width="1"/><line x1="191.6" y1="92.0" x2="186.7" y2="92.4" stroke="#90a4ae" stroke-width="1"/><line x1="192.0" y1="100.0" x2="178.0" y2="100.0" stroke="#eceff1" stroke-width="2"/><line x1="191.6" y1="108.0" x2="186.7" y2="107.6" stroke="#90a4ae" stroke-width="1"/><line x1="190.6" y1="116.0" x2="185.7" y2="115.1" stroke="#90a4ae" stroke-width="1"/><line x1="188.9" y1="123.8" x2="180.2" y2="121.5" stroke="#90a4ae" stroke-width="1"/><line x1="186.5" y1="131.5" x2="181.8" y2="129.8" stroke="#90a4ae" stroke-width="1"/><line x1="183.4" y1="138.9" x2="178.8" y2="136.8" stroke="#90a4ae" stroke-width="1"/><line x1="179.7" y1="146.0" x2="171.9" y2="141.5" stroke="#90a4ae" stroke-width="1"/><line x1="175.4" y1="152.8" x2="171.3" y2="149.9" stroke="#90a4ae" stroke-width="1"/><line x1="170.5" y1="159.1" x2="166.6" y2="155.9" stroke="#90a4ae" stroke-width="1"/><line x1="165.1" y1="165.1" x2="155.2" y2="155.2" stroke="#eceff1" stroke-width="2"/><line x1="159.1" y1="170.5" x2="155.9" y2="166.6" stroke="#90a4ae" stroke-width="1"/><line x1="152.8" y1="175.4" x2="149.9" y2="171.3" stroke="#90a4ae" stroke-width="1"/><line x1="146.0" y1="179.7" x2="141.5" y2="171.9" stroke="#90a4ae" stroke-width="1"/><line x1="138.9" y1="183.4" x2="136.8" y2="178.8" stroke="#90a4ae" stroke-width="1"/><line x1="131.5" y1="186.5" x2="129.8" y2="181.8" stroke="#90a4ae" stroke-width="1"/><line x1="123.8" y1="188.9" x2="121.5" y2="180.2" stroke="#90a4ae" stroke-width="1"/><line x1="116.0" y1="190.6" x2="115.1" y2="185.7" stroke="#90a4ae" stroke-width="1"/><line x1="108.0" y1="191.6" x2="107.6" y2="186.7" stroke="#90a4ae" stroke-width="1"/><line x1="100.0" y1="192.0" x2="100.0" y2="178.0" stroke="#eceff1" stroke-width="2"/><line x1="92.0" y1="191.6" x2="92.4" y2="186.7" stroke="#90a4ae" stroke-width="1"/><line x1="84.0" y1="190.6" x2="84.9" y2="185.7" stroke="#90a4ae" stroke-width="1"/><line x1="76.2" y1="188.9" x2="78.5" y2="180.2" stroke="#90a4ae" stroke-width="1"/><line x1="68.5" y1="186.5" x2="70.2" y2="181.8" stroke="#90a4ae" stroke-width="1"/><line x1="61.1" y1="183.4" x2="63.2" y2="178.8" stroke="#90a4ae" stroke-width="1"/><line x1="54.0" y1="179.7" x2="58.5" y2="171.9" stroke="#90a4ae" stroke-width="1"/><line x1="47.2" y1="175.4" x2="50.1" y2="171.3" stroke="#90a4ae" stroke-width="1"/><line x1="40.9" y1="170.5" x2="44.1" y2="166.6" stroke="#90a4ae" stroke-width="1"/><line x1="34.9" y1="165.1" x2="44.8" y2="155.2" stroke="#eceff1" stroke-width="2"/><line x1="29.5" y1="159.1" x2="33.4" y2="155.9" stroke="#90a4ae" stroke-width="1"/><line x1="24.6" y1="152.8" x2="28.7" y2="149.9" stroke="#90a4ae" stroke-width="1"/><line x1="20.3" y1="146.0" x2="28.1" y2="141.5" stroke="#90a4ae" stroke-width="1"/><line x1="16.6" y1="138.9" x2="21.2" y2="136.8" stroke="#90a4ae" stroke-width="1"/><line x1="13.5" y1="131.5" x2="18.2" y2="129.8" stroke="#90a4ae" stroke-width="1"/><line x1="11.1" y1="123.8" x2="19.8" y2="121.5" stroke="#90a4ae" stroke-width="1"/><line x1="9.4" y1="116.0" x2="14.3" y2="115.1" stroke="#90a4ae" stroke-width="1"/><line x1="8.4" y1="108.0" x2="13.3" y2="107.6" stroke="#90a4ae" stroke-width="1"/><line x1="8.0" y1="100.0" x2="22.0" y2="100.0" stroke="#eceff1" stroke-width="2"/><line x1="8.4" y1="92.0" x2="13.3" y2="92.4" stroke="#90a4ae" stroke-width="1"/><line x1="9.4" y1="84.0" x2="14.3" y2="84.9" stroke="#90a4ae" stroke-width="1"/><line x1="11.1" y1="76.2" x2="19.8" y2="78.5" stroke="#90a4ae" stroke-width="1"/><line x1="13.5" y1="68.5" x2="18.2" y2="70.2" stroke="#90a4ae" stroke-width="1"/><line x1="16.6" y1="61.1" x2="21.2" y2="63.2" stroke="#90a4ae" stroke-width="1"/><line x1="20.3" y1="54.0" x2="28.1" y2="58.5" stroke="#90a4ae" stroke-width="1"/><line x1="24.6" y1="47.2" x2="28.7" y2="50.1" stroke="#90a4ae" stroke-width="1"/><line x1="29.5" y1="40.9" x2="33.4" y2="44.1" stroke="#90a4ae" stroke-width="1"/><line x1="34.9" y1="34.9" x2="44.8" y2="44.8" stroke="#eceff1" stroke-width="2"/><line x1="40.9" y1="29.5" x2="44.1" y2="33.4" stroke="#90a4ae" stroke-width="1"/><line x1="47.2" y1="24.6" x2="50.1" y2="28.7" stroke="#90a4ae" stroke-width="1"/><line x1="54.0" y1="20.3" x2="58.5" y2="28.1" stroke="#90a4ae" stroke-width="1"/><line x1="61.1" y1="16.6" x2="63.2" y2="21.2" stroke="#90a4ae" stroke-width="1"/><line x1="68.5" y1="13.5" x2="70.2" y2="18.2" stroke="#90a4ae" stroke-width="1"/><line x1="76.2" y1="11.1" x2="78.5" y2="19.8" stroke="#90a4ae" stroke-width="1"/><line x1="84.0" y1="9.4" x2="84.9" y2="14.3" stroke="#90a4ae" stroke-width="1"/><line x1="92.0" y1="8.4" x2="92.4" y2="13.3" stroke="#90a4ae" stroke-width="1"/><text x="100.0" y="38.0" fill="#ff5252" font-size="17" font-weight="900" text-anchor="middle" dominant-baseline="central" transform="rotate(0 100.0 38.0)" font-family="Barlow,sans-serif">N</text><text x="145.3" y="54.7" fill="#ffffff" font-size="10" font-weight="900" text-anchor="middle" dominant-baseline="central" transform="rotate(45 145.3 54.7)" font-family="Barlow,sans-serif">NE</text><text x="162.0" y="100.0" fill="#ffffff" font-size="17" font-weight="900" text-anchor="middle" dominant-baseline="central" transform="rotate(90 162.0 100.0)" font-family="Barlow,sans-serif">E</text><text x="145.3" y="145.3" fill="#ffffff" font-size="10" font-weight="900" text-anchor="middle" dominant-baseline="central" transform="rotate(135 145.3 145.3)" font-family="Barlow,sans-serif">SE</text><text x="100.0" y="162.0" fill="#ffffff" font-size="17" font-weight="900" text-anchor="middle" dominant-baseline="central" transform="rotate(180 100.0 162.0)" font-family="Barlow,sans-serif">S</text><text x="54.7" y="145.3" fill="#ffffff" font-size="10" font-weight="900" text-anchor="middle" dominant-baseline="central" transform="rotate(225 54.7 145.3)" font-family="Barlow,sans-serif">SO</text><text x="38.0" y="100.0" fill="#ffffff" font-size="17" font-weight="900" text-anchor="middle" dominant-baseline="central" transform="rotate(270 38.0 100.0)" font-family="Barlow,sans-serif">O</text><text x="54.7" y="54.7" fill="#ffffff" font-size="10" font-weight="900" text-anchor="middle" dominant-baseline="central" transform="rotate(315 54.7 54.7)" font-family="Barlow,sans-serif">NO</text></g><polygon points="100,2 94,15 106,15" fill="#ffca28" stroke="#212121" stroke-width="1"/><circle cx="100" cy="100" r="30" fill="rgba(0,0,0,.35)" stroke="#90a4ae" stroke-width="1"/><polygon points="100,74 94,100 106,100" fill="#ff5252"/><polygon points="100,126 94,100 106,100" fill="#eceff1"/><circle cx="100" cy="100" r="4" fill="#cfd8dc" stroke="#37474f"/></svg><div class="nv-big" id="br-d" style="font-size:34px">—</div><div class="nv-nota" id="br-m">Esperando el sensor del teléfono… Mantenelo horizontal y alejado de imanes y metales.</div></div>';
+    var got=false,sx=0,sy=0,ini0=false,hist=[],off=0,ultAviso=0;
+    var RAD=Math.PI/180;
+    try{if(window.AppBridge&&typeof window.AppBridge.load==='function'){var o0=window.AppBridge.load('navajaBrujula');if(o0&&typeof o0.off==='number')off=o0.off;}}catch(e){}
+    function guardarOff(){try{if(window.AppBridge&&typeof window.AppBridge.save==='function')window.AppBridge.save('navajaBrujula',{off:off});}catch(e){}try{localStorage.setItem('nv_brujula_off',String(off));}catch(e){}}
+    c.querySelector('.nv-card').insertAdjacentHTML('beforeend',
+      '<div id="br-av" class="nv-nota" style="color:#c62828;font-weight:800;display:none">⚠️ La lectura es inestable. Movelo en el aire dibujando un “8” para calibrar y alejalo de metales e imanes.</div>'+
+      '<div style="margin-top:10px;border-top:1px solid #e0d2c0;padding-top:8px"><div class="nv-h" style="font-size:14px;margin:0 0 4px">🔧 Corrección</div>'+
+      '<div class="nv-nota" style="margin-top:0">Si tu brújula marca de más o de menos respecto de una de referencia, corregí el desvío. Se guarda y se aplica siempre.</div>'+
+      '<div class="nv-fila" style="margin-top:6px"><button class="nv-b nv-b2" id="br-m1" style="margin:0">−1°</button><div id="br-o" style="text-align:center;font-weight:900;font-size:18px;color:#3e2723">0°</div><button class="nv-b nv-b2" id="br-p1" style="margin:0">+1°</button></div>'+
+      '<div class="nv-fila" style="margin-top:6px"><button class="nv-b nv-b2" id="br-m5" style="margin:0">−5°</button><button class="nv-b nv-b2" id="br-r" style="margin:0">Quitar</button><button class="nv-b nv-b2" id="br-p5" style="margin:0">+5°</button></div></div>');
+    function pintaOff(){$('br-o').textContent=(off>0?'+':'')+off+'°';}
+    function cambiaOff(d){off=d===0?0:Math.max(-180,Math.min(180,off+d));guardarOff();pintaOff();mostrar();}
+    $('br-m1').onclick=function(){cambiaOff(-1);};$('br-p1').onclick=function(){cambiaOff(1);};
+    $('br-m5').onclick=function(){cambiaOff(-5);};$('br-p5').onclick=function(){cambiaOff(5);};$('br-r').onclick=function(){cambiaOff(0);};
+    pintaOff();
+    function dir(g){return ['Norte','Noreste','Este','Sudeste','Sur','Sudoeste','Oeste','Noroeste'][Math.round(g/45)%8];}
+    function mostrar(){
+      if(!got)return;
+      var h=((Math.atan2(sy,sx)/RAD)+off+720)%360;
+      $('br-dial').style.transform='rotate('+(-h)+'deg)';$('br-d').textContent=Math.round(h)+'° '+dir(h);
+    }
+    function rumbo(e){
+      if(typeof e.webkitCompassHeading==='number')return e.webkitCompassHeading;
+      var ok=(e.absolute||e.type==='deviceorientationabsolute');
+      if(!ok||e.alpha==null)return null;
+      var a=e.alpha*RAD,bt=(e.beta||0)*RAD,g=(e.gamma||0)*RAD;
+      var cA=Math.cos(a),sA=Math.sin(a),cB=Math.cos(bt),sB=Math.sin(bt),cG=Math.cos(g),sG=Math.sin(g);
+      var h;
+      if(Math.abs(e.beta||0)<=50&&Math.abs(e.gamma||0)<=50){
+        // teléfono más bien horizontal: rumbo de la parte de arriba del teléfono, con compensación de inclinación
+        var ex=-sA*cG-cA*sB*sG, nx=cA*cG-sA*sB*sG;
+        h=Math.atan2(ex,nx)/RAD;
+      }else{
+        // teléfono parado: rumbo hacia donde apunta la parte trasera
+        var vx=-cA*sG-sA*sB*cG, vy=-sA*sG+cA*sB*cG;
+        h=Math.atan2(vx,vy)/RAD;
+      }
+      return (h+360)%360;
+    }
+    function onO(e){
+      var h=rumbo(e);if(h==null)return;
+      var k=ini0?0.15:1;ini0=true;
+      sx=sx*(1-k)+Math.cos(h*RAD)*k;sy=sy*(1-k)+Math.sin(h*RAD)*k;
+      got=true;
+      $('br-m').textContent='El triángulo amarillo marca hacia dónde apunta la parte de arriba del teléfono. La N roja es el Norte.';
+      mostrar();
+      // estabilidad: dispersión de las últimas lecturas
+      hist.push(h);if(hist.length>40)hist.shift();
+      if(hist.length>=30&&Date.now()-ultAviso>1000){
+        ultAviso=Date.now();
+        var cx=0,cy=0;hist.forEach(function(x){cx+=Math.cos(x*RAD);cy+=Math.sin(x*RAD);});
+        var R=Math.sqrt(cx*cx+cy*cy)/hist.length;
+        $('br-av').style.display=R<0.9?'block':'none';
+      }
+    }
+    function ini(){window.addEventListener('deviceorientationabsolute',onO,true);window.addEventListener('deviceorientation',onO,true);}
+    try{if(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==='function'){DeviceOrientationEvent.requestPermission().then(function(r){if(r==='granted')ini();}).catch(ini);}else ini();}catch(e){ini();}
+    var to=setTimeout(function(){if(!got)$('br-m').textContent='No se recibió información del sensor. Puede que tu teléfono o la app no lo permitan.';},3000);
+    limpiar.push(function(){clearTimeout(to);window.removeEventListener('deviceorientationabsolute',onO,true);window.removeEventListener('deviceorientation',onO,true);});
+  }
+  function nivel(c){
+    var bg='#e6f28a',bb='#ffffff',ln='#4a5a1e';
+    c.innerHTML='<div class="nv-card"><div class="nv-h">⚖️ Nivel</div>'+
+    '<div style="position:relative;width:100%;max-width:330px;height:330px;margin:0 auto;background:#eceff1;border:1px solid #cfd8dc;border-radius:12px">'+
+      '<div id="nl-c" style="position:absolute;left:12px;top:36px;width:216px;height:216px;border-radius:50%;background:'+bg+';border:1px solid '+ln+';overflow:hidden">'+
+        '<div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:'+ln+'"></div><div style="position:absolute;top:50%;left:0;right:0;height:1px;background:'+ln+'"></div>'+
+        '<div style="position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;border:1px solid '+ln+'"></div>'+
+        '<div id="nl-bc" style="position:absolute;left:90px;top:90px;width:36px;height:36px;border-radius:50%;background:'+bb+';border:1px solid '+ln+'"></div></div>'+
+      '<div id="nl-v" style="position:absolute;left:246px;top:36px;width:54px;height:216px;border-radius:14px;background:'+bg+';border:1px solid '+ln+';overflow:hidden">'+
+        '<div style="position:absolute;top:81px;left:0;right:0;height:54px;border-top:1px solid '+ln+';border-bottom:1px solid '+ln+'"></div>'+
+        '<div id="nl-bv" style="position:absolute;left:8px;top:90px;width:36px;height:36px;border-radius:50%;background:'+bb+';border:1px solid '+ln+'"></div></div>'+
+      '<div id="nl-h" style="position:absolute;left:12px;top:266px;width:216px;height:54px;border-radius:14px;background:'+bg+';border:1px solid '+ln+';overflow:hidden">'+
+        '<div style="position:absolute;left:81px;top:0;bottom:0;width:54px;border-left:1px solid '+ln+';border-right:1px solid '+ln+'"></div>'+
+        '<div id="nl-bh" style="position:absolute;left:90px;top:8px;width:36px;height:36px;border-radius:50%;background:'+bb+';border:1px solid '+ln+'"></div></div>'+
+      '<div id="nl-ty" style="position:absolute;left:230px;top:0;width:100px;text-align:center;font-size:26px;font-weight:900;color:#37474f;line-height:34px">—</div>'+
+      '<div id="nl-tx" style="position:absolute;left:236px;top:272px;width:94px;text-align:center;font-size:26px;font-weight:900;color:#37474f;line-height:42px">—</div>'+
+    '</div><div class="nv-nota" id="nl-m">Apoyá el teléfono sobre la superficie. Burbujas al centro = nivelado. Los números son los grados de inclinación de cada eje.</div></div>';
+    var got=false;
+    function f(n){return (Math.round(n*10)/10).toFixed(1).replace('.',',')+'°';}
+    function onM(e){
+      var a=e.accelerationIncludingGravity;if(!a||a.x==null)return;got=true;
+      var G=9.8,x=Math.max(-G,Math.min(G,a.x)),y=Math.max(-G,Math.min(G,a.y));
+      var rx=Math.asin(x/G)*180/Math.PI, ry=Math.asin(y/G)*180/Math.PI;
+      $('nl-bc').style.left=(90-x/G*72)+'px';$('nl-bc').style.top=(90+y/G*72)+'px';
+      $('nl-bh').style.left=(90-x/G*72)+'px';
+      $('nl-bv').style.top=(90+y/G*72)+'px';
+      $('nl-tx').textContent=f(-rx);$('nl-ty').textContent=f(ry);
+      var ok=Math.abs(rx)<1&&Math.abs(ry)<1;
+      ['nl-c','nl-v','nl-h'].forEach(function(i){$(i).style.background=ok?'#a5e8a5':'#e6f28a';});
+    }
+    window.addEventListener('devicemotion',onM,true);
+    var to=setTimeout(function(){if(!got)$('nl-m').textContent='No se recibió información del sensor. Puede que tu teléfono o la app no lo permitan.';},3000);
+    limpiar.push(function(){clearTimeout(to);window.removeEventListener('devicemotion',onM,true);});
+  }
+  function calculadora(c){
+    c.innerHTML='<div class="nv-card"><div class="nv-h">🧮 Calculadora</div><div class="nv-disp" id="ca-d">0</div><div class="nv-calc" id="ca-k"></div></div>';
+    var teclas=['C','(',')','÷','7','8','9','×','4','5','6','−','1','2','3','+','0','.','⌫','='];
+    var exp='';
+    function pint(){$('ca-d').textContent=exp||'0';}
+    $('ca-k').innerHTML=teclas.map(function(t){var cl=('÷×−+'.indexOf(t)>=0)?'op':(t==='='?'ig':'');return '<button class="'+cl+'" data-k="'+t+'">'+t+'</button>';}).join('');
+    $('ca-k').onclick=function(e){
+      var k=e.target&&e.target.getAttribute('data-k');if(!k)return;
+      if(k==='C')exp='';
+      else if(k==='⌫')exp=exp.slice(0,-1);
+      else if(k==='='){
+        var s=exp.replace(/÷/g,'/').replace(/×/g,'*').replace(/−/g,'-');
+        if(/^[0-9+\-*/().\s]+$/.test(s)){try{var r=Function('"use strict";return ('+s+')')();exp=(isFinite(r)?String(Math.round(r*1e10)/1e10):'Error');}catch(er){exp='Error';}}
+      }else{if(exp==='Error')exp='';exp+=k;}
+      pint();
+    };
+  }
+  var MON=[['ARS','Peso argentino'],['USD','Dólar oficial'],['USDB','Dólar blue'],['USDM','Dólar MEP (bolsa)'],['BRL','Real brasileño'],['EUR','Euro'],['UYU','Peso uruguayo'],['CLP','Peso chileno'],['PYG','Guaraní paraguayo'],['BOB','Boliviano'],['GBP','Libra esterlina'],['CNY','Yuan chino'],['JPY','Yen japonés'],['MXN','Peso mexicano'],['COP','Peso colombiano'],['PEN','Sol peruano'],['CAD','Dólar canadiense'],['CHF','Franco suizo'],['AUD','Dólar australiano']];
+  function divisas(c){
+    var P=null,fecha='',estado='Cargando cotizaciones…',base='ARS',monto='1';
+    function cod(x){return x==='USDB'?'USD blue':(x==='USDM'?'USD MEP':x);}
+    function guardar(){
+      var d={p:P,f:fecha};
+      try{if(window.AppBridge&&typeof window.AppBridge.save==='function')window.AppBridge.save('navajaDivisas',d);}catch(e){}
+      try{localStorage.setItem('nv_divisas2',JSON.stringify(d));}catch(e){}
+    }
+    function leer(){
+      try{if(window.AppBridge&&typeof window.AppBridge.load==='function'){var b=window.AppBridge.load('navajaDivisas');if(b&&b.p){P=b.p;fecha=b.f||'';return true;}}}catch(e){}
+      try{var o=JSON.parse(localStorage.getItem('nv_divisas2')||'null');if(o&&o.p){P=o.p;fecha=o.f||'';return true;}}catch(e){}return false;
+    }
+    function j(u){return fetch(u).then(function(r){if(!r.ok)throw new Error('http');return r.json();}).catch(function(){return null;});}
+    function cargar(){
+      if(leer())estado='Última cotización guardada ('+fecha+'). Actualizando…';
+      Promise.all([j('https://open.er-api.com/v6/latest/ARS'),j('https://dolarapi.com/v1/dolares'),j('https://dolarapi.com/v1/cotizaciones')]).then(function(r){
+        var er=r[0],dol=r[1],cot=r[2];
+        if(!er||!er.rates){if(!P)throw new Error('x');estado='Sin conexión: se usa la última cotización guardada ('+fecha+').';refrescar();return;}
+        var n={ARS:{b:1,v:1,ref:false}};
+        MON.forEach(function(m){var k=m[0];if(k==='ARS'||k==='USDB'||k==='USDM')return;var x=er.rates[k];if(x)n[k]={b:1/x,v:1/x,ref:true};});
+        function ponerDol(casa,k){(dol||[]).forEach(function(o){if(o.casa===casa&&o.compra&&o.venta)n[k]={b:+o.compra,v:+o.venta,ref:false};});}
+        ponerDol('oficial','USD');ponerDol('blue','USDB');ponerDol('bolsa','USDM');
+        (cot||[]).forEach(function(o){if(o.moneda&&o.moneda!=='USD'&&o.compra&&o.venta&&n[o.moneda])n[o.moneda]={b:+o.compra,v:+o.venta,ref:false};});
+        P=n;var d=new Date();fecha=d.toLocaleDateString('es-AR')+' '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+        estado='Cotización actualizada: '+fecha;guardar();refrescar();
+      }).catch(function(){estado=P?'Sin conexión: se usa la última cotización guardada ('+fecha+').':'Sin conexión y sin cotizaciones guardadas. Conectate a internet para convertir.';refrescar();});
+    }
+    function f(n,dec){return n.toLocaleString('es-AR',{minimumFractionDigits:dec,maximumFractionDigits:dec});}
+    function dec(k){return (k==='PYG'||k==='CLP'||k==='COP'||k==='JPY')?0:2;}
+    function fm(res,k){var dd=dec(k);if(res!==0&&Math.abs(res)<1)dd=Math.min(8,Math.max(dd,2-Math.floor(Math.log(Math.abs(res))/Math.LN10)+1));return f(res,dd);}
+    function pintarRes(){
+      var el=document.getElementById('dv-res');if(!el)return;
+      var v=parseFloat(monto);
+      if(!P||!P[base]){el.innerHTML='<div style="padding:10px;color:#6d4c41">Sin cotizaciones disponibles.</div>';return;}
+      if(isNaN(v)){el.innerHTML='';return;}
+      var arsC=v*P[base].b,arsV=v*P[base].v;
+      var out='<div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:2px;font-size:13px;font-weight:900;color:#5d4037;padding:6px 4px 4px"><span>Moneda</span><span style="text-align:right">Compra</span><span style="text-align:right">Venta</span></div>';
+      MON.forEach(function(m){
+        var k=m[0],q=P[k];if(!q)return;
+        var rc=k===base?v:arsC/q.b, rv=k===base?v:arsV/q.v;
+        var sel=k===base;
+        out+='<div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:2px;align-items:center;padding:10px 4px;margin-top:2px;background:'+(sel?'#ffe082':'linear-gradient(#ffffff,#f1e8dc)')+';border:1px solid #e0d2c0">'+
+          '<span style="font-size:13px;line-height:1.25">'+m[1]+'<br><b style="color:#3949ab">'+cod(k)+'</b>'+(q.ref?' <i style="font-size:10px;color:#6d4c41">(ref.)</i>':'')+'</span>'+
+          '<b style="text-align:right;font-size:14px;word-break:break-all">'+fm(rc,k)+'</b><b style="text-align:right;font-size:14px;word-break:break-all">'+fm(rv,k)+'</b></div>';
+      });
+      el.innerHTML=out;
+    }
+    function refrescar(){
+      var o=MON.map(function(m){return '<option value="'+m[0]+'"'+(m[0]===base?' selected':'')+'>'+m[1]+' ('+cod(m[0])+')</option>';}).join('');
+      c.innerHTML='<div class="nv-h">💱 Conversor de divisas</div><div style="background:#fffaf2;border:2px solid #d7c4b8;border-radius:6px;padding:10px;color:#3e2723">'+
+        '<div style="font-size:12px;color:#6d4c41">Monto</div><input id="dv-val" type="number" inputmode="decimal" value="'+monto+'" style="width:100%;box-sizing:border-box;background:#fff;color:#3e2723;border:1px solid #d7c4b8;border-bottom:3px solid #26a69a;font-size:26px;padding:10px">'+
+        '<div style="font-size:12px;color:#6d4c41;margin:8px 0 2px">Moneda de ese monto</div><select id="dv-base" style="width:100%;background:#fff;color:#3e2723;border:1px solid #d7c4b8;border-radius:6px;font-size:16px;padding:10px">'+o+'</select>'+
+        '<div style="font-size:12px;color:#6d4c41;margin:12px 0 4px">Equivalente en cada moneda:</div><div id="dv-res"></div></div>'+
+        '<div class="nv-nota">'+estado+'<br><b>Compra</b>: valor si la casa de cambio te compra a vos (precio de compra). <b>Venta</b>: valor si te vende a vos (precio de venta). Las monedas marcadas “(ref.)” solo tienen un valor de referencia de mercado, sin compra ni venta propios (la diferencia entre columnas, si la hay, viene de la moneda de origen). Los precios reales pueden variar.</div>';
+      var inp=document.getElementById('dv-val');inp.oninput=function(){monto=inp.value;pintarRes();};
+      document.getElementById('dv-base').onchange=function(){base=this.value;pintarRes();};
+      pintarRes();
+    }
+    refrescar();cargar();
+  }
+  function anotador(c){
+    var KEY='nv_notas',notas=[],cur=null,q='';
+    // Guarda igual que las otras mini-apps (Listas, Rodados, Mascotas, Plan de Viaje): primero en el
+    // AppBridge compartido (que escribe en App Inventor / TinyDB) y, de respaldo, en localStorage.
+    function leer(){
+      notas=[];
+      try{if(window.AppBridge&&typeof window.AppBridge.load==='function'){var b=window.AppBridge.load('navajaNotas');if(Array.isArray(b)){notas=b;return;}}}catch(e){}
+      try{var a=JSON.parse(localStorage.getItem(KEY)||'[]');if(Array.isArray(a))notas=a;}catch(e){notas=[];}
+    }
+    function guardar(){
+      var ok=false;
+      try{if(window.AppBridge&&typeof window.AppBridge.save==='function'){ok=window.AppBridge.save('navajaNotas',notas)!==false;}}catch(e){}
+      try{localStorage.setItem(KEY,JSON.stringify(notas));ok=true;}catch(e){}
+      return ok;
+    }
+    function esc(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+    function fechaTxt(ts){var d=new Date(ts);return d.toLocaleDateString('es-AR')+' '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});}
+    var BTN='border:none;border-radius:10px;padding:11px 14px;font-weight:800;font-size:14px;margin:4px 4px 4px 0;cursor:pointer;color:#fff;';
+    function lista(){
+      cur=null;
+      var f=notas.slice().sort(function(a,b){return b.m-a.m;}).filter(function(n){var t=(n.t+' '+n.c).toLowerCase();return !q||t.indexOf(q.toLowerCase())>=0;});
+      var h='<div class="nv-card"><div class="nv-h">📝 Anotador</div><button id="an-nueva" style="'+BTN+'background:#2e7d32">➕ Nueva nota</button><input id="an-q" class="nv-in" type="search" placeholder="Buscar en las notas" value="'+esc(q)+'">';
+      if(!f.length)h+='<div class="nv-nota" style="text-align:center;padding:14px 0">'+(notas.length?'No hay notas que coincidan.':'Todavía no tenés notas. Tocá “Nueva nota”.')+'</div>';
+      f.forEach(function(n){
+        h+='<div data-id="'+n.i+'" style="background:linear-gradient(#ffffff,#f1e8dc);border:1px solid #e0d2c0;border-radius:10px;padding:10px 12px;margin-top:8px;cursor:pointer"><div style="font-weight:900;font-size:15px;color:#3e2723">'+esc(n.t||'Sin título')+'</div><div style="font-size:13px;color:#5d4037;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc((n.c||'').split('\n')[0]||'(vacía)')+'</div><div style="font-size:10.5px;color:#8d6e63;margin-top:3px">'+fechaTxt(n.m)+'</div></div>';
+      });
+      h+='<div class="nv-nota">Las notas se guardan en la app, igual que Listas y Gastos.</div></div>';
+      c.innerHTML=h;
+      document.getElementById('an-nueva').onclick=function(){editar(null);};
+      var qi=document.getElementById('an-q');
+      qi.oninput=function(){q=qi.value;var pos=qi.selectionStart;lista();var n=document.getElementById('an-q');n.focus();try{n.setSelectionRange(pos,pos);}catch(e){}};
+      c.querySelectorAll('[data-id]').forEach(function(el){el.onclick=function(){editar(el.getAttribute('data-id'));};});
+    }
+    function editar(id){
+      var n=null;notas.forEach(function(x){if(x.i===id)n=x;});
+      var nuevo=!n;if(nuevo)n={i:'n'+Date.now(),t:'',c:'',m:Date.now()};
+      cur=n;
+      c.innerHTML='<div class="nv-card"><div class="nv-h">'+(nuevo?'Nueva nota':'Editar nota')+'</div>'+
+        '<input id="an-t" class="nv-in" type="text" maxlength="80" placeholder="Título" value="'+esc(n.t)+'">'+
+        '<textarea id="an-c" class="nv-in" rows="10" placeholder="Escribí tu nota…" style="resize:vertical;font-family:inherit">'+esc(n.c)+'</textarea>'+
+        '<button id="an-g" style="'+BTN+'background:#2e7d32">💾 Guardar</button>'+
+        '<button id="an-co" style="'+BTN+'background:#1565c0">📤 Compartir / copiar</button>'+
+        (nuevo?'':'<button id="an-b" style="'+BTN+'background:#c62828">🗑️ Borrar</button>')+
+        '<button id="an-v" style="'+BTN+'background:#8d6e63">← Volver</button><div class="nv-nota" id="an-m"></div></div>';
+      function msg(t){document.getElementById('an-m').textContent=t;}
+      function tomar(){n.t=document.getElementById('an-t').value.trim();n.c=document.getElementById('an-c').value;}
+      document.getElementById('an-g').onclick=function(){
+        tomar();if(!n.t&&!n.c.trim()){msg('La nota está vacía.');return;}
+        n.m=Date.now();if(nuevo&&notas.indexOf(n)<0)notas.push(n);
+        if(guardar()){nuevo=false;msg('Guardada ✔');}else msg('No se pudo guardar en este dispositivo.');
+      };
+      document.getElementById('an-co').onclick=function(){
+        tomar();var tx=(n.t?n.t+'\n\n':'')+n.c;
+        if(!tx.trim()){msg('La nota está vacía.');return;}
+        if(navigator.share){navigator.share({text:tx}).catch(function(){});return;}
+        try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(tx).then(function(){msg('Copiada al portapapeles');}).catch(function(){msg('No se pudo copiar.');});return;}}catch(e){}
+        msg('No se pudo copiar en este dispositivo.');
+      };
+      var b=document.getElementById('an-b');
+      if(b)b.onclick=function(){if(confirm('¿Borrar esta nota?')){notas=notas.filter(function(x){return x!==n;});guardar();lista();}};
+      document.getElementById('an-v').onclick=function(){tomar();if((n.t||n.c.trim())&&(nuevo||true)){var ex=notas.indexOf(n)>=0;if(ex){n.m=Date.now();guardar();}}lista();};
+    }
+    leer();lista();
+    limpiar.push(function(){});
+  }
+  var HERRAM={anotador:anotador,divisas:divisas,conversor:conversor,temporizador:temporizador,cronometro:cronometro,brujula:brujula,nivel:nivel,calculadora:calculadora};
+
+  function iniciar(){
+    if(!$('navaja')||$('navaja').getAttribute('data-ok'))return;$('navaja').setAttribute('data-ok','1');
+    grilla();
+    $('nv-grid').onclick=function(e){var t=e.target;while(t&&t!==this&&!(t.getAttribute&&t.getAttribute('data-t')))t=t.parentNode;if(t&&t.getAttribute&&t.getAttribute('data-t'))abrir(t.getAttribute('data-t'));};
+    $('nv-volver').onclick=volver;
+  }
+  window.navajaSalir=volver;
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',iniciar);else iniciar();
 })();
 </script>
 <script>
