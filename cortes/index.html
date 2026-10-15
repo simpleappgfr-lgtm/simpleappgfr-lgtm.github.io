@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cortes de rutas en Misiones</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
 :root{color-scheme:light;--bg:#f7f9fb;--card:#fff;--fg:#1d2428;--mut:#5b676d;--line:#d9ddda;--ac:#b3261e}
 *{box-sizing:border-box}
@@ -28,6 +29,24 @@ p{font-size:14px;color:var(--mut)}
 .leyenda .corte{flex:0 0 22px;height:22px;border-radius:50%;background:#d93025;position:relative}
 .leyenda .corte::after{content:"";position:absolute;left:5px;right:5px;top:50%;height:3px;margin-top:-1.5px;background:#fff}
 .leyenda .linea{flex:0 0 22px;height:6px;border-radius:3px}
+#mapaPasos{height:380px;border:1px solid var(--line);border-radius:8px;background:#e8eef2}
+.ley2{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;margin:8px 0}
+.ley2 span{display:inline-flex;align-items:center;gap:6px}
+.ley2 i{width:12px;height:12px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1px #90a4ae}
+.pp b{display:block;margin-bottom:2px}.pp .e{font-weight:700}.pp a{color:#0b5a8a}
+.r0{margin:0 0 8px}
+.r0 summary{cursor:pointer;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);font-weight:600;color:#0b5a8a}
+.balsas{display:flex;flex-direction:column;gap:8px;margin:0 0 8px}
+.bal{background:var(--card);border:1px solid var(--line);border-left-width:5px;border-radius:8px;padding:9px 12px}
+.bal b{display:block;font-size:15px}
+.bal .st{display:block;font-size:14px;font-weight:700;margin:2px 0}
+.bal small{display:block;color:var(--mut);font-size:13px}
+.bal .aduana{display:inline-block;margin-top:8px;padding:7px 10px;border:1px solid var(--line);border-radius:6px;font-size:14px;font-weight:600;color:#0b5a8a;text-decoration:none;background:#f1f6fa}
+.bal .bus{margin-top:4px}
+.bal.alto{border-left-color:#c0392b}.bal.alto .st{color:#c0392b}
+.bal.cerca{border-left-color:#d68a00}.bal.cerca .st{color:#a96a00}
+.bal.ok{border-left-color:#2e7d32}.bal.ok .st{color:#2e7d32}
+.bal.sin{border-left-color:#90a4ae}.bal.sin .st{color:#607d8b}
 </style>
 </head>
 <body>
@@ -42,8 +61,10 @@ p{font-size:14px;color:var(--mut)}
 <h2>Mapas en vivo</h2>
 <a class="l" href="https://www.google.com/maps/@-27.0,-54.8,8z/data=!5m1!1e1" target="_blank" rel="noopener"><b>Google Maps con tránsito en Misiones (ver cortes)</b><small>Los cortes aparecen en rojo o con el signo de calle cerrada</small></a>
 <a class="l" href="https://www.ruta0.com/estado-de-rutas/provincia/misiones/" target="_blank" rel="noopener"><b>Ruta0: estado de rutas de Misiones</b><small>Cortes y desvíos informados en las rutas de la provincia</small></a>
-<div class="mapa" style="margin:0 0 8px"><iframe title="Ruta0: estado de rutas de Misiones" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.ruta0.com/estado-de-rutas/provincia/misiones/" style="height:460px"></iframe></div>
-<p>Si el recuadro de Ruta0 aparece en blanco o con un error, el sitio no permite mostrarse dentro de otra página: usá el botón de arriba para abrirlo.</p>
+<details class="r0"><summary>Ver Ruta0 en esta página</summary>
+<div class="mapa" style="margin:8px 0"><iframe title="Ruta0: estado de rutas de Misiones" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.ruta0.com/estado-de-rutas/provincia/misiones/" style="height:60vh;min-height:380px;max-height:520px"></iframe></div>
+<p>Si el recuadro aparece en blanco o con un error, el sitio no permite mostrarse dentro de otra página: usá el botón de arriba para abrirlo.</p>
+</details>
 
 <h2>Cómo ver los cortes en el mapa</h2>
 <div class="guia">
@@ -62,16 +83,141 @@ p{font-size:14px;color:var(--mut)}
 <p>Google marca los cortes con datos de usuarios y del tránsito. Si el corte es reciente o la zona tiene poco movimiento, puede no aparecer: confirmá con la fuente de abajo.</p>
 </div>
 
-<h2>Fuente que informa cortes</h2>
+<h2>Fuentes que informan cortes</h2>
+<a class="l" href="https://www.argentina.gob.ar/transporte/vialidad-nacional/estado-de-rutas" target="_blank" rel="noopener"><b>Vialidad Nacional: estado de rutas (fuente oficial)</b><small>Buscá "Ruta 12" o "Ruta 14" en el buscador de la página. Emergencias en rutas concesionadas: 140</small></a>
 <a class="l" href="https://whatsapp.com/channel/0029VbCJFA18F2p7T4Cqdz0M" target="_blank" rel="noopener"><b>DataVía | Tránsito (canal de WhatsApp)</b><small>Reportes viales de Misiones. No sabemos si es una fuente oficial: confirmá lo que informe</small></a>
 
 <h2>Fronteras SimpleApp</h2>
 <a class="l" href="https://play.google.com/store/apps/details?id=info.simpleapp" target="_blank" rel="noopener"><b>Fronteras SimpleApp (en la app Info SimpleApp)</b><small>Estado de cada paso fronterizo, horarios, alturas de ríos y alerta de balsa. Abrí la app y entrá a Fronteras SimpleApp</small></a>
 
-<h2>Ríos y balsas</h2>
-<a class="l" href="https://alerta.ina.gob.ar/" target="_blank" rel="noopener"><b>Alturas de ríos (INA)</b><small>Con el río alto, el servicio de balsa puede suspenderse</small></a>
+<h2>Balsas y altura de los ríos</h2>
+<p>Con el río alto, el servicio de balsa puede suspenderse. Se muestra la altura que informa el INA y el nivel de corte usado en Fronteras SimpleApp. Donde no hay nivel confirmado, solo se muestra la altura.</p>
+<div id="mapaPasos">Cargando mapa…</div>
+<div class="ley2"><span><i style="background:#c0392b"></i>Cerrado o servicio cortado</span><span><i style="background:#d68a00"></i>Con restricciones o cerca del límite</span><span><i style="background:#2e7d32"></i>Sin alertas</span></div>
+<p>El color sale de la información cargada en Fronteras SimpleApp y de la altura del río. No lee el parte de la aduana: tocá cada paso y usá el enlace oficial para ver si está abierto o cerrado.</p>
+
+<div id="balsas" class="balsas">Consultando la altura de los ríos…</div>
+<a class="l" href="https://alerta.ina.gob.ar/" target="_blank" rel="noopener"><b>Alturas de ríos (INA)</b><small>Fuente de las alturas que se muestran arriba</small></a>
 
 <p>Defensa Civil: en emergencias llamá al 103. Página de Info SimpleApp, San Vicente, Misiones.</p>
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+(function(){
+  var INA='https://alerta.ina.gob.ar/geoserver/ows?service=WFS&version=2.0.0&request=GetFeature&typeNames=public2:ultimas_alturas_con_timeseries&outputFormat=application/json';
+  var PROXY='https://misty-salad-f945.simpleappgfr.workers.dev/?url=';
+  var OFI='https://www.argentina.gob.ar/seguridad/pasosinternacionales/detalle/';
+  var LISTADO='https://www.argentina.gob.ar/seguridad/pasosinternacionales';
+  // u = nivel (m) a partir del cual el servicio suele suspenderse (null = sin nivel confirmado)
+  var PASOS=[
+    {n:'Puerto Iguazú ↔ Presidente Franco',id:'iguazufranco',f:'Iguaz',u:25,a:LISTADO+'?search=Presidente+franco+#rio56',corte:'Paso inhabilitado temporalmente por la crecida extraordinaria del río Iguazú (informado el 12/10/2026). No vayas hasta que Prefectura lo rehabilite.'},
+    {n:'El Soberbio ↔ Porto Soberbo',id:'elsoberbio',f:'El Soberbio',u:8,a:OFI+'rio/87/El-Soberbio-Porto-Soberbo'},
+    {n:'Alba Posse ↔ Porto Mauá',id:'albaposse',f:'Alba Posse',u:8,a:OFI+'rio/88/Puerto-Alba-Posse-Porto-Maua'},
+    {n:'San Javier ↔ Porto Xavier (Paso de la Barca)',id:'sanjavier',f:'San Javier',u:6.5,a:OFI+'rio/10/Paso-de-la-Barca-Porto-Xavier'},
+    {n:'Panambí ↔ Porto Vera Cruz',id:'panambi',f:'Panamb',u:7,a:LISTADO,b:'Panambí'},
+    {n:'Puerto Rico ↔ Puerto Triunfo',id:'puertorico',f:'Puerto Rico',u:14,a:LISTADO,b:'Puerto Rico'},
+    {n:'Eldorado ↔ Puerto Mayor Julio Otaño',id:'eldorado',f:'Eldorado',u:23,a:LISTADO,b:'Eldorado'},
+    {n:'Corpus Christi (Puerto Maní) ↔ Puerto Bella Vista Sur',id:'corpus',f:'Corpus',u:null,a:OFI+'rio/50/Puerto-Mani-Puerto-Bella-Vista-Sur'}
+  ];
+  function fm(n){return String(n).replace('.',',');}
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function num(v){if(v===null||v===undefined||v==='')return null;var n=parseFloat(String(v).replace(',','.'));return isNaN(n)?null:n;}
+  function altura(pr){
+    var ks=['altura','valor','nivel','value','h','ultimo_valor','ultima_altura','valor_ultimo','altura_ultima','ultimo'],i,n;
+    for(i=0;i<ks.length;i++){n=num(pr[ks[i]]);if(n!==null)return n;}
+    var ts=pr.timeseries;
+    if(typeof ts==='string'){try{ts=JSON.parse(ts);}catch(e){ts=null;}}
+    if(Array.isArray(ts)&&ts.length){
+      var u=ts[ts.length-1];if(Array.isArray(u))u=u[u.length-1];
+      n=num(u);if(n!==null)return n;
+      if(u&&typeof u==='object'){var k2=['valor','value','altura','h','nivel'];for(i=0;i<k2.length;i++){n=num(u[k2[i]]);if(n!==null)return n;}}
+    }
+    return null;
+  }
+  function pedir(url){
+    var ctl=(typeof AbortController!=='undefined')?new AbortController():null;
+    var t=setTimeout(function(){if(ctl)ctl.abort();},25000);
+    return fetch(url,ctl?{signal:ctl.signal}:{}).then(function(r){clearTimeout(t);if(!r.ok)throw new Error('http');return r.json();});
+  }
+  function consultar(f){
+    var url=INA+'&count=2&CQL_FILTER='+encodeURIComponent("nombre ILIKE '%"+f+"%'");
+    return pedir(url).catch(function(){return pedir(PROXY+encodeURIComponent(url));}).then(function(d){
+      var ft=d&&d.features;if(!ft||!ft.length)throw new Error('sin estacion');
+      var h=altura(ft[0].properties||{});if(h===null)throw new Error('sin valor');
+      return h;
+    });
+  }
+  function pintar(el,p,h,err){
+    var cls='sin',st='⚪ Sin límite de corte confirmado',det='';
+    if(p.corte){cls='alto';st='⛔ Servicio cortado';det=p.corte;}
+    else if(err){st='⚪ No se pudo consultar la altura';det='Abrí el enlace del INA para ver la altura actual.';}
+    else if(p.u===null){det='Altura informada por el INA: '+fm(h)+' m. No hay un nivel de corte confirmado para este cruce; la habilitación la define Prefectura.';}
+    else if(h>=p.u){cls='alto';st='🚨 Posible corte del servicio';det='El río está en '+fm(h)+' m, igual o por encima del nivel de alerta ('+fm(p.u)+' m). No salgas sin confirmar con Prefectura.';}
+    else if(h>=p.u*0.9){cls='cerca';st='🟠 Cerca del límite: puede cortarse';det='El río está en '+fm(h)+' de '+fm(p.u)+' m. La balsa puede suspenderse en cualquier momento.';}
+    else{cls='ok';st='🟢 Por debajo del límite: puede operar';det='El río está en '+fm(h)+' de '+fm(p.u)+' m. Confirmá igual el servicio y el horario.';}
+    if(p.corte&&h!=null&&!err)det+=' Altura INA: '+fm(h)+' m.';
+    el.className='bal '+cls;
+    if(window.__marcarPaso)window.__marcarPaso(p.id,cls);
+    el.innerHTML='<b>'+esc(p.n)+'</b><span class="st">'+st+'</span><small>'+esc(det)+'</small>'+enlace(p);
+  }
+  function enlace(p){
+    if(!p.a)return '';
+    return '<a class="aduana" href="'+p.a+'" target="_blank" rel="noopener">🛂 Ver si la aduana está abierta o cerrada</a>'+(p.b?'<small class="bus">En el listado oficial, buscá «'+esc(p.b)+'».</small>':'');
+  }
+  var cont=document.getElementById('balsas');
+  cont.innerHTML='';
+  PASOS.forEach(function(p){
+    var el=document.createElement('div');el.className='bal sin';
+    el.innerHTML='<b>'+esc(p.n)+'</b><span class="st">⏳ Consultando…</span>'+enlace(p);
+    cont.appendChild(el);
+    consultar(p.f).then(function(h){pintar(el,p,h,false);},function(){pintar(el,p,null,true);});
+  });
+})();
+</script>
+<script>
+(function(){
+  var DATOS=[{"id": "elsoberbio", "n": "El Soberbio ↔ Porto Soberbo", "p": "BR", "la": -27.3, "lo": -54.2167, "e": "warn", "t": "No permite recorrer Brasil libremente: solo tránsito vecinal (zona cercana a Porto Soberbo)."}, {"id": "sanpedro", "n": "San Pedro ↔ São Miguel do Oeste (Paso Rosales)", "p": "BR", "la": -26.6139, "lo": -53.7389, "e": "warn", "t": "Solo se puede recorrer Brasil libremente en temporada de verano; el resto del año, solo tránsito vecinal."}, {"id": "bernardo", "n": "Bernardo de Irigoyen ↔ Dionísio Cerqueira", "p": "BR", "la": -26.2547, "lo": -53.6441, "e": "ok", "t": "Se puede recorrer todo Brasil sin límite de km (control migratorio completo todo el año)."}, {"id": "sanantonio", "n": "San Antonio ↔ Santo Antônio do Sudoeste", "p": "BR", "la": -26.07, "lo": -53.74, "e": "ok", "t": "Desde el 1 de febrero de 2023 el lado brasileño tiene control para turistas: se puede seguir viaje por Brasil."}, {"id": "andresito", "n": "Comandante Andresito ↔ Capanema", "p": "BR", "la": -25.674, "lo": -54.03, "e": "warn", "t": "Confirmá si el lado brasileño habilita ingreso turístico completo antes de usarlo para ir lejos."}, {"id": "albaposse", "n": "Alba Posse ↔ Porto Mauá", "p": "BR", "la": -27.5698, "lo": -54.6826, "e": "ok", "t": "Se puede hacer el trámite migratorio y aduanero del lado brasileño y circular por todo Brasil."}, {"id": "sanjavier", "n": "San Javier ↔ Porto Xavier (Paso de la Barca)", "p": "BR", "la": -27.8833, "lo": -55.1333, "e": "ok", "t": "Se puede hacer el trámite migratorio y aduanero del lado brasileño y circular por todo Brasil."}, {"id": "panambi", "n": "Panambí ↔ Porto Vera Cruz", "p": "BR", "la": -27.7167, "lo": -54.9167, "e": "warn", "t": "Confirmá con Prefectura si la balsa opera y si el lado brasileño hace control migratorio pleno."}, {"id": "iguazu", "n": "Puerto Iguazú ↔ Foz do Iguaçu (Puente Tancredo Neves)", "p": "BR", "la": -25.5999, "lo": -54.562, "e": "ok", "t": "Se puede hacer el trámite migratorio y aduanero completo y circular por todo Brasil."}, {"id": "santotome", "n": "Santo Tomé ↔ São Borja", "p": "BR", "la": -28.55, "lo": -56.03, "e": "ok", "t": "Paso con control completo: se puede circular por todo Brasil con el trámite de ingreso."}, {"id": "corpus", "n": "Corpus Christi (Puerto Maní) ↔ Puerto Bella Vista Sur", "p": "PY", "la": -27.1, "lo": -55.5167, "e": "warn", "t": "Cruce en balsa de lunes a viernes, con horario partido: confirmá que esté funcionando antes de ir."}, {"id": "iguazufranco", "n": "Puerto Iguazú ↔ Presidente Franco", "p": "PY", "la": -25.599, "lo": -54.574, "e": "bad", "t": "Paso inhabilitado temporalmente por la crecida extraordinaria del río Iguazú (informado el 12/10/2026). No vayas hasta que Prefectura lo rehabilite."}, {"id": "posadas", "n": "Posadas ↔ Encarnación (Puente San Roque González)", "p": "PY", "la": -27.352, "lo": -55.887, "e": "ok", "t": "Paso con control completo, abierto las 24 hs. Se puede seguir viaje por todo Paraguay."}, {"id": "puertorico", "n": "Puerto Rico ↔ Puerto Triunfo", "p": "PY", "la": -26.8, "lo": -55.01, "e": "warn", "t": "Cruce en balsa: confirmá que el servicio esté funcionando antes de ir."}, {"id": "eldorado", "n": "Eldorado ↔ Puerto Mayor Julio Otaño", "p": "PY", "la": -26.4, "lo": -54.62, "e": "warn", "t": "Cruce en balsa de horario partido y solo en días hábiles."}, {"id": "ituzaingo", "n": "Ituzaingó ↔ Ayolas (Represa Yacyretá)", "p": "PY", "la": -27.48, "lo": -56.73, "e": "warn", "t": "Se cruza por la ruta de la represa Yacyretá, solo de día. Confirmá horario y qué vehículos pasan antes de ir."}];
+  var OFI='https://www.argentina.gob.ar/seguridad/pasosinternacionales/detalle/';
+  var LISTADO='https://www.argentina.gob.ar/seguridad/pasosinternacionales';
+  var ENL={iguazufranco:LISTADO+'?search=Presidente+franco+#rio56',elsoberbio:OFI+'rio/87/El-Soberbio-Porto-Soberbo',albaposse:OFI+'rio/88/Puerto-Alba-Posse-Porto-Maua',sanjavier:OFI+'rio/10/Paso-de-la-Barca-Porto-Xavier',corpus:OFI+'rio/50/Puerto-Mani-Puerto-Bella-Vista-Sur'};
+  var COL={alto:'#c0392b',cerca:'#d68a00',ok:'#2e7d32'};
+  var cont=document.getElementById('mapaPasos');
+  if(typeof L==='undefined'){cont.textContent='No se pudo cargar el mapa. Revisá tu conexión.';return;}
+  cont.textContent='';
+  var map=L.map('mapaPasos',{scrollWheelZoom:false,tap:false});
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(map);
+  var marcas={},est={};
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function nivel(d){
+    var r=est[d.id];
+    if(d.e==='bad'||r==='alto')return 'alto';
+    if(r==='cerca'||d.e==='warn')return 'cerca';
+    return 'ok';
+  }
+  function icono(n){
+    return L.divIcon({html:'<div style="background:'+COL[n]+';border:2px solid #fff;border-radius:50% 50% 50% 0;width:20px;height:20px;transform:rotate(-45deg);box-shadow:0 1px 4px rgba(0,0,0,.5)"></div>',className:'',iconSize:[20,20],iconAnchor:[10,20],popupAnchor:[0,-18]});
+  }
+  function popup(d){
+    var n=nivel(d),r=est[d.id],txt;
+    if(d.e==='bad')txt='⛔ Cerrado: '+d.t;
+    else if(r==='alto')txt='🚨 Posible corte del servicio por la altura del río. '+d.t;
+    else if(r==='cerca')txt='🟠 Río cerca del límite: puede cortarse el servicio. '+d.t;
+    else txt=d.t;
+    return '<div class="pp"><b>🛂 '+esc(d.n)+'</b><span class="e">'+esc(txt)+'</span><br><a href="'+(ENL[d.id]||LISTADO)+'" target="_blank" rel="noopener">Ver si la aduana está abierta o cerrada</a>'+(ENL[d.id]?'':'<br><small>En el listado oficial, buscá el nombre del paso.</small>')+'</div>';
+  }
+  var grupo=[];
+  DATOS.forEach(function(d){
+    var mk=L.marker([d.la,d.lo],{icon:icono(nivel(d))}).bindPopup(function(){return popup(d);}).addTo(map);
+    marcas[d.id]=mk;grupo.push(mk);
+  });
+  map.fitBounds(L.featureGroup(grupo).getBounds().pad(0.15));
+  setTimeout(function(){map.invalidateSize();},300);
+  window.__marcarPaso=function(id,cls){
+    est[id]=cls;
+    var d=DATOS.filter(function(x){return x.id===id;})[0];
+    if(d&&marcas[id])marcas[id].setIcon(icono(nivel(d)));
+  };
+})();
+</script>
 </body>
 </html>
