@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cortes de rutas en Misiones</title>
 <style>
-:root{color-scheme:light dark;--bg:#f3f4f2;--card:#fff;--fg:#1d2428;--mut:#5b676d;--line:#d9ddda;--ac:#b3261e}
-@media(prefers-color-scheme:dark){:root{--bg:#141a1d;--card:#1d2529;--fg:#e7ecee;--mut:#9aa7ad;--line:#2f3a40;--ac:#ff8a80}}
+:root{color-scheme:light;--bg:#f7f9fb;--card:#fff;--fg:#1d2428;--mut:#5b676d;--line:#d9ddda;--ac:#b3261e}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;padding:16px}
 main{max-width:640px;margin:0 auto}
@@ -17,6 +16,18 @@ a.l{display:block;background:var(--card);border:1px solid var(--line);border-rad
 a.l b{display:block}
 a.l small{color:var(--mut);font-size:13px}
 p{font-size:14px;color:var(--mut)}
+.mapa{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card)}
+.mapa iframe{display:block;width:100%;height:320px;border:0}
+.guia{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.guia ol{margin:0 0 10px;padding-left:20px;font-size:15px}
+.guia li{margin:0 0 8px}
+.guia p{margin:8px 0 0}
+.ic{width:22px;height:22px;vertical-align:-6px;background:#e8f0f4;border-radius:6px;padding:2px}
+.leyenda{display:flex;flex-direction:column;gap:7px;font-size:14px;border-top:1px dashed var(--line);padding-top:10px}
+.leyenda>div{display:flex;align-items:center;gap:10px}
+.leyenda .corte{flex:0 0 22px;height:22px;border-radius:50%;background:#d93025;position:relative}
+.leyenda .corte::after{content:"";position:absolute;left:5px;right:5px;top:50%;height:3px;margin-top:-1.5px;background:#fff}
+.leyenda .linea{flex:0 0 22px;height:6px;border-radius:3px}
 </style>
 </head>
 <body>
@@ -24,17 +35,38 @@ p{font-size:14px;color:var(--mut)}
 <h1>Cortes de rutas en Misiones</h1>
 <div class="aviso">Estos enlaces llevan a fuentes que informan cortes por inundaciones u otras causas. No resumimos ni confirmamos las noticias: mirá la fecha de cada fuente y confirmá antes de salir.</div>
 
-<h2>Mapas en vivo</h2>
-<a class="l" href="https://www.google.com/maps/@-27.0,-54.8,8z/data=!5m1!1e1" target="_blank" rel="noopener"><b>Google Maps con tránsito en Misiones</b><small>Los cortes aparecen en rojo o con el signo de calle cerrada</small></a>
-<a class="l" href="https://www.waze.com/ul?ll=-27.0%2C-54.8&zoom=8" target="_blank" rel="noopener"><b>Waze: mapa en vivo de Misiones</b><small>Cortes y accidentes avisados por conductores</small></a>
-<a class="l" href="https://www.ruta0.com/estado-de-rutas/provincia/misiones/" target="_blank" rel="noopener"><b>Ruta0: estado de rutas de Misiones</b><small>Cortes y desvíos informados en las rutas de la provincia</small></a>
+<h2>Mapa de Misiones</h2>
+<div class="mapa"><iframe title="Mapa de Misiones" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?ll=-27.0,-54.8&z=7&output=embed"></iframe></div>
+<p>Este mapa no muestra los cortes. Para verlos en rojo, abrí el mapa con tránsito.</p>
 
-<h2>Fuentes que informan cortes</h2>
-<a class="l" href="https://www.argentina.gob.ar/rutasnacionales" target="_blank" rel="noopener"><b>Vialidad Nacional: rutas nacionales</b><small>Fuente oficial para la RN 12, RN 14, RN 105 y otras</small></a>
-<a class="l" href="https://misionesonline.net/etiqueta/direccion-de-vialidad-provincial/" target="_blank" rel="noopener"><b>Misiones Online: Vialidad Provincial</b><small>Notas sobre cortes y habilitaciones de rutas y puentes provinciales</small></a>
-<a class="l" href="https://misionesonline.net/etiqueta/crecida-del-rio/" target="_blank" rel="noopener"><b>Misiones Online: crecidas de ríos</b><small>Noticias sobre ríos, arroyos y pasos afectados</small></a>
-<a class="l" href="https://www.canal12misiones.com/" target="_blank" rel="noopener"><b>Canal 12 Misiones</b><small>Noticias de la provincia, con altura de ríos y cortes</small></a>
+<h2>Mapas en vivo</h2>
+<a class="l" href="https://www.google.com/maps/@-27.0,-54.8,8z/data=!5m1!1e1" target="_blank" rel="noopener"><b>Google Maps con tránsito en Misiones (ver cortes)</b><small>Los cortes aparecen en rojo o con el signo de calle cerrada</small></a>
+<a class="l" href="https://www.ruta0.com/estado-de-rutas/provincia/misiones/" target="_blank" rel="noopener"><b>Ruta0: estado de rutas de Misiones</b><small>Cortes y desvíos informados en las rutas de la provincia</small></a>
+<div class="mapa" style="margin:0 0 8px"><iframe title="Ruta0: estado de rutas de Misiones" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.ruta0.com/estado-de-rutas/provincia/misiones/" style="height:460px"></iframe></div>
+<p>Si el recuadro de Ruta0 aparece en blanco o con un error, el sitio no permite mostrarse dentro de otra página: usá el botón de arriba para abrirlo.</p>
+
+<h2>Cómo ver los cortes en el mapa</h2>
+<div class="guia">
+<ol>
+<li>Tocá el botón <b>Google Maps con tránsito en Misiones</b>. Si te pide elegir, abrilo con la aplicación de Google Maps o con el navegador.</li>
+<li>Si no ves líneas de colores sobre las rutas, activá la capa de tránsito: tocá el ícono de <b>capas</b> <svg class="ic" viewBox="0 0 24 24" aria-label="ícono de capas"><path d="M12 3 2 8.5 12 14l10-5.5L12 3z" fill="#7a8a93"/><path d="m2 12.5 10 5.5 10-5.5" fill="none" stroke="#7a8a93" stroke-width="2" stroke-linejoin="round"/><path d="m2 16.5 10 5.5 10-5.5" fill="none" stroke="#b5c0c6" stroke-width="2" stroke-linejoin="round"/></svg>, arriba a la derecha del mapa, debajo del buscador.</li>
+<li>En "Detalles del mapa" elegí <b>Tráfico</b>. Queda marcado con un recuadro verde. Cerrá el cuadro con la <b>X</b>.</li>
+<li><b>Acercá el mapa</b> a la ruta que te interesa (por ejemplo la RN 12 o la RN 14). Con la provincia entera a la vista, los íconos de corte no aparecen.</li>
+</ol>
+<div class="leyenda">
+<div><span class="corte"></span><span><b>Círculo rojo con raya blanca</b> sobre la ruta: calle o ruta cerrada.</span></div>
+<div><span class="linea" style="background:#2e9d4a"></span><span><b>Línea verde:</b> tránsito fluido.</span></div>
+<div><span class="linea" style="background:#f2a900"></span><span><b>Línea naranja:</b> tránsito lento.</span></div>
+<div><span class="linea" style="background:#d93025"></span><span><b>Línea roja:</b> tránsito muy lento o detenido.</span></div>
+</div>
+<p>Google marca los cortes con datos de usuarios y del tránsito. Si el corte es reciente o la zona tiene poco movimiento, puede no aparecer: confirmá con la fuente de abajo.</p>
+</div>
+
+<h2>Fuente que informa cortes</h2>
 <a class="l" href="https://whatsapp.com/channel/0029VbCJFA18F2p7T4Cqdz0M" target="_blank" rel="noopener"><b>DataVía | Tránsito (canal de WhatsApp)</b><small>Reportes viales de Misiones. No sabemos si es una fuente oficial: confirmá lo que informe</small></a>
+
+<h2>Fronteras SimpleApp</h2>
+<a class="l" href="https://play.google.com/store/apps/details?id=info.simpleapp" target="_blank" rel="noopener"><b>Fronteras SimpleApp (en la app Info SimpleApp)</b><small>Estado de cada paso fronterizo, horarios, alturas de ríos y alerta de balsa. Abrí la app y entrá a Fronteras SimpleApp</small></a>
 
 <h2>Ríos y balsas</h2>
 <a class="l" href="https://alerta.ina.gob.ar/" target="_blank" rel="noopener"><b>Alturas de ríos (INA)</b><small>Con el río alto, el servicio de balsa puede suspenderse</small></a>
