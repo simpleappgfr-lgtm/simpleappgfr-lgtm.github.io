@@ -13,6 +13,9 @@ main{max-width:640px;margin:0 auto}
 h1{font-size:24px;line-height:1.15;margin:0 0 8px}
 h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin:22px 0 8px}
 .aviso{border:1px solid var(--ac);border-radius:8px;padding:10px 12px;font-size:14px}
+.alertaR{background:#fbe9e7;border:1px solid #c0392b;border-radius:10px;padding:12px 14px;margin:10px 0;font-size:14px;color:#1d2428}
+.alertaR b.t{display:block;color:#b3261e;font-size:16px;margin-bottom:4px}
+.alertaR ul{margin:6px 0 0 18px;padding:0}.alertaR li{margin:3px 0}.alertaR a{color:#0b5a8a}
 a.l{display:block;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:0 0 8px;color:inherit;text-decoration:none}
 a.l b{display:block}
 a.l small{color:var(--mut);font-size:13px}
@@ -55,6 +58,13 @@ p{font-size:14px;color:var(--mut)}
 <div class="aviso">Estos enlaces llevan a fuentes que informan cortes por inundaciones u otras causas. No resumimos ni confirmamos las noticias: mirá la fecha de cada fuente y confirmá antes de salir.</div>
 
 
+<div id="alertaRios" class="alertaR" style="display:none"></div>
+
+<h2>Fuentes que informan cortes</h2>
+<a class="l" href="https://misiones.tur.ar/mocona/" target="_blank" rel="noopener"><b>Parque Saltos del Moconá: ¿abierto o cerrado?</b><small>Turismo de Misiones informa el estado del parque y del paseo, con fecha y hora. Si el arroyo Yabotí está alto, el parque se inhabilita. Consultas: (03755) 495206</small></a>
+<a class="l" href="https://www.argentina.gob.ar/transporte/vialidad-nacional/estado-de-rutas" target="_blank" rel="noopener"><b>Vialidad Nacional: estado de rutas (fuente oficial)</b><small>Al abrir, escribí "Ruta 12" o "Ruta 14" (las rutas nacionales de Misiones) en el buscador "Buscá por palabra clave" para ver el estado de la ruta. Emergencias en rutas concesionadas: 140</small></a>
+<a class="l" href="https://whatsapp.com/channel/0029VbCJFA18F2p7T4Cqdz0M" target="_blank" rel="noopener"><b>DataVía | Tránsito (canal de WhatsApp)</b><small>Reportes viales de Misiones. No sabemos si es una fuente oficial: confirmá lo que informe</small></a>
+
 <h2>Mapas en vivo</h2>
 <a class="l" href="https://www.google.com/maps/@-27.0,-54.8,8z/data=!5m1!1e1" target="_blank" rel="noopener"><b>Google Maps con tránsito en Misiones (ver cortes)</b><small>Los cortes aparecen en rojo o con el signo de calle cerrada</small></a>
 <a class="l" href="https://www.ruta0.com/estado-de-rutas/provincia/misiones/" target="_blank" rel="noopener"><b>Ruta0: estado de rutas de Misiones</b><small>Cortes y desvíos informados en las rutas de la provincia</small></a>
@@ -80,10 +90,6 @@ p{font-size:14px;color:var(--mut)}
 <p>Google marca los cortes con datos de usuarios y del tránsito. Si el corte es reciente o la zona tiene poco movimiento, puede no aparecer: confirmá con la fuente de abajo.</p>
 </div>
 
-<h2>Fuentes que informan cortes</h2>
-<a class="l" href="https://www.argentina.gob.ar/transporte/vialidad-nacional/estado-de-rutas" target="_blank" rel="noopener"><b>Vialidad Nacional: estado de rutas (fuente oficial)</b><small>Buscá "Ruta 12" o "Ruta 14" en el buscador de la página. Emergencias en rutas concesionadas: 140</small></a>
-<a class="l" href="https://whatsapp.com/channel/0029VbCJFA18F2p7T4Cqdz0M" target="_blank" rel="noopener"><b>DataVía | Tránsito (canal de WhatsApp)</b><small>Reportes viales de Misiones. No sabemos si es una fuente oficial: confirmá lo que informe</small></a>
-
 <h2>Fronteras SimpleApp</h2>
 <a class="l" href="https://play.google.com/store/apps/details?id=info.simpleapp" target="_blank" rel="noopener"><b>Fronteras SimpleApp (en la app Info SimpleApp)</b><small>Estado de cada paso fronterizo, horarios, alturas de ríos y alerta de balsa. Abrí la app y entrá a Fronteras SimpleApp</small></a>
 
@@ -94,6 +100,7 @@ p{font-size:14px;color:var(--mut)}
 <p>El color sale de la información cargada en Fronteras SimpleApp y de la altura del río. No lee el parte de la aduana: tocá cada paso y usá el enlace oficial para ver si está abierto o cerrado.</p>
 
 <div id="balsas" class="balsas">Consultando la altura de los ríos…</div>
+<a class="l" href="https://contenidosweb.prefecturanaval.gob.ar/alturas/" target="_blank" rel="noopener"><b>Alturas de ríos (Prefectura Naval Argentina)</b><small>Fuente oficial: altura de cada puerto con sus niveles de alerta y evacuación</small></a>
 <a class="l" href="https://alerta.ina.gob.ar/" target="_blank" rel="noopener"><b>Alturas de ríos (INA)</b><small>Fuente de las alturas que se muestran arriba</small></a>
 
 <p>Defensa Civil: en emergencias llamá al 103. Página de Info SimpleApp, San Vicente, Misiones.</p>
@@ -107,14 +114,14 @@ p{font-size:14px;color:var(--mut)}
   var LISTADO='https://www.argentina.gob.ar/seguridad/pasosinternacionales';
   // u = nivel (m) a partir del cual el servicio suele suspenderse (null = sin nivel confirmado)
   var PASOS=[
-    {n:'Puerto Iguazú ↔ Presidente Franco',id:'iguazufranco',f:'Iguaz',u:25,a:LISTADO+'?search=Presidente+franco+#rio56',corte:'Paso inhabilitado temporalmente por la crecida extraordinaria del río Iguazú (informado el 12/10/2026). No vayas hasta que Prefectura lo rehabilite.'},
+    {n:'Puerto Iguazú ↔ Presidente Franco',id:'iguazufranco',f:'Puerto Iguaz|Iguaz',u:25,a:LISTADO+'?search=Presidente+franco+#rio56',corte:'Paso inhabilitado temporalmente por la crecida extraordinaria del río Iguazú (informado el 12/10/2026). No vayas hasta que Prefectura lo rehabilite.'},
     {n:'El Soberbio ↔ Porto Soberbo',id:'elsoberbio',f:'El Soberbio',u:8,a:OFI+'rio/87/El-Soberbio-Porto-Soberbo'},
     {n:'Alba Posse ↔ Porto Mauá',id:'albaposse',f:'Alba Posse',u:8,a:OFI+'rio/88/Puerto-Alba-Posse-Porto-Maua'},
     {n:'San Javier ↔ Porto Xavier (Paso de la Barca)',id:'sanjavier',f:'San Javier',u:6.5,a:OFI+'rio/10/Paso-de-la-Barca-Porto-Xavier'},
-    {n:'Panambí ↔ Porto Vera Cruz',id:'panambi',f:'Panamb',u:7,a:LISTADO,b:'Panambí'},
-    {n:'Puerto Rico ↔ Puerto Triunfo',id:'puertorico',f:'Puerto Rico',u:14,a:LISTADO,b:'Puerto Rico'},
-    {n:'Eldorado ↔ Puerto Mayor Julio Otaño',id:'eldorado',f:'Eldorado',u:23,a:LISTADO,b:'Eldorado'},
-    {n:'Corpus Christi (Puerto Maní) ↔ Puerto Bella Vista Sur',id:'corpus',f:'Corpus',u:null,a:OFI+'rio/50/Puerto-Mani-Puerto-Bella-Vista-Sur'}
+    {n:'Panambí ↔ Porto Vera Cruz',id:'panambi',f:'Panamb|Vera Cruz',u:7,a:'https://www.argentina.gob.ar/seguridad/pasosinternacionales#rio89'},
+    {n:'Puerto Rico ↔ Puerto Triunfo',id:'puertorico',f:'Puerto Rico|Libertador|Pto. Rico',u:14.5,a:'https://www.argentina.gob.ar/seguridad/pasosinternacionales#rio44'},
+    {n:'Eldorado ↔ Puerto Mayor Julio Otaño',id:'eldorado',f:'Eldorado|Dorado',u:23,a:'https://www.argentina.gob.ar/seguridad/pasosinternacionales?search=Eldorado+#rio15'},
+    {n:'Corpus Christi (Puerto Maní) ↔ Puerto Bella Vista Sur',id:'corpus',f:'Corpus|Mani',u:9.5,a:OFI+'rio/50/Puerto-Mani-Puerto-Bella-Vista-Sur'}
   ];
   function fm(n){return String(n).replace('.',',');}
   function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
@@ -136,7 +143,7 @@ p{font-size:14px;color:var(--mut)}
     var t=setTimeout(function(){if(ctl)ctl.abort();},25000);
     return fetch(url,ctl?{signal:ctl.signal}:{}).then(function(r){clearTimeout(t);if(!r.ok)throw new Error('http');return r.json();});
   }
-  function consultar(f){
+  function consultar1(f){
     var url=INA+'&count=2&CQL_FILTER='+encodeURIComponent("nombre ILIKE '%"+f+"%'");
     return pedir(url).catch(function(){return pedir(PROXY+encodeURIComponent(url));}).then(function(d){
       var ft=d&&d.features;if(!ft||!ft.length)throw new Error('sin estacion');
@@ -144,7 +151,36 @@ p{font-size:14px;color:var(--mut)}
       return h;
     });
   }
+  function consultar(f){
+    var fs=String(f).split('|');
+    return fs.reduce(function(pr,x){return pr.catch(function(){return consultar1(x);});},Promise.reject(new Error('inicio')));
+  }
+  if(/[?&]est(=|&|$)/.test(location.search)){
+    var dbg=document.createElement('pre');dbg.style.cssText='font-size:11px;white-space:pre-wrap;background:#fff;border:1px solid #ccc;padding:8px;margin:8px 0';
+    dbg.textContent='Consultando estaciones del INA…';document.body.insertBefore(dbg,document.body.firstChild);
+    var u0=INA+'&count=1000';
+    pedir(u0).catch(function(){return pedir(PROXY+encodeURIComponent(u0));}).then(function(d){
+      dbg.textContent='Estaciones del INA ('+((d.features||[]).length)+'):\n'+(d.features||[]).map(function(f){var q=f.properties||{};return (q.nombre||'?')+' | '+(q.rio||q.cuenca||'')+' | h='+altura(q);}).join('\n');
+    }).catch(function(e){dbg.textContent='No se pudo consultar el INA: '+e;});
+  }
+  var ESTADO={};
+  function resumenAlerta(){
+    var box=document.getElementById('alertaRios');if(!box)return;
+    var cierre=[],posible=[],cerca=[];
+    PASOS.forEach(function(p){var e=ESTADO[p.id];if(!e)return;
+      if(e.corte)cierre.push(e.n);else if(e.cls==='alto')posible.push(e.n);else if(e.cls==='cerca')cerca.push(e.n);});
+    if(!cierre.length&&!posible.length&&!cerca.length){box.style.display='none';box.innerHTML='';return;}
+    var h='<b class="t">🌊 Alerta por altura de ríos</b>Con el río alto, el cruce de balsa puede estar suspendido (y sin balsa no hay paso por esa aduana). Revisá estos cruces:<ul>';
+    cierre.forEach(function(n){h+='<li>'+esc(n)+' ⛔ cierre informado</li>';});
+    posible.forEach(function(n){h+='<li>'+esc(n)+' 🚨 posible cierre</li>';});
+    cerca.forEach(function(n){h+='<li>'+esc(n)+' 🟠 cerca del nivel de alerta</li>';});
+    h+='</ul><div style="margin-top:8px;font-weight:600">⚠️ Estas alertas se generan automáticamente a partir de la altura del río y de niveles de referencia. Verificá siempre el estado de cada paso en la página de la aduana (botón en cada tarjeta).</div>';box.innerHTML=h;box.style.display='block';
+  }
+  /* Lecturas cargadas a mano (Prefectura Naval, 16/10/2026 08:00). Se usan solo si el INA no responde. Actualizar o borrar. */
+  var MANUAL={elsoberbio:{h:6.0,f:'16/10 08:00'},albaposse:{h:7.3,f:'16/10 08:00'},sanjavier:{h:6.4,f:'16/10 08:00'},panambi:{h:6.65,f:'16/10 08:00'},eldorado:{h:25.05,f:'16/10 08:00'},puertorico:{h:18.9,f:'16/10 08:00'},iguazufranco:{h:32.8,f:'16/10 08:00'},corpus:{h:9.25,f:'16/10 08:00'}};
   function pintar(el,p,h,err){
+    var nota='';
+    if(err&&MANUAL[p.id]){h=MANUAL[p.id].h;err=false;nota=' (lectura manual del '+MANUAL[p.id].f+', no es en vivo)';}
     var cls='sin',st='⚪ Sin límite de corte confirmado',det='';
     if(p.corte){cls='alto';st='⛔ Servicio cortado';det=p.corte;}
     else if(err){st='⚪ No se pudo consultar la altura';det='Abrí el enlace del INA para ver la altura actual.';}
@@ -153,8 +189,11 @@ p{font-size:14px;color:var(--mut)}
     else if(h>=p.u*0.9){cls='cerca';st='🟠 Cerca del límite: puede cortarse';det='El río está en '+fm(h)+' de '+fm(p.u)+' m. La balsa puede suspenderse en cualquier momento.';}
     else{cls='ok';st='🟢 Por debajo del límite: puede operar';det='El río está en '+fm(h)+' de '+fm(p.u)+' m. Confirmá igual el servicio y el horario.';}
     if(p.corte&&h!=null&&!err)det+=' Altura INA: '+fm(h)+' m.';
+    det+=nota;
+    if(cls!=='sin')det+=' ⚠️ Alerta automática según la altura del río y niveles de referencia: verificá siempre el estado en la página de la aduana.';
     el.className='bal '+cls;
     if(window.__marcarPaso)window.__marcarPaso(p.id,cls);
+    ESTADO[p.id]={n:p.n,cls:cls,corte:!!p.corte};resumenAlerta();
     el.innerHTML='<b>'+esc(p.n)+'</b><span class="st">'+st+'</span><small>'+esc(det)+'</small>'+enlace(p);
   }
   function enlace(p){
