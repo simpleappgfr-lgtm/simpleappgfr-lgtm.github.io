@@ -4,25 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="color-scheme" content="light dark">
-<title>Info SimpleApp · Clima, emergencias, rutas y noticias (versión web)</title>
-<meta name="description" content="Versión web gratuita de Info SimpleApp: clima y alertas oficiales, emergencias, rutas, noticias, cotizaciones y mini-apps para Misiones, el NEA y Sudamérica. Sin instalar nada.">
-<link rel="canonical" href="https://simpleappgfr-lgtm.github.io/app/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Info SimpleApp — versión web">
-<meta property="og:description" content="Clima, alertas oficiales, emergencias, rutas, noticias y mini-apps para Misiones, el NEA y Sudamérica. Gratis, sin instalar.">
-<meta property="og:url" content="https://simpleappgfr-lgtm.github.io/app/">
-<meta property="og:image" content="https://simpleappgfr-lgtm.github.io/app/icon-512.png">
-<meta name="theme-color" content="#1f1206">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Info SimpleApp">
-<style>html.ios .ios-oculto{display:none !important;}</style>
+<title>Info SimpleApp · San Vicente</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script src="/flags-windows.js"></script>
 <style>
 /* El mapa de farmacias no debe capturar el scroll vertical de la página */
 #mapa-farmacias, #mapa-farmacias.leaflet-container, #mapa-farmacias * {
@@ -1052,6 +1040,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 <div id="hdr-dropdown">
   <button onclick="hdrMenuGo('inicio')"><span class="hdr-dd-ic">🏠</span>Inicio</button>
   <button onclick="hdrMenuGo('emergencias')"><span class="hdr-dd-ic">🆘</span>Emergencia</button>
+  <button onclick="hdrMenuGo('cortes')"><span class="hdr-dd-ic">🚧</span>Novedades de cortes de rutas</button>
   <button onclick="closeHdrMenu();abrirLinkFooterWiki()"><span class="hdr-dd-ic">📖</span>Wikipedia</button>
   <button onclick="closeHdrMenu();abrirLinkFooterMapa()"><span class="hdr-dd-ic">🗺️</span>Ver en mapa</button>
   <button onclick="closeHdrMenu();abrirLinkWaze()"><span class="hdr-dd-ic">🚙</span>Abrir en Waze</button>
@@ -1161,6 +1150,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 <nav id="main-nav" class="compact">
   <button onclick="showTab('inicio',this)" class="active">🏠 <span class="nav-label">Inicio</span></button>
   <button onclick="showTab('emergencias',this)">🆘 <span class="nav-label">Emergencia</span></button>
+  <button onclick="showTab('cortes',this)">🚧 <span class="nav-label">Cortes de rutas</span></button>
   <button onclick="showTab('farmacias',this)" class="city-only-sv" data-city-only="San Vicente"><svg class="nav-svg-ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 38" width="16" height="16" style="vertical-align:middle;margin-right:3px;"><circle cx="19" cy="19" r="19" fill="#0b3d1e"/><rect x="14" y="8" width="10" height="22" rx="3" fill="#2da653"/><rect x="8" y="14" width="22" height="10" rx="3" fill="#2da653"/></svg><span class="nav-label"> Farmacias</span></button>
   <button onclick="showTab('urbanos',this)" class="city-only-sv" data-city-only="San Vicente">🚍 <span class="nav-label">Urbanos</span></button>
   <button onclick="showTab('urbanos',this)" class="city-only" data-city="Posadas">🚍 <span class="nav-label">Urbanos</span></button>
@@ -1205,6 +1195,12 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   <div class="search-results" id="search-results"></div>
 
   <div id="fecha-dia-display" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--oro);margin:14px 0 9px;padding-bottom:5px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;"></div>
+
+  <a id="ini-cortes" class="ini-cortes" onclick="showTab('cortes',null)" role="button">
+    <span class="ini-cortes-ic">🚧</span>
+    <span class="ini-cortes-tx"><b>Novedades de cortes de rutas</b><small>Rutas y puentes de Misiones · tocá para ver</small></span>
+    <span class="ini-cortes-fl">›</span>
+  </a>
 
   <div class="stage-title">🌤️ Tiempo en <span id="clima-stage-ciudad">San Vicente</span></div>
 
@@ -2784,7 +2780,8 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 
     <a class="rm-btn rm-link" id="rb-a-ruta" target="_blank" rel="noopener">🧭 Ver ruta en Google Maps</a>
     <div class="leyenda-maps" id="rb-leyenda" style="display:none"></div>
-    <a class="rm-btn2 rm-link" id="rb-a-clima" href="https://app.temponarota.com.br" target="_blank" rel="noopener">🌦️ Clima en la ruta (Tempo na Rota)</a>
+    <a class="rm-btn2 rm-link" id="rb-a-clima" href="https://app.temponarota.com.br" target="_blank" rel="noopener">🌦️ Mapa del clima de Brasil (Tempo na Rota)</a>
+    <a class="rm-btn2 rm-link" id="rb-a-clima-app" href="https://play.google.com/store/apps/details?id=com.atlasul.temponarota" target="_blank" rel="noopener">📲 Descargar la app Tempo na Rota (Android)</a>
     <a class="rm-btn2" style="cursor:pointer" onclick="planificarRuta('rb')">🗓️ Planificar este viaje (combustible, dormir, comer)</a>
     <div style="margin-top:10px;background:rgba(212,160,23,0.14);border:1px solid #d4a017;border-radius:10px;padding:11px 13px;font-size:13px;line-height:1.45;color:var(--text);">💡 Para ver estaciones, hoteles y lugares a lo largo de <b>todo el trayecto</b> (no solo un punto), una vez adentro de Google Maps tocá <b>"Agregar paradas"</b> y elegí la categoría que quieras.</div>
 
@@ -2853,6 +2850,22 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   </div>
 </div>
 
+<div id="cortes" class="section">
+  <div class="hero-banner">
+    <div class="hb-city">NOVEDADES DE CORTES DE RUTAS</div>
+    <div class="hb-sub">Rutas, puentes y balsas con cortes en Misiones</div>
+  </div>
+  <div id="ct-web-off" class="ct-aviso" style="display:none">📡 Sin conexión: esta sección se carga desde internet. Cuando tengas señal, volvé a entrar. Mientras tanto podés abrir los mapas desde los botones de abajo.</div>
+  <iframe id="ct-web" class="ct-web" title="Novedades de cortes de rutas" data-src="https://simpleappgfr-lgtm.github.io/cortes/" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+  <div class="ct-grupo">🔗 Si no carga, abrilo desde acá</div>
+  <a class="ct-link" href="https://simpleappgfr-lgtm.github.io/cortes/" target="_blank" rel="noopener"><span>🌐</span><b>Abrir la página de cortes en el navegador</b><small>Misma información, en pantalla completa</small></a>
+  <a class="ct-link" href="https://www.google.com/maps/@-27.0,-54.8,8z/data=!5m1!1e1" target="_blank" rel="noopener"><span>📍</span><b>Google Maps con tránsito en Misiones (ver cortes)</b><small>Los cortes de ruta aparecen en rojo o con el signo de calle cerrada</small></a>
+  <a class="ct-link" href="https://www.ruta0.com/estado-de-rutas/provincia/misiones/" target="_blank" rel="noopener"><span>🛣️</span><b>Ruta0: estado de rutas de Misiones</b><small>Cortes y desvíos informados en las rutas de la provincia</small></a>
+  <a class="ct-link" onclick="showTab('fronteras',null)" style="cursor:pointer"><span>🛂</span><b>Abrir Fronteras SimpleApp</b><small>Estado de cada paso, horarios y enlaces oficiales</small></a>
+  <div class="ct-nota">🛡️ Defensa Civil: en emergencias llamá al <b>103</b>.</div>
+</div>
+
 <div id="planificador" class="section">
 
   <div class="hero-banner">
@@ -2902,8 +2915,9 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   <div class="pl-card">
     <div class="pl-t">🗺️ Ruta en Google Maps</div>
     <div id="pl-links"></div>
-    <a class="pl-btn pl-btn2" href="https://app.temponarota.com.br" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none">🌦️ Clima en la ruta (Tempo na Rota)</a>
-    <div class="pl-nota">Se abre la app Tempo na Rota: armá ahí la misma ruta para ver el pronóstico a lo largo del camino (sur de Brasil).</div>
+    <a class="pl-btn pl-btn2" href="https://app.temponarota.com.br" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none">🌦️ Mapa del clima de Brasil (Tempo na Rota)</a>
+    <a class="pl-btn pl-btn2" href="https://play.google.com/store/apps/details?id=com.atlasul.temponarota" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none">📲 Descargar la app Tempo na Rota (Android)</a>
+    <div class="pl-nota">Se abre el mapa del clima de Brasil de Tempo na Rota: buscá cada ciudad de tu viaje con la lupa (“Buscar ciudad, lugares o playa”) para ver su pronóstico. Esa página no arma rutas con origen y destino: para el clima a lo largo de la ruta, descargá la app de Tempo na Rota.</div>
   </div>
 
   <div class="pl-card">
@@ -4656,6 +4670,14 @@ function showTab(id, btn) {
   document.getElementById(id).classList.add('active');
   if (id === 'fronteras' && typeof initFronteras === 'function') { try { initFronteras(); } catch (e) {} }
   if (id === 'planificador' && typeof renderPlan === 'function') { try { renderPlan(); } catch (e) {} }
+  if (id === 'cortes' && typeof cortesCargar === 'function') { try { cortesCargar(); } catch (e) {} }
+  if (id === 'cortes') { try {
+    var _f = document.getElementById('ct-web'), _o = document.getElementById('ct-web-off');
+    if (_f) {
+      if (navigator.onLine === false) { if (_o) _o.style.display = 'block'; }
+      else { if (_o) _o.style.display = 'none'; _f.src = _f.getAttribute('data-src') + '?t=' + Date.now(); }
+    }
+  } catch (e) {} }
   var activeBtn = null;
   if (btn) {
     btn.classList.add('active');
@@ -4797,7 +4819,7 @@ function hdrMenuGo(id) {
 // clima o de Instagram con el botón "volver"), restauramos esa sección y esa
 // ciudad en vez de mostrar siempre "inicio" / San Vicente.
 document.addEventListener('DOMContentLoaded', function () {
-  var validTabs = ['inicio','farmacias','urbanos','colectivos','colectivos-caba','trenes-posadas','empresas','emergencias','calendario','juegos','noticias','rutas-misiones','rutas-argentina','rutas-brasil','fronteras','planificador','navaja','divisas','gastos','listas','mantenimiento','mascotas'];
+  var validTabs = ['inicio','farmacias','urbanos','colectivos','colectivos-caba','trenes-posadas','empresas','emergencias','calendario','juegos','noticias','rutas-misiones','rutas-argentina','rutas-brasil','fronteras','planificador','navaja','cortes','divisas','gastos','listas','mantenimiento','mascotas'];
   var rawHash = (window.location.hash || '').replace('#', '');
   var partes = rawHash.split('|');
   var hashTab = partes[0];
@@ -6460,13 +6482,13 @@ function activarModoSoloNoticias() {
 // umbral de alerta es el que publica oficialmente la Entidad Binacional
 // Yacyretá (EBY) para el puerto de Ituzaingó.
 var RIOS_CIUDADES = {
-  'Posadas':       { rio: 'Paraná',  filtro: 'Posadas' },
-  'Eldorado':      { rio: 'Paraná',  filtro: 'Eldorado' },
-  'Puerto Iguazú': { rio: 'Iguazú',  filtro: 'Iguaz' },
+  'Posadas':       { rio: 'Paraná',  filtro: 'Posadas', alertaInundacionM: 11, alertaFuente: 'Prefectura Naval Argentina (evacuación: 12 m)' },
+  'Eldorado':      { rio: 'Paraná',  filtro: 'Eldorado', balsaAlertaM: 23, balsaDestino: 'Puerto Mayor Julio Otaño (Paraguay)' },
+  'Puerto Iguazú': { rio: 'Iguazú',  filtro: 'Iguaz', balsaAlertaM: 25, balsaDestino: 'Presidente Franco (Paraguay)' },
   'San Javier':    { rio: 'Uruguay', filtro: 'San Javier', balsaAlertaM: 6.5, balsaDestino: 'Porto Xavier (Brasil)' },
   'El Soberbio':   { rio: 'Uruguay', filtro: 'El Soberbio', balsaAlertaM: 8,   balsaDestino: 'Porto Soberbo (Brasil)' },
-  'Ituzaingó':     { rio: 'Paraná',  filtro: 'Ituzaing', alertaInundacionM: 3.5, alertaFuente: 'EBY (Entidad Binacional Yacyretá)' },
-  'Santo Tomé':    { rio: 'Uruguay', filtro: 'Santo Tom', alertaInundacionM: 11.5, alertaFuente: 'Defensa Civil Municipal de Santo Tomé' }
+  'Ituzaingó':     { rio: 'Paraná',  filtro: 'Ituzaing', alertaInundacionM: 3.5, alertaFuente: 'Prefectura Naval Argentina (evacuación: 4 m)' },
+  'Santo Tomé':    { rio: 'Uruguay', filtro: 'Santo Tom', alertaInundacionM: 11.5, alertaFuente: 'Prefectura Naval Argentina (evacuación: 12,5 m)' }
 };
 
 // ── EMERGENCIAS SEGÚN PAÍS ──
@@ -7007,7 +7029,7 @@ function cargarAlturaRio(nombreCiudad) {
       if (cfg.balsaAlertaM && elBalsa) {
         if (altura >= cfg.balsaAlertaM) {
           elBalsa.style.display = 'block';
-          elBalsa.innerHTML = '⚠️ El río está en ' + altura.toFixed(2) + ' m, cerca o por encima del nivel donde suele cortarse el cruce en balsa a ' + cfg.balsaDestino + '. <b>Esto es una estimación</b>, no el estado real — confirmá siempre antes de viajar.';
+          elBalsa.innerHTML = '⚠️ El río está en ' + altura.toFixed(2) + ' m, cerca o por encima del nivel donde suele cortarse el cruce en balsa a ' + cfg.balsaDestino + '. <b>Esto es una estimación automática</b> según la altura del río, no el estado real — verificá siempre el estado del paso en la página de la aduana antes de viajar.';
         } else {
           elBalsa.style.display = 'none';
         }
@@ -7018,7 +7040,7 @@ function cargarAlturaRio(nombreCiudad) {
       if (cfg.alertaInundacionM && elBalsa) {
         if (altura >= cfg.alertaInundacionM) {
           elBalsa.style.display = 'block';
-          elBalsa.innerHTML = '⚠️ El río está en ' + altura.toFixed(2) + ' m, en o por encima del nivel de alerta oficial (' + cfg.alertaInundacionM.toFixed(2) + ' m) según ' + cfg.alertaFuente + '.';
+          elBalsa.innerHTML = '⚠️ El río está en ' + altura.toFixed(2) + ' m, en o por encima del nivel de alerta oficial (' + cfg.alertaInundacionM.toFixed(2) + ' m) según ' + cfg.alertaFuente + '. Es un aviso automático: verificá siempre con la aduana o Prefectura antes de viajar.';
         } else {
           elBalsa.style.display = 'none';
           elBalsa.innerHTML = '';
@@ -7106,7 +7128,7 @@ function aplicarCiudadActual() {
     // En este modo solo tienen sentido Inicio y las 4 mini-apps: cualquier
     // otra sección donde estuviera el usuario (Calendario, Negocios, Trivia,
     // Emergencia, etc.) se cierra y vuelve a Inicio.
-    if (['inicio', 'gastos', 'listas', 'mantenimiento', 'mascotas', 'divisas', 'rutas-misiones', 'rutas-argentina', 'rutas-brasil', 'fronteras', 'planificador', 'navaja'].indexOf(idActiva) === -1) {
+    if (['inicio', 'gastos', 'listas', 'mantenimiento', 'mascotas', 'divisas', 'rutas-misiones', 'rutas-argentina', 'rutas-brasil', 'fronteras', 'planificador', 'navaja', 'cortes'].indexOf(idActiva) === -1) {
       showTab('inicio', null);
     }
   }
@@ -7321,13 +7343,15 @@ function cargarClimaInicio(lat, lng) {
         var elAvisoLink = document.getElementById('clima-aviso-link-radar');
         if (elAvisoWrap && elAvisoTexto && data.hourly.weather_code) {
           var CODIGOS_TORMENTA = [95, 96, 99];
-          var idxActual = data.hourly.time.indexOf(fechaHoraActual);
+          var idxActual = data.hourly.time.indexOf(fechaHoraActual.slice(0, 13) + ':00'); // las horas del pronóstico son en punto (HH:00); la hora actual trae minutos
+          var tormentaAhora = (CODIGOS_TORMENTA.indexOf(cw.weather_code) !== -1);
           var horaTormenta = -1;
           if (idxActual !== -1) {
             for (var h = idxActual; h < Math.min(idxActual + 12, data.hourly.weather_code.length); h++) {
               if (CODIGOS_TORMENTA.indexOf(data.hourly.weather_code[h]) !== -1) { horaTormenta = h; break; }
             }
           }
+          if (tormentaAhora && horaTormenta === -1 && idxActual !== -1) horaTormenta = idxActual;
           if (horaTormenta !== -1) {
             var horaTexto = data.hourly.time[horaTormenta].slice(11, 16);
             var esAhora = horaTormenta === idxActual;
@@ -8690,7 +8714,7 @@ showTab = function (id, btn) {
 
 // Aviso de deslinde de responsabilidad por enlaces externos, agregado al final de cada menú/sección.
 document.addEventListener('DOMContentLoaded', function () {
-  var appDisclaimer = '<div style="background:rgba(107,63,31,0.08);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-top:16px;font-size:11px;line-height:1.5;color:var(--muted);text-align:center;">ℹ️ <strong>Info SimpleApp es una aplicación independiente y de carácter privado</strong>. No está afiliada, respaldada ni asociada a ningún organismo gubernamental. Recopila información pública para facilitar su consulta; verificá siempre los datos sensibles directamente con cada organismo. Banderas: Twemoji, licencia CC BY 4.0 (github.com/twitter/twemoji).</div>';
+  var appDisclaimer = '<div style="background:rgba(107,63,31,0.08);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-top:16px;font-size:11px;line-height:1.5;color:var(--muted);text-align:center;">ℹ️ <strong>Info SimpleApp es una aplicación independiente y de carácter privado</strong>. No está afiliada, respaldada ni asociada a ningún organismo gubernamental. Recopila información pública para facilitar su consulta; verificá siempre los datos sensibles directamente con cada organismo.</div>';
   var disclaimer = '<div style="margin:22px 0 10px 0;padding:10px 12px;border-top:1px dashed var(--border);font-size:10px;line-height:1.4;color:var(--muted);text-align:center;">⚠️ Los enlaces a sitios externos son solo a modo informativo. SimpleApp no se responsabiliza por el contenido, la disponibilidad ni la exactitud de la información de esas páginas de terceros.</div>';
   document.querySelectorAll('.section').forEach(function (sec) {
     var divApp = document.createElement('div');
@@ -10902,6 +10926,10 @@ document.addEventListener('DOMContentLoaded', function () {
 #fronteras #fr-resumen-rios .res-alerta a { color:var(--azul2); font-weight:700; text-decoration:underline; cursor:pointer; }
 #fronteras .rio-retry { margin-top:6px; background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:6px 12px; font-family:'Barlow',sans-serif; font-size:12px; font-weight:700; color:var(--text); cursor:pointer; }
 #fronteras .rio-links a { display:inline-block; margin:6px 12px 0 0; font-size:12px; font-weight:700; color:var(--azul2); text-decoration:none; }
+</style>
+</head>
+<body>
+</style>
 <script>
 /* ======================================================================
    PUENTE COMPARTIDO DE GUARDADO (AppBridge)
@@ -16637,7 +16665,7 @@ window.__leyendaMapsHtml = function (nombres) {
           NT('🌉','Puente internacional sobre el río Iguazú entre Misiones y Paraná.'),
           BRx('No tenemos confirmado si el lado brasileño hace control migratorio pleno para turistas. Consultalo con la Polícia Federal antes de ir; si no hay control, se trata como tránsito vecinal.'),
           KM('Si no está confirmado el control brasileño, usá Bernardo de Irigoyen o San Antonio para viajes largos dentro de Brasil.') ],
-      ofi: null },
+      ofi: 'https://www.argentina.gob.ar/seguridad/pasosinternacionales?search=Capanema+#ruta8' },
 
     { id:'albaposse', pais:'BR', zona:'Misiones', nombre:'Alba Posse ↔ Porto Mauá', badge:'Balsa · Río Uruguay', lat:-27.5698, lng:-54.6826, dir:'Balsa · aduana completa',
       v:{n:'ok', i:'✅', t:'Se puede hacer el trámite migratorio y aduanero del lado brasileño y circular por todo Brasil.'},
@@ -16654,6 +16682,14 @@ window.__leyendaMapsHtml = function (nombres) {
           RIO('Al igual que Alba Posse, se suspende por crecida del río Uruguay hasta que el nivel del agua vuelva a valores seguros.'),
           KM('Al completar el trámite migratorio pleno del lado brasileño, no hay límite de km: se puede viajar por cualquier destino de Brasil (hasta 90 días como turista).') ],
       ofi: OFI + 'rio/10/Paso-de-la-Barca-Porto-Xavier' },
+
+    { id:'panambi', pais:'BR', zona:'Misiones', nombre:'Panambí ↔ Porto Vera Cruz', badge:'Balsa · Río Uruguay', lat:-27.7167, lng:-54.9167, dir:'Balsa · verificar control brasileño',
+      v:{n:'warn', i:'🔶', t:'Confirmá con Prefectura si la balsa está operando y si el lado brasileño hace control migratorio pleno antes de ir.'},
+      f:[ H('Horarios sin confirmar. Consultá el listado oficial de Migraciones y a Prefectura antes de ir.'),
+          NT('🚢','Cruce en balsa sobre el río Uruguay entre Panambí (Misiones) y Porto Vera Cruz (Rio Grande do Sul).'),
+          RIO('El servicio se suspende por crecida del río Uruguay y también por bajante extrema (en julio de 2026 se inhabilitó por bajante). Referencia de Google: alerta 7 m, evacuación 9 m.'),
+          KM('No tenemos confirmado si hay control migratorio pleno del lado brasileño. Si no lo hay, se trata como tránsito vecinal; consultalo antes de planear un viaje largo.') ],
+      ofi: 'https://www.argentina.gob.ar/seguridad/pasosinternacionales#rio89' },
 
     { id:'iguazu', pais:'BR', zona:'Misiones', nombre:'Puerto Iguazú ↔ Foz do Iguaçu (Puente Tancredo Neves)', badge:'24 hs · Triple Frontera', lat:-25.5999, lng:-54.5620, dir:'24 hs · triple frontera',
       v:{n:'ok', i:'✅', t:'Se puede hacer el trámite migratorio y aduanero completo y circular por todo Brasil.'},
@@ -16693,8 +16729,10 @@ window.__leyendaMapsHtml = function (nombres) {
       ofi: OFI + 'rio/50/Puerto-Mani-Puerto-Bella-Vista-Sur' },
 
     { id:'iguazufranco', pais:'PY', zona:'Misiones', nombre:'Puerto Iguazú ↔ Presidente Franco', badge:'Balsa · Río Paraná', lat:-25.5990, lng:-54.5740, dir:'Balsa · depende del río',
-      v:{n:'warn', i:'🔶', t:'Cruce en balsa que depende del nivel del río Paraná: confirmá que esté funcionando antes de ir.'},
-      f:[ H('Último horario que encontramos (2022): de 8 a 17 hs. No tenemos confirmados los días ni el horario actual: consultalo antes de ir.'),
+      v:{n:'bad', i:'⛔', t:'Paso inhabilitado temporalmente por la crecida extraordinaria del río Iguazú (informado el 12/10/2026). No vayas hasta que Prefectura lo rehabilite.'},
+      f:[ NT('⛔','Aviso del 12/10/2026 (Prefectura Naval Iguazú): a las 10 de la mañana el río Iguazú estaba en 26,80 m, cuando lo normal es 13 m. Se evacuó la zona portuaria de Puerto Iguazú, se suspendieron las actividades náuticas y el paso Puerto Iguazú – Puerto Tres Fronteras está inhabilitado temporalmente por las intensas lluvias.'),
+          NT('ℹ️','Este aviso se carga a mano y no se actualiza solo: puede estar desactualizado cuando lo leas. Confirmá con Prefectura si el cruce volvió a habilitarse. La altura que muestra la app más abajo viene de otra estación y puede diferir de la que informó Prefectura.'),
+          H('Último horario que encontramos (2022): de 8 a 17 hs. En septiembre de 2026 se informó un horario de 8:30 a 17 hs, con cruces cada hora aproximadamente. Con el servicio suspendido no rige: consultalo antes de ir.'),
           NT('🚢','Cruza el río Paraná entre Puerto Iguazú (Puerto Tres Fronteras) y Presidente Franco (Paraguay), cerca de Ciudad del Este. Antes de la pandemia hacía unos cinco viajes por día.'),
           RIO('Depende del nivel del río: en 2022 una bajante del Paraná impidió reactivarla. También se suspende con mal tiempo o crecida.'),
           PYx(OTRO_LADO) ],
@@ -16715,14 +16753,14 @@ window.__leyendaMapsHtml = function (nombres) {
       f:[ H('8 a 17:30 hs (listado de Migraciones).'),
           RIO('El servicio de balsa depende del río y del operador: en el pasado estuvo meses sin funcionar. ' + CRECIDA),
           PYx(OTRO_LADO) ],
-      ofi: null },
+      ofi: 'https://www.argentina.gob.ar/seguridad/pasosinternacionales#rio44' },
 
     { id:'eldorado', pais:'PY', zona:'Misiones', nombre:'Eldorado ↔ Puerto Mayor Julio Otaño', badge:'Balsa · Río Paraná', lat:-26.4000, lng:-54.6200, dir:'Balsa · lunes a viernes',
       v:{n:'warn', i:'🔶', t:'Cruce en balsa de horario partido y solo en días hábiles.'},
       f:[ H('Lunes a viernes de 8 a 12 y de 14 a 18 hs (listado de Migraciones). Cierra al mediodía.'),
           RIO(CRECIDA),
           PYx(OTRO_LADO) ],
-      ofi: null },
+      ofi: 'https://www.argentina.gob.ar/seguridad/pasosinternacionales?search=Eldorado+#rio15' },
 
     { id:'ituzaingo', pais:'PY', zona:'Corrientes', nombre:'Ituzaingó ↔ Ayolas (Represa Yacyretá)', badge:'Ruta sobre la represa', lat:-27.4800, lng:-56.7300, dir:'Por la represa · horario diurno',
       v:{n:'warn', i:'🔶', t:'Se cruza por la ruta de la represa Yacyretá, solo de día. Confirmá horario y qué vehículos pasan antes de ir.'},
@@ -16814,13 +16852,14 @@ window.__leyendaMapsHtml = function (nombres) {
 
   // Cruces fluviales: u = nivel (m) a partir del cual el servicio suele suspenderse (null = no lo tenemos confirmado)
   var RIOS = {
-    elsoberbio:   { u:8,    n:'El servicio de balsa se suele cortar al superar los 8 m en el río Uruguay.' },
-    albaposse:    { u:8,    n:'Se cierra preventivamente entre los 8 y los 9 m en el río Uruguay. Usamos 8 m como alerta.' },
-    sanjavier:    { u:6.5,  n:'Referencia de alerta de balsa usada en Info SimpleApp para el río Uruguay en San Javier (6,5 m). Confirmala con Prefectura.' },
-    puertorico:   { u:null, n:'No tenemos un nivel de corte confirmado para este cruce: la app muestra la altura, pero para la alerta cargá el nivel que informe la fuente oficial.' },
-    eldorado:     { u:null, n:'No tenemos un nivel de corte confirmado para este cruce: la app muestra la altura, pero para la alerta cargá el nivel que informe la fuente oficial.' },
-    corpus:       { u:null, n:'No tenemos un nivel de corte confirmado para este cruce: la app muestra la altura si la encuentra, pero la habilitación la define Prefectura.' },
-    iguazufranco: { u:null, n:'No tenemos un nivel de corte confirmado para este cruce: la app muestra la altura si la encuentra, pero la habilitación la define Prefectura.' },
+    elsoberbio:   { u:8,    n:'El servicio de balsa se suele cortar al superar los 8 m en el río Uruguay. Niveles oficiales de Prefectura (16/10): alerta 11 m, evacuación 13 m.' },
+    albaposse:    { u:8,    n:'Se cierra preventivamente entre los 8 y los 9 m en el río Uruguay. Niveles de Prefectura (16/10): alerta 8 m, evacuación 12 m.' },
+    sanjavier:    { u:6.5,  n:'Referencia de balsa usada en Info SimpleApp (6,5 m): en julio el tránsito se cortó con 6,52 m. Niveles de Prefectura (16/10): alerta 8 m, evacuación 10 m. Confirmala con Prefectura.' },
+    panambi:      { u:7,    n:'Alerta según Prefectura (16/10): 7 m; evacuación 9 m. También se suspende por bajante extrema. La habilitación la define Prefectura.' },
+    puertorico:   { u:14.5, n:'Estación Libertador (Puerto Rico). Niveles de Prefectura (16/10): alerta 14,5 m, evacuación 15,5 m. La habilitación de la balsa la define Prefectura.' },
+    eldorado:     { u:23, n:'Niveles de Prefectura (16/10): alerta 23 m, evacuación 25 m. La habilitación de la balsa la define Prefectura.' },
+    corpus:       { u:9.5, n:'Estación Puerto Maní. Niveles de Prefectura (16/10): alerta 9,5 m, evacuación 10 m. La habilitación la define Prefectura.' },
+    iguazufranco: { u:25, n:'Estación Iguazú. Niveles de Prefectura (16/10): alerta 25 m, evacuación 28 m. La habilitación la define Prefectura.' },
     itaenramada:  { u:null, n:'No tenemos un nivel de corte confirmado para este cruce: la app muestra la altura, pero para la alerta cargá el nivel que informe la fuente oficial.' },
     paranacito:   { u:null, n:'No tenemos un nivel de corte confirmado para este cruce: la app muestra la altura, pero para la alerta cargá el nivel que informe la fuente oficial.' }
   };
@@ -16828,7 +16867,7 @@ window.__leyendaMapsHtml = function (nombres) {
   // Nombre de estación a buscar en el INA (misma capa que usa Info SimpleApp). Si el INA no tiene esa
   // estación, el cuadro queda en modo manual. Se muestra siempre qué estación se encontró.
   var INA_FILTRO = {
-    elsoberbio:'El Soberbio', sanjavier:'San Javier', albaposse:'Alba Posse', eldorado:'Eldorado',
+    elsoberbio:'El Soberbio', sanjavier:'San Javier', panambi:'Panamb', albaposse:'Alba Posse', eldorado:'Eldorado',
     puertorico:'Puerto Rico',
     corpus:'Corpus', iguazufranco:'Iguaz', itaenramada:'Clorinda', paranacito:'Paranacito'
   };
@@ -16838,7 +16877,7 @@ window.__leyendaMapsHtml = function (nombres) {
 
   // Texto a buscar en el listado oficial cuando no tenemos la dirección exacta de la ficha
   var BUSCAR = {
-    sanantonio:'San Antonio', andresito:'Andresito', santotome:'Santo Tomé', libres:'Paso de los Libres', posadas:'Posadas', puertorico:'Puerto Rico', eldorado:'Eldorado', iguazufranco:'Puerto Iguazú', ituzaingo:'Ituzaingó', clorinda:'Clorinda', itaenramada:'Pilcomayo', buquebus:'Buquebus', coloniaexpress:'Colonia Express', tigre:'Tigre', colon:'Colón', paranacito:'Paranacito'
+    sanantonio:'San Antonio', andresito:'Andresito', santotome:'Santo Tomé', libres:'Paso de los Libres', posadas:'Posadas', panambi:'Panambí', puertorico:'Puerto Rico', eldorado:'Eldorado', iguazufranco:'Puerto Iguazú', ituzaingo:'Ituzaingó', clorinda:'Clorinda', itaenramada:'Pilcomayo', buquebus:'Buquebus', coloniaexpress:'Colonia Express', tigre:'Tigre', colon:'Colón', paranacito:'Paranacito'
   };
 
   var PAISES = {
@@ -16881,13 +16920,14 @@ window.__leyendaMapsHtml = function (nombres) {
     var h = '<div class="rio-box" data-id="' + p.id + '">';
     h += '<div class="rio-t">🌊 Altura del río y alerta de balsa</div>';
     h += '<div class="rio-s">Si el río está alto, es posible que <b>no haya cruce de balsa</b>. ' + r.n + '</div>';
+    h += '<div class="rio-s" style="font-weight:700">⚠️ Esta alerta se genera automáticamente a partir de la altura del río y de niveles de referencia. Verificá siempre el estado del paso en la página de la aduana.</div>';
     h += '<div class="rio-auto" data-k="auto">⏳ Consultando la altura del río (INA)…</div>';
     h += '<div class="rio-manual" data-k="manual" style="display:none;"><div class="rio-in">';
     h += '<label data-k="lab-h">Altura hoy (m)<input type="text" inputmode="decimal" data-k="h" placeholder="ej. 6,8"></label>';
     h += '<label data-k="lab-a">Nivel de alerta (m)<input type="text" inputmode="decimal" data-k="a" placeholder="ej. 8"' + (r.u !== null ? ' value="' + String(r.u).replace('.', ',') + '"' : '') + '></label>';
     h += '</div></div>';
     h += '<div class="rio-res" data-k="res">Consultando la altura del río…</div>';
-    h += '<div class="rio-links"><a href="' + url + '" target="_blank" rel="noopener">🔗 Altura publicada por Prefectura (si la informa)</a><a href="' + INA + '" target="_blank" rel="noopener">📈 Alturas de ríos (INA)</a></div>';
+    h += '<div class="rio-links"><a href="' + url + '" target="_blank" rel="noopener">🔗 Altura publicada por Prefectura (si la informa)</a><a href="' + INA + '" target="_blank" rel="noopener">📈 Alturas de ríos (INA)</a><a href="https://contenidosweb.prefecturanaval.gob.ar/alturas/" target="_blank" rel="noopener">⚓ Alturas y niveles de alerta (Prefectura Naval)</a></div>';
     h += '</div>';
     return h;
   }
@@ -18019,23 +18059,126 @@ window.__leyendaMapsHtml = function (nombres) {
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',iniciar);else iniciar();
 })();
 </script>
+
+
+<style>
+/* ===== Novedades de cortes de rutas ===== */
+#cortes .ct-aviso{margin:10px 12px;padding:9px 12px;border-radius:10px;background:#fff3d6;color:#5d4300;border:1px solid #e6c26a;font-size:13px;line-height:1.4}
+#cortes .ct-grupo{margin:16px 12px 6px;font-size:13px;font-weight:900;letter-spacing:.4px;color:#455a64;text-transform:uppercase}
+#cortes .ct-link{display:grid;grid-template-columns:30px 1fr;column-gap:8px;align-items:center;margin:0 12px 7px;padding:10px 12px;border:1px solid #cfd8dc;border-radius:10px;background:#fff;color:#263238;text-decoration:none}
+#cortes .ct-link>span{grid-row:1 / span 2;font-size:22px;text-align:center}
+#cortes .ct-link b{font-size:14px;line-height:1.25}
+#cortes .ct-link small{font-size:11.5px;color:#607d8b;line-height:1.3;overflow-wrap:anywhere}
+#cortes .ct-nota{margin:0 12px 8px;font-size:12.5px;color:#455a64;line-height:1.4}
+#cortes .ct-balsas{margin:0 12px 8px;display:flex;flex-direction:column;gap:7px;font-size:12.5px;color:#455a64}
+#cortes .ct-b{border:1px solid #cfd8dc;border-left-width:5px;border-radius:10px;background:#fff;padding:8px 10px;color:#263238;cursor:pointer}
+#cortes .ct-b b{display:block;font-size:13.5px}
+#cortes .ct-b .st{display:block;font-size:12.5px;font-weight:800;margin:2px 0}
+#cortes .ct-b small{display:block;font-size:11.5px;color:#607d8b;line-height:1.3}
+#cortes .ct-b.alto{border-left-color:#c0392b}#cortes .ct-b.alto .st{color:#c0392b}
+#cortes .ct-b.cerca{border-left-color:#d68a00}#cortes .ct-b.cerca .st{color:#a96a00}
+#cortes .ct-b.ok{border-left-color:#2e7d32}#cortes .ct-b.ok .st{color:#2e7d32}
+#cortes .ct-b.sin{border-left-color:#90a4ae}#cortes .ct-b.sin .st{color:#607d8b}
+#cortes .ct-r0{margin:0 12px 8px}
+#cortes .ct-r0 summary{cursor:pointer;padding:10px 12px;border:1px solid #cfd8dc;border-radius:10px;background:#fff;font-weight:700;color:#0b5a8a;font-size:14px}
+#cortes .ct-r0 .ct-mapa{margin:8px 0}
+#cortes .ct-mapa{margin:0 12px 8px;border:1px solid #cfd8dc;border-radius:10px;overflow:hidden;background:#fff}
+#cortes .ct-mapa iframe{display:block;width:100%;height:320px;border:0}
+#cortes .ct-guia{margin:0 12px 8px;padding:12px 14px;border:1px solid #cfd8dc;border-radius:10px;background:#fff;color:#263238}
+#cortes .ct-guia ol{margin:0 0 10px;padding-left:20px;font-size:14px;line-height:1.4}
+#cortes .ct-guia li{margin:0 0 8px}
+#cortes .ct-ic{width:22px;height:22px;vertical-align:-6px;background:#e8f0f4;border-radius:6px;padding:2px}
+#cortes .ct-ley{display:flex;flex-direction:column;gap:7px;font-size:13px;border-top:1px dashed #cfd8dc;padding-top:10px}
+#cortes .ct-ley>div{display:flex;align-items:center;gap:10px}
+#cortes .ct-corte{flex:0 0 22px;height:22px;border-radius:50%;background:#d93025;position:relative}
+#cortes .ct-corte::after{content:"";position:absolute;left:5px;right:5px;top:50%;height:3px;margin-top:-1.5px;background:#fff}
+#cortes .ct-lin{flex:0 0 22px;height:6px;border-radius:3px}
+</style>
 <script>
-/* Versión web: en iPhone/iPad ocultamos las apps externas que solo existen en Google Play */
+/* Novedades de cortes de rutas: lee las alturas que ya consulta Fronteras SimpleApp (INA) y las muestra como lista de balsas. */
 (function(){
-  var esIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-  if(!esIOS)return;
-  document.documentElement.classList.add('ios');
-  function ocultar(){
-    document.querySelectorAll('a[href*="play.google.com/store/apps/details?id="]').forEach(function(a){
-      if(a.href.indexOf('id=info.simpleapp')===-1)a.classList.add('ios-oculto');
+  var timer = null, intentos = 0;
+  function $(i){ return document.getElementById(i); }
+  function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  var ETQ = {
+    alto:  ['🚨 Posible corte del servicio', 'alto'],
+    cerca: ['🟠 Cerca del límite: puede cortarse', 'cerca'],
+    ok:    ['🟢 Por debajo del límite: puede operar', 'ok'],
+    '':    ['⚪ Sin límite de corte confirmado', 'sin'],
+    cortado: ['⛔ Servicio cortado (según la ficha del paso)', 'alto']
+  };
+  var ORDEN = { cortado:0, alto:1, cerca:2, ok:3, '':4 };
+  function pintar(){
+    var cont = $('ct-balsas');
+    if (!cont) return false;
+    var boxes = document.querySelectorAll('#fr-lista .rio-box');
+    if (!boxes.length) return false;
+    var items = [], pendientes = 0;
+    Array.prototype.forEach.call(boxes, function(box){
+      var card = box.closest('.paso-card');
+      var fn = card ? card.querySelector('.fn') : null;
+      var res = box.querySelector('[data-k="res"]');
+      var txt = res ? res.textContent.replace(/\s+/g,' ').trim() : '';
+      if (/Consultando/.test(txt)) pendientes++;
+      var n = box.getAttribute('data-nivel') || '';
+      var vt = card ? card.querySelector('.farm-row .ftxt') : null;
+      if (vt && /--rojo/.test(vt.getAttribute('style') || '')) { n = 'cortado'; txt = vt.textContent.replace(/\s+/g,' ').trim(); }
+      else if (n === '') { txt = 'No hay un nivel de corte confirmado para este cruce. Tocá para ver la ficha del paso, la altura y el enlace oficial.'; }
+      items.push({ id: box.getAttribute('data-id'), nombre: fn ? fn.textContent.trim() : box.getAttribute('data-id'), nivel: n, txt: txt });
     });
-    document.querySelectorAll('div.city-only').forEach(function(d){
-      if((d.textContent||'').indexOf('Aplicaciones útiles para descargar')!==-1)d.classList.add('ios-oculto');
-    });
+    items.sort(function(a,b){ return (ORDEN[a.nivel]||0) - (ORDEN[b.nivel]||0); });
+    cont.innerHTML = items.map(function(it){
+      var e = ETQ[it.nivel] || ETQ[''];
+      var corto = it.txt.length > 170 ? it.txt.slice(0,167) + '…' : it.txt;
+      return '<div class="ct-b ' + e[1] + '" onclick="ctVerPaso(\'' + esc(it.id) + '\')"><b>' + esc(it.nombre) + '</b><span class="st">' + e[0] + '</span><small>' + esc(corto) + '</small></div>';
+    }).join('');
+    return pendientes === 0;
   }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ocultar);else ocultar();
+  window.ctVerPaso = function(id){
+    showTab('fronteras', null);
+    setTimeout(function(){ if (typeof window.irAFrontera === 'function') window.irAFrontera(id); }, 200);
+  };
+  window.cortesCargar = function(){
+    var cont = $('ct-balsas');
+    if (!cont) return;
+    if (typeof window.initFronteras === 'function') { try { window.initFronteras(); } catch (e) {} }
+    clearInterval(timer); intentos = 0;
+    pintar();
+    timer = setInterval(function(){
+      intentos++;
+      var listo = pintar();
+      if (listo || intentos > 24) {
+        clearInterval(timer);
+        if (!document.querySelectorAll('#fr-lista .rio-box').length) cont.textContent = 'No se pudo consultar la altura de los ríos. Probá de nuevo o abrí Fronteras SimpleApp.';
+      }
+    }, 1500);
+  };
 })();
 </script>
-<script defer src="/analytics.js"></script>
-</body>
-</html>
+
+<style>
+/* Cartel de Inicio: novedades de cortes de rutas (titila) */
+.ini-cortes{display:flex;align-items:center;gap:10px;margin:2px 0 12px;padding:10px 12px;border-radius:10px;background:#b3261e;color:#fff;cursor:pointer;border:2px solid #ffb4a9;animation:iniCortesTitila 1.2s ease-in-out infinite}
+.ini-cortes-ic{font-size:24px;flex-shrink:0}
+.ini-cortes-tx{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.25}
+.ini-cortes-tx b{font-size:14px;font-weight:900;letter-spacing:.2px}
+.ini-cortes-tx small{font-size:11px;font-weight:600;opacity:.95}
+.ini-cortes-fl{font-size:24px;font-weight:900;flex-shrink:0}
+@keyframes iniCortesTitila{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(255,80,60,.75)}50%{opacity:.55;box-shadow:0 0 0 7px rgba(255,80,60,0)}}
+@media (prefers-reduced-motion:reduce){.ini-cortes{animation:none}}
+</style>
+
+<style>/* cortes: página web incrustada */
+#cortes .ct-web{width:100%;height:78vh;min-height:480px;border:1px solid var(--border,#ddd);border-radius:12px;background:#fff;display:block;margin:0 0 6px}</style>
+
+<script>
+/* La página de cortes (en un iframe) pide abrir las secciones de rutas de la app */
+window.addEventListener('message', function (ev) {
+  try {
+    if (!ev || ev.origin !== 'https://simpleappgfr-lgtm.github.io') return;
+    var d = ev.data;
+    if (!d || d.simpleapp !== 'tab') return;
+    if (d.tab === 'rutas-argentina' || d.tab === 'rutas-brasil' || d.tab === 'rutas-misiones' || d.tab === 'planificador') showTab(d.tab, null);
+  } catch (e) {}
+});
+</script>
