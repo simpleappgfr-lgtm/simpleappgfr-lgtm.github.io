@@ -63,6 +63,7 @@ p{font-size:14px;color:var(--mut)}
 <h2>Fuentes que informan cortes</h2>
 <a class="l" href="https://misiones.tur.ar/mocona/" target="_blank" rel="noopener"><b>Parque Saltos del Moconá: ¿abierto o cerrado?</b><small>Turismo de Misiones informa el estado del parque y del paseo, con fecha y hora. Si el arroyo Yabotí está alto, el parque se inhabilita. Consultas: (03755) 495206</small></a>
 <a class="l" href="https://www.argentina.gob.ar/transporte/vialidad-nacional/estado-de-rutas" target="_blank" rel="noopener"><b>Vialidad Nacional: estado de rutas (fuente oficial)</b><small>Al abrir, escribí "Ruta 12" o "Ruta 14" (las rutas nacionales de Misiones) en el buscador "Buscá por palabra clave" para ver el estado de la ruta. Emergencias en rutas concesionadas: 140</small></a>
+<a class="l" href="https://portalmisiones.com/nota/3773/misiones-estado-de-las-principales-rutas-y-accesos-de-la-provincia/" target="_blank" rel="noopener"><b>Portal Misiones: estado de las principales rutas y accesos</b><small>Nota con el reporte matutino de DataVía sobre RN 12, RN 14, RN 105 y accesos a Posadas. Es una nota con fecha (6/10/2026): mirá la fecha antes de usarla y buscá si hay una más reciente</small></a>
 <a class="l" href="https://whatsapp.com/channel/0029VbCJFA18F2p7T4Cqdz0M" target="_blank" rel="noopener"><b>DataVía | Tránsito (canal de WhatsApp)</b><small>Reportes viales de Misiones. No sabemos si es una fuente oficial: confirmá lo que informe</small></a>
 
 <h2>Mapas en vivo</h2>
@@ -102,6 +103,26 @@ p{font-size:14px;color:var(--mut)}
 <div id="balsas" class="balsas">Consultando la altura de los ríos…</div>
 <a class="l" href="https://contenidosweb.prefecturanaval.gob.ar/alturas/" target="_blank" rel="noopener"><b>Alturas de ríos (Prefectura Naval Argentina)</b><small>Fuente oficial: altura de cada puerto con sus niveles de alerta y evacuación</small></a>
 <a class="l" href="https://alerta.ina.gob.ar/" target="_blank" rel="noopener"><b>Alturas de ríos (INA)</b><small>Fuente de las alturas que se muestran arriba</small></a>
+
+<h2>Conocé más sobre las rutas</h2>
+<p style="margin:0 0 8px">Si querés conocer más sobre las rutas de Misiones, Argentina y el sur de Brasil, o planificar tu viaje, tenés estas secciones en Info SimpleApp:</p>
+<a class="l ir" data-tab="rutas-misiones" href="https://play.google.com/store/apps/details?id=info.simpleapp" target="_blank" rel="noopener"><b>🛣️ Rutas de Misiones SimpleApp</b><small>Información de las rutas de Misiones, dentro de la app Info SimpleApp</small></a>
+<a class="l ir" data-tab="planificador" href="https://play.google.com/store/apps/details?id=info.simpleapp" target="_blank" rel="noopener"><b>🗓️ Plan de Viaje SimpleApp</b><small>Planificador de viajes, dentro de la app Info SimpleApp</small></a>
+<a class="l ir" data-tab="rutas-argentina" href="https://play.google.com/store/apps/details?id=info.simpleapp" target="_blank" rel="noopener"><b>🇦🇷 Rutas de Argentina SimpleApp</b><small>Información de las rutas argentinas, dentro de la app Info SimpleApp</small></a>
+<a class="l ir" data-tab="rutas-brasil" href="https://play.google.com/store/apps/details?id=info.simpleapp" target="_blank" rel="noopener"><b>🇧🇷 Rutas del Sur de Brasil SimpleApp</b><small>Información de las rutas del sur de Brasil, dentro de la app Info SimpleApp</small></a>
+<script>
+(function(){
+  var ls=document.querySelectorAll('a.ir');
+  Array.prototype.forEach.call(ls,function(a){
+    a.addEventListener('click',function(e){
+      if(window.parent&&window.parent!==window){
+        e.preventDefault();
+        try{window.parent.postMessage({simpleapp:'tab',tab:a.getAttribute('data-tab')},'*');}catch(x){}
+      }
+    });
+  });
+})();
+</script>
 
 <p>Defensa Civil: en emergencias llamá al 103. Página de Info SimpleApp, San Vicente, Misiones.</p>
 </main>
@@ -174,7 +195,7 @@ p{font-size:14px;color:var(--mut)}
     cierre.forEach(function(n){h+='<li>'+esc(n)+' ⛔ cierre informado</li>';});
     posible.forEach(function(n){h+='<li>'+esc(n)+' 🚨 posible cierre</li>';});
     cerca.forEach(function(n){h+='<li>'+esc(n)+' 🟠 cerca del nivel de alerta</li>';});
-    h+='</ul><div style="margin-top:8px;font-weight:600">⚠️ Estas alertas se generan automáticamente a partir de la altura del río y de niveles de referencia. Verificá siempre el estado de cada paso en la página de la aduana (botón en cada tarjeta).</div>';box.innerHTML=h;box.style.display='block';
+    h+='</ul><div style="margin-top:8px;font-weight:600">⚠️ Estas alertas se generan automáticamente a partir de la altura del río y de niveles de referencia. Verificá siempre el estado de cada paso en la página de la aduana (más abajo, en la lista de cruces, cada tarjeta tiene su propio botón «Ver si la aduana está abierta o cerrada»).</div>';box.innerHTML=h;box.style.display='block';
   }
   /* Lecturas cargadas a mano (Prefectura Naval, 16/10/2026 08:00). Se usan solo si el INA no responde. Actualizar o borrar. */
   var MANUAL={elsoberbio:{h:6.0,f:'16/10 08:00'},albaposse:{h:7.3,f:'16/10 08:00'},sanjavier:{h:6.4,f:'16/10 08:00'},panambi:{h:6.65,f:'16/10 08:00'},eldorado:{h:25.05,f:'16/10 08:00'},puertorico:{h:18.9,f:'16/10 08:00'},iguazufranco:{h:32.8,f:'16/10 08:00'},corpus:{h:9.25,f:'16/10 08:00'}};
