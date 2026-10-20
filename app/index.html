@@ -4,10 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="color-scheme" content="light dark">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="mobile-web-app-capable" content="yes">
 <title>Info SimpleApp · San Vicente</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -1349,6 +1345,86 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
     <div style="font-size:10px;color:#c9a877;margin-bottom:9px;line-height:1.4;">ℹ️ Esta información pertenece al Servicio Nacional de Meteorología e Hidrología (SENAMHI), no a Info SimpleApp. Tocá para ver las alertas vigentes en su sitio oficial.</div>
     <button onclick="abrirLink('https://senamhi.gob.bo/index.php/hidrologia/alertas')" style="width:100%;background:rgba(240,178,92,0.14);border:1px solid #6b4a1a;color:#f0b25c;font-weight:800;font-size:11.5px;padding:9px 10px;border-radius:9px;cursor:pointer;">🚨 Ver alertas vigentes</button>
     <div style="font-size:8.5px;color:#a3823f;margin-top:7px;">Fuente: SENAMHI · En una emergencia real, llamá al 110 (Policía Boliviana)</div>
+  </div>
+
+  <!-- AVISOS METEOROLÓGICOS DE PERÚ (SENAMHI / INDECI) — solo enlace a la fuente oficial -->
+  <div id="alerta-pe-card-wrap" class="modo-normal-only" style="display:none;background:linear-gradient(135deg,#241505,#3a2408);border:1px solid #6b4a1a;border-radius:12px;padding:11px 13px;margin-bottom:14px;">
+    <div style="font-size:12.5px;font-weight:800;color:#f0b25c;margin-bottom:4px;">⚠️ Alertas Meteorológicas (SENAMHI)</div>
+    <div style="font-size:10px;color:#c9a877;margin-bottom:9px;line-height:1.4;">ℹ️ Esta información pertenece al Servicio Nacional de Meteorología e Hidrología del Perú (SENAMHI) y al Instituto Nacional de Defensa Civil (INDECI), no a Info SimpleApp. Tocá para ver la información vigente en su sitio oficial.</div>
+    <button onclick="abrirLink('https://www.senamhi.gob.pe/')" style="width:100%;background:rgba(240,178,92,0.14);border:1px solid #6b4a1a;color:#f0b25c;font-weight:800;font-size:11.5px;padding:9px 10px;border-radius:9px;cursor:pointer;">🚨 Ver avisos vigentes</button>
+    <div style="font-size:8.5px;color:#a3823f;margin-top:7px;">Fuente: SENAMHI / INDECI · En una emergencia real, llamá al 105 (Policía Nacional)</div>
+  </div>
+
+  <!-- AVISOS METEOROLÓGICOS DE ECUADOR (INAMHI / SGR) — solo enlace a la fuente oficial -->
+  <div id="alerta-ec-card-wrap" class="modo-normal-only" style="display:none;background:linear-gradient(135deg,#241505,#3a2408);border:1px solid #6b4a1a;border-radius:12px;padding:11px 13px;margin-bottom:14px;">
+    <div style="font-size:12.5px;font-weight:800;color:#f0b25c;margin-bottom:4px;">⚠️ Alertas Meteorológicas (INAMHI)</div>
+    <div style="font-size:10px;color:#c9a877;margin-bottom:9px;line-height:1.4;">ℹ️ Esta información pertenece al Instituto Nacional de Meteorología e Hidrología (INAMHI) y a la Secretaría de Gestión de Riesgos de Ecuador, no a Info SimpleApp. Tocá para ver la información vigente en su sitio oficial.</div>
+    <button onclick="abrirLink('https://www.inamhi.gob.ec/')" style="width:100%;background:rgba(240,178,92,0.14);border:1px solid #6b4a1a;color:#f0b25c;font-weight:800;font-size:11.5px;padding:9px 10px;border-radius:9px;cursor:pointer;">🚨 Ver avisos vigentes</button>
+    <div style="font-size:8.5px;color:#a3823f;margin-top:7px;">Fuente: INAMHI / Gestión de Riesgos · En una emergencia real, llamá al 911 (ECU 911)</div>
+  </div>
+
+  <!-- AVISOS METEOROLÓGICOS DE COLOMBIA (IDEAM) — solo enlace a la fuente oficial -->
+  <div id="alerta-co-card-wrap" class="modo-normal-only" style="display:none;background:linear-gradient(135deg,#241505,#3a2408);border:1px solid #6b4a1a;border-radius:12px;padding:11px 13px;margin-bottom:14px;">
+    <div style="font-size:12.5px;font-weight:800;color:#f0b25c;margin-bottom:4px;">⚠️ Alertas Meteorológicas (IDEAM)</div>
+    <div style="font-size:10px;color:#c9a877;margin-bottom:9px;line-height:1.4;">ℹ️ Esta información pertenece al Instituto de Hidrología, Meteorología y Estudios Ambientales (IDEAM) de Colombia, no a Info SimpleApp. Tocá para ver la información vigente en su sitio oficial.</div>
+    <button onclick="abrirLink('https://www.ideam.gov.co/')" style="width:100%;background:rgba(240,178,92,0.14);border:1px solid #6b4a1a;color:#f0b25c;font-weight:800;font-size:11.5px;padding:9px 10px;border-radius:9px;cursor:pointer;">🚨 Ver avisos vigentes</button>
+    <div style="font-size:8.5px;color:#a3823f;margin-top:7px;">Fuente: IDEAM · En una emergencia real, llamá al 123</div>
+  </div>
+
+  <!-- AVISOS METEOROLÓGICOS DE VENEZUELA (INAMEH) — solo enlace a la fuente oficial -->
+  <div id="alerta-ve-card-wrap" class="modo-normal-only" style="display:none;background:linear-gradient(135deg,#241505,#3a2408);border:1px solid #6b4a1a;border-radius:12px;padding:11px 13px;margin-bottom:14px;">
+    <div style="font-size:12.5px;font-weight:800;color:#f0b25c;margin-bottom:4px;">⚠️ Alertas Meteorológicas (INAMEH)</div>
+    <div style="font-size:10px;color:#c9a877;margin-bottom:9px;line-height:1.4;">ℹ️ Esta información pertenece al Instituto Nacional de Meteorología e Hidrología (INAMEH) de Venezuela, no a Info SimpleApp. Tocá para ver la información vigente en su sitio oficial.</div>
+    <button onclick="abrirLink('https://www.inameh.gob.ve/')" style="width:100%;background:rgba(240,178,92,0.14);border:1px solid #6b4a1a;color:#f0b25c;font-weight:800;font-size:11.5px;padding:9px 10px;border-radius:9px;cursor:pointer;">🚨 Ver avisos vigentes</button>
+    <div style="font-size:8.5px;color:#a3823f;margin-top:7px;">Fuente: INAMEH · En una emergencia real, llamá al 911 (VEN 911)</div>
+  </div>
+
+  <!-- AVISOS METEOROLÓGICOS DE MÉXICO (SMN) — solo enlace a la fuente oficial -->
+  <div id="alerta-mx-card-wrap" class="modo-normal-only" style="display:none;background:linear-gradient(135deg,#241505,#3a2408);border:1px solid #6b4a1a;border-radius:12px;padding:11px 13px;margin-bottom:14px;">
+    <div style="font-size:12.5px;font-weight:800;color:#f0b25c;margin-bottom:4px;">⚠️ Alertas Meteorológicas (SMN México)</div>
+    <div style="font-size:10px;color:#c9a877;margin-bottom:9px;line-height:1.4;">ℹ️ Esta información pertenece al Servicio Meteorológico Nacional de México (SMN-CONAGUA), no a Info SimpleApp. Tocá para ver la información vigente en su sitio oficial.</div>
+    <button onclick="abrirLink('https://smn.conagua.gob.mx/')" style="width:100%;background:rgba(240,178,92,0.14);border:1px solid #6b4a1a;color:#f0b25c;font-weight:800;font-size:11.5px;padding:9px 10px;border-radius:9px;cursor:pointer;">🚨 Ver avisos vigentes</button>
+    <div style="font-size:8.5px;color:#a3823f;margin-top:7px;">Fuente: SMN México · En una emergencia real, llamá al 911</div>
+  </div>
+
+  <!-- AVISOS METEOROLÓGICOS DE PANAMÁ (IMHPA) — solo enlace a la fuente oficial -->
+  <div id="alerta-pa-card-wrap" class="modo-normal-only" style="display:none;background:linear-gradient(135deg,#241505,#3a2408);border:1px solid #6b4a1a;border-radius:12px;padding:11px 13px;margin-bottom:14px;">
+    <div style="font-size:12.5px;font-weight:800;color:#f0b25c;margin-bottom:4px;">⚠️ Alertas Meteorológicas (IMHPA)</div>
+    <div style="font-size:10px;color:#c9a877;margin-bottom:9px;line-height:1.4;">ℹ️ Esta información pertenece al Instituto de Meteorología e Hidrología de Panamá (IMHPA), no a Info SimpleApp. Tocá para ver la información vigente en su sitio oficial.</div>
+    <button onclick="abrirLink('https://www.imhpa.gob.pa/')" style="width:100%;background:rgba(240,178,92,0.14);border:1px solid #6b4a1a;color:#f0b25c;font-weight:800;font-size:11.5px;padding:9px 10px;border-radius:9px;cursor:pointer;">🚨 Ver avisos vigentes</button>
+    <div style="font-size:8.5px;color:#a3823f;margin-top:7px;">Fuente: IMHPA · En una emergencia real, llamá al 911</div>
+  </div>
+
+  <!-- AVISOS METEOROLÓGICOS DE REPÚBLICA DOMINICANA (ONAMET) — solo enlace a la fuente oficial -->
+  <div id="alerta-do-card-wrap" class="modo-normal-only" style="display:none;background:linear-gradient(135deg,#241505,#3a2408);border:1px solid #6b4a1a;border-radius:12px;padding:11px 13px;margin-bottom:14px;">
+    <div style="font-size:12.5px;font-weight:800;color:#f0b25c;margin-bottom:4px;">⚠️ Alertas Meteorológicas (ONAMET)</div>
+    <div style="font-size:10px;color:#c9a877;margin-bottom:9px;line-height:1.4;">ℹ️ Esta información pertenece a la Oficina Nacional de Meteorología de la República Dominicana (ONAMET), no a Info SimpleApp. Tocá para ver la información vigente en su sitio oficial.</div>
+    <button onclick="abrirLink('https://www.onamet.gob.do/')" style="width:100%;background:rgba(240,178,92,0.14);border:1px solid #6b4a1a;color:#f0b25c;font-weight:800;font-size:11.5px;padding:9px 10px;border-radius:9px;cursor:pointer;">🚨 Ver avisos vigentes</button>
+    <div style="font-size:8.5px;color:#a3823f;margin-top:7px;">Fuente: ONAMET · En una emergencia real, llamá al 911</div>
+  </div>
+
+  <!-- AVISOS METEOROLÓGICOS DE COSTA RICA (IMN) — solo enlace a la fuente oficial -->
+  <div id="alerta-cr-card-wrap" class="modo-normal-only" style="display:none;background:linear-gradient(135deg,#241505,#3a2408);border:1px solid #6b4a1a;border-radius:12px;padding:11px 13px;margin-bottom:14px;">
+    <div style="font-size:12.5px;font-weight:800;color:#f0b25c;margin-bottom:4px;">⚠️ Alertas Meteorológicas (IMN)</div>
+    <div style="font-size:10px;color:#c9a877;margin-bottom:9px;line-height:1.4;">ℹ️ Esta información pertenece al Instituto Meteorológico Nacional de Costa Rica (IMN), no a Info SimpleApp. Tocá para ver la información vigente en su sitio oficial.</div>
+    <button onclick="abrirLink('https://www.imn.ac.cr/')" style="width:100%;background:rgba(240,178,92,0.14);border:1px solid #6b4a1a;color:#f0b25c;font-weight:800;font-size:11.5px;padding:9px 10px;border-radius:9px;cursor:pointer;">🚨 Ver avisos vigentes</button>
+    <div style="font-size:8.5px;color:#a3823f;margin-top:7px;">Fuente: IMN · En una emergencia real, llamá al 911</div>
+  </div>
+
+  <!-- AVISOS METEOROLÓGICOS DE CUBA (INSMET) — solo enlace a la fuente oficial -->
+  <div id="alerta-cu-card-wrap" class="modo-normal-only" style="display:none;background:linear-gradient(135deg,#241505,#3a2408);border:1px solid #6b4a1a;border-radius:12px;padding:11px 13px;margin-bottom:14px;">
+    <div style="font-size:12.5px;font-weight:800;color:#f0b25c;margin-bottom:4px;">⚠️ Alertas Meteorológicas (INSMET)</div>
+    <div style="font-size:10px;color:#c9a877;margin-bottom:9px;line-height:1.4;">ℹ️ Esta información pertenece al Instituto de Meteorología de Cuba (INSMET), no a Info SimpleApp. Tocá para ver la información vigente en su sitio oficial.</div>
+    <button onclick="abrirLink('http://www.insmet.cu/')" style="width:100%;background:rgba(240,178,92,0.14);border:1px solid #6b4a1a;color:#f0b25c;font-weight:800;font-size:11.5px;padding:9px 10px;border-radius:9px;cursor:pointer;">🚨 Ver avisos vigentes</button>
+    <div style="font-size:8.5px;color:#a3823f;margin-top:7px;">Fuente: INSMET · En una emergencia real, llamá al 106 (Policía Nacional Revolucionaria)</div>
+  </div>
+
+  <!-- AVISOS METEOROLÓGICOS DE ESPAÑA (AEMET) — solo enlace a la fuente oficial -->
+  <div id="alerta-es-card-wrap" class="modo-normal-only" style="display:none;background:linear-gradient(135deg,#241505,#3a2408);border:1px solid #6b4a1a;border-radius:12px;padding:11px 13px;margin-bottom:14px;">
+    <div style="font-size:12.5px;font-weight:800;color:#f0b25c;margin-bottom:4px;">⚠️ Avisos Meteorológicos (AEMET)</div>
+    <div style="font-size:10px;color:#c9a877;margin-bottom:9px;line-height:1.4;">ℹ️ Esta información pertenece a la Agencia Estatal de Meteorología (AEMET), no a Info SimpleApp. Tocá para ver los avisos vigentes en su sitio oficial.</div>
+    <button onclick="abrirLink('https://www.aemet.es/es/eltiempo/prediccion/avisos')" style="width:100%;background:rgba(240,178,92,0.14);border:1px solid #6b4a1a;color:#f0b25c;font-weight:800;font-size:11.5px;padding:9px 10px;border-radius:9px;cursor:pointer;">🚨 Ver avisos vigentes</button>
+    <div style="font-size:8.5px;color:#a3823f;margin-top:7px;">Fuente: AEMET · En una emergencia real, llamá al 112</div>
   </div>
 
   <!-- ALTURA DE RÍO (solo se muestra si la ciudad elegida está sobre un río monitoreado) -->
@@ -4541,6 +4617,11 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
           <option value="UYU">🇺🇾 Peso uruguayo</option>
           <option value="CLP">🇨🇱 Peso chileno</option>
           <option value="BOB">🇧🇴 Boliviano</option>
+          <option value="PEN">🇵🇪 Sol peruano</option>
+          <option value="COP">🇨🇴 Peso colombiano</option>
+          <option value="MXN">🇲🇽 Peso mexicano</option>
+          <option value="CRC">🇨🇷 Colón costarricense</option>
+          <option value="DOP">🇩🇴 Peso dominicano</option>
           <option value="EUR">🇪🇺 Euro</option>
           <option value="GBP">🇬🇧 Libra esterlina</option>
         </select>
@@ -4558,6 +4639,11 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
           <option value="UYU">🇺🇾 Peso uruguayo</option>
           <option value="CLP">🇨🇱 Peso chileno</option>
           <option value="BOB">🇧🇴 Boliviano</option>
+          <option value="PEN">🇵🇪 Sol peruano</option>
+          <option value="COP">🇨🇴 Peso colombiano</option>
+          <option value="MXN">🇲🇽 Peso mexicano</option>
+          <option value="CRC">🇨🇷 Colón costarricense</option>
+          <option value="DOP">🇩🇴 Peso dominicano</option>
           <option value="EUR">🇪🇺 Euro</option>
           <option value="GBP">🇬🇧 Libra esterlina</option>
         </select>
@@ -4627,6 +4713,11 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       <option value="UYU">🇺🇾 Peso uruguayo</option>
       <option value="CLP">🇨🇱 Peso chileno</option>
       <option value="BOB">🇧🇴 Boliviano</option>
+          <option value="PEN">🇵🇪 Sol peruano</option>
+          <option value="COP">🇨🇴 Peso colombiano</option>
+          <option value="MXN">🇲🇽 Peso mexicano</option>
+          <option value="CRC">🇨🇷 Colón costarricense</option>
+          <option value="DOP">🇩🇴 Peso dominicano</option>
       <option value="EUR">🇪🇺 Euro</option>
       <option value="GBP">🇬🇧 Libra esterlina</option>
     </select>
@@ -6025,6 +6116,18 @@ var CIUDADES = [
   {nombre:'Sucre',              lat:-19.0333, lng:-65.2627, provincia:'Chuquisaca', pais:'BO', radar:'https://www.tiempoyradar.com.ar/tiempo/sucre/15498149'},
   {nombre:'Santiago de Chile',  lat:-33.4489, lng:-70.6693, provincia:'Región Metropolitana', pais:'CL', wikiSlug:'Santiago_de_Chile', radar:'https://www.tiempoyradar.com.ar/tiempo/santiago-de-chile/4777851'},
   {nombre:'Valparaíso',         lat:-33.0472, lng:-71.6127, provincia:'Valparaíso', pais:'CL', radar:'https://www.tiempoyradar.com.ar/tiempo/valparaiso/17600787'},
+  {nombre:'Lima',               lat:-12.0464, lng:-77.0428, provincia:'Lima', pais:'PE', wikiSlug:'Lima'},
+  {nombre:'Quito',              lat:-0.1807, lng:-78.4678, provincia:'Pichincha', pais:'EC', wikiSlug:'Quito'},
+  {nombre:'Bogotá',             lat:4.7110, lng:-74.0721, provincia:'Distrito Capital', pais:'CO', wikiSlug:'Bogotá'},
+  {nombre:'Caracas',            lat:10.4806, lng:-66.9036, provincia:'Distrito Capital', pais:'VE', wikiSlug:'Caracas', radar:'https://www.tiempoyradar.com.ar/tiempo/caracas/7734708'},
+  {nombre:'Ciudad de México',   lat:19.4326, lng:-99.1332, provincia:'Ciudad de México', pais:'MX', wikiSlug:'Ciudad_de_México', radar:'https://www.tiempoyradar.com.ar/tiempo/ciudad-de-mexico/6290883'},
+  {nombre:'Cancún',             lat:21.1619, lng:-86.8515, provincia:'Quintana Roo', pais:'MX', wikiSlug:'Cancún', radar:'https://www.tiempoyradar.com.ar/tiempo/cancun/14648382'},
+  {nombre:'Ciudad de Panamá',   lat:8.9824, lng:-79.5199, provincia:'Panamá', pais:'PA', wikiSlug:'Ciudad_de_Panamá', radar:'https://www.tiempoyradar.com.ar/tiempo/panama/375480'},
+  {nombre:'Santo Domingo',      lat:18.4861, lng:-69.9312, provincia:'Distrito Nacional', pais:'DO', wikiSlug:'Santo_Domingo', radar:'https://www.tiempoyradar.com.ar/tiempo/santo-domingo/632542'},
+  {nombre:'San José (Costa Rica)', lat:9.9281, lng:-84.0907, provincia:'San José', pais:'CR', wikiSlug:'San_José_(Costa_Rica)', radar:'https://www.tiempoyradar.com.ar/tiempo/san-jose/3989228'},
+  {nombre:'La Habana',          lat:23.1136, lng:-82.3666, provincia:'La Habana', pais:'CU', wikiSlug:'La_Habana', radar:'https://www.tiempoyradar.com.ar/tiempo/la-habana/6750316'},
+  {nombre:'Madrid',             lat:40.4168, lng:-3.7038, provincia:'Comunidad de Madrid', pais:'ES', wikiSlug:'Madrid', radar:'https://www.tiempoyradar.com.ar/tiempo/madrid/11298643'},
+  {nombre:'Barcelona',          lat:41.3874, lng:2.1686, provincia:'Cataluña', pais:'ES', wikiSlug:'Barcelona', radar:'https://www.tiempoyradar.com.ar/tiempo/barcelona/9038451'},
   {nombre:'Brasília',            lat:-15.7939, lng:-47.8828, provincia:'Distrito Federal', pais:'BR', wikiSlug:'Brasilia', radar:'https://www.tiempoyradar.com.ar/tiempo/brasilia/11265103'},
   {nombre:'Río de Janeiro',      lat:-22.9068, lng:-43.1729, provincia:'Río de Janeiro', pais:'BR', wikiSlug:'Río_de_Janeiro', radar:'https://www.tiempoyradar.com.ar/tiempo/rio-de-janeiro/16229787'},
   // Uruguay
@@ -6095,7 +6198,7 @@ function filtrarCiudades(query) {
   var q = normStr((query || '').trim());
   if (!q) { renderCityMenu(); return; }
 
-  var banderaPorPais = { ARG: '📍', PY: '🇵🇾', BR: '🇧🇷', UY: '🇺🇾', FK: '📍', CL: '🇨🇱', BO: '🇧🇴' };
+  var banderaPorPais = { ARG: '📍', PY: '🇵🇾', BR: '🇧🇷', UY: '🇺🇾', FK: '📍', CL: '🇨🇱', BO: '🇧🇴', PE: '🇵🇪', EC: '🇪🇨', CO: '🇨🇴', VE: '🇻🇪', MX: '🇲🇽', PA: '🇵🇦', DO: '🇩🇴', CR: '🇨🇷', CU: '🇨🇺', ES: '🇪🇸' };
   var coincidencias = CIUDADES.filter(function (c) {
     return normStr(c.nombre).indexOf(q) !== -1 || normStr(c.provincia).indexOf(q) !== -1;
   });
@@ -6239,12 +6342,102 @@ function renderCityMenu() {
     }
   }
 
+  // ── PERÚ ──
+  var ciudadesPE = CIUDADES.filter(function (c) { return c.pais === 'PE'; });
+  if (ciudadesPE.length) {
+    html += encabezadoPais('PE', '🇵🇪', 'Perú', ciudadesPE.length);
+    if (_paisExpandido.PE) {
+      ciudadesPE.forEach(function (c) { html += botonCiudad(c, '🇵🇪'); });
+    }
+  }
+
+  // ── ECUADOR ──
+  var ciudadesEC = CIUDADES.filter(function (c) { return c.pais === 'EC'; });
+  if (ciudadesEC.length) {
+    html += encabezadoPais('EC', '🇪🇨', 'Ecuador', ciudadesEC.length);
+    if (_paisExpandido.EC) {
+      ciudadesEC.forEach(function (c) { html += botonCiudad(c, '🇪🇨'); });
+    }
+  }
+
+  // ── COLOMBIA ──
+  var ciudadesCO = CIUDADES.filter(function (c) { return c.pais === 'CO'; });
+  if (ciudadesCO.length) {
+    html += encabezadoPais('CO', '🇨🇴', 'Colombia', ciudadesCO.length);
+    if (_paisExpandido.CO) {
+      ciudadesCO.forEach(function (c) { html += botonCiudad(c, '🇨🇴'); });
+    }
+  }
+
+  // ── VENEZUELA ──
+  var ciudadesVE = CIUDADES.filter(function (c) { return c.pais === 'VE'; });
+  if (ciudadesVE.length) {
+    html += encabezadoPais('VE', '🇻🇪', 'Venezuela', ciudadesVE.length);
+    if (_paisExpandido.VE) {
+      ciudadesVE.forEach(function (c) { html += botonCiudad(c, '🇻🇪'); });
+    }
+  }
+
+  // ── MÉXICO ──
+  var ciudadesMX = CIUDADES.filter(function (c) { return c.pais === 'MX'; });
+  if (ciudadesMX.length) {
+    html += encabezadoPais('MX', '🇲🇽', 'México', ciudadesMX.length);
+    if (_paisExpandido.MX) {
+      ciudadesMX.forEach(function (c) { html += botonCiudad(c, '🇲🇽'); });
+    }
+  }
+
+  // ── PANAMÁ ──
+  var ciudadesPA = CIUDADES.filter(function (c) { return c.pais === 'PA'; });
+  if (ciudadesPA.length) {
+    html += encabezadoPais('PA', '🇵🇦', 'Panamá', ciudadesPA.length);
+    if (_paisExpandido.PA) {
+      ciudadesPA.forEach(function (c) { html += botonCiudad(c, '🇵🇦'); });
+    }
+  }
+
+  // ── REPÚBLICA DOMINICANA ──
+  var ciudadesDO = CIUDADES.filter(function (c) { return c.pais === 'DO'; });
+  if (ciudadesDO.length) {
+    html += encabezadoPais('DO', '🇩🇴', 'República Dominicana', ciudadesDO.length);
+    if (_paisExpandido.DO) {
+      ciudadesDO.forEach(function (c) { html += botonCiudad(c, '🇩🇴'); });
+    }
+  }
+
+  // ── COSTA RICA ──
+  var ciudadesCR = CIUDADES.filter(function (c) { return c.pais === 'CR'; });
+  if (ciudadesCR.length) {
+    html += encabezadoPais('CR', '🇨🇷', 'Costa Rica', ciudadesCR.length);
+    if (_paisExpandido.CR) {
+      ciudadesCR.forEach(function (c) { html += botonCiudad(c, '🇨🇷'); });
+    }
+  }
+
+  // ── CUBA ──
+  var ciudadesCU = CIUDADES.filter(function (c) { return c.pais === 'CU'; });
+  if (ciudadesCU.length) {
+    html += encabezadoPais('CU', '🇨🇺', 'Cuba', ciudadesCU.length);
+    if (_paisExpandido.CU) {
+      ciudadesCU.forEach(function (c) { html += botonCiudad(c, '🇨🇺'); });
+    }
+  }
+
+  // ── ESPAÑA ──
+  var ciudadesES = CIUDADES.filter(function (c) { return c.pais === 'ES'; });
+  if (ciudadesES.length) {
+    html += encabezadoPais('ES', '🇪🇸', 'España', ciudadesES.length);
+    if (_paisExpandido.ES) {
+      ciudadesES.forEach(function (c) { html += botonCiudad(c, '🇪🇸'); });
+    }
+  }
+
   cont.innerHTML = html;
 }
 
 // Estado de apertura de cada país en el selector (acordeón). Arranca con
 // Argentina abierta (la más usada) y las otras dos cerradas.
-var _paisExpandido = { ARG: true, BR: false, PY: false, UY: false, CL: false, BO: false };
+var _paisExpandido = { ARG: true, BR: false, PY: false, UY: false, CL: false, BO: false, PE: false, EC: false, CO: false, VE: false, MX: false, PA: false, DO: false, CR: false, CU: false, ES: false };
 
 function toggleGrupoPais(pais) {
   _paisExpandido[pais] = !_paisExpandido[pais];
@@ -6561,6 +6754,107 @@ var EMERGENCIAS_POR_PAIS = {
     tituloServicios: '',
     servicios: []
   },
+  PE: {
+    tituloPrincipal: '🆘 Emergencias (Perú)',
+    principales: [
+      { id: 'pe-105', icon: '🚔', bg: '#1a0505', nombre: 'Policía Nacional del Perú', desc: 'Emergencias policiales', numero: '105', color: '#2980b9' },
+      { id: 'pe-116', icon: '🚒', bg: '#2a0a00', nombre: 'Bomberos', desc: 'Incendios y rescates', numero: '116', color: '#e67e22' },
+      { id: 'pe-106', icon: '🚑', bg: '#0a1a10', nombre: 'SAMU', desc: 'Ambulancia · Emergencias médicas (Lima)', numero: '106', color: '#5cb85c' },
+      { id: 'pe-115', icon: '🌊', bg: '#0a1020', nombre: 'Defensa Civil (INDECI)', desc: 'Desastres y emergencias naturales', numero: '115', color: '#2980b9' },
+      { id: 'pe-100', icon: '💜', bg: '#2a0a15', nombre: 'Línea 100', desc: 'Violencia familiar y sexual', numero: '100', color: '#9b59b6' }
+    ],
+    tituloServicios: '',
+    servicios: []
+  },
+  EC: {
+    tituloPrincipal: '🆘 Emergencias (Ecuador)',
+    principales: [
+      { id: 'ec-911', icon: '🆘', bg: '#1a0a00', nombre: 'ECU 911', desc: 'Número único: Policía, Bomberos y Ambulancia, 24 hs', numero: '911', color: '#c0392b' }
+    ],
+    tituloServicios: '',
+    servicios: []
+  },
+  CO: {
+    tituloPrincipal: '🆘 Emergencias (Colombia)',
+    principales: [
+      { id: 'co-123', icon: '🆘', bg: '#1a0a00', nombre: 'Línea de Emergencias', desc: 'Número único: Policía, Bomberos y ambulancia', numero: '123', color: '#c0392b' },
+      { id: 'co-119', icon: '🚒', bg: '#2a0a00', nombre: 'Bomberos', desc: 'Incendios y rescates', numero: '119', color: '#e67e22' },
+      { id: 'co-132', icon: '🚑', bg: '#0a1a10', nombre: 'Cruz Roja Colombiana', desc: 'Ambulancia · Emergencias médicas', numero: '132', color: '#5cb85c' },
+      { id: 'co-144', icon: '🌊', bg: '#0a1020', nombre: 'Defensa Civil', desc: 'Desastres y emergencias naturales', numero: '144', color: '#2980b9' },
+      { id: 'co-155', icon: '💜', bg: '#2a0a15', nombre: 'Línea 155', desc: 'Orientación a mujeres víctimas de violencia', numero: '155', color: '#9b59b6' }
+    ],
+    tituloServicios: '',
+    servicios: []
+  },
+  VE: {
+    tituloPrincipal: '🆘 Emergencias (Venezuela)',
+    principales: [
+      { id: 've-911', icon: '🆘', bg: '#1a0a00', nombre: 'VEN 911', desc: 'Número único de emergencias', numero: '911', color: '#c0392b' },
+      { id: 've-171', icon: '🚒', bg: '#2a0a00', nombre: 'Protección Civil y Bomberos', desc: 'Incendios, rescates y desastres', numero: '171', color: '#e67e22' }
+    ],
+    tituloServicios: '',
+    servicios: []
+  },
+  MX: {
+    tituloPrincipal: '🆘 Emergencias (México)',
+    principales: [
+      { id: 'mx-911', icon: '🆘', bg: '#1a0a00', nombre: 'Emergencias 911', desc: 'Número único: Policía, Bomberos y ambulancia', numero: '911', color: '#c0392b' },
+      { id: 'mx-065', icon: '🚑', bg: '#0a1a10', nombre: 'Cruz Roja Mexicana', desc: 'Ambulancia · Emergencias médicas', numero: '065', color: '#5cb85c' },
+      { id: 'mx-089', icon: '🕵️', bg: '#1a0505', nombre: 'Denuncia anónima', desc: 'Línea de denuncia', numero: '089', color: '#2980b9' }
+    ],
+    tituloServicios: '',
+    servicios: []
+  },
+  PA: {
+    tituloPrincipal: '🆘 Emergencias (Panamá)',
+    principales: [
+      { id: 'pa-911', icon: '🆘', bg: '#1a0a00', nombre: 'Emergencias 911', desc: 'Número único de emergencias', numero: '911', color: '#c0392b' },
+      { id: 'pa-103', icon: '🚒', bg: '#2a0a00', nombre: 'Bomberos', desc: 'Incendios y rescates', numero: '103', color: '#e67e22' },
+      { id: 'pa-104', icon: '🚔', bg: '#1a0505', nombre: 'Policía Nacional', desc: 'Emergencias policiales', numero: '104', color: '#2980b9' }
+    ],
+    tituloServicios: '',
+    servicios: []
+  },
+  DO: {
+    tituloPrincipal: '🆘 Emergencias (República Dominicana)',
+    principales: [
+      { id: 'do-911', icon: '🆘', bg: '#1a0a00', nombre: 'Emergencias 911', desc: 'Número único: Policía, Bomberos y ambulancia', numero: '911', color: '#c0392b' }
+    ],
+    tituloServicios: '',
+    servicios: []
+  },
+  CR: {
+    tituloPrincipal: '🆘 Emergencias (Costa Rica)',
+    principales: [
+      { id: 'cr-911', icon: '🆘', bg: '#1a0a00', nombre: 'Emergencias 911', desc: 'Número único de emergencias', numero: '911', color: '#c0392b' },
+      { id: 'cr-128', icon: '🚑', bg: '#0a1a10', nombre: 'Cruz Roja Costarricense', desc: 'Ambulancia · Emergencias médicas', numero: '128', color: '#5cb85c' },
+      { id: 'cr-118', icon: '🚒', bg: '#2a0a00', nombre: 'Bomberos', desc: 'Incendios y rescates', numero: '118', color: '#e67e22' }
+    ],
+    tituloServicios: '',
+    servicios: []
+  },
+  CU: {
+    tituloPrincipal: '🆘 Emergencias (Cuba)',
+    principales: [
+      { id: 'cu-106', icon: '🚔', bg: '#1a0505', nombre: 'Policía Nacional Revolucionaria', desc: 'Emergencias policiales', numero: '106', color: '#2980b9' },
+      { id: 'cu-105', icon: '🚒', bg: '#2a0a00', nombre: 'Bomberos', desc: 'Incendios y rescates', numero: '105', color: '#e67e22' },
+      { id: 'cu-104', icon: '🚑', bg: '#0a1a10', nombre: 'Ambulancia (SIUM)', desc: 'Emergencias médicas', numero: '104', color: '#5cb85c' }
+    ],
+    tituloServicios: '',
+    servicios: []
+  },
+  ES: {
+    tituloPrincipal: '🆘 Emergencias (España)',
+    principales: [
+      { id: 'es-112', icon: '🆘', bg: '#1a0a00', nombre: 'Emergencias 112', desc: 'Número único europeo: Policía, Bomberos y ambulancia', numero: '112', color: '#c0392b' },
+      { id: 'es-091', icon: '🚔', bg: '#1a0505', nombre: 'Policía Nacional', desc: 'Emergencias policiales', numero: '091', color: '#2980b9' },
+      { id: 'es-062', icon: '🚓', bg: '#1a0505', nombre: 'Guardia Civil', desc: 'Emergencias policiales y rutas', numero: '062', color: '#2980b9' },
+      { id: 'es-092', icon: '🚔', bg: '#1a0505', nombre: 'Policía Local', desc: 'Policía municipal', numero: '092', color: '#2980b9' },
+      { id: 'es-016', icon: '💜', bg: '#2a0a15', nombre: 'Violencia de género', desc: 'Línea 016 (no deja rastro en la factura)', numero: '016', color: '#9b59b6' }
+    ],
+    tituloServicios: '',
+    servicios: []
+  },
   UY: {
     tituloPrincipal: '🆘 Emergencias (Uruguay)',
     principales: [
@@ -6636,7 +6930,7 @@ function renderEmergencias(pais, nombreCiudad) {
   // activado). Un celular argentino sin roaming, aunque tenga señal, no va a
   // completar la llamada a estos números estando en otro país.
   if (pais !== 'ARG') {
-    var nombreRedPais = { PY: 'Paraguay', BR: 'Brasil', UY: 'Uruguay', CL: 'Chile', BO: 'Bolivia' }[pais] || 'ese país';
+    var nombreRedPais = { PY: 'Paraguay', BR: 'Brasil', UY: 'Uruguay', CL: 'Chile', BO: 'Bolivia', PE: 'Perú', EC: 'Ecuador', CO: 'Colombia', VE: 'Venezuela', MX: 'México', PA: 'Panamá', DO: 'República Dominicana', CR: 'Costa Rica', CU: 'Cuba', ES: 'España' }[pais] || 'ese país';
     html += '<div style="font-size:11px;background:rgba(230,126,34,0.12);color:#e0a45c;border-radius:10px;padding:9px 12px;margin-bottom:10px;line-height:1.4;">' +
       '⚠️ Estos números solo funcionan si tu celular está conectado a una red de ' + nombreRedPais + ' (chip local o roaming activado). Con un chip argentino sin roaming, aunque tengas señal, la llamada no se completa.' +
     '</div>';
@@ -7080,7 +7374,7 @@ function actualizarFooterCiudad(c) {
   var slug = c.wikiSlug || c.nombre.replace(/ /g, '_');
   _footerUrlWiki = 'https://' + dominioWiki + '/wiki/' + encodeURIComponent(slug).replace(/%2F/g, '/');
 
-  var nombrePais = { ARG: 'Argentina', PY: 'Paraguay', BR: 'Brasil', FK: 'Islas Malvinas', UY: 'Uruguay', CL: 'Chile', BO: 'Bolivia' }[c.pais] || '';
+  var nombrePais = { ARG: 'Argentina', PY: 'Paraguay', BR: 'Brasil', FK: 'Islas Malvinas', UY: 'Uruguay', CL: 'Chile', BO: 'Bolivia', PE: 'Perú', EC: 'Ecuador', CO: 'Colombia', VE: 'Venezuela', MX: 'México', PA: 'Panamá', DO: 'República Dominicana', CR: 'Costa Rica', CU: 'Cuba', ES: 'España' }[c.pais] || '';
 
   // Google Maps: para la mayoría de las ciudades alcanza con buscar por
   // nombre. Para Puerto Argentino/Islas Malvinas usamos las coordenadas
@@ -7181,6 +7475,26 @@ function aplicarCiudadActual() {
   if (wrapCL) wrapCL.style.display = (c.pais === 'CL') ? 'block' : 'none';
   var wrapBO = document.getElementById('alerta-bo-card-wrap');
   if (wrapBO) wrapBO.style.display = (c.pais === 'BO') ? 'block' : 'none';
+  var wrapPE = document.getElementById('alerta-pe-card-wrap');
+  if (wrapPE) wrapPE.style.display = (c.pais === 'PE') ? 'block' : 'none';
+  var wrapEC = document.getElementById('alerta-ec-card-wrap');
+  if (wrapEC) wrapEC.style.display = (c.pais === 'EC') ? 'block' : 'none';
+  var wrapCO = document.getElementById('alerta-co-card-wrap');
+  if (wrapCO) wrapCO.style.display = (c.pais === 'CO') ? 'block' : 'none';
+  var wrapVE = document.getElementById('alerta-ve-card-wrap');
+  if (wrapVE) wrapVE.style.display = (c.pais === 'VE') ? 'block' : 'none';
+  var wrapMX = document.getElementById('alerta-mx-card-wrap');
+  if (wrapMX) wrapMX.style.display = (c.pais === 'MX') ? 'block' : 'none';
+  var wrapPA = document.getElementById('alerta-pa-card-wrap');
+  if (wrapPA) wrapPA.style.display = (c.pais === 'PA') ? 'block' : 'none';
+  var wrapDO = document.getElementById('alerta-do-card-wrap');
+  if (wrapDO) wrapDO.style.display = (c.pais === 'DO') ? 'block' : 'none';
+  var wrapCR = document.getElementById('alerta-cr-card-wrap');
+  if (wrapCR) wrapCR.style.display = (c.pais === 'CR') ? 'block' : 'none';
+  var wrapCU = document.getElementById('alerta-cu-card-wrap');
+  if (wrapCU) wrapCU.style.display = (c.pais === 'CU') ? 'block' : 'none';
+  var wrapES = document.getElementById('alerta-es-card-wrap');
+  if (wrapES) wrapES.style.display = (c.pais === 'ES') ? 'block' : 'none';
   renderEmergencias(c.pais, c.nombre);
   actualizarFooterCiudad(c);
   if (typeof actualizarCalendarioPais === 'function') actualizarCalendarioPais();
@@ -7683,11 +7997,11 @@ var _divisasTasas = null; // { usdOf:{compra,venta}, usdBlue:{...}, brlOf:{...},
 var NOMBRES_DIVISAS = {
   ARS: 'peso argentino', USD_OF: 'dólar oficial', USD_BLUE: 'dólar blue',
   BRL_OF: 'real oficial', BRL_BLUE: 'real blue', PYG: 'guaraní', UYU: 'peso uruguayo',
-  CLP: 'peso chileno', BOB: 'boliviano', EUR: 'euro', GBP: 'libra esterlina'
+  CLP: 'peso chileno', BOB: 'boliviano', PEN: 'sol peruano', COP: 'peso colombiano', MXN: 'peso mexicano', CRC: 'colón costarricense', DOP: 'peso dominicano', EUR: 'euro', GBP: 'libra esterlina'
 };
 var SIMBOLOS_DIVISAS = {
   ARS: '$', USD_OF: 'US$', USD_BLUE: 'US$', BRL_OF: 'R$', BRL_BLUE: 'R$', PYG: '₲', UYU: '$U',
-  CLP: 'CH$', BOB: 'Bs', EUR: '€', GBP: '£'
+  CLP: 'CH$', BOB: 'Bs', PEN: 'S/', COP: 'COL$', MXN: 'MX$', CRC: '₡', DOP: 'RD$', EUR: '€', GBP: '£'
 };
 
 function cargarTasasDivisas() {
@@ -7709,6 +8023,11 @@ function cargarTasasDivisas() {
       arsPorUyu: (erApi && erApi.rates && erApi.rates.UYU) ? (1 / erApi.rates.UYU) : null,
       arsPorClp: (erApi && erApi.rates && erApi.rates.CLP) ? (1 / erApi.rates.CLP) : null,
       arsPorBob: (erApi && erApi.rates && erApi.rates.BOB) ? (1 / erApi.rates.BOB) : null,
+      arsPorPen: (erApi && erApi.rates && erApi.rates.PEN) ? (1 / erApi.rates.PEN) : null,
+      arsPorCop: (erApi && erApi.rates && erApi.rates.COP) ? (1 / erApi.rates.COP) : null,
+      arsPorMxn: (erApi && erApi.rates && erApi.rates.MXN) ? (1 / erApi.rates.MXN) : null,
+      arsPorCrc: (erApi && erApi.rates && erApi.rates.CRC) ? (1 / erApi.rates.CRC) : null,
+      arsPorDop: (erApi && erApi.rates && erApi.rates.DOP) ? (1 / erApi.rates.DOP) : null,
       arsPorEur: (erApi && erApi.rates && erApi.rates.EUR) ? (1 / erApi.rates.EUR) : null,
       arsPorGbp: (erApi && erApi.rates && erApi.rates.GBP) ? (1 / erApi.rates.GBP) : null
     };
@@ -7725,6 +8044,11 @@ function cargarTasasDivisas() {
         if (opt.value === 'UYU' && !_divisasTasas.arsPorUyu) disponible = false;
         if (opt.value === 'CLP' && !_divisasTasas.arsPorClp) disponible = false;
         if (opt.value === 'BOB' && !_divisasTasas.arsPorBob) disponible = false;
+        if (opt.value === 'PEN' && !_divisasTasas.arsPorPen) disponible = false;
+        if (opt.value === 'COP' && !_divisasTasas.arsPorCop) disponible = false;
+        if (opt.value === 'MXN' && !_divisasTasas.arsPorMxn) disponible = false;
+        if (opt.value === 'CRC' && !_divisasTasas.arsPorCrc) disponible = false;
+        if (opt.value === 'DOP' && !_divisasTasas.arsPorDop) disponible = false;
         if (opt.value === 'EUR' && !_divisasTasas.arsPorEur) disponible = false;
         if (opt.value === 'GBP' && !_divisasTasas.arsPorGbp) disponible = false;
         opt.disabled = !disponible;
@@ -7757,6 +8081,11 @@ function tasaDivisaEnArs(divisa, sentido) {
   if (divisa === 'UYU') return _divisasTasas.arsPorUyu;
   if (divisa === 'CLP') return _divisasTasas.arsPorClp;
   if (divisa === 'BOB') return _divisasTasas.arsPorBob;
+  if (divisa === 'PEN') return _divisasTasas.arsPorPen;
+  if (divisa === 'COP') return _divisasTasas.arsPorCop;
+  if (divisa === 'MXN') return _divisasTasas.arsPorMxn;
+  if (divisa === 'CRC') return _divisasTasas.arsPorCrc;
+  if (divisa === 'DOP') return _divisasTasas.arsPorDop;
   if (divisa === 'EUR') return _divisasTasas.arsPorEur;
   if (divisa === 'GBP') return _divisasTasas.arsPorGbp;
   return null;
@@ -7787,7 +8116,7 @@ function renderCotizacionesDivisas() {
     ['USD_BLUE', '💵 Dólar blue', 1], ['USD_OF', '💵 Dólar oficial', 1],
     ['BRL_BLUE', '🇧🇷 Real blue', 1], ['BRL_OF', '🇧🇷 Real oficial', 1],
     ['PYG', '🇵🇾 Guaraní', 1000], ['UYU', '🇺🇾 Peso uruguayo', 1], ['CLP', '🇨🇱 Peso chileno', 1],
-    ['BOB', '🇧🇴 Boliviano', 1], ['EUR', '🇪🇺 Euro', 1], ['GBP', '🇬🇧 Libra esterlina', 1]
+    ['BOB', '🇧🇴 Boliviano', 1], ['PEN', '🇵🇪 Sol peruano', 1], ['COP', '🇨🇴 Peso colombiano', 1000], ['MXN', '🇲🇽 Peso mexicano', 1], ['CRC', '🇨🇷 Colón costarricense', 100], ['DOP', '🇩🇴 Peso dominicano', 1], ['EUR', '🇪🇺 Euro', 1], ['GBP', '🇬🇧 Libra esterlina', 1]
   ];
   var h = '';
   filas.forEach(function (f) {
@@ -9258,6 +9587,153 @@ document.addEventListener('DOMContentLoaded', function () {
       '2026-11-02': [{t:'Día de Todos los Difuntos', tipo:'inamovible'}],
       '2026-12-25': [{t:'Navidad', tipo:'inamovible'}]
     },
+    PE: {
+      '2026-01-01': [{t:'Año Nuevo', tipo:'inamovible'}],
+      '2026-04-02': [{t:'Jueves Santo', tipo:'inamovible'}],
+      '2026-04-03': [{t:'Viernes Santo', tipo:'inamovible'}],
+      '2026-05-01': [{t:'Día del Trabajo', tipo:'inamovible'}],
+      '2026-06-07': [{t:'Batalla de Arica y Día de la Bandera', tipo:'inamovible'}],
+      '2026-06-29': [{t:'San Pedro y San Pablo', tipo:'inamovible'}],
+      '2026-07-23': [{t:'Día de la Fuerza Aérea del Perú', tipo:'inamovible'}],
+      '2026-07-28': [{t:'Fiestas Patrias (Independencia del Perú)', tipo:'inamovible'}],
+      '2026-07-29': [{t:'Fiestas Patrias (Día de la Gran Parada Militar)', tipo:'inamovible'}],
+      '2026-08-06': [{t:'Batalla de Junín', tipo:'inamovible'}],
+      '2026-08-30': [{t:'Santa Rosa de Lima', tipo:'inamovible'}],
+      '2026-10-08': [{t:'Combate de Angamos', tipo:'inamovible'}],
+      '2026-11-01': [{t:'Día de Todos los Santos', tipo:'inamovible'}],
+      '2026-12-08': [{t:'Inmaculada Concepción', tipo:'inamovible'}],
+      '2026-12-09': [{t:'Batalla de Ayacucho', tipo:'inamovible'}],
+      '2026-12-25': [{t:'Navidad', tipo:'inamovible'}]
+    },
+    EC: {
+      '2026-01-01': [{t:'Año Nuevo', tipo:'inamovible'}],
+      '2026-02-16': [{t:'Carnaval', tipo:'inamovible'}],
+      '2026-02-17': [{t:'Carnaval', tipo:'inamovible'}],
+      '2026-04-03': [{t:'Viernes Santo', tipo:'inamovible'}],
+      '2026-05-01': [{t:'Día del Trabajo', tipo:'inamovible'}],
+      '2026-05-24': [{t:'Batalla de Pichincha', tipo:'trasladable'}],
+      '2026-08-10': [{t:'Primer Grito de Independencia', tipo:'trasladable'}],
+      '2026-10-09': [{t:'Independencia de Guayaquil', tipo:'trasladable'}],
+      '2026-11-02': [{t:'Día de los Difuntos', tipo:'trasladable'}],
+      '2026-11-03': [{t:'Independencia de Cuenca', tipo:'trasladable'}],
+      '2026-12-25': [{t:'Navidad', tipo:'inamovible'}]
+    },
+    CO: {
+      '2026-01-01': [{t:'Año Nuevo', tipo:'inamovible'}],
+      '2026-01-12': [{t:'Día de los Reyes Magos (trasladado del 6/1)', tipo:'trasladable'}],
+      '2026-03-23': [{t:'Día de San José (trasladado del 19/3)', tipo:'trasladable'}],
+      '2026-04-02': [{t:'Jueves Santo', tipo:'inamovible'}],
+      '2026-04-03': [{t:'Viernes Santo', tipo:'inamovible'}],
+      '2026-05-01': [{t:'Día del Trabajo', tipo:'inamovible'}],
+      '2026-05-18': [{t:'Ascensión del Señor (trasladado)', tipo:'trasladable'}],
+      '2026-06-08': [{t:'Corpus Christi (trasladado)', tipo:'trasladable'}],
+      '2026-06-15': [{t:'Sagrado Corazón (trasladado)', tipo:'trasladable'}],
+      '2026-06-29': [{t:'San Pedro y San Pablo', tipo:'trasladable'}],
+      '2026-07-20': [{t:'Día de la Independencia', tipo:'inamovible'}],
+      '2026-08-07': [{t:'Batalla de Boyacá', tipo:'inamovible'}],
+      '2026-08-17': [{t:'Asunción de la Virgen (trasladado del 15/8)', tipo:'trasladable'}],
+      '2026-10-12': [{t:'Día de la Raza', tipo:'trasladable'}],
+      '2026-11-02': [{t:'Todos los Santos (trasladado del 1/11)', tipo:'trasladable'}],
+      '2026-11-16': [{t:'Independencia de Cartagena (trasladado del 11/11)', tipo:'trasladable'}],
+      '2026-12-08': [{t:'Inmaculada Concepción', tipo:'inamovible'}],
+      '2026-12-25': [{t:'Navidad', tipo:'inamovible'}]
+    },
+    VE: {
+      '2026-01-01': [{t:'Año Nuevo', tipo:'inamovible'}],
+      '2026-02-16': [{t:'Carnaval', tipo:'inamovible'}],
+      '2026-02-17': [{t:'Carnaval', tipo:'inamovible'}],
+      '2026-04-02': [{t:'Jueves Santo', tipo:'inamovible'}],
+      '2026-04-03': [{t:'Viernes Santo', tipo:'inamovible'}],
+      '2026-04-19': [{t:'Declaración de la Independencia', tipo:'inamovible'}],
+      '2026-05-01': [{t:'Día del Trabajador', tipo:'inamovible'}],
+      '2026-06-24': [{t:'Batalla de Carabobo', tipo:'inamovible'}],
+      '2026-07-05': [{t:'Día de la Independencia', tipo:'inamovible'}],
+      '2026-07-24': [{t:'Natalicio de Simón Bolívar', tipo:'inamovible'}],
+      '2026-10-12': [{t:'Día de la Resistencia Indígena', tipo:'inamovible'}],
+      '2026-12-24': [{t:'Nochebuena', tipo:'inamovible'}],
+      '2026-12-25': [{t:'Navidad', tipo:'inamovible'}],
+      '2026-12-31': [{t:'Fin de Año', tipo:'inamovible'}]
+    },
+    MX: {
+      '2026-01-01': [{t:'Año Nuevo', tipo:'inamovible'}],
+      '2026-02-02': [{t:'Día de la Constitución', tipo:'trasladable'}],
+      '2026-03-16': [{t:'Natalicio de Benito Juárez', tipo:'trasladable'}],
+      '2026-04-02': [{t:'Jueves Santo', tipo:'turistico'}],
+      '2026-04-03': [{t:'Viernes Santo', tipo:'turistico'}],
+      '2026-05-01': [{t:'Día del Trabajo', tipo:'inamovible'}],
+      '2026-09-16': [{t:'Día de la Independencia', tipo:'inamovible'}],
+      '2026-11-16': [{t:'Día de la Revolución', tipo:'trasladable'}],
+      '2026-12-25': [{t:'Navidad', tipo:'inamovible'}]
+    },
+    PA: {
+      '2026-01-01': [{t:'Año Nuevo', tipo:'inamovible'}],
+      '2026-01-09': [{t:'Día de los Mártires', tipo:'inamovible'}],
+      '2026-02-16': [{t:'Carnaval', tipo:'inamovible'}],
+      '2026-02-17': [{t:'Carnaval', tipo:'inamovible'}],
+      '2026-04-03': [{t:'Viernes Santo', tipo:'inamovible'}],
+      '2026-05-01': [{t:'Día del Trabajo', tipo:'inamovible'}],
+      '2026-11-03': [{t:'Separación de Panamá de Colombia', tipo:'inamovible'}],
+      '2026-11-04': [{t:'Día de la Bandera', tipo:'inamovible'}],
+      '2026-11-05': [{t:'Día de Colón', tipo:'inamovible'}],
+      '2026-11-10': [{t:'Primer Grito de Independencia', tipo:'inamovible'}],
+      '2026-11-28': [{t:'Independencia de España', tipo:'inamovible'}],
+      '2026-12-08': [{t:'Día de la Madre', tipo:'inamovible'}],
+      '2026-12-25': [{t:'Navidad', tipo:'inamovible'}]
+    },
+    DO: {
+      '2026-01-01': [{t:'Año Nuevo', tipo:'inamovible'}],
+      '2026-01-06': [{t:'Día de los Reyes Magos', tipo:'trasladable'}],
+      '2026-01-21': [{t:'Día de la Altagracia', tipo:'trasladable'}],
+      '2026-01-26': [{t:'Natalicio de Juan Pablo Duarte', tipo:'trasladable'}],
+      '2026-02-27': [{t:'Día de la Independencia', tipo:'inamovible'}],
+      '2026-04-03': [{t:'Viernes Santo', tipo:'inamovible'}],
+      '2026-05-01': [{t:'Día del Trabajo', tipo:'trasladable'}],
+      '2026-06-04': [{t:'Corpus Christi', tipo:'inamovible'}],
+      '2026-08-16': [{t:'Día de la Restauración', tipo:'inamovible'}],
+      '2026-09-24': [{t:'Día de las Mercedes', tipo:'trasladable'}],
+      '2026-11-06': [{t:'Día de la Constitución', tipo:'trasladable'}],
+      '2026-12-25': [{t:'Navidad', tipo:'inamovible'}]
+    },
+    CR: {
+      '2026-01-01': [{t:'Año Nuevo', tipo:'inamovible'}],
+      '2026-04-02': [{t:'Jueves Santo', tipo:'inamovible'}],
+      '2026-04-03': [{t:'Viernes Santo', tipo:'inamovible'}],
+      '2026-04-11': [{t:'Día de Juan Santamaría', tipo:'trasladable'}],
+      '2026-05-01': [{t:'Día del Trabajo', tipo:'inamovible'}],
+      '2026-07-25': [{t:'Anexión del Partido de Nicoya', tipo:'trasladable'}],
+      '2026-08-02': [{t:'Virgen de los Ángeles', tipo:'inamovible'}],
+      '2026-08-15': [{t:'Día de la Madre', tipo:'trasladable'}],
+      '2026-08-31': [{t:'Día de la Persona Negra y la Cultura Afrocostarricense', tipo:'trasladable'}],
+      '2026-09-15': [{t:'Día de la Independencia', tipo:'inamovible'}],
+      '2026-12-01': [{t:'Día de la Abolición del Ejército', tipo:'trasladable'}],
+      '2026-12-25': [{t:'Navidad', tipo:'inamovible'}]
+    },
+    CU: {
+      '2026-01-01': [{t:'Triunfo de la Revolución', tipo:'inamovible'}],
+      '2026-01-02': [{t:'Día de la Victoria', tipo:'inamovible'}],
+      '2026-04-03': [{t:'Viernes Santo', tipo:'inamovible'}],
+      '2026-05-01': [{t:'Día de los Trabajadores', tipo:'inamovible'}],
+      '2026-07-25': [{t:'Día previo al Asalto al Moncada', tipo:'inamovible'}],
+      '2026-07-26': [{t:'Día de la Rebeldía Nacional', tipo:'inamovible'}],
+      '2026-07-27': [{t:'Día posterior al Asalto al Moncada', tipo:'inamovible'}],
+      '2026-10-10': [{t:'Inicio de las guerras de independencia', tipo:'inamovible'}],
+      '2026-12-25': [{t:'Navidad', tipo:'inamovible'}],
+      '2026-12-31': [{t:'Fin de Año', tipo:'inamovible'}]
+    },
+    ES: {
+      '2026-01-01': [{t:'Año Nuevo', tipo:'inamovible'}],
+      '2026-01-06': [{t:'Epifanía del Señor (Reyes)', tipo:'inamovible'}],
+      '2026-04-02': [{t:'Jueves Santo (no en Cataluña)', tipo:'turistico'}],
+      '2026-04-03': [{t:'Viernes Santo', tipo:'inamovible'}],
+      '2026-04-06': [{t:'Lunes de Pascua (solo Cataluña y otras regiones)', tipo:'turistico'}],
+      '2026-05-01': [{t:'Fiesta del Trabajo', tipo:'inamovible'}],
+      '2026-08-15': [{t:'Asunción de la Virgen', tipo:'inamovible'}],
+      '2026-10-12': [{t:'Fiesta Nacional de España', tipo:'inamovible'}],
+      '2026-11-01': [{t:'Todos los Santos', tipo:'inamovible'}],
+      '2026-12-06': [{t:'Día de la Constitución', tipo:'inamovible'}],
+      '2026-12-08': [{t:'Inmaculada Concepción', tipo:'inamovible'}],
+      '2026-12-25': [{t:'Navidad', tipo:'inamovible'}]
+    },
     UY: {
       '2026-01-01': [{t:'Año Nuevo', tipo:'inamovible'}],
       '2026-01-06': [{t:'Día de Reyes / Día de los Niños', tipo:'turistico'}],
@@ -9278,7 +9754,7 @@ document.addEventListener('DOMContentLoaded', function () {
   };
   window.FERIADOS_POR_PAIS = FERIADOS_POR_PAIS;
 
-  var NOMBRE_PAIS = { ARG: 'Argentina', PY: 'Paraguay', BR: 'Brasil', FK: 'Islas Malvinas', UY: 'Uruguay' };
+  var NOMBRE_PAIS = { ARG: 'Argentina', PY: 'Paraguay', BR: 'Brasil', FK: 'Islas Malvinas', UY: 'Uruguay', CL: 'Chile', BO: 'Bolivia', PE: 'Perú', EC: 'Ecuador', CO: 'Colombia', VE: 'Venezuela', MX: 'México', PA: 'Panamá', DO: 'República Dominicana', CR: 'Costa Rica', CU: 'Cuba', ES: 'España' };
 
   function getFeriadosActuales() {
     var pais = 'ARG';
@@ -16483,8 +16959,8 @@ window.__leyendaMapsHtml = function (nombres) {
   // (por ejemplo, salir desde San Vicente, Misiones, hacia Florianópolis).
   // Por eso ya no podemos asumir ", Brasil" para todas: buscamos el país y
   // la provincia/estado real de cada ciudad para armar una búsqueda precisa.
-  var PROVINCIA_POR_CIUDAD = { 'San Vicente': 'Misiones', 'El Soberbio': 'Misiones', 'Dos de Mayo': 'Misiones', 'Aristóbulo del Valle': 'Misiones', 'Posadas': 'Misiones', 'Oberá': 'Misiones', 'Eldorado': 'Misiones', 'Puerto Iguazú': 'Misiones', 'Jardín América': 'Misiones', 'Leandro N. Alem': 'Misiones', 'Cerro Azul': 'Misiones', 'San Pedro': 'Misiones', 'Apóstoles': 'Misiones', 'Montecarlo': 'Misiones', 'San Javier': 'Misiones', 'Puerto Esperanza': 'Misiones', 'Puerto Rico': 'Misiones', 'Capioví': 'Misiones', 'Puerto Piray': 'Misiones', 'Bernardo de Irigoyen': 'Misiones', 'Ituzaingó': 'Corrientes', 'Santo Tomé': 'Corrientes', 'Gobernador Virasoro': 'Corrientes', 'Corrientes': 'Corrientes', 'Resistencia': 'Chaco', 'Presidencia Roque Sáenz Peña': 'Chaco', 'Formosa': 'Formosa', 'Clorinda': 'Formosa', 'Buenos Aires': 'CABA', 'La Plata': 'Buenos Aires', 'San Isidro': 'Buenos Aires', 'Quilmes': 'Buenos Aires', 'Tigre': 'Buenos Aires', 'Avellaneda': 'Buenos Aires', 'Morón': 'Buenos Aires', 'Lomas de Zamora': 'Buenos Aires', 'San Justo': 'Buenos Aires', 'Mar del Plata': 'Buenos Aires', 'Luján': 'Buenos Aires', 'San Fernando del Valle de Catamarca': 'Catamarca', 'Rawson': 'Chubut', 'Córdoba': 'Córdoba', 'Villa Carlos Paz': 'Córdoba', 'Paraná': 'Entre Ríos', 'San Salvador de Jujuy': 'Jujuy', 'Santa Rosa': 'La Pampa', 'La Rioja': 'La Rioja', 'Mendoza': 'Mendoza', 'Neuquén': 'Neuquén', 'Viedma': 'Río Negro', 'Salta': 'Salta', 'San Juan': 'San Juan', 'San Luis': 'San Luis', 'Río Gallegos': 'Santa Cruz', 'Santa Fe': 'Santa Fe', 'Rosario': 'Santa Fe', 'Santiago del Estero': 'Santiago del Estero', 'Bariloche': 'Río Negro', 'Bahía Blanca': 'Buenos Aires', 'El Calafate': 'Santa Cruz', 'Chajarí': 'Entre Ríos', 'Ushuaia': 'Tierra del Fuego', 'Puerto Argentino/Islas Malvinas': 'Tierra del Fuego', 'San Miguel de Tucumán': 'Tucumán', 'Asunción': 'Distrito Capital', 'Encarnación': 'Itapúa', 'Ciudad del Este': 'Alto Paraná', 'Foz do Iguaçu': 'Paraná', 'Curitiba': 'Paraná', 'Pato Branco': 'Paraná', 'Palmas (PR)': 'Paraná', 'São Bento do Sul': 'Santa Catarina', 'Chapecó': 'Santa Catarina', 'Blumenau': 'Santa Catarina', 'Joaçaba': 'Santa Catarina', 'Guaratuba': 'Paraná', 'Caiobá': 'Paraná', 'São Miguel do Oeste': 'Santa Catarina', 'Dionísio Cerqueira': 'Santa Catarina', 'Balneário Camboriú': 'Santa Catarina', 'Florianópolis': 'Santa Catarina', 'Itapema': 'Santa Catarina', 'Bombinhas': 'Santa Catarina', 'Santa Rosa (RS)': 'Rio Grande do Sul', 'Três Passos': 'Rio Grande do Sul', 'Gramado': 'Rio Grande do Sul', 'Torres': 'Rio Grande do Sul', 'Porto Alegre': 'Rio Grande do Sul', 'São Paulo': 'São Paulo', 'La Paz (Bolivia)': 'La Paz', 'Sucre': 'Chuquisaca', 'Santiago de Chile': 'Región Metropolitana', 'Valparaíso': 'Valparaíso', 'Brasília': 'Distrito Federal', 'Río de Janeiro': 'Río de Janeiro', 'Montevideo': 'Montevideo', 'Punta del Este': 'Maldonado' };
-  var PAIS_POR_CIUDAD = { 'San Vicente': 'Argentina', 'El Soberbio': 'Argentina', 'Dos de Mayo': 'Argentina', 'Aristóbulo del Valle': 'Argentina', 'Posadas': 'Argentina', 'Oberá': 'Argentina', 'Eldorado': 'Argentina', 'Puerto Iguazú': 'Argentina', 'Jardín América': 'Argentina', 'Leandro N. Alem': 'Argentina', 'Cerro Azul': 'Argentina', 'San Pedro': 'Argentina', 'Apóstoles': 'Argentina', 'Montecarlo': 'Argentina', 'San Javier': 'Argentina', 'Puerto Esperanza': 'Argentina', 'Puerto Rico': 'Argentina', 'Capioví': 'Argentina', 'Puerto Piray': 'Argentina', 'Bernardo de Irigoyen': 'Argentina', 'Ituzaingó': 'Argentina', 'Santo Tomé': 'Argentina', 'Gobernador Virasoro': 'Argentina', 'Corrientes': 'Argentina', 'Resistencia': 'Argentina', 'Presidencia Roque Sáenz Peña': 'Argentina', 'Formosa': 'Argentina', 'Clorinda': 'Argentina', 'Buenos Aires': 'Argentina', 'La Plata': 'Argentina', 'San Isidro': 'Argentina', 'Quilmes': 'Argentina', 'Tigre': 'Argentina', 'Avellaneda': 'Argentina', 'Morón': 'Argentina', 'Lomas de Zamora': 'Argentina', 'San Justo': 'Argentina', 'Mar del Plata': 'Argentina', 'Luján': 'Argentina', 'San Fernando del Valle de Catamarca': 'Argentina', 'Rawson': 'Argentina', 'Córdoba': 'Argentina', 'Villa Carlos Paz': 'Argentina', 'Paraná': 'Argentina', 'San Salvador de Jujuy': 'Argentina', 'Santa Rosa': 'Argentina', 'La Rioja': 'Argentina', 'Mendoza': 'Argentina', 'Neuquén': 'Argentina', 'Viedma': 'Argentina', 'Salta': 'Argentina', 'San Juan': 'Argentina', 'San Luis': 'Argentina', 'Río Gallegos': 'Argentina', 'Santa Fe': 'Argentina', 'Rosario': 'Argentina', 'Santiago del Estero': 'Argentina', 'Bariloche': 'Argentina', 'Bahía Blanca': 'Argentina', 'El Calafate': 'Argentina', 'Chajarí': 'Argentina', 'Ushuaia': 'Argentina', 'Puerto Argentino/Islas Malvinas': 'FK', 'San Miguel de Tucumán': 'Argentina', 'Asunción': 'Paraguay', 'Encarnación': 'Paraguay', 'Ciudad del Este': 'Paraguay', 'Foz do Iguaçu': 'Brasil', 'Curitiba': 'Brasil', 'Pato Branco': 'Brasil', 'Palmas (PR)': 'Brasil', 'São Bento do Sul': 'Brasil', 'Chapecó': 'Brasil', 'Blumenau': 'Brasil', 'Joaçaba': 'Brasil', 'Guaratuba': 'Brasil', 'Caiobá': 'Brasil', 'São Miguel do Oeste': 'Brasil', 'Dionísio Cerqueira': 'Brasil', 'Balneário Camboriú': 'Brasil', 'Florianópolis': 'Brasil', 'Itapema': 'Brasil', 'Bombinhas': 'Brasil', 'Santa Rosa (RS)': 'Brasil', 'Três Passos': 'Brasil', 'Gramado': 'Brasil', 'Torres': 'Brasil', 'Porto Alegre': 'Brasil', 'São Paulo': 'Brasil', 'La Paz (Bolivia)': 'Bolivia', 'Sucre': 'Bolivia', 'Santiago de Chile': 'Chile', 'Valparaíso': 'Chile', 'Brasília': 'Brasil', 'Río de Janeiro': 'Brasil', 'Montevideo': 'Uruguay', 'Punta del Este': 'Uruguay' };
+  var PROVINCIA_POR_CIUDAD = { 'San Vicente': 'Misiones', 'El Soberbio': 'Misiones', 'Dos de Mayo': 'Misiones', 'Aristóbulo del Valle': 'Misiones', 'Posadas': 'Misiones', 'Oberá': 'Misiones', 'Eldorado': 'Misiones', 'Puerto Iguazú': 'Misiones', 'Jardín América': 'Misiones', 'Leandro N. Alem': 'Misiones', 'Cerro Azul': 'Misiones', 'San Pedro': 'Misiones', 'Apóstoles': 'Misiones', 'Montecarlo': 'Misiones', 'San Javier': 'Misiones', 'Puerto Esperanza': 'Misiones', 'Puerto Rico': 'Misiones', 'Capioví': 'Misiones', 'Puerto Piray': 'Misiones', 'Bernardo de Irigoyen': 'Misiones', 'Ituzaingó': 'Corrientes', 'Santo Tomé': 'Corrientes', 'Gobernador Virasoro': 'Corrientes', 'Corrientes': 'Corrientes', 'Resistencia': 'Chaco', 'Presidencia Roque Sáenz Peña': 'Chaco', 'Formosa': 'Formosa', 'Clorinda': 'Formosa', 'Buenos Aires': 'CABA', 'La Plata': 'Buenos Aires', 'San Isidro': 'Buenos Aires', 'Quilmes': 'Buenos Aires', 'Tigre': 'Buenos Aires', 'Avellaneda': 'Buenos Aires', 'Morón': 'Buenos Aires', 'Lomas de Zamora': 'Buenos Aires', 'San Justo': 'Buenos Aires', 'Mar del Plata': 'Buenos Aires', 'Luján': 'Buenos Aires', 'San Fernando del Valle de Catamarca': 'Catamarca', 'Rawson': 'Chubut', 'Córdoba': 'Córdoba', 'Villa Carlos Paz': 'Córdoba', 'Paraná': 'Entre Ríos', 'San Salvador de Jujuy': 'Jujuy', 'Santa Rosa': 'La Pampa', 'La Rioja': 'La Rioja', 'Mendoza': 'Mendoza', 'Neuquén': 'Neuquén', 'Viedma': 'Río Negro', 'Salta': 'Salta', 'San Juan': 'San Juan', 'San Luis': 'San Luis', 'Río Gallegos': 'Santa Cruz', 'Santa Fe': 'Santa Fe', 'Rosario': 'Santa Fe', 'Santiago del Estero': 'Santiago del Estero', 'Bariloche': 'Río Negro', 'Bahía Blanca': 'Buenos Aires', 'El Calafate': 'Santa Cruz', 'Chajarí': 'Entre Ríos', 'Ushuaia': 'Tierra del Fuego', 'Puerto Argentino/Islas Malvinas': 'Tierra del Fuego', 'San Miguel de Tucumán': 'Tucumán', 'Asunción': 'Distrito Capital', 'Encarnación': 'Itapúa', 'Ciudad del Este': 'Alto Paraná', 'Foz do Iguaçu': 'Paraná', 'Curitiba': 'Paraná', 'Pato Branco': 'Paraná', 'Palmas (PR)': 'Paraná', 'São Bento do Sul': 'Santa Catarina', 'Chapecó': 'Santa Catarina', 'Blumenau': 'Santa Catarina', 'Joaçaba': 'Santa Catarina', 'Guaratuba': 'Paraná', 'Caiobá': 'Paraná', 'São Miguel do Oeste': 'Santa Catarina', 'Dionísio Cerqueira': 'Santa Catarina', 'Balneário Camboriú': 'Santa Catarina', 'Florianópolis': 'Santa Catarina', 'Itapema': 'Santa Catarina', 'Bombinhas': 'Santa Catarina', 'Santa Rosa (RS)': 'Rio Grande do Sul', 'Três Passos': 'Rio Grande do Sul', 'Gramado': 'Rio Grande do Sul', 'Torres': 'Rio Grande do Sul', 'Porto Alegre': 'Rio Grande do Sul', 'São Paulo': 'São Paulo', 'La Paz (Bolivia)': 'La Paz', 'Sucre': 'Chuquisaca', 'Santiago de Chile': 'Región Metropolitana', 'Lima': 'Lima', 'Quito': 'Pichincha', 'Bogotá': 'Distrito Capital', 'Caracas': 'Distrito Capital', 'Ciudad de México': 'Ciudad de México', 'Cancún': 'Quintana Roo', 'Ciudad de Panamá': 'Panamá', 'Santo Domingo': 'Distrito Nacional', 'San José (Costa Rica)': 'San José', 'La Habana': 'La Habana', 'Madrid': 'Comunidad de Madrid', 'Barcelona': 'Cataluña', 'Valparaíso': 'Valparaíso', 'Brasília': 'Distrito Federal', 'Río de Janeiro': 'Río de Janeiro', 'Montevideo': 'Montevideo', 'Punta del Este': 'Maldonado' };
+  var PAIS_POR_CIUDAD = { 'San Vicente': 'Argentina', 'El Soberbio': 'Argentina', 'Dos de Mayo': 'Argentina', 'Aristóbulo del Valle': 'Argentina', 'Posadas': 'Argentina', 'Oberá': 'Argentina', 'Eldorado': 'Argentina', 'Puerto Iguazú': 'Argentina', 'Jardín América': 'Argentina', 'Leandro N. Alem': 'Argentina', 'Cerro Azul': 'Argentina', 'San Pedro': 'Argentina', 'Apóstoles': 'Argentina', 'Montecarlo': 'Argentina', 'San Javier': 'Argentina', 'Puerto Esperanza': 'Argentina', 'Puerto Rico': 'Argentina', 'Capioví': 'Argentina', 'Puerto Piray': 'Argentina', 'Bernardo de Irigoyen': 'Argentina', 'Ituzaingó': 'Argentina', 'Santo Tomé': 'Argentina', 'Gobernador Virasoro': 'Argentina', 'Corrientes': 'Argentina', 'Resistencia': 'Argentina', 'Presidencia Roque Sáenz Peña': 'Argentina', 'Formosa': 'Argentina', 'Clorinda': 'Argentina', 'Buenos Aires': 'Argentina', 'La Plata': 'Argentina', 'San Isidro': 'Argentina', 'Quilmes': 'Argentina', 'Tigre': 'Argentina', 'Avellaneda': 'Argentina', 'Morón': 'Argentina', 'Lomas de Zamora': 'Argentina', 'San Justo': 'Argentina', 'Mar del Plata': 'Argentina', 'Luján': 'Argentina', 'San Fernando del Valle de Catamarca': 'Argentina', 'Rawson': 'Argentina', 'Córdoba': 'Argentina', 'Villa Carlos Paz': 'Argentina', 'Paraná': 'Argentina', 'San Salvador de Jujuy': 'Argentina', 'Santa Rosa': 'Argentina', 'La Rioja': 'Argentina', 'Mendoza': 'Argentina', 'Neuquén': 'Argentina', 'Viedma': 'Argentina', 'Salta': 'Argentina', 'San Juan': 'Argentina', 'San Luis': 'Argentina', 'Río Gallegos': 'Argentina', 'Santa Fe': 'Argentina', 'Rosario': 'Argentina', 'Santiago del Estero': 'Argentina', 'Bariloche': 'Argentina', 'Bahía Blanca': 'Argentina', 'El Calafate': 'Argentina', 'Chajarí': 'Argentina', 'Ushuaia': 'Argentina', 'Puerto Argentino/Islas Malvinas': 'FK', 'San Miguel de Tucumán': 'Argentina', 'Asunción': 'Paraguay', 'Encarnación': 'Paraguay', 'Ciudad del Este': 'Paraguay', 'Foz do Iguaçu': 'Brasil', 'Curitiba': 'Brasil', 'Pato Branco': 'Brasil', 'Palmas (PR)': 'Brasil', 'São Bento do Sul': 'Brasil', 'Chapecó': 'Brasil', 'Blumenau': 'Brasil', 'Joaçaba': 'Brasil', 'Guaratuba': 'Brasil', 'Caiobá': 'Brasil', 'São Miguel do Oeste': 'Brasil', 'Dionísio Cerqueira': 'Brasil', 'Balneário Camboriú': 'Brasil', 'Florianópolis': 'Brasil', 'Itapema': 'Brasil', 'Bombinhas': 'Brasil', 'Santa Rosa (RS)': 'Brasil', 'Três Passos': 'Brasil', 'Gramado': 'Brasil', 'Torres': 'Brasil', 'Porto Alegre': 'Brasil', 'São Paulo': 'Brasil', 'La Paz (Bolivia)': 'Bolivia', 'Sucre': 'Bolivia', 'Santiago de Chile': 'Chile', 'Lima': 'Perú', 'Quito': 'Ecuador', 'Bogotá': 'Colombia', 'Caracas': 'Venezuela', 'Ciudad de México': 'México', 'Cancún': 'México', 'Ciudad de Panamá': 'Panamá', 'Santo Domingo': 'República Dominicana', 'San José (Costa Rica)': 'Costa Rica', 'La Habana': 'Cuba', 'Madrid': 'España', 'Barcelona': 'España', 'Valparaíso': 'Chile', 'Brasília': 'Brasil', 'Río de Janeiro': 'Brasil', 'Montevideo': 'Uruguay', 'Punta del Este': 'Uruguay' };
   function lugar(v) {
     var prov = PROVINCIA_POR_CIUDAD[v];
     var pais = PAIS_POR_CIUDAD[v] || 'Brasil';
@@ -16687,7 +17163,7 @@ window.__leyendaMapsHtml = function (nombres) {
       v:{n:'warn', i:'🔶', t:'Confirmá con Prefectura si la balsa está operando y si el lado brasileño hace control migratorio pleno antes de ir.'},
       f:[ H('Horarios sin confirmar. Consultá el listado oficial de Migraciones y a Prefectura antes de ir.'),
           NT('🚢','Cruce en balsa sobre el río Uruguay entre Panambí (Misiones) y Porto Vera Cruz (Rio Grande do Sul).'),
-          RIO('El servicio se suspende por crecida del río Uruguay y también por bajante extrema (en julio de 2026 se inhabilitó por bajante). Referencia de Google: alerta 7 m, evacuación 9 m.'),
+          RIO('El servicio se suspende por crecida del río Uruguay y también por bajante extrema (en julio de 2026 se inhabilitó por bajante). Niveles de Prefectura (16/10): alerta 7 m, evacuación 9 m.'),
           KM('No tenemos confirmado si hay control migratorio pleno del lado brasileño. Si no lo hay, se trata como tránsito vecinal; consultalo antes de planear un viaje largo.') ],
       ofi: 'https://www.argentina.gob.ar/seguridad/pasosinternacionales#rio89' },
 
@@ -16719,8 +17195,9 @@ window.__leyendaMapsHtml = function (nombres) {
       ofi: null },
 
     { id:'corpus', pais:'PY', zona:'Misiones', nombre:'Corpus Christi (Puerto Maní) ↔ Puerto Bella Vista Sur', badge:'Balsa · Río Paraná', lat:-27.1000, lng:-55.5167, dir:'Balsa con vehículos · lunes a viernes',
-      v:{n:'warn', i:'🔶', t:'Cruce en balsa de lunes a viernes, con horario partido: confirmá que esté funcionando antes de ir.'},
-      f:[ H('Lunes a viernes de 8 a 12 y de 14 a 20 hs (ficha oficial de argentina.gob.ar). Cierra al mediodía.'),
+      v:{n:'bad', i:'⛔', t:'Según Migraciones de Paraguay (leído el 20/10/2026), el puesto Puerto Bella Vista Sur figura como inhabilitado temporalmente, sin fecha de reapertura. Confirmá con Prefectura antes de ir.'},
+      f:[ NT('⛔','Según Migraciones de Paraguay (leído el 20/10/2026), el puesto Puerto Bella Vista Sur figura como inhabilitado temporalmente, sin fecha de reapertura. Confirmá con Prefectura antes de ir. Este dato se carga a mano y puede cambiar.'),
+          H('Lunes a viernes de 8 a 12 y de 14 a 20 hs (ficha oficial de argentina.gob.ar). Cierra al mediodía.'),
           NT('🚢','Se cruza en balsa con remolcador, entre Puerto Maní (Corpus Christi, Misiones) y Puerto Bella Vista Sur (Paraguay). Es un paso de tráfico vecinal fronterizo.'),
           NT('🚗','Según la ficha oficial, cruzan vehículos y personas.'),
           AR('Lado argentino: Prefectura Naval Argentina y Dirección General de Aduanas. Contacto de Prefectura: (3764) 495715.'),
@@ -16763,8 +17240,9 @@ window.__leyendaMapsHtml = function (nombres) {
       ofi: 'https://www.argentina.gob.ar/seguridad/pasosinternacionales?search=Eldorado+#rio15' },
 
     { id:'ituzaingo', pais:'PY', zona:'Corrientes', nombre:'Ituzaingó ↔ Ayolas (Represa Yacyretá)', badge:'Ruta sobre la represa', lat:-27.4800, lng:-56.7300, dir:'Por la represa · horario diurno',
-      v:{n:'warn', i:'🔶', t:'Se cruza por la ruta de la represa Yacyretá, solo de día. Confirmá horario y qué vehículos pasan antes de ir.'},
-      f:[ H('Según la Entidad Binacional Yacyretá (EBY): vehículos livianos, de lunes a lunes (todos los días) de 9 a 19 hs.'),
+      v:{n:'bad', i:'⛔', t:'Según Migraciones de Paraguay (leído el 20/10/2026), el paso Yacyretá está inhabilitado desde el 12/10/2026 hasta el 25/10/2026 por disposición de la EBY. Confirmá con la EBY antes de ir.'},
+      f:[ NT('⛔','Según Migraciones de Paraguay (leído el 20/10/2026), el paso Yacyretá está inhabilitado desde el 12/10/2026 hasta el 25/10/2026 por disposición de la EBY. Confirmá con la EBY antes de ir. Después del 25/10 confirmá si volvió a abrir.'),
+          H('Según la Entidad Binacional Yacyretá (EBY): vehículos livianos, de lunes a lunes (todos los días) de 9 a 19 hs.'),
           NT('🌉','No es balsa: se cruza por el coronamiento de la Central Hidroeléctrica Yacyretá, entre Ituzaingó (Corrientes) y Ayolas (Paraguay). No depende de la altura del río.'),
           NT('🚗','Solo vehículos livianos. Según una nota de ABC Color (noviembre de 2024) pasan autos livianos y minibuses de hasta 24 pasajeros, y no pasan peatones, motos ni bicicletas.'),
           NT('📞','Contactos de la EBY en Ayolas: +595 72 222 141 / 8.'),
@@ -16920,7 +17398,7 @@ window.__leyendaMapsHtml = function (nombres) {
     var h = '<div class="rio-box" data-id="' + p.id + '">';
     h += '<div class="rio-t">🌊 Altura del río y alerta de balsa</div>';
     h += '<div class="rio-s">Si el río está alto, es posible que <b>no haya cruce de balsa</b>. ' + r.n + '</div>';
-    h += '<div class="rio-s" style="font-weight:700">⚠️ Esta alerta se genera automáticamente a partir de la altura del río y de niveles de referencia. Verificá siempre el estado del paso en la página de la aduana.</div>';
+    h += '<div class="rio-s" style="font-weight:700">⚠️ Esta alerta se genera automáticamente a partir de la altura del río y de niveles de referencia' + (MIG_CLAVE[p.id] ? ' y, en los cruces con Paraguay, de lo que informa Migraciones de Paraguay en su página' : '') + '. Verificá siempre el estado del paso en la página de la aduana.</div>';
     h += '<div class="rio-auto" data-k="auto">⏳ Consultando la altura del río (INA)…</div>';
     h += '<div class="rio-manual" data-k="manual" style="display:none;"><div class="rio-in">';
     h += '<label data-k="lab-h">Altura hoy (m)<input type="text" inputmode="decimal" data-k="h" placeholder="ej. 6,8"></label>';
@@ -17292,8 +17770,63 @@ window.__leyendaMapsHtml = function (nombres) {
     var v = this.value; this.blur(); irAFrontera(v);
   });
 
+
+  /* Cierres informados por Migraciones de Paraguay: se leen solos. Si no se puede leer, quedan los avisos cargados a mano. */
+  var MIG_URL = 'https://migraciones.gov.py/puestos-de-control-migratorio/';
+  var MIG_PROXY = 'https://misty-salad-f945.simpleappgfr.workers.dev/?url=';
+  var MIG_CLAVE = { corpus: 'bella vista sur', puertorico: 'triunfo', eldorado: 'mayor otano', iguazufranco: 'franco', ituzaingo: 'yacyreta' };
+  var MIG_PUESTOS = ['alberdi','paso de patria','pilar','puerto ita','ita cora','puerto cerrito','panchito lopez','yacyreta','tren encarnacion','san roque gonzalez','campichuelo','bella vista sur','capitan meza','triunfo','ape aime','7 de agosto','mayor otano','presidente franco','puente internacional de la integracion'];
+  var MIG_BASE = {
+    corpus: { n:'warn', i:'🔶', t:'Cruce en balsa de lunes a viernes, con horario partido: confirmá que esté funcionando antes de ir.' },
+    ituzaingo: { n:'warn', i:'🔶', t:'Se cruza por la ruta de la represa Yacyretá, solo de día. Confirmá horario y qué vehículos pasan antes de ir.' }
+  };
+  var migUltima = 0;
+  function migNorm(t) { t = String(t).toLowerCase(); try { t = t.normalize('NFD').replace(/[̀-ͯ]/g, ''); } catch (e) {} return t; }
+  function migCerrado(txt, clave) {
+    var re = clave === 'franco' ? /presidente franco[^a-z0-9]{0,6}3 fronteras/g : new RegExp(clave.replace(/ /g, '\\s+'), 'g');
+    var m, visto = false, hallado = false;
+    while ((m = re.exec(txt))) {
+      visto = true;
+      var ini = m.index + m[0].length, fin = Math.min(txt.length, ini + 350);
+      MIG_PUESTOS.forEach(function (o) {
+        if (o === clave || (clave === 'franco' && o === 'presidente franco')) return;
+        var k = txt.indexOf(o, ini); if (k > -1 && k < fin) fin = k;
+      });
+      if (/inhabilitad/.test(txt.slice(ini, fin))) hallado = true;
+    }
+    return visto ? hallado : null;
+  }
+  function leerMigraciones() {
+    if (Date.now() - migUltima < 600000) return;
+    migUltima = Date.now();
+    var ctl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    var tm = setTimeout(function () { if (ctl) ctl.abort(); }, 20000);
+    fetch(MIG_PROXY + encodeURIComponent(MIG_URL), ctl ? { signal: ctl.signal } : {})
+      .then(function (r) { clearTimeout(tm); if (!r.ok) throw new Error('http'); return r.text(); })
+      .then(function (h) {
+        var txt = migNorm(h.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&[a-z#0-9]+;/gi, ' ').replace(/\s+/g, ' '));
+        if (txt.indexOf('puestos') < 0 || (txt.indexOf('inhabilitad') < 0 && txt.indexOf('habilitado') < 0)) { migUltima = 0; return; }
+        var hoy = new Date().toLocaleDateString('es-AR'), cambio = false;
+        PASOS.forEach(function (p) {
+          var clave = MIG_CLAVE[p.id]; if (!clave) return;
+          var c = migCerrado(txt, clave); if (c === null) return;
+          if (!p._vOrig) p._vOrig = p.v;
+          if (c) {
+            p.v = { n:'bad', i:'⛔', t:'Migraciones de Paraguay informa este paso como «inhabilitado» (leído automáticamente de su página el ' + hoy + '). Confirmá con la aduana o con Prefectura antes de ir.' };
+          } else {
+            p.v = MIG_BASE[p.id] || (p._vOrig.t.indexOf('Migraciones') > -1 ? p._vOrig : p._vOrig);
+          }
+          p.f = p.f.filter(function (r) { return String(r[1]).indexOf('Según Migraciones de Paraguay (leído el') !== 0; });
+          cambio = true;
+        });
+        if (cambio && iniciado) render();
+      })
+      .catch(function () { clearTimeout(tm); migUltima = 0; });
+  }
+
   var iniciado = false;
   window.initFronteras = function () {
+    leerMigraciones();
     if (iniciado) { if (map) setTimeout(function () { map.invalidateSize(); }, 100); return; }
     iniciado = true;
     iniciarMapa();
