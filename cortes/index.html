@@ -76,10 +76,7 @@ p{font-size:14px;color:var(--mut)}
 <h2>Mapas en vivo</h2>
 <a class="l mv" href="https://www.google.com/maps/@-27.0,-54.8,8z/data=!5m1!1e1" target="_blank" rel="noopener"><b>Google Maps con tránsito en Misiones (ver cortes)</b><small>Los cortes aparecen en rojo o con el signo de calle cerrada</small></a>
 <a class="l mv" href="https://www.ruta0.com/estado-de-rutas/provincia/misiones/" target="_blank" rel="noopener"><b>Ruta0: estado de rutas de Misiones</b><small>Cortes y desvíos informados en las rutas de la provincia</small></a>
-<details class="r0"><summary>Ver Ruta0 en esta página</summary>
-<div class="mapa" style="margin:8px 0"><iframe title="Ruta0: estado de rutas de Misiones" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.ruta0.com/estado-de-rutas/provincia/misiones/" style="height:60vh;min-height:380px;max-height:520px"></iframe></div>
-<p>Si el recuadro aparece en blanco o con un error, el sitio no permite mostrarse dentro de otra página: usá el botón de arriba para abrirlo.</p>
-</details>
+<a class="l mv" href="https://rutas.ar/?estado=yellow" target="_blank" rel="noopener"><b>Rutas.ar: estado de las rutas nacionales</b><small>Mapa con datos de Vialidad Nacional. Este enlace abre filtrado en tramos con precaución (amarillo); cambiá el filtro para ver cortes totales y restringidos. Información orientativa</small></a>
 
 <h2>Cómo ver los cortes en el mapa</h2>
 <div class="guia">
@@ -142,14 +139,14 @@ p{font-size:14px;color:var(--mut)}
   var LISTADO='https://www.argentina.gob.ar/seguridad/pasosinternacionales';
   // u = nivel (m) a partir del cual el servicio suele suspenderse (null = sin nivel confirmado)
   var PASOS=[
-    {n:'Puerto Iguazú ↔ Presidente Franco',id:'iguazufranco',f:'Puerto Iguaz|Iguaz',u:25,a:LISTADO+'?search=Presidente+franco+#rio56',corte:'Paso inhabilitado temporalmente por la crecida extraordinaria del río Iguazú (informado el 12/10/2026). No vayas hasta que Prefectura lo rehabilite.'},
+    {n:'Puerto Iguazú ↔ Presidente Franco',id:'iguazufranco',mig:'franco',f:'Puerto Iguaz|Iguaz',u:25,a:LISTADO+'?search=Presidente+franco+#rio56',corte:'Paso inhabilitado temporalmente por la crecida extraordinaria del río Iguazú (informado el 12/10/2026). No vayas hasta que Prefectura lo rehabilite.'},
     {n:'El Soberbio ↔ Porto Soberbo',id:'elsoberbio',f:'El Soberbio',u:8,a:OFI+'rio/87/El-Soberbio-Porto-Soberbo'},
     {n:'Alba Posse ↔ Porto Mauá',id:'albaposse',f:'Alba Posse',u:8,a:OFI+'rio/88/Puerto-Alba-Posse-Porto-Maua'},
     {n:'San Javier ↔ Porto Xavier (Paso de la Barca)',id:'sanjavier',f:'San Javier',u:6.5,a:OFI+'rio/10/Paso-de-la-Barca-Porto-Xavier'},
     {n:'Panambí ↔ Porto Vera Cruz',id:'panambi',f:'Panamb|Vera Cruz',u:7,a:'https://www.argentina.gob.ar/seguridad/pasosinternacionales#rio89'},
-    {n:'Puerto Rico ↔ Puerto Triunfo',id:'puertorico',f:'Puerto Rico|Libertador|Pto. Rico',u:14.5,a:'https://www.argentina.gob.ar/seguridad/pasosinternacionales#rio44'},
-    {n:'Eldorado ↔ Puerto Mayor Julio Otaño',id:'eldorado',f:'Eldorado|Dorado',u:23,a:'https://www.argentina.gob.ar/seguridad/pasosinternacionales?search=Eldorado+#rio15'},
-    {n:'Corpus Christi (Puerto Maní) ↔ Puerto Bella Vista Sur',id:'corpus',f:'Corpus|Mani',u:9.5,a:OFI+'rio/50/Puerto-Mani-Puerto-Bella-Vista-Sur'}
+    {n:'Puerto Rico ↔ Puerto Triunfo',id:'puertorico',mig:'triunfo',f:'Puerto Rico|Libertador|Pto. Rico',u:14.5,a:'https://www.argentina.gob.ar/seguridad/pasosinternacionales#rio44'},
+    {n:'Eldorado ↔ Puerto Mayor Julio Otaño',id:'eldorado',mig:'mayor otano',f:'Eldorado|Dorado',u:23,a:'https://www.argentina.gob.ar/seguridad/pasosinternacionales?search=Eldorado+#rio15'},
+    {n:'Corpus Christi (Puerto Maní) ↔ Puerto Bella Vista Sur',id:'corpus',mig:'bella vista sur',f:'Corpus|Mani',u:9.5,corte:'Según Migraciones de Paraguay (leído el 20/10/2026), el puesto Puerto Bella Vista Sur figura como inhabilitado temporalmente, sin fecha de reapertura. Confirmá con Prefectura antes de ir.',a:OFI+'rio/50/Puerto-Mani-Puerto-Bella-Vista-Sur'}
   ];
   function fm(n){return String(n).replace('.',',');}
   function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
@@ -234,13 +231,47 @@ p{font-size:14px;color:var(--mut)}
     var el=document.createElement('div');el.className='bal sin';
     el.innerHTML='<b>'+esc(p.n)+'</b><span class="st">⏳ Consultando…</span>'+enlace(p);
     cont.appendChild(el);
-    consultar(p.f).then(function(h){pintar(el,p,h,false);},function(){pintar(el,p,null,true);});
+    p._el=el;consultar(p.f).then(function(h){p._a=[h,false];pintar(el,p,h,false);},function(){p._a=[null,true];pintar(el,p,null,true);});
   });
+
+  /* Cierres informados por Migraciones de Paraguay (se leen solos al abrir la página). Si no se puede leer, quedan los avisos manuales. */
+  var MIGURL='https://migraciones.gov.py/puestos-de-control-migratorio/';
+  var MIGPUESTOS=['alberdi','paso de patria','pilar','puerto ita','ita cora','puerto cerrito','panchito lopez','yacyreta','tren encarnacion','san roque gonzalez','campichuelo','bella vista sur','capitan meza','triunfo','ape aime','7 de agosto','mayor otano','presidente franco','puente internacional de la integracion'];
+  function norm(s){s=String(s).toLowerCase();try{s=s.normalize('NFD').replace(/[̀-ͯ]/g,'');}catch(e){}return s;}
+  function pedirTexto(url){
+    var ctl=(typeof AbortController!=='undefined')?new AbortController():null;
+    var tm=setTimeout(function(){if(ctl)ctl.abort();},25000);
+    return fetch(url,ctl?{signal:ctl.signal}:{}).then(function(r){clearTimeout(tm);if(!r.ok)throw new Error('http');return r.text();});
+  }
+  function cerrado(txt,clave){
+    var re=clave==='franco'?/presidente franco[^a-z0-9]{0,6}3 fronteras/g:new RegExp(clave.replace(/ /g,'\\s+'),'g'),m,hallado=false,visto=false;
+    while((m=re.exec(txt))){
+      visto=true;var ini=m.index+m[0].length,fin=Math.min(txt.length,ini+350);
+      MIGPUESTOS.forEach(function(o){if(o===clave||(clave==='franco'&&o==='presidente franco'))return;var k=txt.indexOf(o,ini);if(k>-1&&k<fin)fin=k;});
+      if(/inhabilitad/.test(txt.slice(ini,fin)))hallado=true;
+    }
+    return visto?hallado:null;
+  }
+  function leerMigraciones(){
+    pedirTexto(PROXY+encodeURIComponent(MIGURL)).then(function(h){
+      var txt=norm(h.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/&[a-z#0-9]+;/gi,' ').replace(/\s+/g,' '));
+      if(txt.indexOf('puestos')<0||txt.indexOf('inhabilitad')<0&&txt.indexOf('habilitado')<0)return;
+      var hoy=new Date().toLocaleDateString('es-AR');
+      PASOS.forEach(function(p){
+        if(!p.mig)return;
+        var c=cerrado(txt,p.mig);if(c===null)return;
+        if(c)p.corte='Migraciones de Paraguay informa este puesto como «inhabilitado temporalmente» (leído automáticamente de su página el '+hoy+'). Confirmá con la aduana antes de ir.';
+        else if(p.corte&&/Migraciones/.test(p.corte)&&/leído automáticamente|leído el/.test(p.corte))p.corte=null;
+        if(p._el&&p._a)pintar(p._el,p,p._a[0],p._a[1]);
+      });
+    }).catch(function(){});
+  }
+  leerMigraciones();
 })();
 </script>
 <script>
 (function(){
-  var DATOS=[{"id": "elsoberbio", "n": "El Soberbio ↔ Porto Soberbo", "p": "BR", "la": -27.3, "lo": -54.2167, "e": "warn", "t": "No permite recorrer Brasil libremente: solo tránsito vecinal (zona cercana a Porto Soberbo)."}, {"id": "sanpedro", "n": "San Pedro ↔ São Miguel do Oeste (Paso Rosales)", "p": "BR", "la": -26.6139, "lo": -53.7389, "e": "warn", "t": "Solo se puede recorrer Brasil libremente en temporada de verano; el resto del año, solo tránsito vecinal."}, {"id": "bernardo", "n": "Bernardo de Irigoyen ↔ Dionísio Cerqueira", "p": "BR", "la": -26.2547, "lo": -53.6441, "e": "ok", "t": "Se puede recorrer todo Brasil sin límite de km (control migratorio completo todo el año)."}, {"id": "sanantonio", "n": "San Antonio ↔ Santo Antônio do Sudoeste", "p": "BR", "la": -26.07, "lo": -53.74, "e": "ok", "t": "Desde el 1 de febrero de 2023 el lado brasileño tiene control para turistas: se puede seguir viaje por Brasil."}, {"id": "andresito", "n": "Comandante Andresito ↔ Capanema", "p": "BR", "la": -25.674, "lo": -54.03, "e": "warn", "t": "Confirmá si el lado brasileño habilita ingreso turístico completo antes de usarlo para ir lejos."}, {"id": "albaposse", "n": "Alba Posse ↔ Porto Mauá", "p": "BR", "la": -27.5698, "lo": -54.6826, "e": "ok", "t": "Se puede hacer el trámite migratorio y aduanero del lado brasileño y circular por todo Brasil."}, {"id": "sanjavier", "n": "San Javier ↔ Porto Xavier (Paso de la Barca)", "p": "BR", "la": -27.8833, "lo": -55.1333, "e": "ok", "t": "Se puede hacer el trámite migratorio y aduanero del lado brasileño y circular por todo Brasil."}, {"id": "panambi", "n": "Panambí ↔ Porto Vera Cruz", "p": "BR", "la": -27.7167, "lo": -54.9167, "e": "warn", "t": "Confirmá con Prefectura si la balsa opera y si el lado brasileño hace control migratorio pleno."}, {"id": "iguazu", "n": "Puerto Iguazú ↔ Foz do Iguaçu (Puente Tancredo Neves)", "p": "BR", "la": -25.5999, "lo": -54.562, "e": "ok", "t": "Se puede hacer el trámite migratorio y aduanero completo y circular por todo Brasil."}, {"id": "santotome", "n": "Santo Tomé ↔ São Borja", "p": "BR", "la": -28.55, "lo": -56.03, "e": "ok", "t": "Paso con control completo: se puede circular por todo Brasil con el trámite de ingreso."}, {"id": "corpus", "n": "Corpus Christi (Puerto Maní) ↔ Puerto Bella Vista Sur", "p": "PY", "la": -27.1, "lo": -55.5167, "e": "warn", "t": "Cruce en balsa de lunes a viernes, con horario partido: confirmá que esté funcionando antes de ir."}, {"id": "iguazufranco", "n": "Puerto Iguazú ↔ Presidente Franco", "p": "PY", "la": -25.599, "lo": -54.574, "e": "bad", "t": "Paso inhabilitado temporalmente por la crecida extraordinaria del río Iguazú (informado el 12/10/2026). No vayas hasta que Prefectura lo rehabilite."}, {"id": "posadas", "n": "Posadas ↔ Encarnación (Puente San Roque González)", "p": "PY", "la": -27.352, "lo": -55.887, "e": "ok", "t": "Paso con control completo, abierto las 24 hs. Se puede seguir viaje por todo Paraguay."}, {"id": "puertorico", "n": "Puerto Rico ↔ Puerto Triunfo", "p": "PY", "la": -26.8, "lo": -55.01, "e": "warn", "t": "Cruce en balsa: confirmá que el servicio esté funcionando antes de ir."}, {"id": "eldorado", "n": "Eldorado ↔ Puerto Mayor Julio Otaño", "p": "PY", "la": -26.4, "lo": -54.62, "e": "warn", "t": "Cruce en balsa de horario partido y solo en días hábiles."}, {"id": "ituzaingo", "n": "Ituzaingó ↔ Ayolas (Represa Yacyretá)", "p": "PY", "la": -27.48, "lo": -56.73, "e": "warn", "t": "Se cruza por la ruta de la represa Yacyretá, solo de día. Confirmá horario y qué vehículos pasan antes de ir."}];
+  var DATOS=[{"id": "elsoberbio", "n": "El Soberbio ↔ Porto Soberbo", "p": "BR", "la": -27.3, "lo": -54.2167, "e": "warn", "t": "No permite recorrer Brasil libremente: solo tránsito vecinal (zona cercana a Porto Soberbo)."}, {"id": "sanpedro", "n": "San Pedro ↔ São Miguel do Oeste (Paso Rosales)", "p": "BR", "la": -26.6139, "lo": -53.7389, "e": "warn", "t": "Solo se puede recorrer Brasil libremente en temporada de verano; el resto del año, solo tránsito vecinal."}, {"id": "bernardo", "n": "Bernardo de Irigoyen ↔ Dionísio Cerqueira", "p": "BR", "la": -26.2547, "lo": -53.6441, "e": "ok", "t": "Se puede recorrer todo Brasil sin límite de km (control migratorio completo todo el año)."}, {"id": "sanantonio", "n": "San Antonio ↔ Santo Antônio do Sudoeste", "p": "BR", "la": -26.07, "lo": -53.74, "e": "ok", "t": "Desde el 1 de febrero de 2023 el lado brasileño tiene control para turistas: se puede seguir viaje por Brasil."}, {"id": "andresito", "n": "Comandante Andresito ↔ Capanema", "p": "BR", "la": -25.674, "lo": -54.03, "e": "warn", "t": "Confirmá si el lado brasileño habilita ingreso turístico completo antes de usarlo para ir lejos."}, {"id": "albaposse", "n": "Alba Posse ↔ Porto Mauá", "p": "BR", "la": -27.5698, "lo": -54.6826, "e": "ok", "t": "Se puede hacer el trámite migratorio y aduanero del lado brasileño y circular por todo Brasil."}, {"id": "sanjavier", "n": "San Javier ↔ Porto Xavier (Paso de la Barca)", "p": "BR", "la": -27.8833, "lo": -55.1333, "e": "ok", "t": "Se puede hacer el trámite migratorio y aduanero del lado brasileño y circular por todo Brasil."}, {"id": "panambi", "n": "Panambí ↔ Porto Vera Cruz", "p": "BR", "la": -27.7167, "lo": -54.9167, "e": "warn", "t": "Confirmá con Prefectura si la balsa está operando y si el lado brasileño hace control migratorio pleno antes de ir."}, {"id": "iguazu", "n": "Puerto Iguazú ↔ Foz do Iguaçu (Puente Tancredo Neves)", "p": "BR", "la": -25.5999, "lo": -54.562, "e": "ok", "t": "Se puede hacer el trámite migratorio y aduanero completo y circular por todo Brasil."}, {"id": "santotome", "n": "Santo Tomé ↔ São Borja", "p": "BR", "la": -28.55, "lo": -56.03, "e": "ok", "t": "Paso con control completo: se puede circular por todo Brasil con el trámite de ingreso."}, {"id": "corpus", "n": "Corpus Christi (Puerto Maní) ↔ Puerto Bella Vista Sur", "p": "PY", "la": -27.1, "lo": -55.5167, "e": "bad", "t": "Según Migraciones de Paraguay (leído el 20/10/2026), el puesto Puerto Bella Vista Sur figura como inhabilitado temporalmente, sin fecha de reapertura. Confirmá con Prefectura antes de ir."}, {"id": "iguazufranco", "n": "Puerto Iguazú ↔ Presidente Franco", "p": "PY", "la": -25.599, "lo": -54.574, "e": "bad", "t": "Paso inhabilitado temporalmente por la crecida extraordinaria del río Iguazú (informado el 12/10/2026). No vayas hasta que Prefectura lo rehabilite."}, {"id": "posadas", "n": "Posadas ↔ Encarnación (Puente San Roque González)", "p": "PY", "la": -27.352, "lo": -55.887, "e": "ok", "t": "Paso con control completo, abierto las 24 hs. Se puede seguir viaje por todo Paraguay."}, {"id": "puertorico", "n": "Puerto Rico ↔ Puerto Triunfo", "p": "PY", "la": -26.8, "lo": -55.01, "e": "warn", "t": "Cruce en balsa: confirmá que el servicio esté funcionando antes de ir."}, {"id": "eldorado", "n": "Eldorado ↔ Puerto Mayor Julio Otaño", "p": "PY", "la": -26.4, "lo": -54.62, "e": "warn", "t": "Cruce en balsa de horario partido y solo en días hábiles."}, {"id": "ituzaingo", "n": "Ituzaingó ↔ Ayolas (Represa Yacyretá)", "p": "PY", "la": -27.48, "lo": -56.73, "e": "bad", "t": "Según Migraciones de Paraguay (leído el 20/10/2026), el paso Yacyretá está inhabilitado desde el 12/10/2026 hasta el 25/10/2026 por disposición de la EBY. Confirmá con la EBY antes de ir."}];
   var OFI='https://www.argentina.gob.ar/seguridad/pasosinternacionales/detalle/';
   var LISTADO='https://www.argentina.gob.ar/seguridad/pasosinternacionales';
   var ENL={iguazufranco:LISTADO+'?search=Presidente+franco+#rio56',elsoberbio:OFI+'rio/87/El-Soberbio-Porto-Soberbo',albaposse:OFI+'rio/88/Puerto-Alba-Posse-Porto-Maua',sanjavier:OFI+'rio/10/Paso-de-la-Barca-Porto-Xavier',corpus:OFI+'rio/50/Puerto-Mani-Puerto-Bella-Vista-Sur'};
