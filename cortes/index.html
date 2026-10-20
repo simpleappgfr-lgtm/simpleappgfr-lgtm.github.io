@@ -102,7 +102,7 @@ p{font-size:14px;color:var(--mut)}
 <p>Con el río alto, el servicio de balsa puede suspenderse. Se muestra la altura que informa el INA y el nivel de corte usado en Fronteras SimpleApp. Donde no hay nivel confirmado, solo se muestra la altura.</p>
 <div id="mapaPasos">Cargando mapa…</div>
 <div class="ley2"><span><i style="background:#c0392b"></i>Cerrado o servicio cortado</span><span><i style="background:#d68a00"></i>Con restricciones o cerca del límite</span><span><i style="background:#2e7d32"></i>Sin alertas</span></div>
-<p>El color sale de la información cargada en Fronteras SimpleApp y de la altura del río. No lee el parte de la aduana: tocá cada paso y usá el enlace oficial para ver si está abierto o cerrado.</p>
+<p>El color sale de la información cargada en Fronteras SimpleApp, de la altura del río y de los cierres que informa Migraciones de Paraguay (se leen automáticamente). No lee el parte de la aduana argentina: tocá cada paso y usá el enlace oficial para ver si está abierto o cerrado.</p>
 
 <div id="balsas" class="balsas">Consultando la altura de los ríos…</div>
 <a class="l" href="https://contenidosweb.prefecturanaval.gob.ar/alturas/" target="_blank" rel="noopener"><b>Alturas de ríos (Prefectura Naval Argentina)</b><small>Fuente oficial: altura de cada puerto con sus niveles de alerta y evacuación</small></a>
@@ -199,7 +199,7 @@ p{font-size:14px;color:var(--mut)}
     cierre.forEach(function(n){h+='<li>'+esc(n)+' ⛔ cierre informado</li>';});
     posible.forEach(function(n){h+='<li>'+esc(n)+' 🚨 posible cierre</li>';});
     cerca.forEach(function(n){h+='<li>'+esc(n)+' 🟠 cerca del nivel de alerta</li>';});
-    h+='</ul><div style="margin-top:8px;font-weight:600">⚠️ Estas alertas se generan automáticamente a partir de la altura del río y de niveles de referencia. Verificá siempre el estado de cada paso en la página de la aduana (más abajo, en la lista de cruces, cada tarjeta tiene su propio botón «Ver si la aduana está abierta o cerrada»).</div>';box.innerHTML=h;box.style.display='block';
+    h+='</ul><div style="margin-top:8px;font-weight:600">⚠️ Estas alertas se generan automáticamente a partir de la altura del río, de niveles de referencia y de lo que informa Migraciones de Paraguay en su página. Verificá siempre el estado de cada paso en la página de la aduana (más abajo, en la lista de cruces, cada tarjeta tiene su propio botón «Ver si la aduana está abierta o cerrada»).</div>';box.innerHTML=h;box.style.display='block';
   }
   /* Lecturas cargadas a mano (Prefectura Naval, 16/10/2026 08:00). Se usan solo si el INA no responde. Actualizar o borrar. */
   var MANUAL={elsoberbio:{h:6.0,f:'16/10 08:00'},albaposse:{h:7.3,f:'16/10 08:00'},sanjavier:{h:6.4,f:'16/10 08:00'},panambi:{h:6.65,f:'16/10 08:00'},eldorado:{h:25.05,f:'16/10 08:00'},puertorico:{h:18.9,f:'16/10 08:00'},iguazufranco:{h:32.8,f:'16/10 08:00'},corpus:{h:9.25,f:'16/10 08:00'}};
@@ -264,6 +264,8 @@ p{font-size:14px;color:var(--mut)}
         else if(p.corte&&/Migraciones/.test(p.corte)&&/leído automáticamente|leído el/.test(p.corte))p.corte=null;
         if(p._el&&p._a)pintar(p._el,p,p._a[0],p._a[1]);
       });
+      var y=cerrado(txt,'yacyreta');
+      if(y!==null&&window.__migDato)window.__migDato('ituzaingo',y,'Migraciones de Paraguay informa el paso Yacyretá como «inhabilitado» (leído automáticamente el '+hoy+'; según su página, por disposición de la EBY). Confirmá con la EBY antes de ir.');
     }).catch(function(){});
   }
   leerMigraciones();
@@ -307,6 +309,12 @@ p{font-size:14px;color:var(--mut)}
   });
   map.fitBounds(L.featureGroup(grupo).getBounds().pad(0.15));
   setTimeout(function(){map.invalidateSize();},300);
+  window.__migDato=function(id,cerrado,txt){
+    var d=DATOS.filter(function(x){return x.id===id;})[0];if(!d)return;
+    if(cerrado){d.e='bad';d.t=txt;}
+    else{d.e='warn';d.t='Se cruza por la ruta de la represa Yacyretá, solo de día. Migraciones de Paraguay no lo informa como cerrado (leído automáticamente). Confirmá horario y qué vehículos pasan antes de ir.';}
+    if(marcas[id])marcas[id].setIcon(icono(nivel(d)));
+  };
   window.__marcarPaso=function(id,cls){
     est[id]=cls;
     var d=DATOS.filter(function(x){return x.id===id;})[0];
