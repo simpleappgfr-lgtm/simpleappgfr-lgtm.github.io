@@ -4,9 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="color-scheme" content="light dark">
-<title>Info SimpleApp · San Vicente</title>
+<title>Info SimpleApp · Clima, emergencias, rutas y noticias (versión web)</title>
+<meta name="description" content="Versión web gratuita de Info SimpleApp: clima y alertas oficiales, emergencias, rutas, noticias, cotizaciones y mini-apps para Misiones, el NEA y Sudamérica. Sin instalar nada.">
+<link rel="canonical" href="https://simpleappgfr-lgtm.github.io/app/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Info SimpleApp — versión web">
+<meta property="og:description" content="Clima, alertas oficiales, emergencias, rutas, noticias y mini-apps para Misiones, el NEA y Sudamérica. Gratis, sin instalar.">
+<meta property="og:url" content="https://simpleappgfr-lgtm.github.io/app/">
+<meta property="og:image" content="https://simpleappgfr-lgtm.github.io/app/icon-512.png">
+<meta name="theme-color" content="#1f1206">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Info SimpleApp">
+<style>html.ios .ios-oculto{display:none !important;}</style>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="/flags-windows.js"></script>
 <style>
 /* El mapa de farmacias no debe capturar el scroll vertical de la página */
 #mapa-farmacias, #mapa-farmacias.leaflet-container, #mapa-farmacias * {
@@ -10139,7 +10155,7 @@ showTab = function (id, btn) {
 
 // Aviso de deslinde de responsabilidad por enlaces externos, agregado al final de cada menú/sección.
 document.addEventListener('DOMContentLoaded', function () {
-  var appDisclaimer = '<div style="background:rgba(107,63,31,0.08);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-top:16px;font-size:11px;line-height:1.5;color:var(--muted);text-align:center;">ℹ️ <strong>Info SimpleApp es una aplicación independiente y de carácter privado</strong>. No está afiliada, respaldada ni asociada a ningún organismo gubernamental. Recopila información pública para facilitar su consulta; verificá siempre los datos sensibles directamente con cada organismo.</div>';
+  var appDisclaimer = '<div style="background:rgba(107,63,31,0.08);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-top:16px;font-size:11px;line-height:1.5;color:var(--muted);text-align:center;">ℹ️ <strong>Info SimpleApp es una aplicación independiente y de carácter privado</strong>. No está afiliada, respaldada ni asociada a ningún organismo gubernamental. Recopila información pública para facilitar su consulta; verificá siempre los datos sensibles directamente con cada organismo. Banderas: Twemoji, licencia CC BY 4.0 (github.com/twitter/twemoji).</div>';
   var disclaimer = '<div style="margin:22px 0 10px 0;padding:10px 12px;border-top:1px dashed var(--border);font-size:10px;line-height:1.4;color:var(--muted);text-align:center;">⚠️ Los enlaces a sitios externos son solo a modo informativo. SimpleApp no se responsabiliza por el contenido, la disponibilidad ni la exactitud de la información de esas páginas de terceros.</div>';
   document.querySelectorAll('.section').forEach(function (sec) {
     var divApp = document.createElement('div');
@@ -12734,10 +12750,6 @@ document.addEventListener('DOMContentLoaded', function () {
 #fronteras #fr-resumen-rios .res-alerta a { color:var(--azul2); font-weight:700; text-decoration:underline; cursor:pointer; }
 #fronteras .rio-retry { margin-top:6px; background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:6px 12px; font-family:'Barlow',sans-serif; font-size:12px; font-weight:700; color:var(--text); cursor:pointer; }
 #fronteras .rio-links a { display:inline-block; margin:6px 12px 0 0; font-size:12px; font-weight:700; color:var(--azul2); text-decoration:none; }
-</style>
-</head>
-<body>
-</style>
 <script>
 /* ======================================================================
    PUENTE COMPARTIDO DE GUARDADO (AppBridge)
@@ -20047,3 +20059,23 @@ window.addEventListener('message', function (ev) {
   } catch (e) {}
 });
 </script>
+<script>
+/* Versión web: en iPhone/iPad ocultamos las apps externas que solo existen en Google Play */
+(function(){
+  var esIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  if(!esIOS)return;
+  document.documentElement.classList.add('ios');
+  function ocultar(){
+    document.querySelectorAll('a[href*="play.google.com/store/apps/details?id="]').forEach(function(a){
+      if(a.href.indexOf('id=info.simpleapp')===-1)a.classList.add('ios-oculto');
+    });
+    document.querySelectorAll('div.city-only').forEach(function(d){
+      if((d.textContent||'').indexOf('Aplicaciones útiles para descargar')!==-1)d.classList.add('ios-oculto');
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ocultar);else ocultar();
+})();
+</script>
+<script defer src="/analytics.js"></script>
+</body>
+</html>
