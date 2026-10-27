@@ -2,7 +2,7 @@
    Reemplazá PEGAR_TOKEN_AQUI por el token que te da Cloudflare
    (Web Analytics -> tu sitio -> "Manual setup"). Sirve para la landing y para /app/. */
 (function () {
-  var token = "PEGAR_TOKEN_AQUI";
+  var token = "16770b96eea04e2499ee2625e8f53609";
   if (token.indexOf("PEGAR") === 0) return;
   var s = document.createElement("script");
   s.defer = true;
