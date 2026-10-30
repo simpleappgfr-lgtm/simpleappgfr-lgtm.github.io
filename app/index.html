@@ -3842,7 +3842,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       <div style="font-size:10px;color:var(--muted);text-align:center;margin-top:2px;">👆👆 Usá dos dedos para mover o acercar el mapa · con un dedo podés seguir bajando la página</div>
     </div>
 
-    <div class="stage-title">📋 Listado Completo de Turnos (Agosto - Septiembre)</div>
+    <div class="stage-title">📋 Listado Completo de Turnos (Octubre - Noviembre)</div>
 
   <div id="turno-lista"></div>
 
@@ -6453,45 +6453,46 @@ function irADiaTurno() {
 
 
 // ── FARMACIAS DE TURNO ────────────────────────────────────────────────────────
-// Septiembre 2026 — cargado y verificado contra la lista oficial (imagen provista).
-var TURNOS_SEPTIEMBRE = [
-  {n:29, farm:'DEL SOL', dir:'Av. Libertador 1240 (al lado heladería GRIDO)'},
-  {n:30, farm:'SAN RAFAEL', dir:'Av. Constitución 600 (frente a JUNAI)'},
-];
-
 // Octubre 2026 — cargado desde la lista oficial (imagen "Farmacias de Turno Octubre 2026").
 var TURNOS_OCTUBRE = [
-  {n:1, farm:'DANIEL', dir:'Av. Libertador c/ Hernández'},
-  {n:2, farm:'SANTA RITA', dir:'Av. Tejeda 611'},
-  {n:3, farm:'FARMASEND', dir:'Monseñor J. Piña 61 (al lado CLIDES)'},
-  {n:4, farm:'FARMALENZ', dir:'Av. Tejeda y Democracia'},
-  {n:5, farm:'FARMAMUNDO', dir:'Constitución (cerca sanatorio San Marcos)'},
-  {n:6, farm:'LIBERTAD', dir:'Av. Libertador (frente a supermercado Ceferino Centro)'},
-  {n:7, farm:'LA MISIONERA', dir:'Falucho 1100 (frente juzgado de faltas)'},
-  {n:8, farm:'FARMACIA BAMBÚ', dir:'Avenida Tejeda 1435'},
-  {n:9, farm:'FARMACIA ROCÍO', dir:'Ruta 14 km 61 colectora (frente a kroch-entrada CIC)'},
-  {n:10, farm:'FARMAMAS', dir:'Av. Libertador 760'},
-  {n:11, farm:'FARMACIA CENTRAL', dir:'Av. Libertador 496'},
-  {n:12, farm:'FARMAMUNDO 2', dir:'Av. Kirchner 102 (diagonal 5 Hnos mayorista)'},
-  {n:13, farm:'IRUPE', dir:'Av. Libertador 801 (frente a plazoleta infantil)'},
-  {n:14, farm:'FARMACIA RÍO', dir:'(Ex Fcia. Daniel 2) Av. Libertador 937'},
-  {n:15, farm:'VIRGEN DEL CERRO', dir:'Balbín y Juan 23 (cerca de la plaza)'},
-  {n:16, farm:'NEOFARMA', dir:'Av. Libertador 973'},
-  {n:17, farm:'FARMACEF', dir:'Belisario Roldán 970'},
-  {n:18, farm:'FARMACIA PAZ', dir:'Av. Tejeda 252 (pegado a Tango Eventos)'},
-  {n:19, farm:'DEL SOL', dir:'Av. Libertador 1240 (al lado heladería GRIDO)'},
-  {n:20, farm:'SAN RAFAEL', dir:'Av. Constitución 600 (frente a JUNAI)'},
-  {n:21, farm:'DANIEL', dir:'Av. Libertador c/ Hernández'},
-  {n:22, farm:'SANTA RITA', dir:'Av. Tejeda 611'},
-  {n:23, farm:'FARMASEND', dir:'Monseñor J. Piña 61 (al lado CLIDES)'},
-  {n:24, farm:'FARMALENZ', dir:'Av. Tejeda y Democracia'},
-  {n:25, farm:'FARMAMUNDO', dir:'Constitución (cerca sanatorio San Marcos)'},
-  {n:26, farm:'LIBERTAD', dir:'Av. Libertador (frente a supermercado Ceferino Centro)'},
-  {n:27, farm:'LA MISIONERA', dir:'Falucho 1100 (frente juzgado de faltas)'},
   {n:28, farm:'FARMACIA BAMBÚ', dir:'Avenida Tejeda 1435'},
   {n:29, farm:'FARMACIA ROCÍO', dir:'Ruta 14 km 61 colectora (frente a kroch-entrada CIC)'},
   {n:30, farm:'FARMAMAS', dir:'Av. Libertador 760'},
   {n:31, farm:'FARMACIA CENTRAL', dir:'Av. Libertador 496'},
+];
+
+// Noviembre 2026 — cargado desde la lista oficial (imagen "Farmacias de Turno Noviembre 2026").
+var TURNOS_NOVIEMBRE = [
+  {n:1, farm:'FARMAMUNDO 2', dir:'Av. Kirchner 102 (diagonal 5 Hnos mayorista)'},
+  {n:2, farm:'IRUPE', dir:'Av. Libertador 801 (frente a plazoleta infantil)'},
+  {n:3, farm:'FARMACIA RÍO', dir:'(Ex Fcia. Daniel 2) Av. Libertador 937'},
+  {n:4, farm:'VIRGEN DEL CERRO', dir:'Balbín y Juan 23 (cerca de la plaza)'},
+  {n:5, farm:'NEOFARMA', dir:'Av. Libertador 973'},
+  {n:6, farm:'FARMACEF', dir:'Belisario Roldán 970'},
+  {n:7, farm:'FARMACIA PAZ', dir:'Av. Tejeda 252 (pegado a Tango Eventos)'},
+  {n:8, farm:'DEL SOL', dir:'Av. Libertador 1240 (al lado heladería GRIDO)'},
+  {n:9, farm:'SAN RAFAEL', dir:'Av. Constitución 600 (frente a JUNAI)'},
+  {n:10, farm:'DANIEL', dir:'Av. Libertador c/ Hernández'},
+  {n:11, farm:'SANTA RITA', dir:'Av. Tejeda 611'},
+  {n:12, farm:'FARMASEND', dir:'Monseñor J. Piña 61 (al lado CLIDES)'},
+  {n:13, farm:'FARMALENZ', dir:'Av. Tejeda y Democracia'},
+  {n:14, farm:'FARMAMUNDO', dir:'Constitución (cerca sanatorio San Marcos)'},
+  {n:15, farm:'LIBERTAD', dir:'Av. Libertador (frente a supermercado Ceferino Centro)'},
+  {n:16, farm:'LA MISIONERA', dir:'Falucho 1100 (frente juzgado de faltas)'},
+  {n:17, farm:'FARMACIA BAMBÚ', dir:'Avenida Tejeda 1435'},
+  {n:18, farm:'FARMACIA ROCÍO', dir:'Ruta 14 km 61 colectora (frente a kroch-entrada CIC)'},
+  {n:19, farm:'FARMAMAS', dir:'Av. Libertador 760'},
+  {n:20, farm:'FARMACIA CENTRAL', dir:'Av. Libertador 496'},
+  {n:21, farm:'FARMAMUNDO 2', dir:'Av. Kirchner 102 (diagonal 5 Hnos mayorista)'},
+  {n:22, farm:'IRUPE', dir:'Av. Libertador 801 (frente a plazoleta infantil)'},
+  {n:23, farm:'FARMACIA RÍO', dir:'(Ex Fcia. Daniel 2) Av. Libertador 937'},
+  {n:24, farm:'VIRGEN DEL CERRO', dir:'Balbín y Juan 23 (cerca de la plaza)'},
+  {n:25, farm:'NEOFARMA', dir:'Av. Libertador 973'},
+  {n:26, farm:'FARMACEF', dir:'Belisario Roldán 970'},
+  {n:27, farm:'FARMACIA PAZ', dir:'Av. Tejeda 252 (pegado a Tango Eventos)'},
+  {n:28, farm:'DEL SOL', dir:'Av. Libertador 1240 (al lado heladería GRIDO)'},
+  {n:29, farm:'SAN RAFAEL', dir:'Av. Constitución 600 (frente a JUNAI)'},
+  {n:30, farm:'DANIEL', dir:'Av. Libertador c/ Hernández'},
 ];
 
 var DIAS_SEMANA = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
@@ -6499,11 +6500,11 @@ var DIAS_FULL   = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','S
 var MESES       = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
 // Devuelve el array de turnos correspondiente al mes (0=Enero ... 11=Diciembre).
-// Por ahora solo está cargada la secuencia real de Septiembre; cualquier otro
-// mes usa por defecto esa misma secuencia para no romper el cálculo de turno de hoy.
+// Cargados Octubre (del 28 al 31) y Noviembre; cualquier otro
+// mes usa por defecto la de Noviembre para no romper el cálculo de turno de hoy.
 function getTurnosDelMes(mes) {
   if (mes === 9) return TURNOS_OCTUBRE;
-  return TURNOS_SEPTIEMBRE;
+  return TURNOS_NOVIEMBRE;
 }
 
 function initTurnos() {
@@ -6570,7 +6571,7 @@ function initTurnos() {
 }
 
 // Meses para los que tenemos la secuencia real cargada (0=Enero ... 11=Diciembre)
-var TURNO_MESES_DISPONIBLES = [8, 9]; // Septiembre (solo del 28 al 30) y Octubre
+var TURNO_MESES_DISPONIBLES = [9, 10]; // Octubre (solo del 28 al 31) y Noviembre
 
 // Construye el listado corrido (sin separar por mes) con todos los turnos
 // disponibles, en orden cronológico, conservando el mes de cada día.
@@ -6692,6 +6693,8 @@ var CIUDADES = [
   {nombre:'San Ignacio',       lat:-27.2564, lng:-55.5361, provincia:'Misiones', region:'Centro', pais:'ARG', wikiSlug:'San_Ignacio_(Misiones)', radar:'https://www.tiempoyradar.com.ar/tiempo/san-ignacio/12076162'},
   {nombre:'Wanda',              lat:-25.9667, lng:-54.5667, provincia:'Misiones', region:'Norte', pais:'ARG', wikiSlug:'Wanda_(Misiones)', radar:'https://www.tiempoyradar.com.ar/tiempo/wanda/1005240'},
   {nombre:'Puerto Libertad',    lat:-25.9167, lng:-54.5833, provincia:'Misiones', region:'Norte', pais:'ARG', wikiSlug:'Puerto_Libertad_(Misiones)', radar:'https://www.tiempoyradar.com.ar/tiempo/puerto-libertad/5353981'},
+  {nombre:'Alba Posse',        lat:-27.5833, lng:-54.6833, provincia:'Misiones', region:'Centro', pais:'ARG', wikiSlug:'Alba_Posse'},
+  {nombre:'Concepción de la Sierra', lat:-27.9833, lng:-55.5167, provincia:'Misiones', region:'Sur', pais:'ARG', wikiSlug:'Concepción_de_la_Sierra'},
   // Corrientes (provincia vecina)
   {nombre:'Ituzaingó',          lat:-27.5783, lng:-56.6806, provincia:'Corrientes', pais:'ARG', radar:'https://www.tiempoyradar.com.ar/tiempo/ituzaingo/14793577'},
   {nombre:'Santo Tomé',         lat:-28.5497, lng:-56.0351, provincia:'Corrientes', pais:'ARG', radar:'https://www.tiempoyradar.com.ar/tiempo/santo-tome/7002585'},
@@ -22954,7 +22957,7 @@ body.app-full{padding-top:42px !important;}
 </style>
 <div id="app-full-bar"><button type="button" onclick="appFullSalir()">🏠 Inicio</button><div class="af-t" id="af-titulo"></div><span style="width:74px;"></span></div>
 <script>
-var APP_FULL = {'gastos':'💰 Gastos','listas':'🛒 Listas de compras','lista-super':'🛒 Lista Súper','lista-farmacia':'💊 Lista Farmacia','lista-ferreteria':'🔧 Lista Ferretería','proyectos-ferreteria':'🏗️ Proyectos de construcción','lista-libreria':'📚 Lista Librería','lista-repuestos':'🚗 Lista Repuestos','lista-eventos':'🎉 Lista Eventos','mantenimiento':'🚗 Rodados','mascotas':'🐾 Mascotas','divisas':'💱 Divisas','arqueo':'🧾 Arqueo de caja','navaja':'🧰 Navaja suiza','planificador':'🗓️ Plan de viaje','fronteras':'🛂 Fronteras','rutas-misiones':'🛣️ Rutas de Misiones','rutas-argentina':'🗺️ Rutas de Argentina','rutas-brasil':'🗺️ Rutas del Sur de Brasil'};
+var APP_FULL = {'gastos':'💰 Gastos','listas':'🛒 Listas de compras','lista-super':'🛒 Lista Súper','lista-farmacia':'💊 Lista Farmacia','lista-ferreteria':'🔧 Lista Ferretería','proyectos-ferreteria':'🏗️ Proyectos de construcción','lista-libreria':'📚 Lista Librería','lista-repuestos':'🚗 Lista Repuestos','lista-eventos':'🎉 Lista Eventos','mantenimiento':'🚗 Rodados','mascotas':'🐾 Mascotas','divisas':'💱 Divisas','arqueo':'🧾 Arqueo de caja','navaja':'🧰 Navaja suiza','planificador':'🗓️ Plan de viaje'};
 function appFullSalir(){ document.body.classList.remove('app-full'); showTab('inicio', null); }
 function appFullMenu(){
   try { toggleHdrMenu({stopPropagation:function(){}}); } catch(e){}
