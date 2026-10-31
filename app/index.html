@@ -158,6 +158,13 @@ header::before {
 }
 #city-dropdown button:active { background:rgba(217,140,74,0.12); }
 #city-dropdown button.active { background:rgba(217,140,74,0.16); color:var(--oro); }
+#city-dropdown .city-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:2px 8px 8px;}
+#city-dropdown button.city-tile{aspect-ratio:1/1;width:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:6px;border-radius:14px;background:var(--bg2,#fff);border:1px solid var(--border);text-align:center;}
+#city-dropdown button.city-tile.active{background:rgba(217,140,74,0.18);border-color:var(--oro);color:var(--oro);}
+#city-dropdown button.city-tile.tile-mapa{background:linear-gradient(135deg,#1f6b5a,#134a3e);color:#fff;border-color:transparent;}
+#city-dropdown button.city-tile .ct-ic{font-size:28px;line-height:1;}
+#city-dropdown button.city-tile .ct-tx{font-size:11.5px;font-weight:800;line-height:1.15;}
+#city-dropdown .city-dd-help{font-size:12.5px;font-weight:800;color:var(--oro);padding:8px 12px 4px;line-height:1.35;}
 #city-dropdown .city-dd-note { font-size:10.5px; color:var(--muted); padding:6px 12px 2px; line-height:1.4; }
 
 /* Elementos que solo tienen sentido/datos para San Vicente (farmacias, colectivos
@@ -1220,9 +1227,6 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   <div style="padding:8px 8px 4px;">
     <input type="text" id="city-search-input" placeholder="🔍 Buscar ciudad..." autocomplete="off" oninput="filtrarCiudades(this.value)"
       style="width:100%;box-sizing:border-box;background:var(--bg2,#fff);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--text);">
-  </div>
-  <div style="padding:0 8px 6px;">
-    <button onclick="closeCityMenu();abrirMapaCiudades()" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1f6b5a,#134a3e);color:#fff;border:none;border-radius:10px;padding:10px 12px;font-family:'Barlow',sans-serif;font-weight:800;font-size:13px;cursor:pointer;">🗺️ Elegir en el mapa</button>
   </div>
   <div id="city-dropdown-list"></div>
 </div>
@@ -5312,11 +5316,6 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 
     <div style="margin-top:14px;background:rgba(230,126,34,0.08);border:1px solid rgba(230,126,34,0.3);border-radius:12px;padding:12px 14px;">
       <div style="font-size:13px;font-weight:900;color:#e67e22;">✏️ Calculá con el precio que te ofrecen</div>
-      <div style="font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin:10px 0 5px;">¿Qué vas a hacer?</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-        <button type="button" id="div-op-vender" onclick="divOp('vender')" style="padding:11px 6px;border-radius:10px;border:2px solid var(--border);background:var(--card);color:var(--text);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;">💵 Vender</button>
-        <button type="button" id="div-op-comprar" onclick="divOp('comprar')" style="padding:11px 6px;border-radius:10px;border:2px solid var(--border);background:var(--card);color:var(--text);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;">🛒 Comprar</button>
-      </div>
       <label id="div-pm-label" style="display:block;margin-top:10px;font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Cantidad</label>
       <input id="div-propia-monto" type="text" readonly inputmode="none" placeholder="Ej: 100" data-raw="" onclick="dvActivar(this)" style="width:100%;box-sizing:border-box;margin-top:4px;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-size:26px;font-weight:800;font-family:inherit;text-align:right;">
       <label id="div-propia-label" style="display:block;margin-top:10px;font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">1 = ? pesos</label>
@@ -6458,11 +6457,8 @@ function irADiaTurno() {
 
 
 // ── FARMACIAS DE TURNO ────────────────────────────────────────────────────────
-// Octubre 2026 — cargado desde la lista oficial (imagen "Farmacias de Turno Octubre 2026").
+// Octubre 2026 (solo desde el 31) — cargado desde la lista oficial (imagen "Farmacias de Turno Octubre 2026").
 var TURNOS_OCTUBRE = [
-  {n:28, farm:'FARMACIA BAMBÚ', dir:'Avenida Tejeda 1435'},
-  {n:29, farm:'FARMACIA ROCÍO', dir:'Ruta 14 km 61 colectora (frente a kroch-entrada CIC)'},
-  {n:30, farm:'FARMAMAS', dir:'Av. Libertador 760'},
   {n:31, farm:'FARMACIA CENTRAL', dir:'Av. Libertador 496'},
 ];
 
@@ -6495,7 +6491,7 @@ var TURNOS_NOVIEMBRE = [
   {n:25, farm:'NEOFARMA', dir:'Av. Libertador 973'},
   {n:26, farm:'FARMACEF', dir:'Belisario Roldán 970'},
   {n:27, farm:'FARMACIA PAZ', dir:'Av. Tejeda 252 (pegado a Tango Eventos)'},
-  {n:28, farm:'DEL SOL', dir:'Av. Libertador 1240 (al lado heladería GRIDO)'},
+  {n:28, farm:'FARMACIA RÍO', dir:'(Ex Fcia. Daniel 2) Av. Libertador 937'},
   {n:29, farm:'SAN RAFAEL', dir:'Av. Constitución 600 (frente a JUNAI)'},
   {n:30, farm:'DANIEL', dir:'Av. Libertador c/ Hernández'},
 ];
@@ -6990,9 +6986,13 @@ function renderCityMenu() {
   // Opción especial, siempre arriba de todo: modo "solo aplicaciones", para
   // quienes solo quieren usar Gastos/Listas/Rodados/Mascotas sin ninguna
   // información de una localidad en particular.
-  html += '<button class="' + (_modoSoloApps ? 'active' : '') + '" onclick="activarModoSoloApps()"><span class="hdr-dd-ic">📲</span>Aplicaciones SimpleApp</button>';
-  html += '<button class="' + (_modoSoloNoticias ? 'active' : '') + '" onclick="activarModoSoloNoticias()"><span class="hdr-dd-ic">📰</span>Noticias</button>';
+  html += '<div class="city-tiles">' +
+    '<button class="city-tile tile-mapa" onclick="closeCityMenu();abrirMapaCiudades()"><span class="ct-ic">🗺️</span><span class="ct-tx">Elegir en el mapa</span></button>' +
+    '<button class="city-tile' + (_modoSoloApps ? ' active' : '') + '" onclick="activarModoSoloApps()"><span class="ct-ic">📲</span><span class="ct-tx">Aplicaciones SimpleApp</span></button>' +
+    '<button class="city-tile' + (_modoSoloNoticias ? ' active' : '') + '" onclick="activarModoSoloNoticias()"><span class="ct-ic">📰</span><span class="ct-tx">Noticias</span></button>' +
+  '</div>';
   html += '<div class="city-dd-note">💊🚍 Farmacias y Urbanos solo están disponibles para San Vicente. 🚌 Larga Distancia solo se ve en las localidades del recorrido.</div>';
+  html += '<div class="city-dd-help">👇 Elegí de la lista tu ciudad, o la que vas a conocer o a la que vas a viajar.</div>';
 
   // Encabezado plegable de un país: al tocarlo se abre/cierra (acordeón),
   // mostrando u ocultando las provincias/estados y ciudades de adentro.
@@ -22212,12 +22212,10 @@ function calcularDivisas() {
   var inp = document.getElementById('div-propia-tasa'), lab = document.getElementById('div-propia-label'), res = document.getElementById('div-propia-res'), comp = document.getElementById('div-propia-comp');
   var nom = DIV_LISTA.filter(function (d) { return d[0] === base; })[0], cod = nom ? nom[2] : '';
   var minp = document.getElementById('div-propia-monto'), plab = document.getElementById('div-pm-label');
-  var bv = document.getElementById('div-op-vender'), bc = document.getElementById('div-op-comprar');
-  [[bv, 'vender', '#16a085'], [bc, 'comprar', '#2980b9']].forEach(function (x) { x[0].style.borderColor = (_divOp === x[1]) ? x[2] : 'var(--border)'; x[0].style.background = (_divOp === x[1]) ? x[2] : 'var(--card)'; x[0].style.color = (_divOp === x[1]) ? '#fff' : 'var(--text)'; });
   var off = (base === 'ARS');
-  inp.disabled = off; minp.disabled = off; bv.disabled = off; bc.disabled = off;
-  plab.textContent = off ? 'Elegí otra moneda arriba para usar esta opción' : (_divOp === 'vender' ? 'Cantidad de ' + cod + ' que vendés' : 'Cantidad de ' + cod + ' que comprás');
-  lab.textContent = off ? '' : (_divOp === 'vender' ? 'Cuántos pesos te pagan por 1 ' + cod : 'Cuántos pesos te piden por 1 ' + cod);
+  inp.disabled = off; minp.disabled = off;
+  plab.textContent = off ? 'Elegí otra moneda arriba para usar esta opción' : 'Cantidad de ' + cod;
+  lab.textContent = off ? '' : 'Pesos que te ofrecen por 1 ' + cod;
   if (!lb || !(v >= 0)) { box.innerHTML = ''; res.textContent = ''; comp.textContent = ''; return; }
   var arsC = v * lb.compra, arsV = v * lb.venta;
   var cols = '1.5fr 1fr 1fr';
@@ -22234,15 +22232,13 @@ function calcularDivisas() {
   if (off) { res.textContent = ''; comp.textContent = ''; return; }
   if (!(cant > 0) || !(precio > 0)) { res.textContent = ''; comp.textContent = 'Poné la cantidad y el precio que te ofrecen, y te muestro cuánto es en pesos y cómo está contra el mercado.'; return; }
   var tot = cant * precio, cn = cant.toLocaleString('es-AR', { maximumFractionDigits: 2 });
-  if (_divOp === 'vender') {
-    var mer = cant * lb.compra, dif = tot - mer;
-    res.textContent = 'Te pagan $ ' + _divFmt(tot, 'ARS');
-    comp.innerHTML = 'Por ' + cn + ' ' + cod + '. Al precio de compra del mercado (' + _divFmt(lb.compra, 'ARS') + ' c/u) recibirías $ ' + _divFmt(mer, 'ARS') + '.<br><b style="color:' + (dif >= 0 ? '#16a085' : '#c0392b') + '">' + (dif >= 0 ? 'Te conviene: $ ' + _divFmt(dif, 'ARS') + ' más' : 'Te pagan $ ' + _divFmt(-dif, 'ARS') + ' menos') + ' que el mercado.</b>';
-  } else {
-    var mer2 = cant * lb.venta, dif2 = tot - mer2;
-    res.textContent = 'Pagás $ ' + _divFmt(tot, 'ARS');
-    comp.innerHTML = 'Por ' + cn + ' ' + cod + '. Al precio de venta del mercado (' + _divFmt(lb.venta, 'ARS') + ' c/u) pagarías $ ' + _divFmt(mer2, 'ARS') + '.<br><b style="color:' + (dif2 <= 0 ? '#16a085' : '#c0392b') + '">' + (dif2 <= 0 ? 'Te conviene: pagás $ ' + _divFmt(-dif2, 'ARS') + ' menos' : 'Pagás $ ' + _divFmt(dif2, 'ARS') + ' más') + ' que el mercado.</b>';
-  }
+  var merC = cant * lb.compra, merV = cant * lb.venta, difC = tot - merC, difV = tot - merV;
+  res.textContent = '$ ' + _divFmt(tot, 'ARS');
+  comp.innerHTML = 'Por ' + cn + ' ' + cod + ' a $ ' + _divFmt(precio, 'ARS') + ' c/u.' +
+    '<div style="margin-top:8px;text-align:left;padding:8px 10px;border-radius:10px;background:var(--card2);border:1px solid var(--border);">' +
+    '<b>Si vendés</b> (mercado paga ' + _divFmt(lb.compra, 'ARS') + ' c/u = $ ' + _divFmt(merC, 'ARS') + '):<br><b style="color:' + (difC >= 0 ? '#16a085' : '#c0392b') + '">' + (difC >= 0 ? 'Te pagan $ ' + _divFmt(difC, 'ARS') + ' más que el mercado' : 'Te pagan $ ' + _divFmt(-difC, 'ARS') + ' menos que el mercado') + '</b></div>' +
+    '<div style="margin-top:6px;text-align:left;padding:8px 10px;border-radius:10px;background:var(--card2);border:1px solid var(--border);">' +
+    '<b>Si comprás</b> (mercado cobra ' + _divFmt(lb.venta, 'ARS') + ' c/u = $ ' + _divFmt(merV, 'ARS') + '):<br><b style="color:' + (difV <= 0 ? '#16a085' : '#c0392b') + '">' + (difV <= 0 ? 'Pagás $ ' + _divFmt(-difV, 'ARS') + ' menos que el mercado' : 'Pagás $ ' + _divFmt(difV, 'ARS') + ' más que el mercado') + '</b></div>';
 }
 var _divOp = 'vender';
 function divOp(o) { _divOp = o; calcularDivisas(); }
