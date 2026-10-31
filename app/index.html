@@ -9028,15 +9028,15 @@ var OPCIONES_MAPA = [
   ['🍺', 'Bares y salidas', 'bares', 'bares'],
   ['🛏️', 'Dónde dormir', 'hoteles', 'hotéis'],
   ['🏛️', 'Museos y cultura', 'museos', 'museus'],
-  ['🌳', 'Parques y plazas', 'parques', 'parques'],
+  ['🚗🏍️🚲', 'Casa de repuestos', 'casa de repuestos autos motos bicicletas', 'autopeças motos bicicletas'],
   ['🛍️', 'Compras', 'centros comerciales', 'shoppings'],
   ['🛒', 'Supermercados', 'supermercados', 'supermercados'],
+  ['🔧', 'Ferretería', 'ferretería', 'loja de ferragens'],
   ['💊', 'Farmacias', 'farmacias', 'farmácias'],
   ['🏥', 'Hospitales y clínicas', 'hospitales', 'hospitais'],
   ['⛽', 'Estaciones de servicio', 'estaciones de servicio', 'postos de gasolina'],
   ['🏧', 'Cajeros y bancos', 'cajeros automáticos', 'caixas eletrônicos'],
-  ['🚌', 'Terminal y transporte', 'terminal de buses', 'rodoviária'],
-  ['🅿️', 'Estacionamientos', 'estacionamientos', 'estacionamentos']
+  ['🚌', 'Terminal y transporte', 'terminal de buses', 'rodoviária']
 ];
 function abrirMenuMapa() {
   var ov = document.getElementById('mapa-opciones-overlay');
@@ -9049,7 +9049,7 @@ function abrirMenuMapa() {
   if (g && !g.getAttribute('data-listo')) {
     var h = '';
     OPCIONES_MAPA.forEach(function (o, i) {
-      h += '<button onclick="buscarEnMapa(' + i + ')" style="display:flex;align-items:center;gap:8px;background:var(--card,#fffaf0);border:1px solid var(--border,#d8c8b0);border-radius:12px;padding:12px 10px;font-family:inherit;font-weight:700;font-size:13px;color:var(--text,#3a2a1a);cursor:pointer;text-align:left;"><span style="font-size:20px;">' + o[0] + '</span><span>' + o[1] + '</span></button>';
+      h += '<button onclick="buscarEnMapa(' + i + ')" style="display:flex;align-items:center;gap:8px;background:var(--card,#fffaf0);border:1px solid var(--border,#d8c8b0);border-radius:12px;padding:12px 10px;font-family:inherit;font-weight:700;font-size:13px;color:var(--text,#3a2a1a);cursor:pointer;text-align:left;"><span style="font-size:20px;white-space:nowrap;flex-shrink:0;">' + o[0] + '</span><span>' + o[1] + '</span></button>';
     });
     g.innerHTML = h;
     g.setAttribute('data-listo', '1');
