@@ -3590,7 +3590,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 <!-- ============ FRONTERAS SIMPLEAPP ============ -->
 <!-- ============ GRACIAS A LOS ALIADOS ============ -->
 <div id="gracias" class="section">
-  <div class="hero-banner">
+  <div class="hero-banner" id="gr-hero">
     <div class="hb-city">💚 GRACIAS</div>
     <div class="hb-sub">A los negocios que ayudan a difundir Info SimpleApp</div>
   </div>
@@ -9028,7 +9028,8 @@ var OPCIONES_MAPA = [
   ['🍺', 'Bares y salidas', 'bares', 'bares'],
   ['🛏️', 'Dónde dormir', 'hoteles', 'hotéis'],
   ['🏛️', 'Museos y cultura', 'museos', 'museus'],
-  ['🚗🏍️🚲', 'Casa de repuestos', 'casa de repuestos autos motos bicicletas', 'autopeças motos bicicletas'],
+  ['🚗', 'Repuestos de autos', 'casa de repuestos autos', 'autopeças'],
+  ['🏍️🚲', 'Repuestos de motos y bicis', 'casa de repuestos motos bicicletas', 'peças motos bicicletas'],
   ['🛍️', 'Compras', 'centros comerciales', 'shoppings'],
   ['🛒', 'Supermercados', 'supermercados', 'supermercados'],
   ['🔧', 'Ferretería', 'ferretería', 'loja de ferragens'],
@@ -23091,13 +23092,13 @@ function graciasCargar(){
   try{
     var f=document.getElementById('gr-web'),o=document.getElementById('gr-off');
     if(!f) return;
-    function respaldo(){f.style.display='none';f.removeAttribute('src');if(o)o.style.display='';}
+    function respaldo(){var h=document.getElementById('gr-hero');if(h)h.style.display='';f.style.display='none';f.removeAttribute('src');if(o)o.style.display='';}
     if(navigator.onLine===false){respaldo();return;}
     var url=f.getAttribute('data-src');
     // Primero se comprueba que la página exista en GitHub; si da 404 o falla, se muestra el respaldo.
     fetch(url+'?t='+Date.now(),{cache:'no-store'}).then(function(r){
       if(!r.ok) throw 0;
-      f.onload=function(){f.style.display='block';if(o)o.style.display='none';};
+      f.onload=function(){var h=document.getElementById('gr-hero');if(h)h.style.display='none';f.style.display='block';if(o)o.style.display='none';};
       f.src=url+'?t='+Date.now();
     }).catch(respaldo);
   }catch(e){}
