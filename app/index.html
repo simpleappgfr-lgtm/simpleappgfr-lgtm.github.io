@@ -1062,6 +1062,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   <button onclick="hdrMenuGo('colectivos')" class="city-list-restricted" data-cities="San Vicente|Posadas|Oberá|Jardín América|Dos de Mayo|Aristóbulo del Valle"><span class="hdr-dd-ic">🚌</span>Larga Distancia</button>
   <button onclick="hdrMenuGo('noticias'); cargarNoticiasPorSecciones();"><span class="hdr-dd-ic">📰</span>Noticias</button>
   <button onclick="hdrMenuGo('empresas')"><span class="hdr-dd-ic">🏪</span>Negocios</button>
+  <button onclick="hdrMenuGo('gracias');graciasCargar();" class="solo-sanvicente"><span class="hdr-dd-ic">💚</span>Gracias a quienes nos ayudan</button>
   <button onclick="hdrMenuGo('calendario')"><span class="hdr-dd-ic">📆</span>Calendario</button>
   <button onclick="hdrMenuGo('juegos')"><span class="hdr-dd-ic">🧩</span>Trivia</button>
   <div class="hdr-dd-section-title">📲 Aplicaciones SimpleApp</div>
@@ -1297,12 +1298,11 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   <div id="fecha-dia-display" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--oro);margin:14px 0 9px;padding-bottom:5px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;"></div>
   <div id="altura-ciudad-display" style="display:none;font-size:11.5px;font-weight:700;color:var(--muted);margin:-4px 0 9px 2px;"></div>
 
-  <!-- FOTOS Y LUGARES TURÍSTICOS (abre Google Maps) -->
-  <button id="btn-fotos-turismo" class="modo-normal-only" onclick="abrirFotosTurismo()" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:linear-gradient(135deg,#0f3d3a,#1f6b5a);border:1px solid #2f8f78;color:#fff;border-radius:12px;padding:10px 13px;margin:0 0 12px;cursor:pointer;">
-    <span style="font-size:22px;">📷</span>
-    <span style="flex:1;line-height:1.25;"><b id="btn-fotos-turismo-t" style="font-size:13px;">Ver fotos y lugares turísticos</b><br><small style="font-size:10.5px;opacity:.85;">Se abre en Google Maps</small></span>
-    <span style="font-size:18px;opacity:.8;">›</span>
-  </button>
+  <a id="btn-ver-mapa-ciudad" class="ini-cortes ini-mapa modo-normal-only" onclick="abrirMenuMapa()" role="button">
+    <span class="ini-cortes-ic">🗺️</span>
+    <span class="ini-cortes-tx"><b>Ver en el mapa esta ciudad</b><small>Dónde comer, qué hacer, dónde dormir y más</small></span>
+    <span class="ini-cortes-fl">›</span>
+  </a>
 
   <a id="ini-cortes" class="ini-cortes solo-ar" onclick="showTab('cortes',null)" role="button">
     <span class="ini-cortes-ic">🚧</span>
@@ -2113,7 +2113,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       <div style="font-size:9.5px;color:var(--muted);margin-top:2px;">No son de Info SimpleApp, te llevamos a la página de descarga de cada una.</div>
     </div>
 
-    <a href="https://play.google.com/store/apps/details?id=ar.edu.unlp.semmobile.posadas" target="_blank" rel="noopener noreferrer" style="text-decoration:none;" class="link-util city-only" data-city="Posadas">
+    <a href="https://play.google.com/store/apps/details?id=ar.edu.unlp.semmobile" target="_blank" rel="noopener noreferrer" style="text-decoration:none;" class="link-util city-only" data-city="Posadas">
       <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #2a6b3d;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;">
         <div style="width:78px;height:78px;display:flex;align-items:center;justify-content:center;font-size:36px;">🅿️</div>
         <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">SEM Mobile</div>
@@ -2126,14 +2126,6 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
         <div style="width:78px;height:78px;display:flex;align-items:center;justify-content:center;font-size:36px;">🚗</div>
         <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Uber</div>
         <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Viajes con conductor</div>
-      </div>
-    </a>
-
-    <a href="https://play.google.com/store/apps/details?id=ar.edu.unlp.semmobile.posadasmotos" target="_blank" rel="noopener noreferrer" style="text-decoration:none;" class="link-util city-only" data-city="Posadas">
-      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #2a6b3d;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;">
-        <div style="width:78px;height:78px;display:flex;align-items:center;justify-content:center;font-size:36px;">🛵</div>
-        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">SEM Mobile Motos</div>
-        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Estacionamiento medido para motos</div>
       </div>
     </a>
 
@@ -3596,6 +3588,19 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 </div>
 
 <!-- ============ FRONTERAS SIMPLEAPP ============ -->
+<!-- ============ GRACIAS A LOS ALIADOS ============ -->
+<div id="gracias" class="section">
+  <div class="hero-banner">
+    <div class="hb-city">💚 GRACIAS</div>
+    <div class="hb-sub">A los negocios que ayudan a difundir Info SimpleApp</div>
+  </div>
+  <iframe id="gr-web" class="gr-web" title="Gracias a quienes nos ayudan" data-src="https://simpleappgfr-lgtm.github.io/gracias/" referrerpolicy="no-referrer-when-downgrade" style="display:none"></iframe>
+  <div id="gr-off">
+    <div class="gr-intro">Estos comercios <b>nos ayudan a difundir Info SimpleApp</b>: nos permiten colocar un cartel con el <b>QR de la app</b> para que más vecinos la conozcan. ¡Muchas gracias por su apoyo! 🙌</div>
+    <div id="gracias-lista"></div>
+  </div>
+</div>
+
 <div id="navaja" class="section">
   <div class="hero-banner">
     <div class="hb-city">NAVAJA SUIZA SIMPLEAPP</div>
@@ -9364,6 +9369,10 @@ function aplicarCiudadActual() {
   document.querySelectorAll('.city-list-restricted').forEach(function (el) {
     el.style.display = mostrarLargaDistancia ? '' : 'none';
   });
+  document.querySelectorAll('.solo-sanvicente').forEach(function (el) {
+    el.style.display = (c.nombre === 'San Vicente') ? '' : 'none';
+  });
+  if (c.nombre !== 'San Vicente') { var _ga = document.getElementById('gracias'); if (_ga && _ga.classList.contains('active')) showTab('inicio', null); }
 
   // Si la ciudad elegida no es San Vicente y el usuario está viendo una de las
   // secciones exclusivas (Farmacias, Urbanos), lo mandamos a Inicio. Negocios
@@ -22143,6 +22152,9 @@ window.__leyendaMapsHtml = function (nombres) {
 .ini-cortes-fl{font-size:24px;font-weight:900;flex-shrink:0}
 @keyframes iniCortesTitila{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(255,80,60,.75)}50%{opacity:.55;box-shadow:0 0 0 7px rgba(255,80,60,0)}}
 @media (prefers-reduced-motion:reduce){.ini-cortes{animation:none}}
+.ini-mapa{background:#1565c0;border-color:#90caf9;animation:iniMapaTitila 1.2s ease-in-out infinite}
+@keyframes iniMapaTitila{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(66,165,245,.75)}50%{opacity:.55;box-shadow:0 0 0 7px rgba(66,165,245,0)}}
+@media (prefers-reduced-motion:reduce){.ini-mapa{animation:none}}
 </style>
 
 <style>/* cortes: página web incrustada */
@@ -23038,3 +23050,58 @@ body.app-full #gs-top-fixed .hdr-title,body.app-full #top-fixed .hdr-title,body.
 body.app-full #gs-top-fixed .hdr-sub,body.app-full #top-fixed .hdr-sub,body.app-full #m-top-fixed .hdr-sub,body.app-full #m-top-fixed .stats-strip,body.app-full #gs-storage-notice,body.app-full #storage-notice{display:none !important;}
 </style>
 <style>body.app-full #veh-app #top-fixed,body.app-full #mascotas-app #m-top-fixed,body.app-full #gastos-app #gs-top-fixed{position:sticky !important;top:42px !important;left:auto !important;right:auto !important;z-index:40 !important;}</style>
+<style>
+.gr-intro{background:#fff3e6;border:1.5px solid #e67e22;border-radius:14px;padding:12px 14px;margin:6px 0 14px;font-size:14px;line-height:1.45;color:#5d3a12;}
+.gr-card{background:var(--card);border:1px solid var(--border);border-left:5px solid #2e7d32;border-radius:14px;padding:12px 14px;margin-bottom:10px;}
+.gr-nom{font-weight:900;font-size:16px;color:var(--text);}
+.gr-sub{font-size:12.5px;color:var(--muted);margin-top:2px;}
+.gr-dir{font-size:13px;color:var(--text);margin-top:6px;}
+.gr-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.gr-btns button{border:none;border-radius:20px;padding:9px 14px;font-weight:800;font-size:13px;cursor:pointer;color:#fff;font-family:inherit;}
+.gr-web{width:100%;height:78vh;min-height:480px;border:1px solid var(--border,#ddd);border-radius:12px;background:#fff;margin:10px 0 6px}
+.gr-todos{display:block;width:100%;border:none;border-radius:20px;background:#efe3d4;color:#3a2a16;padding:10px;font-weight:800;font-size:14px;margin-bottom:10px;cursor:pointer;font-family:inherit}
+.gr-pie{text-align:center;font-size:12.5px;color:var(--muted);margin:16px 0 6px;}
+</style>
+<script>
+var ALIADOS=[
+  {n:'Farmacia Bambú',r:'💊 Farmacia',c:'San Vicente, Misiones',d:'Av. Tejeda 1435',q:'Farmacia Bambú, Av. Tejeda 1435, San Vicente, Misiones',tarjeta:'bambu',nomapa:1,links:[['💬 WhatsApp 508282','https://wa.me/543755508282'],['💬 WhatsApp 446321','https://wa.me/543755446321'],['📷 Instagram','https://www.instagram.com/farmacia_bambu/']]},
+  {n:'San Vicente Construcciones',r:'🏗️ Construcciones',c:'San Vicente, Misiones',d:'Av. Libertador 707',q:'San Vicente Construcciones, Av. Libertador 707, San Vicente, Misiones'},
+  {n:'Carrito Empanadas y Pizzas',r:'🍕 Pizzería',c:'San Vicente, Misiones',d:'Av. Tejeda 472',q:'Carrito Empanadas y Pizzas, Av. Tejeda 472, San Vicente, Misiones'},
+  {n:'Farmacia Río',r:'💊 Farmacia',c:'San Vicente, Misiones',d:'Av. Libertador 937',q:'Farmacia Río, Av. Libertador 937, San Vicente, Misiones',nomapa:1},
+  {n:'Car Seb',r:'🏪 Comercio',c:'San Vicente, Misiones',d:'Av. Libertador 1713',q:'Car Seb, Av. Libertador 1713, San Vicente, Misiones'},
+  {n:'Supermercado Vicente',r:'🛒 Supermercado',c:'San Vicente, Misiones',d:'Av. Libertador 897',q:'Supermercado Vicente, Av. Libertador 897, San Vicente, Misiones'},
+];
+var graciasSolo=-1;
+function graciasVer(i){graciasSolo=i;graciasPintar();try{window.scrollTo(0,0);}catch(e){}}
+function graciasPintar(){
+  var box=document.getElementById('gracias-lista'); if(!box) return;
+  function e(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  box.innerHTML=(graciasSolo>=0?'<button class="gr-todos" onclick="graciasVer(-1)">← Ver todos los negocios</button>':'')+ALIADOS.map(function(a,i){
+    if(graciasSolo>=0&&i!==graciasSolo) return '';
+    if(a.tarjeta==='bambu'){
+      var im=document.querySelector('#cp-ig-bambu'); im=im&&im.closest('.empresa-card'); im=im&&im.querySelector('img');
+      return '<div class="gr-card" onclick="graciasVer('+i+')" style="cursor:pointer">'+(im?'<img src="'+im.src+'" style="width:100%;max-width:430px;display:block;margin:0 auto 10px;border-radius:9px;border:5px solid #2b1d12;box-sizing:border-box">':'<div class="gr-nom">'+e(a.n)+'</div>')+'<div class="gr-btns">'+a.links.map(function(l){return '<button style="background:#f6ead2;border:1px solid #e0cfa8;color:#b8761d" onclick="event.stopPropagation();abrirLink(\''+l[1]+'\')">'+l[0]+'</button>';}).join('')+'</div></div>';
+    }
+    return '<div class="gr-card" onclick="graciasVer('+i+')" style="cursor:pointer"><div class="gr-nom">'+e(a.n)+'</div><div class="gr-sub">'+e(a.r)+' · '+e(a.c)+'</div>'+(a.d?'<div class="gr-dir">📍 '+e(a.d)+'</div>':'')+'<div class="gr-btns">'+(a.nomapa?'':'<button style="background:#1a73e8" onclick="event.stopPropagation();graciasMapa('+i+')">📍 Ver en Google Maps</button>')+(a.wa?'<button style="background:#25d366" onclick="event.stopPropagation();abrirLink(\'https://wa.me/'+e(a.wa)+'\')">💬 WhatsApp</button>':'')+(a.ig?'<button style="background:#c13584" onclick="event.stopPropagation();abrirLink(\'https://www.instagram.com/'+e(a.ig)+'\')">📷 Instagram</button>':'')+'</div></div>';
+  }).join('');
+}
+function graciasMapa(i){var a=ALIADOS[i];abrirLink('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(a.q||(a.n+' '+a.c)));}
+// Igual que "cortes": la página vive en GitHub y se carga en un marco; sin conexión se ve el respaldo de arriba.
+function graciasCargar(){
+  try{
+    var f=document.getElementById('gr-web'),o=document.getElementById('gr-off');
+    if(!f) return;
+    function respaldo(){f.style.display='none';f.removeAttribute('src');if(o)o.style.display='';}
+    if(navigator.onLine===false){respaldo();return;}
+    var url=f.getAttribute('data-src');
+    // Primero se comprueba que la página exista en GitHub; si da 404 o falla, se muestra el respaldo.
+    fetch(url+'?t='+Date.now(),{cache:'no-store'}).then(function(r){
+      if(!r.ok) throw 0;
+      f.onload=function(){f.style.display='block';if(o)o.style.display='none';};
+      f.src=url+'?t='+Date.now();
+    }).catch(respaldo);
+  }catch(e){}
+}
+document.addEventListener('DOMContentLoaded',graciasPintar);
+if(document.readyState!=='loading')graciasPintar();
+</script>
