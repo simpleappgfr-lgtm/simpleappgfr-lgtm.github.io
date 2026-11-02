@@ -227,6 +227,30 @@ body.modo-solo-noticias #footer-ciudad-texto,
 body.modo-solo-noticias .noticias-volver-inicio,
 body.modo-solo-noticias #footer-link-wiki,
 body.modo-solo-noticias #footer-link-mapa { display:none !important; }
+/* El menú de arriba (debajo de las publicidades) no muestra accesos a las mini apps: se entra desde el botón Aplicaciones SimpleApp de Inicio. */
+#main-nav button[onclick*="showTab('gastos'"],
+#main-nav button[onclick*="showTab('lista-super'"],
+#main-nav button[onclick*="showTab('lista-farmacia'"],
+#main-nav button[onclick*="showTab('lista-ferreteria'"],
+#main-nav button[onclick*="showTab('proyectos-ferreteria'"],
+#main-nav button[onclick*="showTab('lista-libreria'"],
+#main-nav button[onclick*="showTab('lista-repuestos'"],
+#main-nav button[onclick*="showTab('lista-eventos'"],
+#main-nav button[onclick*="showTab('listas'"],
+#main-nav button[onclick*="showTab('mantenimiento'"],
+#main-nav button[onclick*="showTab('mascotas'"],
+#main-nav button[onclick*="showTab('divisas'"],
+#main-nav button[onclick*="showTab('arqueo'"],
+#main-nav button[onclick*="showTab('rutas-misiones'"],
+#main-nav button[onclick*="showTab('rutas-argentina'"],
+#main-nav button[onclick*="showTab('rutas-brasil'"],
+#main-nav button[onclick*="showTab('fronteras'"],
+#main-nav button[onclick*="showTab('planificador'"],
+#main-nav button[onclick*="showTab('navaja'"] { display:none !important; }
+/* Alertas SMN: sin avisos activos solo se ve el enlace al SMN; con aviso se ve todo el cuadro. */
+#alerta-ar-card-wrap:not(.hay-alerta){background:none !important;border:none !important;padding:0 !important;}
+#alerta-ar-card-wrap:not(.hay-alerta)>div{display:none !important;}
+#alerta-ar-card-wrap:not(.hay-alerta)>button{margin-top:0 !important;}
 .modo-solo-apps-only { display:none; }
 body.modo-solo-apps .modo-solo-apps-only { display:block; }
 
@@ -1072,25 +1096,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   <button onclick="hdrMenuGo('gracias');graciasCargar();" class="solo-sanvicente"><span class="hdr-dd-ic">💚</span>Gracias a quienes nos ayudan</button>
   <button onclick="hdrMenuGo('calendario')"><span class="hdr-dd-ic">📆</span>Calendario</button>
   <button onclick="hdrMenuGo('juegos')"><span class="hdr-dd-ic">🧩</span>Trivia</button>
-  <div class="hdr-dd-section-title">📲 Aplicaciones SimpleApp</div>
-  <button onclick="hdrMenuGo('gastos')"><span class="hdr-dd-ic">💰</span>Gastos</button>
-  <button onclick="hdrMenuGo('lista-super')"><span class="hdr-dd-ic">🛒</span>Lista Súper</button>
-  <button onclick="hdrMenuGo('lista-farmacia')"><span class="hdr-dd-ic">💊</span>Lista Farmacia</button>
-  <button onclick="hdrMenuGo('lista-ferreteria')"><span class="hdr-dd-ic">🔧</span>Lista Ferretería</button>
-  <button onclick="hdrMenuGo('proyectos-ferreteria')"><span class="hdr-dd-ic">🏗️</span>Proyectos Construcción</button>
-  <button onclick="hdrMenuGo('lista-libreria')"><span class="hdr-dd-ic">📚</span>Lista Librería</button>
-  <button onclick="hdrMenuGo('lista-repuestos')"><span class="hdr-dd-ic">🚗</span>Lista Repuestos</button>
-  <button onclick="hdrMenuGo('lista-eventos')"><span class="hdr-dd-ic">🎉</span>Lista Eventos</button>
-  <button onclick="hdrMenuGo('mantenimiento')"><span class="hdr-dd-ic">🚗</span>Rodados</button>
-  <button onclick="hdrMenuGo('mascotas')"><span class="hdr-dd-ic">🐾</span>Mascotas</button>
-  <button onclick="hdrMenuGo('divisas')"><span class="hdr-dd-ic">💱</span>Divisas</button>
-  <button onclick="hdrMenuGo('arqueo')"><span class="hdr-dd-ic">🧾</span>Arqueo de caja</button>
-  <button onclick="hdrMenuGo('rutas-misiones')"><span class="hdr-dd-ic">🛣️</span>Rutas de Misiones SimpleApp</button>
-  <button onclick="hdrMenuGo('rutas-argentina')"><span class="hdr-dd-ic">🇦🇷</span>Rutas de Argentina SimpleApp</button>
-  <button onclick="hdrMenuGo('rutas-brasil')"><span class="hdr-dd-ic">🇧🇷</span>Rutas del Sur de Brasil SimpleApp</button>
-  <button onclick="hdrMenuGo('fronteras')"><span class="hdr-dd-ic">🛂</span>Fronteras SimpleApp</button>
-  <button onclick="hdrMenuGo('planificador')"><span class="hdr-dd-ic">🗓️</span>Plan de Viaje SimpleApp</button>
-  <button onclick="hdrMenuGo('navaja')"><span class="hdr-dd-ic">🧰</span>Navaja Suiza SimpleApp</button>
+  <button onclick="closeHdrMenu();activarModoSoloApps()"><span class="hdr-dd-ic">📲</span>Aplicaciones SimpleApp</button>
   <div class="hdr-dd-section-title">⚙️ Ajustes</div>
   <button onclick="closeHdrMenu();mpAbrir()"><span class="hdr-dd-ic">⭐</span>Mi pantalla (personalizar)</button>
   <button onclick="reactivarPantallaBienvenida()"><span class="hdr-dd-ic">🔄</span>Mostrar pantalla de bienvenida</button>
@@ -1245,6 +1251,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
 </div>
 <!-- NAV -->
 <nav id="main-nav" class="compact">
+  <button type="button" class="nav-buscar" onclick="bsAbrir()">🔍 <span class="nav-label">Buscar</span></button>
   <button onclick="showTab('inicio',this)" class="active">🏠 <span class="nav-label">Inicio</span></button>
   <button onclick="showTab('emergencias',this)">🆘 <span class="nav-label">Emergencia</span></button>
   <button class="solo-ar" onclick="showTab('cortes',this)">🚧 <span class="nav-label">Cortes de rutas</span></button>
@@ -1296,7 +1303,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
     <input class="search-input" id="buscador" type="text" placeholder="🔍  Buscar negocio, servicio, rubro..." autocomplete="off" oninput="buscar(this.value)">
     <span class="search-icon">🔍</span>
   </div>
-  <div class="search-hint">💡 Podés buscar con o sin tilde — ej: <em>farmacia</em>, <em>colectivo</em> o <em>bomberos</em></div>
+  <div class="search-hint">💡 Buscá lo que necesitás — ej: <em>perro</em>, <em>auto</em>, <em>remedio</em>, <em>plata</em> o <em>bomberos</em></div>
   <div class="search-results" id="search-results"></div>
 
   <div id="fecha-dia-display" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--oro);margin:14px 0 9px;padding-bottom:5px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;"></div>
@@ -1330,7 +1337,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
     </div>
   </a>
 
-  <div id="clima-aviso-tormenta-wrap" style="background:rgba(144,202,249,0.10);border:1px solid #2a4a7a;border-top:none;border-bottom:none;padding:8px 12px;font-size:10.5px;line-height:1.4;color:var(--text);">
+  <div id="clima-aviso-tormenta-wrap" style="display:none;background:rgba(144,202,249,0.10);border:1px solid #2a4a7a;border-top:none;border-bottom:none;padding:8px 12px;font-size:10.5px;line-height:1.4;color:var(--text);">
     <div style="font-size:9px;font-weight:800;color:#90caf9;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:2px;">Alerta Open-Meteo (estimada)</div>
     <div id="clima-aviso-tormenta-texto" style="font-weight:800;color:#90caf9;">Consultando el pronóstico…</div>
     <div style="font-size:9px;color:var(--muted);margin-top:3px;">Es una estimación del modelo, no una alerta oficial. Para confirmar, mirá Tiempo y Radar y las alertas oficiales (SMN / INMET) más abajo.</div>
@@ -1435,7 +1442,11 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
     <div style="font-size:12.5px;font-weight:800;color:#f0b25c;margin-bottom:4px;">⚠️ Alertas Meteorológicas (SMN)</div>
     <div style="font-size:10px;color:#c9a877;margin-bottom:8px;line-height:1.4;">ℹ️ Esta información pertenece al Servicio Meteorológico Nacional (SMN), no a Info SimpleApp — solo la mostramos como referencia.</div>
     <div id="alerta-ar-contenido"><div style="font-size:11.5px;color:#8fa0b3;">Cargando...</div></div>
-    <button onclick="abrirLink('https://www.smn.gob.ar/pronostico')" style="width:100%;margin-top:9px;background:rgba(240,178,92,0.14);border:1px solid #6b4a1a;color:#f0b25c;font-weight:800;font-size:11.5px;padding:9px 10px;border-radius:9px;cursor:pointer;">🌐 Ver pronóstico y alertas en smn.gob.ar</button>
+    <button onclick="abrirLink('https://www.smn.gob.ar/pronostico')" style="width:100%;margin-top:9px;display:flex;align-items:center;gap:12px;text-align:left;background:linear-gradient(135deg,#1c5fa8 0%,#2a8bd6 55%,#5bb8f0 100%);border:none;color:#fff;padding:12px 14px;border-radius:14px;cursor:pointer;font-family:inherit;box-shadow:0 3px 10px rgba(20,80,150,0.35);">
+      <span style="font-size:30px;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.25));">⛅</span>
+      <span style="flex:1;min-width:0;"><span style="display:block;font-size:13.5px;font-weight:900;">Pronóstico y alertas oficiales</span><span style="display:block;font-size:10.5px;font-weight:600;opacity:.92;margin-top:2px;">Servicio Meteorológico Nacional · smn.gob.ar</span></span>
+      <span style="font-size:22px;font-weight:900;">›</span>
+    </button>
     <div style="font-size:8.5px;color:#a3823f;margin-top:7px;">Fuente: SMN (Servicio Meteorológico Nacional) · En emergencia real, la fuente oficial es el 911</div>
   </div>
 
@@ -2154,6 +2165,14 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       </div>
     </a>
 
+    <a href="https://play.google.com/store/apps/details?id=com.ubercab" target="_blank" rel="noopener noreferrer" style="text-decoration:none;" class="link-util city-only" data-city="San Vicente">
+      <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #1f1f1f;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;">
+        <div style="width:78px;height:78px;display:flex;align-items:center;justify-content:center;font-size:36px;">🚖</div>
+        <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Uber</div>
+        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Viajes con conductor</div>
+      </div>
+    </a>
+
   </div>
   </div>
 
@@ -2174,6 +2193,15 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
     <div style="text-align:center;font-size:12px;color:var(--muted);padding:14px 0;">Cargando noticias...</div>
   </div>
 
+  <!-- APLICACIONES SIMPLEAPP: un solo botón (las mini apps están en su propia pantalla) -->
+  <div class="modo-normal-only" style="margin:6px 0 14px;">
+    <button type="button" onclick="activarModoSoloApps()" style="width:100%;display:flex;align-items:center;gap:14px;text-align:left;background:linear-gradient(135deg,#8a5a1c,#c98a2c);color:#fff;border:none;border-radius:14px;padding:16px 16px;cursor:pointer;font-family:inherit;box-shadow:0 3px 10px rgba(0,0,0,0.18);">
+      <span style="font-size:34px;line-height:1;">📲</span>
+      <span style="flex:1;"><span style="display:block;font-size:16px;font-weight:900;">Aplicaciones SimpleApp</span><span style="display:block;font-size:11.5px;opacity:.92;margin-top:2px;">Gastos, listas, rodados, mascotas, divisas, rutas y más</span></span>
+      <span style="font-size:22px;font-weight:900;">›</span>
+    </button>
+  </div>
+  <div class="apps-ocultas" style="display:none">
   <!-- APLICACIONES SIMPLEAPP -->
   <div class="modo-normal-only" style="font-size:11px;font-weight:800;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin:2px 0 6px 2px;">📲 Aplicaciones SimpleApp</div>
 
@@ -2313,9 +2341,11 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       <div style="background:var(--card);border:1px solid var(--border);border-left:4px solid #6d4c41;border-radius:10px;padding:11px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;height:100%;box-sizing:border-box;">
         <div style="font-size:18px;">🧰</div>
         <div class="lu-titulo" style="font-size:12px;font-weight:800;color:var(--text);">Navaja Suiza SimpleApp</div>
-        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Lámpara, conversor, brújula y más</div>
+        <div class="lu-detalle" style="font-size:10px;color:var(--muted);">Conversor, brújula, nivel, calculadora y más</div>
       </div>
     </a>
+
+  </div>
 
   </div>
 
@@ -2628,6 +2658,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       <div class="d">Trivia por categorías.</div>
     </div>
   </div>
+  <div class="apps-ocultas" style="display:none">
   <div style="font-size:11px;font-weight:800;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin:14px 0 6px 2px;">📲 Aplicaciones SimpleApp</div>
   <div class="curio-item" onclick="showTab('gastos',null)" style="cursor:pointer;border-left-color:#34b273;">
     <div class="ic">💰</div>
@@ -2707,6 +2738,7 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       <div class="d">Armá tu viaje: combustible, dónde dormir y comer.</div>
     </div>
   </div>
+  </div><!-- /apps-ocultas -->
   </div>
 
 </div>
@@ -3250,6 +3282,12 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
   background-repeat:no-repeat; background-position:right 8px center; background-size:16px;
   padding-right:28px;
 }
+.kenia-table.ld-fit{min-width:0;width:100%;table-layout:fixed;}
+.kenia-table.ld-fit th{padding:6px 2px;font-size:8.5px;letter-spacing:0.2px;white-space:normal;}
+.kenia-table.ld-fit td{padding:6px 2px;font-size:14px;white-space:normal;overflow-wrap:anywhere;line-height:1.15;}
+.kenia-table.ld-fit td.ld-hora{font-size:15px;}
+.kenia-table.ld-fit td.ld-emp{font-size:10.5px;}
+.kenia-table.ld-fit .ld-dias-badge{font-size:9px;padding:2px 5px;white-space:normal;}
 .ld-dias-badge {
   display:inline-block; font-family:'Barlow',sans-serif; font-size:11.5px; font-weight:800;
   letter-spacing:0.2px; line-height:1.3;
@@ -3317,7 +3355,8 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
       <div class="kenia-titulo" id="ld-titulo">San Vicente → Posadas</div>
     </div>
     <div class="kenia-schedule">
-      <table class="kenia-table">
+      <table class="kenia-table ld-fit">
+        <colgroup><col style="width:15%"><col style="width:27%"><col style="width:15%"><col style="width:20%"><col style="width:23%"></colgroup>
         <thead>
           <tr><th>Salida</th><th style="text-align:left;">Empresa</th><th>Llegada</th><th>Pasa x</th><th>Días</th></tr>
         </thead>
@@ -5769,16 +5808,104 @@ function getFarmaciaItems() {
   });
 }
 
+// ── BUSCADOR INTELIGENTE ─────────────────────────────────────────────────────
+// Cada mini app y sección tiene palabras relacionadas ("perro" → Mascotas,
+// "auto" → Rodados y Repuestos, "plata" → Gastos...). La búsqueda separa lo que
+// se escribe en palabras, tolera plurales y ordena por relevancia.
+var APPS_INDEX = [
+  {n:'Gastos SimpleApp', d:'Control de gastos de la casa', tab:'gastos', etq:'📲 Aplicación', kw:'gasto gastos plata dinero presupuesto ahorro ahorrar finanzas cuentas ingresos sueldo egresos economia casa'},
+  {n:'Lista Súper', d:'Lista de supermercado ordenada por sector', tab:'lista-super', etq:'📲 Aplicación', kw:'super supermercado compras comida mercado almacen verduleria carniceria lista de compras alimentos heladera'},
+  {n:'Lista Farmacia', d:'Lista de farmacia', tab:'lista-farmacia', etq:'📲 Aplicación', kw:'remedio remedios medicamento medicamentos medicina pastilla receta salud botiquin farmacia'},
+  {n:'Lista Ferretería', d:'Lista de ferretería', tab:'lista-ferreteria', etq:'📲 Aplicación', kw:'ferreteria herramienta herramientas tornillo clavo pintura arreglo arreglar reparar reparacion cano plomeria electricidad'},
+  {n:'Proyectos Construcción', d:'Casa, baño, cocina y más', tab:'proyectos-ferreteria', etq:'📲 Aplicación', kw:'construccion obra casa bano cocina albanil materiales refaccion ladrillo cemento reforma presupuesto de obra proyecto'},
+  {n:'Lista Librería', d:'Lista de librería', tab:'lista-libreria', etq:'📲 Aplicación', kw:'libreria libro libros utiles escuela cuaderno colegio papeleria estudio escolar lapiz'},
+  {n:'Lista Repuestos', d:'Lista de repuestos', tab:'lista-repuestos', etq:'📲 Aplicación', kw:'repuesto repuestos auto autos moto motos bici bicicleta taller mecanico neumatico cubierta aceite filtro bateria vehiculo'},
+  {n:'Lista Eventos', d:'Lista para fiestas y eventos', tab:'lista-eventos', etq:'📲 Aplicación', kw:'evento eventos fiesta cumpleanos casamiento asado reunion organizar festejo cena invitados'},
+  {n:'Rodados SimpleApp', d:'Mantenimiento de tus vehículos', tab:'mantenimiento', etq:'📲 Aplicación', kw:'rodado rodados auto autos moto motos bici bicicleta camioneta vehiculo vehiculos service mantenimiento patente seguro vtv nafta combustible aceite neumatico cubiertas taller carro coche'},
+  {n:'Mascotas SimpleApp', d:'Cuidado y control de tus mascotas', tab:'mascotas', etq:'📲 Aplicación', kw:'mascota mascotas perro perros perrito gato gatos gatito animal animales veterinario veterinaria vacuna vacunas cachorro desparasitar pet cuidado'},
+  {n:'Divisas SimpleApp', d:'Convertí pesos, dólares, reales y guaraníes', tab:'divisas', etq:'📲 Aplicación', kw:'divisa divisas dolar dolares real reales guarani guaranies peso pesos cambio moneda euro convertir conversor cotizacion plata extranjera'},
+  {n:'Arqueo de caja SimpleApp', d:'Contá billetes, sumá el total y compartilo', tab:'arqueo', etq:'📲 Aplicación', kw:'arqueo caja billetes contar efectivo comercio vuelto cierre de caja plata dinero cobrar'},
+  {n:'Rutas de Misiones SimpleApp', d:'Rutas, distancias y tramos de Misiones', tab:'rutas-misiones', etq:'📲 Aplicación', kw:'ruta rutas misiones camino caminos viaje viajar distancia kilometros peaje tramo carretera ruta 12 ruta 14 ruta 105'},
+  {n:'Rutas de Argentina SimpleApp', d:'Rutas nacionales de Argentina', tab:'rutas-argentina', etq:'📲 Aplicación', kw:'ruta rutas argentina camino viaje viajar distancia kilometros peaje carretera nacional'},
+  {n:'Rutas del Sur de Brasil SimpleApp', d:'Rutas del sur de Brasil', tab:'rutas-brasil', etq:'📲 Aplicación', kw:'ruta rutas brasil sul camino viaje viajar distancia kilometros peaje carretera florianopolis santa catarina parana'},
+  {n:'Fronteras SimpleApp', d:'Estado de los pasos a Brasil, Paraguay y Uruguay', tab:'fronteras', etq:'📲 Aplicación', kw:'frontera fronteras paso aduana migraciones brasil paraguay uruguay puente cruzar cruce documentos pasaporte'},
+  {n:'Plan de Viaje SimpleApp', d:'Armá tu viaje: combustible, dónde dormir y comer', tab:'planificador', etq:'📲 Aplicación', kw:'viaje viajar planificar planificador vacaciones itinerario turismo paseo combustible hotel dormir alojamiento paseo escapada'},
+  {n:'Navaja Suiza SimpleApp', d:'Conversor, brújula, nivel, calculadora, cronómetro, temporizador y notas', tab:'navaja', etq:'📲 Aplicación', kw:'navaja suiza brujula conversor cronometro temporizador timer notas nota anotador calculadora nivel herramientas reloj alarma medir'},
+  {n:'Novedades de cortes de rutas', d:'Rutas y puentes de Misiones', tab:'cortes', etq:'🚧 Novedades', kw:'corte cortes ruta rutas transito piquete obra desvio puente cerrado'},
+  {n:'Gracias a quienes nos ayudan', d:'Negocios que difunden Info SimpleApp', tab:'gracias', etq:'💚 Gracias', kw:'gracias agradecimiento negocios aliados apoyo colaboran'}
+];
+APPS_INDEX.unshift({n:'Aplicaciones SimpleApp', d:'Todas las mini aplicaciones: Gastos, listas, rodados, mascotas, divisas y más', tab:'inicio', etq:'📲 Ver todas', accion:'activarModoSoloApps()', kw:'aplicacion aplicaciones app apps mini aplicativo programa todas las aplicaciones simpleapp'});
+APPS_INDEX.forEach(function (a) { if (a.etq === '📲 Aplicación') a.kw += ' aplicacion aplicaciones app apps mini'; });
+APPS_INDEX.forEach(function (a) { if (a.tab === 'cortes') a.kw += ' corte de ruta cortes de rutas novedades ruta cortada'; });
+var KW_NOMBRE = {
+  'farmacias':'farmacia farmacias turno de turno remedio remedios medicamento guardia salud',
+  'emergencias':'emergencia emergencias urgencia policia bomberos ambulancia hospital 911 ayuda socorro',
+  'colectivos urbanos':'colectivo colectivos urbano urbanos bondi omnibus linea lineas transporte horario recorrido',
+  'colectivos larga distancia':'colectivo colectivos larga distancia micro omnibus viaje terminal pasaje pasajes horario posadas',
+  'noticias':'noticia noticias diario novedades actualidad prensa informacion',
+  'negocios & comercios':'negocio negocios comercio comercios tienda local rubro comprar',
+  'calendario de feriados':'calendario feriado feriados fecha fechas dia libre fin de semana largo',
+  'trivia':'trivia juego juegos jugar preguntas entretenimiento divertirse',
+  'ver en mapa':'mapa donde comer dormir lugares cerca ubicacion',
+  'abrir en waze':'waze gps navegar como llegar ruta mapa',
+  'wikipedia':'wikipedia historia enciclopedia informacion de la ciudad',
+  'tiempo en':'clima tiempo lluvia temperatura pronostico radar calor frio viento tormenta'
+};
+var PAIS_NOM_BUSQ = { ARG: 'Argentina', PY: 'Paraguay', BR: 'Brasil', FK: 'Islas Malvinas', UY: 'Uruguay', CL: 'Chile', BO: 'Bolivia', PE: 'Perú', EC: 'Ecuador', CO: 'Colombia', VE: 'Venezuela', MX: 'México', PA: 'Panamá', DO: 'República Dominicana', CR: 'Costa Rica', CU: 'Cuba', ES: 'España', US: 'Estados Unidos', CA: 'Canadá', ZA: 'Sudáfrica', EG: 'Egipto', GB: 'Reino Unido', FR: 'Francia', AU: 'Australia', JP: 'Japón', RU: 'Rusia', TR: 'Turquía', KR: 'Corea del Sur', CN: 'China', TH: 'Tailandia', ID: 'Indonesia', AE: 'Emiratos Árabes Unidos', DE: 'Alemania', IT: 'Italia', PL: 'Polonia', GR: 'Grecia', HK: 'Hong Kong', IN: 'India', FI: 'Finlandia', SE: 'Suecia', NL: 'Países Bajos', NZ: 'Nueva Zelanda', SG: 'Singapur', MY: 'Malasia', TW: 'Taiwán', QA: 'Catar', MC: 'Mónaco', BH: 'Baréin', PH: 'Filipinas', CV: 'Cabo Verde', MA: 'Marruecos', KE: 'Kenia', NG: 'Nigeria', UA: 'Ucrania', DK: 'Dinamarca', IR: 'Irán', IL: 'Israel', MV: 'Maldivas', ZW: 'Zimbabue', NP: 'Nepal', IQ: 'Irak', BE: 'Bélgica', LU: 'Luxemburgo', VA: 'Vaticano', AT: 'Austria', CH: 'Suiza', NO: 'Noruega', HU: 'Hungría', GY: 'Guyana', SR: 'Surinam', GF: 'Guayana Francesa', PT: 'Portugal', PF: 'Polinesia Francesa', FJ: 'Fiyi', SC: 'Seychelles', MU: 'Mauricio', MG: 'Madagascar', SN: 'Senegal' };
+function getCiudadItems() {
+  if (typeof CIUDADES === 'undefined') return [];
+  var lista = Array.isArray(CIUDADES) ? CIUDADES : Object.keys(CIUDADES).map(function (k) { return CIUDADES[k]; });
+  return lista.map(function (c) {
+    var pais = PAIS_NOM_BUSQ[c.pais] || c.pais || '';
+    return { n: c.nombre, d: (c.provincia ? c.provincia + ' · ' : '') + pais, etq: '📍 Ciudad',
+      accion: "selectCiudad('" + String(c.nombre).replace(/\\/g, '\\\\').replace(/'/g, "\\'") + "')",
+      kw: (c.provincia || '') + ' ' + pais + ' ciudad localidad pueblo' };
+  });
+}
+function _bsVariantes(t) {
+  var v = [t];
+  if (t.length > 3 && /s$/.test(t)) v.push(t.slice(0, -1));
+  if (t.length > 4 && /es$/.test(t)) v.push(t.slice(0, -2));
+  return v;
+}
+function buscarItemsInteligente(q, items) {
+  var toks = q.split(/\s+/).filter(function (t) { return t.length >= 2; });
+  if (!toks.length) toks = [q];
+  var out = [];
+  items.forEach(function (it) {
+    var nom = normStr(it.n || ''), det = normStr(it.d || '');
+    var kw = it.kw ? normStr(it.kw) : '';
+    if (!kw) { for (var k in KW_NOMBRE) { if (nom.indexOf(k) === 0) { kw = KW_NOMBRE[k]; break; } } }
+    var score = 0, hit = 0;
+    toks.forEach(function (t) {
+      var vs = _bsVariantes(t), sc = 0;
+      vs.forEach(function (v) {
+        if (nom.indexOf(v) === 0) sc = Math.max(sc, 6);
+        else if (nom.indexOf(v) !== -1) sc = Math.max(sc, 4);
+        else if (kw && (' ' + kw + ' ').indexOf(' ' + v) !== -1) sc = Math.max(sc, 3);
+        else if (kw && kw.indexOf(v) !== -1) sc = Math.max(sc, 2);
+        else if (det.indexOf(v) !== -1) sc = Math.max(sc, 1);
+      });
+      if (sc) { hit++; score += sc; }
+    });
+    if (hit) { out.push({ it: it, sc: score + hit * 2 + (it.etq ? 1 : 0) }); }
+  });
+  out.sort(function (a, b) { return b.sc - a.sc; });
+  return out.slice(0, 40).map(function (o) { return o.it; });
+}
+
 function buscarGlobal(q, resId, inpId) {
   var res = document.getElementById(resId);
   q = normStr(q.trim());
   if (q.length < 2) { res.innerHTML=''; res.classList.remove('visible'); return; }
 
-  var combinedIndex = SEARCH_INDEX.concat(getEmpresaCards(), getLinkUtilCards(), getCurioItems(), getFarmaciaItems());
-
-  var found = combinedIndex.filter(function(item) {
-    return normStr(item.n).includes(q) || normStr(item.d).includes(q);
+  var combinedIndex = APPS_INDEX.concat(getCiudadItems(), SEARCH_INDEX, getEmpresaCards(), getLinkUtilCards(), getCurioItems(), getFarmaciaItems()).filter(function (item) {
+    if (!item.anchor) return true;
+    var el = document.getElementById(item.anchor);
+    return !(el && el.closest && el.closest('.apps-ocultas'));
   });
+
+  var found = buscarItemsInteligente(q, combinedIndex);
   res.classList.add('visible');
   if (!found.length) {
     res.innerHTML = '<div class="search-none">Sin resultados para <strong>' + q + '</strong></div>';
@@ -5786,7 +5913,9 @@ function buscarGlobal(q, resId, inpId) {
   }
   res.innerHTML = found.map(function(item) {
     var clickJS;
-    if (item.externalUrl) {
+    if (item.accion) {
+      clickJS = item.accion + ';document.getElementById(\'' + inpId + '\').value=\'\';document.getElementById(\'' + resId + '\').classList.remove(\'visible\');';
+    } else if (item.externalUrl) {
       clickJS = 'window.open(\'' + item.externalUrl + '\',\'_blank\');document.getElementById(\'' + inpId + '\').value=\'\';document.getElementById(\'' + resId + '\').classList.remove(\'visible\');';
     } else {
       var anchorJS = item.anchor ? 'var el=document.getElementById(\'' + item.anchor + '\');if(el){setTimeout(function(){el.scrollIntoView({behavior:\'smooth\',block:\'center\'});el.style.outline=\'2px solid var(--verde2)\';setTimeout(function(){el.style.outline=\'\';},1800);},150);}' : '';
@@ -5795,7 +5924,7 @@ function buscarGlobal(q, resId, inpId) {
     return '<div class="sr-item" onclick="' + clickJS + '">' +
       '<div class="sr-name">' + item.n + '</div>' +
       (item.d ? '<div class="sr-detail">' + item.d + '</div>' : '') +
-      '<span class="sr-tab">' + (item.externalUrl ? '🔗 Enlace' : (TAB_LABELS[item.tab]||item.tab)) + '</span>' +
+      '<span class="sr-tab">' + (item.externalUrl ? '🔗 Enlace' : (item.etq || TAB_LABELS[item.tab]||item.tab)) + '</span>' +
     '</div>';
   }).join('');
 }
@@ -6010,10 +6139,11 @@ function mostrarAvisoCompartirManual(copiadoOk, texto) {
   var caja = document.createElement('div');
   caja.style.cssText = 'background:#fffaf0;border-radius:18px;max-width:340px;width:100%;padding:22px 20px;text-align:center;font-family:Barlow,Arial,sans-serif;box-shadow:0 8px 30px rgba(0,0,0,0.35);';
 
-  var textareaHtml = copiadoOk ? '' :
-    '<textarea readonly style="width:100%;height:90px;font-size:12px;padding:8px;border-radius:8px;border:1px solid #e8d5b5;margin-bottom:14px;box-sizing:border-box;" onclick="this.select();">' +
+  var textareaHtml = '<textarea id="wsp-fallback-ta" readonly style="width:100%;height:' + (copiadoOk ? '70' : '110') + 'px;font-size:12px;padding:8px;border-radius:8px;border:1px solid #e8d5b5;margin-bottom:12px;box-sizing:border-box;" onclick="this.select();">' +
       texto.replace(/</g, '&lt;') +
-    '</textarea>';
+    '</textarea>' +
+    '<button id="wsp-fallback-copiar" style="display:block;width:100%;background:#fff;color:#2c1a0e;border:2px solid #2da653;border-radius:10px;padding:10px;font-weight:800;font-size:13px;cursor:pointer;margin-bottom:8px;">📋 Copiar el texto</button>' +
+    '<button id="wsp-fallback-wsp" style="display:block;width:100%;background:#25d366;color:#fff;border:none;border-radius:10px;padding:11px;font-weight:800;font-size:13px;cursor:pointer;margin-bottom:12px;">💬 Abrir WhatsApp con el texto</button>';
 
   caja.innerHTML =
     '<div style="font-size:40px;margin-bottom:8px;">' + (copiadoOk ? '✅' : '📋') + '</div>' +
@@ -6032,6 +6162,14 @@ function mostrarAvisoCompartirManual(copiadoOk, texto) {
   document.body.appendChild(overlay);
 
   document.getElementById('wsp-fallback-cerrar').onclick = function () { overlay.remove(); };
+  document.getElementById('wsp-fallback-copiar').onclick = function () {
+    var ta = document.getElementById('wsp-fallback-ta'), btn = this, ok = false;
+    try { ta.focus(); ta.select(); ta.setSelectionRange(0, 999999); ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    btn.textContent = ok ? '✅ Copiado: pegalo en WhatsApp' : 'Mantené apretado el texto y elegí Copiar';
+  };
+  document.getElementById('wsp-fallback-wsp').onclick = function () {
+    abrirLink('https://wa.me/?text=' + encodeURIComponent(texto));
+  };
   overlay.onclick = function (e) { if (e.target === overlay) overlay.remove(); };
 }
 
@@ -8769,6 +8907,7 @@ function cargarAlertaArgentina(provinciaCiudad, paisCiudad, latCiudad, lngCiudad
   // nombran la provincia explícitamente en el texto.
   function pintarResultado(deCortoPlazoQueTocan, huboFallaDeRed) {
     if (!elCont) return;
+    wrap.classList.toggle('hay-alerta', deCortoPlazoQueTocan.length > 0);
     if (!deCortoPlazoQueTocan.length) {
       elCont.innerHTML = huboFallaDeRed
         ? '<div style="font-size:11.5px;color:var(--muted);">No se pudo conectar con el SMN en este momento. Probá de nuevo en un rato, o mirá el pronóstico directo en smn.gob.ar con el botón de abajo.</div>'
@@ -9531,7 +9670,7 @@ function cargarClimaInicio(lat, lng) {
   if (!elTemp) return;
 
   var elAvisoWrapInicial = document.getElementById('clima-aviso-tormenta-wrap');
-  if (elAvisoWrapInicial) { var _t = document.getElementById('clima-aviso-tormenta-texto'); if (_t) _t.textContent = 'Consultando el pronóstico…'; }
+  if (elAvisoWrapInicial) { elAvisoWrapInicial.style.display = 'none'; var _t = document.getElementById('clima-aviso-tormenta-texto'); if (_t) _t.textContent = 'Consultando el pronóstico…'; }
   var _tc = document.getElementById('clima-tyr-ciudad'), _sc = document.getElementById('clima-stage-ciudad'); if (_tc && _sc) _tc.textContent = _sc.textContent;
 
   var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lng
@@ -9649,7 +9788,7 @@ function cargarClimaInicio(lat, lng) {
             if (tMin !== null) msg += ' Temperatura entre ' + Math.round(tMin) + '°C y ' + Math.round(tMax) + '°C';
             if (idxActual !== -1) msg += (tMin !== null ? ', ' : ' ') + (pMax >= 60 ? 'con alta probabilidad de lluvia (' + pMax + '%).' : pMax >= 30 ? 'con probabilidad de lluvia (' + pMax + '%).' : 'poca probabilidad de lluvia (' + pMax + '%).');
             elAvisoTexto.textContent = msg;
-            elAvisoWrap.style.display = 'block';
+            elAvisoWrap.style.display = 'none'; // solo se muestra cuando hay posible tormenta
           }
           if (elAvisoLink) {
             var hrefRadar = document.getElementById('clima-link-radar');
@@ -9660,7 +9799,7 @@ function cargarClimaInicio(lat, lng) {
     })
     .catch(function () {
       var elAvisoWrapErr = document.getElementById('clima-aviso-tormenta-wrap');
-      var _te = document.getElementById('clima-aviso-tormenta-texto'); if (_te) _te.textContent = 'Sin datos del pronóstico por ahora (sin conexión).';
+      if (elAvisoWrapErr) elAvisoWrapErr.style.display = 'none'; var _te = document.getElementById('clima-aviso-tormenta-texto'); if (_te) _te.textContent = 'Sin datos del pronóstico por ahora (sin conexión).';
       elDesc.textContent = 'Ver clima actual';
       elTemp.textContent = '—°C';
       if (elHumedad) elHumedad.textContent = '—%';
@@ -16843,12 +16982,8 @@ async function compartirInformeWhatsApp() {
       await navigator.share({ text: mensaje });
       return;
     }
-  } catch (e) { /* si el usuario cancela o falla, seguimos con el fallback */ }
-  try {
-    window.open('https://wa.me/?text=' + encodeURIComponent(mensaje), '_blank');
-  } catch (e) {
-    toast('⚠️ No se pudo abrir WhatsApp, copiá el informe manualmente');
-  }
+  } catch (e) { if (e && e.name === 'AbortError') return; }
+  compartirTexto(mensaje);
 }
 function copiarInforme() {
   const txt = document.getElementById('informe-preview');
@@ -18843,8 +18978,7 @@ async function compartirInforme() {
   try {
     if (navigator.share) { await navigator.share({title:'Informe de guardia', text: txt}); return; }
   } catch (e) { if (e && e.name === 'AbortError') return; }
-  grCopiarInforme();
-  grToast('No se pudo compartir directo: se copió el texto, pegalo donde quieras enviarlo');
+  compartirTexto(txt);
 }
 function restaurarDesdeArchivo(input) {
   const file = input.files && input.files[0];
@@ -19647,12 +19781,8 @@ async function gsCompartirInformeWhatsApp() {
       await navigator.share({ text: mensaje });
       return;
     }
-  } catch (e) { /* si el usuario cancela o falla, seguimos con el fallback */ }
-  try {
-    window.open('https://wa.me/?text=' + encodeURIComponent(mensaje), '_blank');
-  } catch (e) {
-    gsToast('⚠️ No se pudo abrir WhatsApp, copiá el informe manualmente');
-  }
+  } catch (e) { if (e && e.name === 'AbortError') return; }
+  compartirTexto(mensaje);
 }
 function gsCopiarInforme() {
   const txt = document.getElementById('gs-informe-preview');
@@ -21263,7 +21393,7 @@ window.__leyendaMapsHtml = function (nombres) {
     $('pl-copiar').addEventListener('click', function () {
       var txt = textoResumen(), est = $('pl-estado');
       function ok(m) { est.textContent = m; }
-      if (navigator.share) { navigator.share({ text: txt }).catch(function () {}); return; }
+      compartirTexto(txt); return;
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(function () { ok('Copiado: ya podés pegarlo en WhatsApp o donde quieras.'); }, function () { ok('No se pudo copiar. Mantené apretado el texto del resumen para copiarlo.'); });
       else ok('Tu celular no permite copiar desde acá. Mantené apretado el texto del resumen para copiarlo.');
     });
@@ -22021,7 +22151,7 @@ window.__leyendaMapsHtml = function (nombres) {
         $('nt-co').onclick=function(){
           grab();var tx=textoNota(n);
           if(esVacia(n)){$('nt-m').textContent='La nota está vacía.';return;}
-          if(navigator.share){navigator.share({text:tx}).catch(function(){});return;}
+          compartirTexto(tx);return;
           try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(tx).then(function(){$('nt-m').textContent='Copiada al portapapeles';}).catch(function(){$('nt-m').textContent='No se pudo copiar.';});return;}}catch(e){}
           $('nt-m').textContent='No se pudo copiar en este dispositivo.';
         };
@@ -23063,10 +23193,12 @@ body.app-full #gs-top-fixed .hdr-sub,body.app-full #top-fixed .hdr-sub,body.app-
 var ALIADOS=[
   {n:'Farmacia Bambú',r:'💊 Farmacia',c:'San Vicente, Misiones',d:'Av. Tejeda 1435',q:'Farmacia Bambú, Av. Tejeda 1435, San Vicente, Misiones',tarjeta:'bambu',nomapa:1,links:[['💬 WhatsApp 508282','https://wa.me/543755508282'],['💬 WhatsApp 446321','https://wa.me/543755446321'],['📷 Instagram','https://www.instagram.com/farmacia_bambu/']]},
   {n:'San Vicente Construcciones',r:'🏗️ Construcciones',c:'San Vicente, Misiones',d:'Av. Libertador 707',q:'San Vicente Construcciones, Av. Libertador 707, San Vicente, Misiones'},
-  {n:'Carrito Empanadas y Pizzas',r:'🍕 Pizzería',c:'San Vicente, Misiones',d:'Av. Tejeda 472',q:'Carrito Empanadas y Pizzas, Av. Tejeda 472, San Vicente, Misiones'},
   {n:'Farmacia Río',r:'💊 Farmacia',c:'San Vicente, Misiones',d:'Av. Libertador 937',q:'Farmacia Río, Av. Libertador 937, San Vicente, Misiones',nomapa:1},
   {n:'Car Seb',r:'🏪 Comercio',c:'San Vicente, Misiones',d:'Av. Libertador 1713',q:'Car Seb, Av. Libertador 1713, San Vicente, Misiones'},
   {n:'Supermercado Vicente',r:'🛒 Supermercado',c:'San Vicente, Misiones',d:'Av. Libertador 897',q:'Supermercado Vicente, Av. Libertador 897, San Vicente, Misiones'},
+  {n:'Mini Market Víctor',r:'🛒 Mini Market',c:'San Vicente, Misiones',d:'Barrio Malvinas',wa:'5493755622031',q:'Mini Market Víctor, Barrio Malvinas, San Vicente, Misiones',u:'https://share.google/oQJdpcwGuQl15BRvf'},
+  {n:'Panadería Rosa',r:'🥖 Panadería',c:'San Vicente, Misiones',d:'Av. Tejeda 491',q:'Panadería Rosa, Av. Tejeda 491, San Vicente, Misiones',u:'https://www.google.com/maps/place/Panaderia+Rosa/@-26.9966397,-54.4893238,17z/data=!3m1!4b1!4m6!3m5!1s0x94f9bee2d0b79405:0x5086d608e8e3681!8m2!3d-26.9966397!4d-54.4893238!16s%2Fg%2F11ggc19x2x'},
+  {n:'Carrito Empanadas y Pizzas',r:'🍕 Pizzería',c:'San Vicente, Misiones',d:'Av. Tejeda 472',q:'Carrito Empanadas y Pizzas, Av. Tejeda 472, San Vicente, Misiones'},
 ];
 var graciasSolo=-1;
 function graciasVer(i){graciasSolo=i;graciasPintar();try{window.scrollTo(0,0);}catch(e){}}
@@ -23082,7 +23214,7 @@ function graciasPintar(){
     return '<div class="gr-card" onclick="graciasVer('+i+')" style="cursor:pointer"><div class="gr-nom">'+e(a.n)+'</div><div class="gr-sub">'+e(a.r)+' · '+e(a.c)+'</div>'+(a.d?'<div class="gr-dir">📍 '+e(a.d)+'</div>':'')+'<div class="gr-btns">'+(a.nomapa?'':'<button style="background:#1a73e8" onclick="event.stopPropagation();graciasMapa('+i+')">📍 Ver en Google Maps</button>')+(a.wa?'<button style="background:#25d366" onclick="event.stopPropagation();abrirLink(\'https://wa.me/'+e(a.wa)+'\')">💬 WhatsApp</button>':'')+(a.ig?'<button style="background:#c13584" onclick="event.stopPropagation();abrirLink(\'https://www.instagram.com/'+e(a.ig)+'\')">📷 Instagram</button>':'')+'</div></div>';
   }).join('');
 }
-function graciasMapa(i){var a=ALIADOS[i];abrirLink('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(a.q||(a.n+' '+a.c)));}
+function graciasMapa(i){var a=ALIADOS[i];if(a.u){abrirLink(a.u);return;}abrirLink('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(a.q||(a.n+' '+a.c)));}
 // Igual que "cortes": la página vive en GitHub y se carga en un marco; sin conexión se ve el respaldo de arriba.
 function graciasCargar(){
   try{
@@ -23101,4 +23233,115 @@ function graciasCargar(){
 }
 document.addEventListener('DOMContentLoaded',graciasPintar);
 if(document.readyState!=='loading')graciasPintar();
+</script>
+
+<!-- ===== BARRA INFERIOR (estilo apps de noticias): se oculta al bajar y reaparece al subir ===== -->
+<style>
+#bnav{position:fixed;left:0;right:0;bottom:0;z-index:250;display:flex;background:var(--card,#fff);border-top:1px solid var(--border,#ddd);box-shadow:0 -3px 12px rgba(0,0,0,0.12);padding:4px 4px calc(4px + env(safe-area-inset-bottom,0px));transition:transform .25s ease;}
+#bnav.oculta{transform:translateY(110%);}
+#bnav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;padding:5px 2px;font-family:inherit;color:var(--muted,#777);cursor:pointer;min-width:0;}
+#bnav button .bn-ic{font-size:21px;line-height:1;}
+#bnav button .bn-tx{font-size:10.5px;font-weight:800;white-space:nowrap;}
+#bnav button.activo{color:var(--oro,#b8761d);}
+#bnav button.activo .bn-tx{border-bottom:2px solid var(--oro,#b8761d);}
+body.app-full #bnav{display:none !important;}
+body.bnav-on{padding-bottom:64px;}
+</style>
+<div id="bnav">
+  <button type="button" data-k="inicio" onclick="bnavIr('inicio')"><span class="bn-ic">🏠</span><span class="bn-tx">Inicio</span></button>
+  <button type="button" data-k="apps" onclick="bnavIr('apps')"><span class="bn-ic">📲</span><span class="bn-tx">Aplicaciones</span></button>
+  <button type="button" data-k="noticias" onclick="bnavIr('noticias')"><span class="bn-ic">📰</span><span class="bn-tx">Noticias</span></button>
+  <button type="button" data-k="buscar" onclick="bnavIr('buscar')"><span class="bn-ic">🔍</span><span class="bn-tx">Buscar</span></button>
+  <button type="button" data-k="menu" onclick="bnavIr('menu')"><span class="bn-ic">☰</span><span class="bn-tx">Menú</span></button>
+</div>
+<script>
+(function(){
+  var bar=document.getElementById('bnav'); if(!bar) return;
+  document.body.classList.add('bnav-on');
+  window.bnavIr=function(k){
+    try{
+      if(k==='inicio'){
+        var c=''; try{c=_ciudadSeleccionadaMemoria||localStorage.getItem('ciudadSeleccionada')||'';}catch(e){}
+        if(_modoSoloApps||_modoSoloNoticias){ selectCiudad(c||'San Vicente'); }
+        else showTab('inicio',null);
+        try{window.scrollTo(0,0);}catch(e){}
+      } else if(k==='apps'){ activarModoSoloApps(); try{window.scrollTo(0,0);}catch(e){} }
+      else if(k==='noticias'){ showTab('noticias',null); if(typeof cargarNoticiasPorSecciones==='function') cargarNoticiasPorSecciones(); try{window.scrollTo(0,0);}catch(e){} }
+      else if(k==='buscar'){ bsAbrir(); }
+      else if(k==='menu'){ toggleHdrMenu({stopPropagation:function(){}}); }
+    }catch(e){}
+  };
+  // Resalta el botón de la pantalla actual
+  function marcar(){
+    var sec=document.querySelector('.section.active'), id=sec?sec.id:'';
+    var k='';
+    if(id==='inicio') k=(typeof _modoSoloApps!=='undefined'&&_modoSoloApps)?'apps':'inicio';
+    else if(id==='noticias') k='noticias';
+    [].forEach.call(bar.querySelectorAll('button'),function(b){b.classList.toggle('activo',b.getAttribute('data-k')===k);});
+  }
+  setInterval(marcar,500); marcar();
+  // Se oculta al bajar y reaparece al subir
+  var last=window.pageYOffset||0, tec=false;
+  window.addEventListener('scroll',function(){
+    var y=window.pageYOffset||0, d=y-last;
+    if(Math.abs(d)<8) return;
+    if(d>0&&y>90) bar.classList.add('oculta'); else if(d<0) bar.classList.remove('oculta');
+    last=y;
+  },{passive:true});
+  // Con el teclado abierto no estorba
+  document.addEventListener('focusin',function(e){var t=e.target&&e.target.tagName; if(t==='INPUT'||t==='TEXTAREA'||t==='SELECT'){tec=true;bar.classList.add('oculta');}});
+  document.addEventListener('focusout',function(){if(tec){tec=false;setTimeout(function(){bar.classList.remove('oculta');},200);}});
+  // Al cambiar de pantalla vuelve a mostrarse
+  var _st=window.showTab; if(typeof _st==='function'){ window.showTab=function(){ bar.classList.remove('oculta'); last=0; return _st.apply(this,arguments); }; }
+})();
+</script>
+
+<!-- ===== BUSCADOR SIEMPRE A MANO (pantalla completa) ===== -->
+<style>
+#bs-overlay{display:none;position:fixed;inset:0;z-index:9000;background:var(--bg,#fdf6e9);flex-direction:column;}
+#bs-overlay.open{display:flex;}
+#bs-top{display:flex;align-items:center;gap:8px;padding:12px 12px 8px;background:var(--card,#fff);border-bottom:1px solid var(--border,#ddd);}
+#bs-input{flex:1;min-width:0;box-sizing:border-box;padding:12px 14px;border-radius:12px;border:2px solid var(--oro,#b8761d);background:var(--bg,#fff);color:var(--text,#222);font-size:16px;font-family:inherit;}
+#bs-x{border:none;background:none;font-size:22px;color:var(--muted,#777);cursor:pointer;padding:6px 8px;}
+#bs-body{flex:1;overflow-y:auto;padding:12px;-webkit-overflow-scrolling:touch;}
+#bs-sug-t{font-size:11px;font-weight:800;color:var(--muted,#777);letter-spacing:1px;text-transform:uppercase;margin:4px 2px 8px;}
+#bs-chips{display:flex;flex-wrap:wrap;gap:8px;}
+#bs-chips button{border:1px solid var(--border,#ddd);background:var(--card,#fff);color:var(--text,#222);border-radius:20px;padding:8px 13px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;}
+#bs-results{margin-top:6px;}
+#main-nav button.nav-buscar{position:sticky;left:0;z-index:3;background:var(--card,#fff);box-shadow:2px 0 6px rgba(0,0,0,0.10);}
+</style>
+<div id="bs-overlay">
+  <div id="bs-top">
+    <input id="bs-input" type="text" placeholder="🔍 ¿Qué necesitás? ej: perro, auto, remedio…" autocomplete="off" oninput="bsEscribir(this.value)">
+    <button type="button" id="bs-x" onclick="bsCerrar()" aria-label="Cerrar">✕</button>
+  </div>
+  <div id="bs-body">
+    <div id="bs-sug">
+      <div id="bs-sug-t">Probá buscando</div>
+      <div id="bs-chips"></div>
+    </div>
+    <div class="search-results" id="bs-results" onclick="setTimeout(bsCerrar,60)"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var SUG=['perro','auto','moto','remedio','plata','dólar','obra','supermercado','viaje','frontera','fiesta','brújula','colectivo','bomberos','feriado','clima'];
+  var ch=document.getElementById('bs-chips');
+  if(ch){ SUG.forEach(function(t){ var b=document.createElement('button'); b.type='button'; b.textContent=t; b.onclick=function(){ var i=document.getElementById('bs-input'); i.value=t; bsEscribir(t); }; ch.appendChild(b); }); }
+  window.bsAbrir=function(){
+    try{ if(typeof closeHdrMenu==='function') closeHdrMenu(); }catch(e){}
+    var o=document.getElementById('bs-overlay'); if(!o) return;
+    o.classList.add('open');
+    var i=document.getElementById('bs-input'); if(i){ i.value=''; bsEscribir(''); setTimeout(function(){try{i.focus();}catch(e){}},120); }
+  };
+  window.bsCerrar=function(){ var o=document.getElementById('bs-overlay'); if(o) o.classList.remove('open'); try{document.activeElement&&document.activeElement.blur();}catch(e){} };
+  window.bsEscribir=function(v){
+    var sug=document.getElementById('bs-sug'), res=document.getElementById('bs-results');
+    var hay=(v||'').trim().length>=2;
+    if(sug) sug.style.display=hay?'none':'block';
+    if(!hay){ if(res){res.innerHTML='';res.classList.remove('visible');} return; }
+    buscarGlobal(v,'bs-results','bs-input');
+  };
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') bsCerrar(); });
+})();
 </script>
