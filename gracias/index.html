@@ -23,16 +23,23 @@ main{max-width:640px;margin:0 auto}
 .card{cursor:pointer}
 .aviso-img{width:100%;max-width:430px;display:block;margin:2px auto 10px;border-radius:9px;border:5px solid #2b1d12;box-sizing:border-box;box-shadow:0 3px 10px rgba(0,0,0,.35)}
 .btns-pill a{background:#f6ead2 !important;border:1px solid #e0cfa8;color:#b8761d !important}
+.mapa{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:12px}
+.mapa h2{margin:0 0 8px;font-size:16px}
+#mapa{height:340px;border-radius:10px;z-index:0}
+.mapa .nota{font-size:12px;color:var(--mut);margin:6px 2px 0}
+.pop b{font-size:14px}.pop a{display:inline-block;margin-top:6px;background:#2e7d32;color:#fff !important;border-radius:14px;padding:5px 10px;font-weight:800;font-size:12px;text-decoration:none}
 .card.oculto{display:none}
 .pie{text-align:center;font-size:13px;color:var(--mut);margin:18px 0 6px}
 .pie a{color:#0b5a8a}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
 </head>
 <body>
 <main>
   <div class="hero"><h1>💚 GRACIAS</h1><p>A los negocios que ayudan a difundir Info SimpleApp</p></div>
   <div class="intro">Estos comercios <b>nos ayudan a difundir Info SimpleApp</b>. ¡Muchas gracias por su apoyo! 🙌</div>
   <div id="volver" style="display:none"><a href="#" onclick="verTodos();return false" style="display:block;text-align:center;background:#efe3d4;color:#3a2a16;border-radius:20px;padding:10px;font-weight:800;font-size:14px;text-decoration:none;margin-bottom:10px">← Ver todos los negocios</a></div>
+<div class="mapa" id="mapa-wrap"><h2>🗺️ Dónde están · San Vicente, Misiones</h2><div id="mapa"></div><div class="nota">Tocá un punto para ver el negocio. Mapa © Esri.</div></div>
 <div id="lista">
   <!-- ===== UN BLOQUE POR NEGOCIO. Para sumar otro, copiá y pegá un bloque entero, cambiá los datos y poné un id propio (sin espacios ni tildes). ===== -->
   <div class="card" id="farmacia-bambu">
@@ -77,6 +84,7 @@ main{max-width:640px;margin:0 auto}
     <div class="sub">🛒 Mini Market · San Vicente, Misiones</div>
     <div class="dir">📍 Barrio Malvinas</div>
     <div class="btns">
+      <a style="background:#1a73e8" target="_blank" rel="noopener" href="https://maps.app.goo.gl/LyetQhAyjQ3H7QzaA">📍 Ver en Google Maps</a>
       <a style="background:#25d366" target="_blank" rel="noopener" href="https://wa.me/5493755622031">💬 WhatsApp</a>
     </div>
   </div>
@@ -108,6 +116,7 @@ main{max-width:640px;margin:0 auto}
   <div class="card" id="libreria-centro">
     <div class="nom">Librería Centro</div>
     <div class="sub">📚 Librería · San Vicente, Misiones</div>
+    <div class="dir">📍 Av. Tejeda 510 y Abel Siñuka 150</div>
     <div class="btns">
       <a style="background:#1a73e8" target="_blank" rel="noopener" href="https://maps.app.goo.gl/KKSnEMT9s6CRdHAT6">📍 Ver en Google Maps</a>
     </div>
@@ -129,6 +138,7 @@ main{max-width:640px;margin:0 auto}
   <div class="card" id="electricidad-mario">
     <div class="nom">Electricidad Mario</div>
     <div class="sub">⚡ Electricidad · San Vicente, Misiones</div>
+    <div class="dir">📍 Av. Tejeda 573 y sucursal Mario II</div>
     <div class="btns">
       <a style="background:#1a73e8" target="_blank" rel="noopener" href="https://maps.app.goo.gl/zeG4Brs1qg8v7kUVA">📍 Ver en Google Maps</a>
     </div>
@@ -137,6 +147,39 @@ main{max-width:640px;margin:0 auto}
 </div>
   <div class="pie">¿Tenés un negocio y querés sumarte? Escribinos a <a href="mailto:simpleappgfr@gmail.com">simpleappgfr@gmail.com</a></div>
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+(function(){
+  if(!window.L)return;
+  var N=[
+   ['farmacia-bambu','Farmacia Bambú','💊',-26.9909767,-54.4813565],
+   ['san-vicente-construcciones','San Vicente Construcciones','🏗️',-26.9963241,-54.4862502],
+   ['farmacia-rio','Farmacia Río','💊',-26.9955,-54.4840],
+   ['car-seb','Car Seb','🏪',-26.9897663,-54.4788784],
+   ['supermercado-vicente','Supermercado Vicente','🛒',-26.9957714,-54.4844083],
+   ['mini-market-victor','Mini Market Víctor','🛒',-27.0139179,-54.5005951],
+   ['panaderia-rosa','Panadería Rosa','🥖',-26.9966397,-54.4893238],
+   ['carrito-empanadas','Carrito Empanadas y Pizzas','🍕',-26.9966699,-54.4888502],
+   ['canal-4','Canal 4','📺',-26.9996966,-54.4833619],
+   ['libreria-centro','Librería Centro · Av. Tejeda 510','📚',-26.9964203,-54.4885226],
+   ['libreria-centro','Librería Centro · Abel Siñuka 150','📚',-26.9978995,-54.4839277],
+   ['imagen-lab','Imagen Lab','📷',-26.996077,-54.4850756],
+   ['electro-centro','Electro Centro','🏪',-26.995568,-54.4856039],
+   ['electricidad-mario','Electricidad Mario · Av. Tejeda 573','⚡',-26.9959826,-54.4883319],
+   ['electricidad-mario','Electricidad Mario II','⚡',-26.9984477,-54.4803007]
+  ];
+  var m=L.map('mapa',{scrollWheelZoom:false});
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Tiles © Esri'}).addTo(m);
+  var pts=[];
+  N.forEach(function(n){
+    var ll=[n[3],n[4]];pts.push(ll);
+    L.circleMarker(ll,{radius:9,color:'#1b5e20',weight:2,fillColor:'#2e7d32',fillOpacity:.9}).addTo(m)
+     .bindPopup('<div class="pop">'+n[2]+' <b>'+n[1]+'</b><br><a href="#'+n[0]+'">Ver negocio</a></div>');
+  });
+  m.fitBounds(pts,{padding:[24,24],maxZoom:17});
+  window._mapaSV=m;
+})();
+</script>
 <script>
 // Al tocar un negocio se muestra solo ese (con el encabezado y el agradecimiento). Se puede compartir el link con #id, ej: .../gracias/#farmacia-bambu
 function mostrar(id){
@@ -144,6 +187,7 @@ function mostrar(id){
   cards.forEach(function(c){var si=!id||c.id===id;if(si&&id)hay=true;c.classList.toggle('oculto',!si);});
   if(id&&!hay){cards.forEach(function(c){c.classList.remove('oculto');});id='';}
   document.getElementById('volver').style.display=id?'':'none';
+  var mw=document.getElementById('mapa-wrap');if(mw){mw.style.display=id?'none':'';if(!id&&window._mapaSV)setTimeout(function(){window._mapaSV.invalidateSize();},50);}
   window.scrollTo(0,0);
 }
 function verTodos(){history.replaceState(null,'',location.pathname+location.search);mostrar('');}
