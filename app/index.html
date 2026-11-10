@@ -1649,6 +1649,9 @@ footer { background:var(--card); border-top:1px solid var(--border); padding:12p
     <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;color:#b8761d;text-align:center;">⭐ Armá tu pantalla</div>
     <div style="font-size:12.5px;color:#7a6a55;text-align:center;margin-bottom:12px;line-height:1.4;">Elegí qué aplicaciones usás, tus ciudades y los países de tus noticias. La app va a arrancar con lo que elijas, solo en tu celular.</div>
 
+    <div class="mp-tit">🚀 Al abrir la app, empezar en</div>
+    <div id="mp-ini" style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;"></div>
+
     <div class="mp-tit">📲 Mis aplicaciones</div>
     <div style="display:flex;gap:8px;margin-bottom:8px;"><button type="button" class="mp-mini" onclick="mpMarcarApps(true)">Marcar todas</button><button type="button" class="mp-mini" onclick="mpMarcarApps(false)">Desmarcar todas</button></div>
     <div id="mp-apps"></div>
@@ -24063,15 +24066,30 @@ function _mpCiudadPorNombre(n) { for (var i = 0; i < CIUDADES.length; i++) if (C
 // ---- editor ----
 function mpAbrir() {
   var c = mpLeer();
-  _mpE = { ap: {}, ci: [], no: {}, dir: true };
+  _mpE = { ap: {}, ci: [], no: {}, dir: true, ini: 'ciudad' };
   var todas = _mpTodasIds();
-  if (c) { c.ap.forEach(function (i) { _mpE.ap[i] = 1; }); _mpE.ci = (c.ci || []).slice(); (c.no || []).forEach(function (k) { _mpE.no[k] = 1; }); _mpE.dir = c.dir !== false; }
+  if (c) { c.ap.forEach(function (i) { _mpE.ap[i] = 1; }); _mpE.ci = (c.ci || []).slice(); (c.no || []).forEach(function (k) { _mpE.no[k] = 1; }); _mpE.dir = c.dir !== false; _mpE.ini = c.ini || 'ciudad'; }
   else { todas.forEach(function (i) { _mpE.ap[i] = 1; }); try { _mpE.ci = [getCiudadActual().nombre]; } catch (e) {} }
   document.getElementById('mp-dir').checked = _mpE.dir;
   document.getElementById('mp-borrar').style.display = c ? 'block' : 'none';
   document.getElementById('mp-ciu-q').value = ''; document.getElementById('mp-ciu-res').innerHTML = '';
-  mpPintarApps(); mpPintarCiudadesSel(); mpPintarNoticias();
+  mpPintarIni(); mpPintarApps(); mpPintarCiudadesSel(); mpPintarNoticias();
   var ov = document.getElementById('mp-overlay'); ov.style.display = 'flex'; ov.scrollTop = 0;
+}
+var MP_INI = [['ciudad', '📍', 'Una ciudad', 'Inicio con el clima y los datos de tu ciudad'], ['apps', '📲', 'Solo Aplicaciones', 'Sin ciudad: directo a las aplicaciones'], ['juegos', '🎮', 'Solo Juegos', 'Sin ciudad: directo a los juegos'], ['noticias', '📰', 'Solo Noticias', 'Sin ciudad: directo a las noticias']];
+function mpPintarIni() {
+  document.getElementById('mp-ini').innerHTML = MP_INI.map(function (o) {
+    var on = _mpE.ini === o[0];
+    return '<div class="mp-opt' + (on ? ' on' : '') + '" onclick="mpSetIni(\'' + o[0] + '\')" style="padding:9px 10px;"><span class="mp-ck">' + (on ? '✓' : '') + '</span><span><b>' + o[1] + ' ' + o[2] + '</b><br><small style="opacity:.75">' + o[3] + '</small></span></div>';
+  }).join('');
+}
+function mpSetIni(v) { _mpE.ini = v; mpPintarIni(); }
+function mpIrInicio() {
+  var c = mpCfg(), ini = (c && c.ini) || 'ciudad';
+  if (ini === 'apps') { activarModoSoloApps(); return true; }
+  if (ini === 'juegos') { activarModoSoloApps('juegos'); return true; }
+  if (ini === 'noticias') { activarModoSoloNoticias(); return true; }
+  return false;
 }
 function mpCerrar() { document.getElementById('mp-overlay').style.display = 'none'; }
 function mpPintarApps() {
@@ -24121,12 +24139,13 @@ function mpPintarNoticias() {
 function mpTogNot(k) { if (_mpE.no[k]) delete _mpE.no[k]; else _mpE.no[k] = 1; mpPintarNoticiasKeep(); }
 function mpPintarNoticiasKeep() { var ov = document.getElementById('mp-overlay'), y = ov.scrollTop; mpPintarNoticias(); ov.scrollTop = y; }
 function mpGuardar() {
-  var d = { ap: Object.keys(_mpE.ap), ci: _mpE.ci.slice(), no: Object.keys(_mpE.no), dir: !!document.getElementById('mp-dir').checked };
+  var d = { ap: Object.keys(_mpE.ap), ci: _mpE.ci.slice(), no: Object.keys(_mpE.no), dir: !!document.getElementById('mp-dir').checked, ini: _mpE.ini || 'ciudad' };
   mpPersistir(d); _mpC = d; _mpNoTodos = false;
   mpCerrar();
   try { cerrarPantallaConsultaInicial(); } catch (e) {}
   mpAplicar();
-  if (d.ci.length) selectCiudad(d.ci[0]); else showTab('inicio', null);
+  if (d.ini !== 'ciudad') { mpIrInicio(); }
+  else if (d.ci.length) selectCiudad(d.ci[0]); else showTab('inicio', null);
   try { noticiasPaisInicial(getCiudadActual()); } catch (e) {}
 }
 function mpBorrar() {
@@ -24138,6 +24157,7 @@ function mpBorrar() {
 function mpEntrar() {
   try { cerrarPantallaConsultaInicial(); } catch (e) {}
   var c = mpCfg();
+  if (mpIrInicio()) return;
   if (c && c.ci && c.ci.length) selectCiudad(c.ci[0]); else showTab('inicio', null);
 }
 
@@ -24220,7 +24240,8 @@ function _mpInicio() {
   var c = mpCfg();
   if (c && c.dir) {
     var ya = false; try { ya = sessionStorage.getItem('mpIniciada') === '1'; sessionStorage.setItem('mpIniciada', '1'); } catch (e) {}
-    if (!ya && c.ci && c.ci.length) { selectCiudad(c.ci[0]); }
+    if (!ya && c.ini && c.ini !== 'ciudad') { mpIrInicio(); }
+    else if (!ya && c.ci && c.ci.length) { selectCiudad(c.ci[0]); }
   }
   try { noticiasPaisInicial(getCiudadActual()); } catch (e) {}
 }
@@ -24247,14 +24268,23 @@ var LISTA_TABS={'lista-super':'supermercado','lista-farmacia':'farmacia','lista-
 </script>
 
 <style>
-#app-full-bar{display:none;position:fixed;top:0;left:0;right:0;height:42px;z-index:310;background:#fffaf0;border-bottom:1.5px solid #e0cfa8;align-items:center;gap:8px;padding:0 10px;box-sizing:border-box;font-family:inherit;}
+#app-full-bar{display:none;position:fixed;top:0;left:0;right:0;z-index:310;background:#fffaf0;border-bottom:1.5px solid #e0cfa8;flex-direction:column;align-items:stretch;gap:0;padding:0;box-sizing:border-box;font-family:inherit;}
+#app-full-bar .af-r1{display:flex;align-items:center;gap:8px;padding:0 10px;height:42px;box-sizing:border-box;}
+#af-stats{display:none;align-items:center;justify-content:space-between;gap:6px;height:38px;padding:0 10px 4px;box-sizing:border-box;color:#3a2a16;}
+body.js-strip #af-stats{display:flex;}
+#af-stats .afs-av{flex:none;width:34px;height:34px;border-radius:50%;padding:0;font-size:20px;line-height:1;background:#f1e2c0;border:2px solid #d9a441;display:flex;align-items:center;justify-content:center;}
+#af-stats .afs-c{flex:1;text-align:center;font-weight:900;font-size:14px;white-space:nowrap;background:rgba(127,127,127,.14);border-radius:12px;padding:5px 2px;}
+#af-stats .afs-c small{font-weight:700;font-size:10px;opacity:.75;margin-left:2px;}
+body.js-strip .fn-top,body.js-strip .mk-top,body.js-strip .pr-top,body.js-strip .rh-top,body.js-strip .ad-top,body.js-strip .tc-top,body.js-strip .js-b,body.js-strip .js-barra-row{display:none !important;}
+body.app-full.js-strip{padding-top:82px !important;}
+body[class*="tc-bg-oscuro"] #af-stats,body[class*="tc-bg-verde"] #af-stats,body[class*="tc-bg-azul"] #af-stats,body[class*="tc-bg-madera"] #af-stats,body[class*="tc-bg-bordo"] #af-stats{color:#fff;}
 #app-full-bar button{border:none;background:#f1e2c0;color:#3a2a16;font-weight:800;font-size:13px;border-radius:16px;padding:7px 12px;cursor:pointer;font-family:inherit;}
 #app-full-bar .af-t{flex:1;min-width:0;font-weight:900;font-size:13px;color:#3a2a16;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;}
 body.app-full #top-wrap, body.app-full #main-nav{display:none !important;}
 body.app-full #app-full-bar{display:flex;}
 body.app-full{padding-top:42px !important;}
 </style>
-<div id="app-full-bar"><button type="button" onclick="appFullSalir()">🏠 Inicio</button><div class="af-t" id="af-titulo"></div><span style="width:74px;"></span></div>
+<div id="app-full-bar"><div class="af-r1"><button type="button" onclick="appFullSalir()">🏠 Inicio</button><div class="af-t" id="af-titulo"></div><span style="width:74px;"></span></div><div id="af-stats"></div></div>
 <script>
 var APP_FULL = {'autos':'🚗 Autos en fila SimpleApp','naufragos':'🏝️ Náufragos SimpleApp','dados':'🎲 Dados SimpleApp','trc':'🎯 Cerebrazo SimpleApp','adm':'🗂️ Administración SimpleApp','rrhh':'👥 RRHH SimpleApp','prod':'🏭 Producción SimpleApp','mkt':'📣 Marketing SimpleApp','fin':'💰 Finanzas SimpleApp','luna':'🌙 Perdidos en la Luna SimpleApp','trivia-mundial':'⚽ Trivia Mundialista SimpleApp','gastos':'💰 Gastos SimpleApp','listas':'🛒 Listas de compras','lista-super':'🛒 Lista Súper SimpleApp','lista-farmacia':'💊 Lista Farmacia SimpleApp','lista-ferreteria':'🔧 Lista Ferretería SimpleApp','proyectos-ferreteria':'🏗️ Proyectos de construcción SimpleApp','lista-libreria':'📚 Lista Librería SimpleApp','lista-repuestos':'🚗 Lista Repuestos SimpleApp','lista-eventos':'🎉 Lista Eventos SimpleApp','mantenimiento':'🚗 Rodados SimpleApp','mascotas':'🐾 Mascotas SimpleApp','divisas':'💱 Divisas SimpleApp','arqueo':'🧾 Arqueo de caja SimpleApp','dividir':'🍻 Juntada SimpleApp','asado':'🥩 Asado SimpleApp','juegos':'🧩 Trivia SimpleApp','truco':'🃏 Truco SimpleApp','navaja':'🧰 Navaja suiza SimpleApp','planificador':'🗓️ Plan de viaje SimpleApp'};
 function appFullSalir(){ document.body.classList.remove('app-full'); showTab('inicio', null); }
@@ -26439,7 +26469,8 @@ window.JuegosStats = (function () {
   var LINK = 'https://simpleappgfr-lgtm.github.io/';
   function compartir(juego, extra) {
     var s = leer();
-    var t = '🎮 Estoy jugando ' + (juego || 'a los juegos') + ' en Info SimpleApp' + (extra ? '\n' + extra : '') +
+    var av = (window.JuegosAvatar && window.JuegosAvatar.get()) || '🎮';
+    var t = av + ' Estoy jugando ' + (juego || 'a los juegos') + ' en Info SimpleApp' + (extra ? '\n' + extra : '') +
       '\n🔥 ' + vig(s) + (vig(s) === 1 ? ' día' : ' días') + ' de racha · ⭐ ' + s.xp + ' puntos · 🏅 nivel ' + (Math.floor(s.total / 100) + 1) +
       '\n¿Me ganás? 😎\n👉 ' + LINK;
     try { compartirTexto(t); } catch (e) { try { window.open('https://wa.me/?text=' + encodeURIComponent(t)); } catch (e2) {} }
@@ -26462,9 +26493,180 @@ window.JuegosStats = (function () {
   function barra() {
     var s = leer();
     var c = function (a, b, t) { return '<div style="flex:1;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:8px 4px;text-align:center;"><b style="font-size:18px;color:var(--text);">' + a + '</b><div style="font-size:11px;color:var(--muted);">' + t + '</div></div>'; };
-    return '<div style="display:flex;gap:8px;margin-bottom:10px;">' + c('🔥 ' + vig(s), '', 'días de racha') + c('⭐ ' + s.xp, '', 'puntos') + c('🏅 ' + (Math.floor(s.total / 100) + 1), '', 'nivel') + c('🛡️ ' + s.escudos, '', 'escudos') + '</div>';
+    return '<div class="js-barra-row" style="display:flex;gap:8px;margin-bottom:10px;align-items:stretch;">' + (window.JuegosAvatar ? window.JuegosAvatar.celda() : '') + c('🔥 ' + vig(s), '', 'días de racha') + c('⭐ ' + s.xp, '', 'puntos') + c('🏅 ' + (Math.floor(s.total / 100) + 1), '', 'nivel') + c('🛡️ ' + s.escudos, '', 'escudos') + '</div>';
   }
-  return { leer: leer, guardar: guardar, dia: dia, nivel: nivel, ayuda: ayuda, barra: barra, comprar: comprar, compartir: compartir };
+  return { leer: leer, guardar: guardar, dia: dia, nivel: nivel, ayuda: ayuda, barra: barra, comprar: comprar, compartir: compartir, escudoHtml: escudoInner };
+})();
+</script>
+<script>
+/* Avatar elegible + franja fija de racha/puntos/escudos en los juegos */
+(function () {
+  var AV = ['🧉','🦊','🐯','🦁','🐼','🐨','🐵','🐸','🐙','🦄','🐲','🦅','🦉','🐺','🐻','🐰','🐶','🐱','🐹','🐧','🦈','🐬','🦋','🐢','🦖','🐝','🐴','🐮','🐷','🦜','🧑‍🚀','🧙‍♂️','🧛‍♂️','🦸‍♂️','🦹‍♀️','🥷','🧑‍🎤','🧑‍🍳','🧑‍🚒','👷‍♂️','🕵️‍♂️','👑','🤠','😎','🤓','🥳','🤖','👽','👻','💀','🎃','⚽','🏀','🏎️','🚀','⭐','🔥','⚡','🌈','🍀','🎯','🎲','🏆','🎸','🎮','🍕','🍔','🌮','🍉','🥩','🍫'], KA = 'juegosAvatar', cur = AV[0];
+  try { var o = (window.AppBridge && typeof window.AppBridge.load === 'function') ? window.AppBridge.load(KA) : null; if (o && o.a) cur = o.a; else { var t = localStorage.getItem(KA); if (t) cur = (JSON.parse(t) || {}).a || cur; } } catch (e) {}
+  function set(a) { cur = a; try { localStorage.setItem(KA, JSON.stringify({ a: a })); } catch (e) {} try { if (window.AppBridge && typeof window.AppBridge.save === 'function') window.AppBridge.save(KA, { a: a }); } catch (e) {} pintar(); }
+  function celda() { return '<button type="button" onclick="JuegosAvatar.abrir()" title="Cambiar avatar" style="flex:none;width:46px;border-radius:14px;border:2px solid #d9a441;background:var(--card);font-size:24px;padding:0;cursor:pointer;">' + cur + '</button>'; }
+  var PREM = [[2,'🦔'],[3,'🦦'],[4,'🧚'],[5,'🦩'],[6,'🧞'],[7,'🐆'],[8,'🧜‍♀️'],[9,'🦚'],[10,'🐉'],[12,'🧝'],[14,'🦣'],[16,'🔱'],[18,'💎'],[20,'🪐'],[25,'🌠'],[30,'🏰'],[40,'🛸']];
+  function nivelAct() { try { return window.JuegosStats.nivel(); } catch (e) { return 1; } }
+  function desbloqueado(a) { for (var i = 0; i < PREM.length; i++) if (PREM[i][1] === a) return nivelAct() >= PREM[i][0]; return true; }
+  function toast(t, btn) {
+    var old = document.getElementById('av-toast'); if (old) old.remove();
+    var d = document.createElement('div'); d.id = 'av-toast';
+    d.style.cssText = 'position:fixed;left:12px;right:12px;bottom:84px;z-index:9100;background:#3a2a16;color:#fff;border-radius:16px;padding:12px 14px;font-size:14px;box-shadow:0 6px 20px rgba(0,0,0,.35);display:flex;align-items:center;gap:10px;';
+    d.innerHTML = '<span style="flex:1;line-height:1.35;">' + t + '</span>' + (btn ? '<button type="button" id="av-t-b" style="border:none;border-radius:12px;padding:8px 12px;font-weight:900;font-family:inherit;background:#f2c230;color:#3a2a16;cursor:pointer;">' + btn + '</button>' : '');
+    document.body.appendChild(d); var b = d.querySelector('#av-t-b'); if (b) b.onclick = function () { d.remove(); abrir(); };
+    setTimeout(function () { if (d.parentNode) d.remove(); }, 6000);
+  }
+  function abrir() {
+    var old = document.getElementById('av-modal'); if (old) old.remove();
+    var nv = nivelAct();
+    var m = document.createElement('div'); m.id = 'av-modal';
+    m.style.cssText = 'position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;';
+    var g = AV.map(function (a) { return '<button type="button" data-a="' + a + '" style="font-size:28px;padding:8px 0;border-radius:14px;cursor:pointer;border:2px solid ' + (a === cur ? '#d9a441' : 'transparent') + ';background:' + (a === cur ? '#fff3dc' : '#f6f1e6') + ';">' + a + '</button>'; }).join('');
+    var p = PREM.map(function (x) {
+      var ok = nv >= x[0], a = x[1];
+      return '<button type="button" data-a="' + a + '" data-n="' + x[0] + '" style="position:relative;padding:6px 0 4px;border-radius:14px;cursor:pointer;border:2px solid ' + (a === cur ? '#d9a441' : (ok ? '#f2c230' : 'transparent')) + ';background:' + (a === cur ? '#fff3dc' : (ok ? '#fffbe6' : '#ecebe8')) + ';">' +
+        '<span style="display:block;font-size:28px;line-height:1.2;' + (ok ? '' : 'filter:grayscale(1) brightness(0);opacity:.35;') + '">' + a + '</span>' +
+        '<span style="display:block;font-size:10px;font-weight:800;color:' + (ok ? '#8a6a00' : '#777') + ';">' + (ok ? '🎁 Nv ' + x[0] : '🔒 Nv ' + x[0]) + '</span></button>';
+    }).join('');
+    m.innerHTML = '<div style="background:#fff;color:#3a2a16;border-radius:20px;max-width:360px;width:100%;max-height:86vh;overflow:auto;padding:16px;box-sizing:border-box;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;"><b style="font-size:17px;">Elegí tu avatar</b><button type="button" id="av-x" style="border:none;background:#eee;border-radius:50%;width:32px;height:32px;font-size:16px;cursor:pointer;">✕</button></div><div style="font-size:12.5px;opacity:.75;margin-bottom:10px;">Aparece arriba en todos los juegos y cuando compartís tus avances.</div><div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;">' + g + '</div>' +
+      '<div style="margin:16px 0 4px;"><b style="font-size:15px;">🎁 Premios por nivel</b></div><div style="font-size:12.5px;opacity:.75;margin-bottom:8px;">Estás en el nivel ' + nv + '. Cada nivel que subís puede desbloquear un avatar nuevo.</div><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;">' + p + '</div></div>';
+    document.body.appendChild(m);
+    m.onclick = function (e) {
+      if (e.target === m || e.target.id === 'av-x') { m.remove(); return; }
+      var b = e.target.closest('button[data-a]'); if (!b) return;
+      var n = +b.getAttribute('data-n') || 0;
+      if (n && nivelAct() < n) { toast('🔒 Se desbloquea en el <b>nivel ' + n + '</b>. Seguí jugando para llegar.'); return; }
+      set(b.getAttribute('data-a')); m.remove();
+    };
+  }
+  function revisarPremios() {
+    try {
+      if (!window.JuegosStats) return;
+      var nv = nivelAct(), vis = 1;
+      try { var t = localStorage.getItem('juegosAvatarNv'); if (t) vis = +t || 1; } catch (e) {}
+      if (nv > vis) {
+        var nuevos = PREM.filter(function (x) { return x[0] > vis && x[0] <= nv; });
+        try { localStorage.setItem('juegosAvatarNv', String(nv)); } catch (e) {}
+        if (nuevos.length) toast('🎁 ¡Nivel ' + nv + '! Desbloqueaste ' + (nuevos.length === 1 ? 'un avatar nuevo' : nuevos.length + ' avatares nuevos') + ': ' + nuevos.slice(-4).map(function (x) { return x[1]; }).join(' '), 'Elegir');
+      }
+    } catch (e) {}
+  }
+  setInterval(revisarPremios, 2500); setTimeout(revisarPremios, 1500);
+  window.JuegosAvatar = { get: function () { return cur; }, set: set, abrir: abrir, celda: celda, proximo: function () { var n = nivelAct(); for (var i = 0; i < PREM.length; i++) if (PREM[i][0] > n) return PREM[i]; return null; } };
+  var GAMES = ['trc', 'adm', 'rrhh', 'prod', 'mkt', 'fin', 'luna', 'trivia-mundial', 'juegos', 'naufragos', 'autos'];
+  function hoyS(d) { d = d || new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function pintar() {
+    var el = document.getElementById('af-stats'); if (!el || !document.body.classList.contains('js-strip') || !window.JuegosStats) return;
+    try {
+      var s = window.JuegosStats.leer(), a = new Date(); a.setDate(a.getDate() - 1);
+      var r = (s.ultimo === hoyS() || s.ultimo === hoyS(a)) ? s.racha : 0;
+      var xp = (window.__jsLive != null) ? Math.max(window.__jsLive, s.xp) : s.xp;
+      var h = '<button type="button" class="afs-av" onclick="JuegosAvatar.abrir()" title="Cambiar avatar">' + cur + '</button>' +
+        '<span class="afs-c">🔥 ' + r + '<small>' + (r === 1 ? 'día' : 'días') + '</small></span>' +
+        '<span class="afs-c">⭐ ' + xp + '<small>pts</small></span>' +
+        '<span class="afs-c">🛡️ ' + s.escudos + '<small>/2</small></span>' +
+        '<button type="button" class="afs-c" onclick="JuegosHist.abrir()" title="Ver mis juegos" style="border:1.5px solid #d9a441;color:inherit;font-family:inherit;cursor:pointer;">🏅 ' + (Math.floor(s.total / 100) + 1) + '<small>nv ▾</small></button>';
+      if (el.getAttribute('data-h') !== h) { el.innerHTML = h; el.setAttribute('data-h', h); }
+    } catch (e) {}
+  }
+  var _p = window.showTab;
+  window.showTab = function (id) {
+    window.__jsLive = null;
+    var r = _p.apply(this, arguments);
+    try { document.body.classList.toggle('js-strip', GAMES.indexOf(id) >= 0); pintar(); setTimeout(pintar, 150); } catch (e) {}
+    return r;
+  };
+  setInterval(pintar, 500);
+})();
+</script>
+<script>
+/* "Mis juegos": historial que se abre al tocar el nivel */
+(function () {
+  var KH = 'juegosHistorial', H = {}, GID = null;
+  function rd(k) { var o = null; try { if (window.AppBridge && typeof window.AppBridge.load === 'function') { var b = window.AppBridge.load(k); if (b && typeof b === 'object') o = b; } } catch (e) {} if (!o) { try { o = JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) {} } return o; }
+  function wr(k, v) { try { if (window.AppBridge && typeof window.AppBridge.save === 'function') window.AppBridge.save(k, v); } catch (e) {} try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  H = rd(KH) || {};
+  function hoyS() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  var JUEGOS = [
+    ['fin', '💰', 'Finanzas', 'finanzasHogarSimpleApp', 11], ['mkt', '📣', 'Marketing', 'marketingBasicoSimpleApp', 11], ['prod', '🏭', 'Producción', 'produccionSimpleApp', 11],
+    ['rrhh', '👥', 'RRHH', 'rrhhBasicoSimpleApp', 12], ['adm', '🗂️', 'Administración', 'administracionSimpleApp', 11], ['trc', '🎯', 'Cerebrazo', 'triviaRachaSimpleApp', 12],
+    ['autos', '🚗', 'Autos en fila', 'autosFilaSimpleApp', 10], ['naufragos', '🏝️', 'Náufragos', null, 0], ['luna', '🌙', 'Perdidos en la Luna', null, 0],
+    ['juegos', '🧩', 'Trivia', null, 0], ['trivia-mundial', '⚽', 'Trivia Mundialista', null, 0]
+  ];
+  function reg(pts) {
+    if (!GID) return; var h = hoyS(), r = H[GID] || { d: 0, u: '', p: 0 };
+    if (r.u !== h) { r.d++; r.u = h; } r.p += (+pts > 0 ? +pts : 0); H[GID] = r; wr(KH, H);
+  }
+  function engancharStats() {
+    var J = window.JuegosStats; if (!J || J._h) return; J._h = 1;
+    var d0 = J.dia, g0 = J.guardar;
+    J.dia = function (xp) { try { reg(xp); } catch (e) {} return d0.apply(this, arguments); };
+    J.guardar = function (st) { var antes = 0; try { antes = J.leer().xp; } catch (e) {} var r = g0.apply(this, arguments); try { reg((+st.xp || 0) - antes); } catch (e) {} return r; };
+  }
+  engancharStats(); setTimeout(engancharStats, 800);
+  var _p = window.showTab;
+  window.showTab = function (id) { for (var i = 0; i < JUEGOS.length; i++) if (JUEGOS[i][0] === id) { GID = id; break; } return _p.apply(this, arguments); };
+  function fecha(u) { var x = (u || '').split('-'); return x.length === 3 ? x[2] + '/' + x[1] : ''; }
+  function filas() {
+    var jug = [], no = [];
+    JUEGOS.forEach(function (g) {
+      var r = H[g[0]], det = '', est = 0, hecho = 0, tiene = false;
+      if (g[3]) {
+        var o = rd(g[3]) || {}, a = o.hechas || o.hechos || [];
+        hecho = a.length; var es = o.estrellas || o.est || {};
+        for (var k in es) if (a.indexOf(+k) >= 0 || Array.isArray(es)) est += (+es[k] || 0);
+        if (hecho) { tiene = true; det = hecho + '/' + g[4] + (g[0] === 'autos' ? ' niveles' : ' lecciones') + (est ? ' · ⭐ ' + est : ''); }
+      }
+      if (r) { tiene = true; det = det ? det + ' · ' + r.d + (r.d === 1 ? ' día' : ' días') + ' jugado' + (r.d === 1 ? '' : 's') : 'Jugaste ' + r.d + (r.d === 1 ? ' día' : ' días') + ' · último ' + fecha(r.u) + (r.p ? ' · +' + r.p + ' pts' : ''); }
+      (tiene ? jug : no).push({ g: g, det: det });
+    });
+    return { jug: jug, no: no };
+  }
+  function fila(x, gris) {
+    return '<button type="button" data-id="' + x.g[0] + '" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid #e6dcc6;background:' + (gris ? '#faf7f0' : '#fff8e8') + ';border-radius:14px;padding:10px 12px;margin-bottom:7px;font-family:inherit;cursor:pointer;color:#3a2a16;opacity:' + (gris ? '.75' : '1') + ';">' +
+      '<span style="font-size:26px;">' + x.g[1] + '</span><span style="flex:1;min-width:0;"><b style="font-size:14.5px;">' + x.g[2] + '</b><span style="display:block;font-size:12px;opacity:.8;">' + (gris ? 'Todavía no lo jugaste' : x.det) + '</span></span><span style="font-weight:900;font-size:18px;opacity:.5;">›</span></button>';
+  }
+  function abrir() {
+    var old = document.getElementById('mj-modal'); if (old) old.remove();
+    var s = window.JuegosStats.leer(), nv = Math.floor(s.total / 100) + 1, falta = 100 - (s.total % 100), f = filas();
+    var m = document.createElement('div'); m.id = 'mj-modal';
+    m.style.cssText = 'position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;';
+    m.innerHTML = '<div style="background:#fff;color:#3a2a16;border-radius:20px;max-width:380px;width:100%;max-height:88vh;overflow:auto;padding:16px;box-sizing:border-box;">' +
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><span style="font-size:34px;">' + (window.JuegosAvatar ? window.JuegosAvatar.get() : '🏅') + '</span><div style="flex:1;"><b style="font-size:17px;">Nivel ' + nv + '</b><div style="font-size:12.5px;opacity:.8;">' + s.total + ' puntos en total · te faltan ' + falta + ' para el nivel ' + (nv + 1) + (function () { var q = window.JuegosAvatar && window.JuegosAvatar.proximo(); return q ? '<br>🎁 Próximo premio: avatar ' + q[1] + ' en el nivel ' + q[0] : ''; })() + '</div></div><button type="button" id="mj-x" style="border:none;background:#eee;border-radius:50%;width:32px;height:32px;font-size:16px;cursor:pointer;">✕</button></div>' +
+      '<div style="height:8px;border-radius:6px;background:#eee;overflow:hidden;margin-bottom:14px;"><div style="height:100%;width:' + (s.total % 100) + '%;background:#d9a441;"></div></div>' +
+      '<b style="font-size:13px;letter-spacing:.6px;text-transform:uppercase;">🎮 Mis juegos</b><div style="margin-top:8px;">' +
+      (f.jug.length ? f.jug.map(function (x) { return fila(x, false); }).join('') : '<div style="font-size:13px;opacity:.75;margin:6px 0 10px;">Todavía no jugaste a ningún juego. ¡Elegí uno!</div>') +
+      (f.no.length ? '</div><b style="font-size:13px;letter-spacing:.6px;text-transform:uppercase;">✨ Para probar</b><div style="margin-top:8px;">' + f.no.map(function (x) { return fila(x, true); }).join('') : '') + '</div></div>';
+    document.body.appendChild(m);
+    m.onclick = function (e) {
+      if (e.target === m || e.target.id === 'mj-x') { m.remove(); return; }
+      var b = e.target.closest('button[data-id]'); if (b) { m.remove(); try { showTab(b.getAttribute('data-id'), null); window.scrollTo(0, 0); } catch (er) {} }
+    };
+  }
+  window.JuegosHist = { abrir: abrir };
+  document.addEventListener('click', function (e) {
+    try {
+      var c = e.target.closest('.js-barra-row > div, .js-b > div > div'); if (c && /^\s*🏅/.test(c.textContent)) abrir();
+    } catch (er) {}
+  }, true);
+})();
+</script>
+<script>
+/* Mantiene al día el recuadro de escudos: los juegos arman ese bloque una sola vez al abrir la app y quedaba con datos viejos */
+(function () {
+  var t = null, trabajando = false;
+  function arreglar() {
+    t = null; if (trabajando || !window.JuegosStats) return; trabajando = true;
+    try {
+      var h = window.JuegosStats.escudoHtml(), els = document.querySelectorAll('.js-escudo');
+      for (var i = 0; i < els.length; i++) if (els[i].innerHTML !== h) els[i].innerHTML = h;
+    } catch (e) {}
+    setTimeout(function () { trabajando = false; }, 0);
+  }
+  function pedir() { if (!t) t = setTimeout(arreglar, 30); }
+  try { new MutationObserver(pedir).observe(document.body, { childList: true, subtree: true }); } catch (e) {}
+  document.addEventListener('click', function () { setTimeout(arreglar, 200); }, true);
+  setTimeout(arreglar, 500);
 })();
 </script>
 <script>
@@ -26609,6 +26811,7 @@ window.JuegosStats = (function () {
   function nivel() { try { return window.JuegosStats.nivel(); } catch (e) { return Math.floor(S.xp / 100) + 1; } }
   function topBar() {
     var r = rachaVigente(), fb = document.getElementById('app-full-bar'), tp = (fb && fb.offsetHeight) ? fb.offsetHeight : 0;
+    try { window.__jsLive = (S.xp + (L && !L.fin ? L.pts : 0)); } catch (e) {}
     return '<div class="fn-top" id="fn-stats" style="position:sticky;top:' + tp + 'px;z-index:20;background:var(--bg);padding:6px 0 8px;margin-bottom:6px;"><div class="fn-st"><b>🔥 ' + r + '</b><span>' + (r === 1 ? 'día de racha' : 'días de racha') + '</span></div>' +
       '<div class="fn-st"><b>⭐ ' + (S.xp + (L && !L.fin ? L.pts : 0)) + '</b><span>puntos</span></div>' +
       '<div class="fn-st"><b>🏅 ' + nivel() + '</b><span>nivel</span></div></div>';
@@ -26858,6 +27061,7 @@ window.JuegosStats = (function () {
   function nivel() { try { return window.JuegosStats.nivel(); } catch (e) { return Math.floor(S.xp / 100) + 1; } }
   function topBar() {
     var r = rachaVigente(), fb = document.getElementById('app-full-bar'), tp = (fb && fb.offsetHeight) ? fb.offsetHeight : 0;
+    try { window.__jsLive = (S.xp + (L && !L.fin ? L.pts : 0)); } catch (e) {}
     return '<div class="mk-top" id="mk-stats" style="position:sticky;top:' + tp + 'px;z-index:20;background:var(--bg);padding:6px 0 8px;margin-bottom:6px;"><div class="mk-st"><b>🔥 ' + r + '</b><span>' + (r === 1 ? 'día de racha' : 'días de racha') + '</span></div>' +
       '<div class="mk-st"><b>⭐ ' + (S.xp + (L && !L.fin ? L.pts : 0)) + '</b><span>puntos</span></div>' +
       '<div class="mk-st"><b>🏅 ' + nivel() + '</b><span>nivel</span></div></div>';
@@ -27107,6 +27311,7 @@ window.JuegosStats = (function () {
   function nivel() { try { return window.JuegosStats.nivel(); } catch (e) { return Math.floor(S.xp / 100) + 1; } }
   function topBar() {
     var r = rachaVigente(), fb = document.getElementById('app-full-bar'), tp = (fb && fb.offsetHeight) ? fb.offsetHeight : 0;
+    try { window.__jsLive = (S.xp + (L && !L.fin ? L.pts : 0)); } catch (e) {}
     return '<div class="pr-top" id="pr-stats" style="position:sticky;top:' + tp + 'px;z-index:20;background:var(--bg);padding:6px 0 8px;margin-bottom:6px;"><div class="pr-st"><b>🔥 ' + r + '</b><span>' + (r === 1 ? 'día de racha' : 'días de racha') + '</span></div>' +
       '<div class="pr-st"><b>⭐ ' + (S.xp + (L && !L.fin ? L.pts : 0)) + '</b><span>puntos</span></div>' +
       '<div class="pr-st"><b>🏅 ' + nivel() + '</b><span>nivel</span></div></div>';
@@ -27366,6 +27571,7 @@ window.JuegosStats = (function () {
   function nivel() { try { return window.JuegosStats.nivel(); } catch (e) { return Math.floor(S.xp / 100) + 1; } }
   function topBar() {
     var r = rachaVigente(), fb = document.getElementById('app-full-bar'), tp = (fb && fb.offsetHeight) ? fb.offsetHeight : 0;
+    try { window.__jsLive = (S.xp + (L && !L.fin ? L.pts : 0)); } catch (e) {}
     return '<div class="rh-top" id="rh-stats" style="position:sticky;top:' + tp + 'px;z-index:20;background:var(--bg);padding:6px 0 8px;margin-bottom:6px;"><div class="rh-st"><b>🔥 ' + r + '</b><span>' + (r === 1 ? 'día de racha' : 'días de racha') + '</span></div>' +
       '<div class="rh-st"><b>⭐ ' + (S.xp + (L && !L.fin ? L.pts : 0)) + '</b><span>puntos</span></div>' +
       '<div class="rh-st"><b>🏅 ' + nivel() + '</b><span>nivel</span></div></div>';
@@ -27615,6 +27821,7 @@ window.JuegosStats = (function () {
   function nivel() { try { return window.JuegosStats.nivel(); } catch (e) { return Math.floor(S.xp / 100) + 1; } }
   function topBar() {
     var r = rachaVigente(), fb = document.getElementById('app-full-bar'), tp = (fb && fb.offsetHeight) ? fb.offsetHeight : 0;
+    try { window.__jsLive = (S.xp + (L && !L.fin ? L.pts : 0)); } catch (e) {}
     return '<div class="ad-top" id="ad-stats" style="position:sticky;top:' + tp + 'px;z-index:20;background:var(--bg);padding:6px 0 8px;margin-bottom:6px;"><div class="ad-st"><b>🔥 ' + r + '</b><span>' + (r === 1 ? 'día de racha' : 'días de racha') + '</span></div>' +
       '<div class="ad-st"><b>⭐ ' + (S.xp + (L && !L.fin ? L.pts : 0)) + '</b><span>puntos</span></div>' +
       '<div class="ad-st"><b>🏅 ' + nivel() + '</b><span>nivel</span></div></div>';
@@ -27874,6 +28081,7 @@ window.JuegosStats = (function () {
   function nivel() { try { return window.JuegosStats.nivel(); } catch (e) { return Math.floor(S.xp / 100) + 1; } }
   function topBar() {
     var r = rachaVigente(), fb = document.getElementById('app-full-bar'), tp = (fb && fb.offsetHeight) ? fb.offsetHeight : 0;
+    try { window.__jsLive = (S.xp + (L && !L.fin ? L.pts : 0)); } catch (e) {}
     return '<div class="tc-top" id="tc-stats" style="position:sticky;top:' + tp + 'px;z-index:20;background:var(--bg);padding:6px 0 8px;margin-bottom:6px;"><div class="tc-st"><b>🔥 ' + r + '</b><span>' + (r === 1 ? 'día de racha' : 'días de racha') + '</span></div>' +
       '<div class="tc-st"><b>⭐ ' + (S.xp + (L && !L.fin ? L.pts : 0)) + '</b><span>puntos</span></div>' +
       '<div class="tc-st"><b>🏅 ' + nivel() + '</b><span>nivel</span></div></div>';
