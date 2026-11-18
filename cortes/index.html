@@ -105,7 +105,7 @@ p{font-size:14px;color:var(--mut)}
 </div>
 
 <h2>Fronteras SimpleApp</h2>
-<a class="l c-naranja" href="https://play.google.com/store/apps/details?id=info.simpleapp" target="_blank" rel="noopener"><b>Fronteras SimpleApp (en la app Info SimpleApp)</b><small>Estado de cada paso fronterizo, horarios, alturas de ríos y alerta de balsa. Abrí la app y entrá a Fronteras SimpleApp</small></a>
+<a class="l c-naranja ir" data-tab="fronteras" href="https://play.google.com/store/apps/details?id=info.simpleapp" target="_blank" rel="noopener"><b>Fronteras SimpleApp (en la app Info SimpleApp)</b><small>Estado de cada paso fronterizo, horarios, alturas de ríos y alerta de balsa. Tocá para abrir Fronteras SimpleApp</small></a>
 
 <h2>Balsas y altura de los ríos</h2>
 <p>Con el río alto, el servicio de balsa puede suspenderse. Se muestra la altura que informa el INA y el nivel de corte usado en Fronteras SimpleApp. Donde no hay nivel confirmado, solo se muestra la altura.</p>
@@ -130,7 +130,14 @@ p{font-size:14px;color:var(--mut)}
     a.addEventListener('click',function(e){
       if(window.parent&&window.parent!==window){
         e.preventDefault();
-        try{window.parent.postMessage({simpleapp:'tab',tab:a.getAttribute('data-tab')},'*');}catch(x){}
+        var tab=a.getAttribute('data-tab');
+        try{window.parent.postMessage({simpleapp:'tab',tab:tab},'*');}catch(x){}
+        /* Fronteras: las versiones viejas de la app no responden; en ese caso se abre Play Store para actualizar */
+        if(tab==='fronteras'){
+          var ok=false,h=function(ev){if(ev&&ev.data&&ev.data.simpleapp==='ack'&&ev.data.tab==='fronteras')ok=true;};
+          window.addEventListener('message',h);
+          setTimeout(function(){window.removeEventListener('message',h);if(!ok){try{window.open(a.href,'_blank');}catch(z){location.href=a.href;}}},900);
+        }
       }
     });
   });
