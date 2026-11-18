@@ -23614,7 +23614,8 @@ window.addEventListener('message', function (ev) {
     if (!ev || ev.origin !== 'https://simpleappgfr-lgtm.github.io') return;
     var d = ev.data;
     if (!d || d.simpleapp !== 'tab') return;
-    if (d.tab === 'rutas-argentina' || d.tab === 'rutas-brasil' || d.tab === 'rutas-misiones' || d.tab === 'planificador') showTab(d.tab, null);
+    try { if (ev.source) ev.source.postMessage({ simpleapp: 'ack', tab: d.tab }, ev.origin); } catch (e2) {}
+    if (d.tab === 'rutas-argentina' || d.tab === 'rutas-brasil' || d.tab === 'rutas-misiones' || d.tab === 'planificador' || d.tab === 'fronteras') showTab(d.tab, null);
   } catch (e) {}
 });
 </script>
@@ -23806,6 +23807,28 @@ function arqFechaTipeo(el) {
   if (v.length > 2) o += '/' + v.slice(2, 4);
   if (v.length > 4) o += '/' + v.slice(4);
   el.value = o; arqGuardar();
+}
+// ---- Fechas: se escribe solo con números (las barras se ponen solas) o se elige en un calendario ----
+function fechaTipeo(el) {
+  var v = String(el.value || '').replace(/\D/g, '').slice(0, 8), o = v;
+  if (v.length > 2) o = v.slice(0, 2) + '/' + v.slice(2, 4);
+  if (v.length > 4) o += '/' + v.slice(4);
+  el.value = o;
+}
+function calAbrir(btn) {
+  var el = btn && btn.previousElementSibling; if (!el) return;
+  var p = document.getElementById('cal-pick');
+  if (!p) { p = document.createElement('input'); p.type = 'date'; p.id = 'cal-pick'; p.style.cssText = 'position:fixed;left:0;bottom:0;width:1px;height:1px;opacity:0;pointer-events:none;border:0;'; document.body.appendChild(p); }
+  p.value = '';
+  var m = (el.value || '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (m) p.value = m[3] + '-' + ('0' + m[2]).slice(-2) + '-' + ('0' + m[1]).slice(-2);
+  p.onchange = function () {
+    var q = (p.value || '').match(/^(\d{4})-(\d{2})-(\d{2})$/); if (!q) return;
+    el.value = q[3] + '/' + q[2] + '/' + q[1];
+    try { el.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
+  };
+  try { if (p.showPicker) { p.showPicker(); return; } } catch (e) {}
+  p.style.pointerEvents = 'auto'; p.focus(); p.click(); setTimeout(function () { p.style.pointerEvents = 'none'; }, 500);
 }
 function arqFechaPicker() {
   var p = document.getElementById('aq-fecha-pick'); if (!p) return;
@@ -24854,9 +24877,9 @@ body.bnav-on{padding-bottom:64px;}
   function aviso(t) { S.msg = t; clearTimeout(msgT); msgT = setTimeout(function () { S.msg = ''; try { pintar(); } catch (e) {} }, 9000); }
   // ---- asistencia ----
   function asis(m) {
-    var as = m.as || [], aus = as.filter(function (x) { return !x; }).length, pres = as.length - aus;
-    var tot = +m.tot || 0, min = +m.min || 75, o = { pres: pres, aus: aus, n: as.length, tot: tot, min: min };
-    o.pct = as.length ? Math.round(pres / as.length * 100) : null;
+    var as = m.as || [], aus = as.filter(function (x) { return x === 0; }).length, pres = as.filter(function (x) { return x === 1 || x === true; }).length;
+    var tot = +m.tot || 0, min = +m.min || 75, o = { pres: pres, aus: aus, n: pres + aus, tot: tot, min: min };
+    o.pct = (pres + aus) ? Math.round(pres / (pres + aus) * 100) : null;
     if (tot) { o.maxF = Math.floor(tot * (100 - min) / 100); o.rest = o.maxF - aus; }
     return o;
   }
@@ -24937,7 +24960,7 @@ body.bnav-on{padding-bottom:64px;}
       '<label class="es-l">Estado</label><div class="es-chips">' + Object.keys(ESTS).map(function (k) { return '<button type="button" class="es-chip' + (m.est === k ? ' on' : '') + '" onclick="esEstado(\'' + m.id + '\',\'' + k + '\',1)">' + ESTS[k][0] + ' ' + ESTS[k][1] + '</button>'; }).join('') + '</div>' +
       '<div class="es-s">Regular = cursada aprobada. Aprobada = final aprobado. A recursar = desaprobaste o perdiste la regularidad.</div>';
     if (m.est === 'reg') {
-      h += '<label class="es-l">Fecha en que quedaste regular (opcional)</label><input type="text" inputmode="numeric" placeholder="dd/mm/aaaa" value="' + esc(m.regF || '') + '" oninput="esRegF(\'' + m.id + '\',this.value)" autocomplete="off">' +
+      h += '<label class="es-l">Fecha en que quedaste regular (opcional)</label><div style="display:flex;gap:6px;"><input type="text" inputmode="numeric" maxlength="10" placeholder="dd/mm/aaaa" value="' + esc(m.regF || '') + '" oninput="fechaTipeo(this);esRegF(\'' + m.id + '\',this.value)" autocomplete="off" style="flex:1;min-width:0;"><button type="button" onclick="calAbrir(this)" aria-label="Elegir fecha en el calendario" style="flex-shrink:0;padding:0 14px;border-radius:10px;border:1px solid var(--border);background:var(--card2,#fff);font-size:20px;cursor:pointer;">📅</button></div>' +
         '<label class="es-l">Años de vigencia de la regularidad</label><input type="number" min="1" max="10" value="' + (+m.vig || 2) + '" oninput="esVig(\'' + m.id + '\',this.value)">';
       var d = parseF(m.regF);
       if (d) { var v = new Date(d.getFullYear() + (+m.vig || 2), d.getMonth(), d.getDate()), n = dias(v); h += '<div class="es-s" style="margin-top:6px;">⏳ Tenés tiempo para rendir el final hasta el <b>' + fmt(v) + '</b> (' + cuando(n).toLowerCase() + ').</div>'; }
@@ -24970,7 +24993,7 @@ body.bnav-on{padding-bottom:64px;}
     var h = '<div class="es-card"><div class="es-h">➕ Nueva fecha</div>' +
       '<label class="es-l">Materia</label><select id="es-fm"><option value="">— General —</option>' + S.mats.map(function (m) { return '<option value="' + m.id + '">' + esc(m.n) + '</option>'; }).join('') + '</select>' +
       '<label class="es-l">Qué es</label><select id="es-ft">' + Object.keys(TIPOS).map(function (k) { return '<option value="' + k + '">' + TIPOS[k] + '</option>'; }).join('') + '</select>' +
-      '<label class="es-l">Fecha</label><input id="es-ff" type="text" inputmode="numeric" placeholder="dd/mm/aaaa (o dd/mm)" autocomplete="off">' +
+      '<label class="es-l">Fecha</label><div style="display:flex;gap:6px;"><input id="es-ff" type="text" inputmode="numeric" maxlength="10" placeholder="dd/mm/aaaa" oninput="fechaTipeo(this)" autocomplete="off" style="flex:1;min-width:0;"><button type="button" onclick="calAbrir(this)" aria-label="Elegir fecha en el calendario" style="flex-shrink:0;padding:0 14px;border-radius:10px;border:1px solid var(--border);background:var(--card2,#fff);font-size:20px;cursor:pointer;">📅</button></div>' +
       '<label class="es-l">Nota (opcional)</label><input id="es-fn" type="text" placeholder="Ej: Unidades 1 a 3" autocomplete="off">' +
       '<button type="button" class="es-btn" style="width:100%;margin-top:10px;" onclick="esFecha()">Guardar fecha</button></div>';
     var l = [];
@@ -24989,6 +25012,86 @@ body.bnav-on{padding-bottom:64px;}
     return '<div class="es-m"><div class="es-row"><div style="flex:1;min-width:0;"><div class="es-n" style="font-size:14px;">' + esc(x.t) + '</div><div class="es-s">' + fmt(x.d) + (x.nota ? ' · ' + esc(x.nota) : '') + '</div></div>' +
       '<span class="es-b ' + (x.n < 0 ? '' : clsDias(x.n)) + '">' + cuando(x.n) + '</span>' + (x.auto ? '' : '<button type="button" class="es-x" aria-label="Borrar" onclick="esQuitarFecha(\'' + x.id + '\')">✕</button>') + '</div></div>';
   }
+  // Cada asistencia guarda su día: m.as = [1|0...], m.asd = ['dd/mm/aaaa'|'' ...] (en el mismo orden, de la más vieja a la más nueva)
+  function regs(m) {
+    var as = m.as || [], ds = m.asd || [], ns = m.asn || [], r = as.map(function (p, i) { return { p: p === 2 ? 2 : (p ? 1 : 0), d: ds[i] || '', n: ns[i] || '' }; });
+    return r;
+  }
+  function claveF(d) { var f = parseF(d); return f ? f.getFullYear() * 10000 + (f.getMonth() + 1) * 100 + f.getDate() : 0; }
+  function guardarRegs(m, r) {
+    r.sort(function (a, b) { return claveF(a.d) - claveF(b.d); });
+    m.as = r.map(function (x) { return x.p; }); m.asd = r.map(function (x) { return x.d; }); m.asn = r.map(function (x) { return x.n || ''; });
+  }
+  var DIAS3 = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+  function diaTxt(d) { var f = parseF(d); return f ? DIAS3[f.getDay()] + ' ' + d : 'sin fecha'; }
+  // ---- relación con Horario SimpleApp y feriados ----
+  function normN(t) { var x = String(t || '').toLowerCase().trim().replace(/\s+/g, ' '); try { x = x.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); } catch (e) {} return x; }
+  function horarioCl() {
+    var o = null;
+    try { if (window.AppBridge && typeof window.AppBridge.load === 'function') { var b = window.AppBridge.load('horarioSimpleApp'); if (b && b.cl) o = b; } } catch (e) {}
+    if (!o) { try { var l = JSON.parse(localStorage.getItem('horarioSimpleApp') || 'null'); if (l && l.cl) o = l; } catch (e) {} }
+    return o ? o.cl : [];
+  }
+  function diasDe(m) { var set = {}, n = normN(m.n), hay = false; horarioCl().forEach(function (c) { if (normN(c.n) === n) { set[c.d] = 1; hay = true; } }); return hay ? set : null; }
+  function isoF(f) { return f.getFullYear() + '-' + ('0' + (f.getMonth() + 1)).slice(-2) + '-' + ('0' + f.getDate()).slice(-2); }
+  function feriadoDe(f) {
+    try {
+      var l = window.FERIADOS_POR_PAIS && window.FERIADOS_POR_PAIS.ARG && window.FERIADOS_POR_PAIS.ARG[isoF(f)]; if (!l) return '';
+      for (var i = 0; i < l.length; i++) { if (l[i].prov && l[i].prov.indexOf('Misiones') < 0) continue; return (l[i].tipo === 'turistico' ? 'Día no laborable: ' : '') + l[i].t; }
+    } catch (e) {}
+    return '';
+  }
+  var MOTIVOS = ['👨‍🏫 Faltó el profesor', '🏖️ Asueto', '🎌 Feriado', '❔ Otro motivo'];
+  // días de clase (según el horario) desde que empezaron hasta hoy que todavía no marcaste
+  function porMarcar(m, set) {
+    var ini = parseF(m.ini), h = hoy(), d, pend = [], fer = [], rs = regs(m), marc = {};
+    rs.forEach(function (x) { if (x.d) marc[x.d] = 1; });
+    if (!ini || ini > h) { ini = new Date(h); ini.setDate(ini.getDate() - 13); }
+    var lim = new Date(h); lim.setDate(lim.getDate() - 400); if (ini < lim) ini = lim;
+    for (d = new Date(ini); d <= h; d.setDate(d.getDate() + 1)) {
+      if (!set[d.getDay()]) continue; var k = fmt(d); if (marc[k]) continue;
+      var fe = feriadoDe(d); if (fe) { fer.push({ d: k, t: fe }); continue; }
+      pend.push(k);
+    }
+    return { pend: pend.reverse(), fer: fer.reverse() };
+  }
+  function seccionHorario(m) {
+    var set = diasDe(m), h = '<div class="es-l" style="margin-top:14px;">📅 Clases según tu horario</div>';
+    if (!set) return h + '<div class="es-s">Esta materia no está en <b>Horario SimpleApp</b>. Cargala ahí (con el mismo nombre) y la app te va a mostrar qué días tenés clase.</div>';
+    var nom = ORDEN_D.filter(function (d) { return set[d]; }).map(function (d) { return DIAS3[d]; }).join(', ');
+    h += '<div class="es-s">Tenés clase los: <b>' + nom + '</b>. Los feriados nacionales y los días sin clase no se cuentan como falta.</div>' +
+      '<label class="es-l">Las clases empezaron el</label><div style="display:flex;gap:6px;"><input type="text" inputmode="numeric" maxlength="10" placeholder="dd/mm/aaaa (opcional)" value="' + esc(m.ini || '') + '" oninput="fechaTipeo(this);esIni(\'' + m.id + '\',this.value)" autocomplete="off" style="flex:1;min-width:0;"><button type="button" onclick="calAbrir(this)" aria-label="Elegir fecha en el calendario" style="flex-shrink:0;padding:0 14px;border-radius:10px;border:1px solid var(--border);background:var(--card2,#fff);font-size:20px;cursor:pointer;">📅</button></div>' +
+      (parseF(m.ini) ? '' : '<div class="es-s" style="margin-top:3px;">Sin fecha de inicio, se muestran solo los últimos 14 días.</div>');
+    var pm = porMarcar(m, set);
+    if (!pm.pend.length) h += '<div class="es-s" style="margin-top:8px;color:#1b7a43;font-weight:700;">✅ No te falta marcar ninguna clase.</div>';
+    else {
+      h += '<div class="es-s" style="margin-top:10px;font-weight:800;color:var(--text);">Falta marcar (' + pm.pend.length + '):</div>';
+      pm.pend.slice(0, 10).forEach(function (k) {
+        var abierto = S.nh && S.nh.id === m.id && S.nh.d === k;
+        h += '<div style="display:flex;align-items:center;gap:6px;padding:7px 0;border-bottom:1px solid var(--border);"><span style="flex:1;font-size:13px;font-weight:700;">' + diaTxt(k) + (parseF(k) && parseF(k).getTime() === hoy().getTime() ? ' <span style="color:var(--muted);font-weight:600">(hoy)</span>' : '') + '</span>' +
+          '<button type="button" class="es-btn ok" style="padding:7px 11px;" onclick="esMarcarDia(\'' + m.id + '\',\'' + k + '\',1)">✅</button><button type="button" class="es-btn mal" style="padding:7px 11px;" onclick="esMarcarDia(\'' + m.id + '\',\'' + k + '\',0)">❌</button><button type="button" class="es-btn sec mini" style="padding:7px 10px;" onclick="esNH(\'' + m.id + '\',\'' + k + '\')">🚫</button></div>';
+        if (abierto) h += motivosHTML(m.id);
+      });
+      if (pm.pend.length > 10) h += '<div class="es-s" style="margin-top:4px;">Y ' + (pm.pend.length - 10) + ' más antiguas. Poné la fecha de inicio más cerca si no querés verlas.</div>';
+      h += '<div class="es-s" style="margin-top:4px;">✅ Fui · ❌ Falté · 🚫 No hubo clase (no cuenta como falta)</div>';
+    }
+    if (S.nh && S.nh.id === m.id && S.nh.d && pm.pend.indexOf(S.nh.d) < 0) h += '<div class="es-s" style="margin-top:8px;">🚫 ' + diaTxt(S.nh.d) + ':</div>' + motivosHTML(m.id);
+    if (pm.fer.length) h += '<div class="es-s" style="margin-top:8px;">🎌 Sin clase por feriado: ' + pm.fer.slice(0, 4).map(function (x) { return diaTxt(x.d).replace(/ \d{2}\/\d{2}\/\d{4}/, function (z) { return z.slice(0, 6); }) + ' (' + esc(x.t.length > 28 ? x.t.slice(0, 26) + '…' : x.t) + ')'; }).join(', ') + (pm.fer.length > 4 ? ' y ' + (pm.fer.length - 4) + ' más' : '') + '.</div>';
+    return h;
+  }
+  function motivosHTML(id) {
+    return '<div style="padding:6px 0 8px;"><div class="es-s" style="margin-bottom:5px;">¿Por qué no hubo clase?</div><div style="display:flex;flex-wrap:wrap;gap:6px;">' + MOTIVOS.map(function (t, i) { return '<button type="button" class="es-btn sec mini" onclick="esNHmot(\'' + id + '\',' + i + ')">' + t + '</button>'; }).join('') + '<button type="button" class="es-btn sec mini" onclick="esNHcancel()">Cancelar</button></div></div>';
+  }
+  var ORDEN_D = [1, 2, 3, 4, 5, 6, 0];
+  function histAs(m) {
+    var r = regs(m); if (!r.length) return '';
+    var h = '<div class="es-l" style="margin-top:12px;">Días anotados</div>', n = 0;
+    for (var i = r.length - 1; i >= 0 && n < 12; i--, n++) {
+      h += '<div style="display:flex;align-items:center;gap:8px;padding:6px 2px;border-bottom:1px solid var(--border);font-size:13px;"><span>' + (r[i].p === 2 ? '🚫 No hubo clase' : (r[i].p ? '✅ Fui' : '❌ Falté')) + '</span><span style="flex:1;color:var(--muted)">' + diaTxt(r[i].d) + (r[i].p === 2 && r[i].n ? ' · ' + esc(r[i].n) : '') + '</span><button type="button" class="es-x" aria-label="Borrar" onclick="esQuitarAs(\'' + m.id + '\',' + i + ')">✕</button></div>';
+    }
+    if (r.length > 12) h += '<div class="es-s" style="margin-top:4px;">Se muestran los últimos 12 de ' + r.length + '.</div>';
+    return h;
+  }
   function vAsis() {
     var l = S.mats.filter(function (m) { return m.est === 'curs'; });
     if (!l.length) return '<div class="es-card"><div class="es-s" style="font-size:13px;">Acá aparecen las materias que estás <b>cursando</b>. En 📚 Materias, cambiá el estado de una materia a “Cursando” para controlar sus asistencias.</div></div>';
@@ -25000,8 +25103,12 @@ body.bnav-on{padding-bottom:64px;}
         '<div class="es-row" style="margin-top:8px;"><div style="flex:1;"><div class="es-big">' + (a.pct == null ? '—' : a.pct + '%') + '</div><div class="es-s">' + a.pres + ' presentes · ' + a.aus + ' faltas' + (a.tot ? ' · ' + a.n + '/' + a.tot + ' clases' : '') + '</div></div></div>' +
         '<div class="es-bar"><i class="' + (t.c === 'rojo' ? 'rojo' : (t.c === 'nar' ? 'nar' : '')) + '" style="width:' + ancho + '%"></i></div>' +
         '<div class="es-s" style="margin-top:8px;font-size:13px;color:var(--text);">' + t.t + '</div>' +
+        '<label class="es-l">¿Qué día fue la clase?</label><div style="display:flex;gap:6px;"><input id="es-ad-' + m.id + '" type="text" inputmode="numeric" maxlength="10" placeholder="dd/mm/aaaa" value="' + esc((S.asDia && S.asDia[m.id]) || fmt(hoy())) + '" oninput="fechaTipeo(this);esDia(\'' + m.id + '\',this.value)" autocomplete="off" style="flex:1;min-width:0;"><button type="button" onclick="calAbrir(this)" aria-label="Elegir fecha en el calendario" style="flex-shrink:0;padding:0 14px;border-radius:10px;border:1px solid var(--border);background:var(--card2,#fff);font-size:20px;cursor:pointer;">📅</button></div>' +
+        '<div class="es-s" style="margin-top:3px;">Si no cambiás nada, se anota hoy.</div>' +
         '<div class="es-row" style="margin-top:10px;"><button type="button" class="es-btn ok" style="flex:1;" onclick="esMarcar(\'' + m.id + '\',1)">✅ Fui</button><button type="button" class="es-btn mal" style="flex:1;" onclick="esMarcar(\'' + m.id + '\',0)">❌ Falté</button></div>' +
-        '<div class="es-row" style="margin-top:8px;"><button type="button" class="es-btn sec mini" onclick="esDeshacer(\'' + m.id + '\')">↩️ Deshacer la última</button></div>' +
+        '<div class="es-row" style="margin-top:8px;"><button type="button" class="es-btn sec mini" onclick="esDeshacer(\'' + m.id + '\')">↩️ Deshacer la última</button><button type="button" class="es-btn sec mini" onclick="esNH(\'' + m.id + '\')">🚫 No hubo clase ese día</button></div>' + (S.nh && S.nh.id === m.id && !S.nh.d ? motivosHTML(m.id) : '') +
+        seccionHorario(m) +
+        histAs(m) +
         '<div class="es-row" style="margin-top:8px;"><div style="flex:1;"><label class="es-l" style="margin-top:0;">Clases del cuatrimestre</label><input type="number" min="0" inputmode="numeric" value="' + (a.tot || '') + '" placeholder="Ej: 30" oninput="esTot(\'' + m.id + '\',this.value)"></div>' +
         '<div style="flex:1;"><label class="es-l" style="margin-top:0;">% mínimo para regularizar</label><input type="number" min="0" max="100" inputmode="numeric" value="' + a.min + '" oninput="esMin(\'' + m.id + '\',this.value)"></div></div>';
       if (a.tot && a.rest < 0) h += '<button type="button" class="es-btn sec mini" style="margin-top:8px;" onclick="esEstado(\'' + m.id + '\',\'lib\')">Marcar como “A recursar”</button>';
@@ -25051,8 +25158,36 @@ body.bnav-on{padding-bottom:64px;}
     S.fec.push({ id: uid(), mat: $('es-fm').value, tipo: $('es-ft').value, f: fmt(d), nota: ($('es-fn').value || '').trim() }); guardar(); pintar();
   };
   window.esQuitarFecha = function (id) { S.fec = S.fec.filter(function (f) { return f.id !== id; }); guardar(); pintar(); };
-  window.esMarcar = function (id, v) { dato(id, function (m) { m.as = m.as || []; m.as.push(v ? 1 : 0); }); pintar(); };
-  window.esDeshacer = function (id) { dato(id, function (m) { if (m.as && m.as.length) m.as.pop(); }); pintar(); };
+  window.esDia = function (id, v) { init(); S.asDia = S.asDia || {}; S.asDia[id] = v; };
+  window.esMarcar = function (id, v) {
+    init(); var inp = $('es-ad-' + id), f = parseF(inp ? inp.value : '') || (inp && inp.value ? null : hoy());
+    if (!f) { aviso('📅 La fecha no se entiende. Escribila así: <b>dd/mm/aaaa</b> (por ejemplo 16/11/2026) o elegila con el calendario.'); pintar(); return; }
+    var d = fmt(f);
+    dato(id, function (m) {
+      var r = regs(m).filter(function (x) { return x.d !== d; }); // un solo registro por día: si ya había uno, se reemplaza
+      r.push({ p: v ? 1 : 0, d: d }); guardarRegs(m, r);
+    });
+    if (S.asDia) delete S.asDia[id];
+    pintar();
+  };
+  window.esDeshacer = function (id) { dato(id, function (m) { var r = regs(m); r.pop(); guardarRegs(m, r); }); pintar(); };
+  window.esIni = function (id, v) { dato(id, function (m) { m.ini = v; }); clearTimeout(window.__esT); window.__esT = setTimeout(pintarSinPerderFoco, 700); };
+  window.esMarcarDia = function (id, d, v) {
+    dato(id, function (m) { var r = regs(m).filter(function (x) { return x.d !== d; }); r.push({ p: v ? 1 : 0, d: d, n: '' }); guardarRegs(m, r); });
+    if (S.nh && S.nh.id === id && S.nh.d === d) S.nh = null; pintar();
+  };
+  window.esNH = function (id, d) {
+    init(); var inp = $('es-ad-' + id), f = d ? parseF(d) : (parseF(inp ? inp.value : '') || (inp && inp.value ? null : hoy()));
+    if (!f) { aviso('📅 La fecha no se entiende. Escribila así: <b>dd/mm/aaaa</b>.'); pintar(); return; }
+    S.nh = { id: id, d: d ? fmt(f) : '', f: fmt(f) }; if (!d) S.nh.d = ''; S.nh.fecha = fmt(f); pintar();
+  };
+  window.esNHmot = function (id, i) {
+    if (!S.nh || S.nh.id !== id) return; var d = S.nh.fecha || S.nh.d, mot = MOTIVOS[i] || MOTIVOS[3];
+    dato(id, function (m) { var r = regs(m).filter(function (x) { return x.d !== d; }); r.push({ p: 2, d: d, n: mot.replace(/^\S+\s/, '') }); guardarRegs(m, r); });
+    S.nh = null; if (S.asDia) delete S.asDia[id]; pintar();
+  };
+  window.esNHcancel = function () { S.nh = null; pintar(); };
+  window.esQuitarAs = function (id, i) { dato(id, function (m) { var r = regs(m); r.splice(i, 1); guardarRegs(m, r); }); pintar(); };
   window.esTot = function (id, v) { dato(id, function (m) { m.tot = +v || 0; }); clearTimeout(window.__esT); window.__esT = setTimeout(pintarSinPerderFoco, 700); };
   window.esMin = function (id, v) { dato(id, function (m) { m.min = +v || 75; }); clearTimeout(window.__esT); window.__esT = setTimeout(pintarSinPerderFoco, 700); };
   function pintarSinPerderFoco() { var a = document.activeElement; if (a && a.tagName === 'INPUT' && $('es-app') && $('es-app').contains(a)) return; pintar(); }
@@ -25973,7 +26108,7 @@ body.bnav-on{padding-bottom:64px;}
     h += '<div class="pe-card"><div class="pe-h">➕ Plan nuevo</div>';
     if (ef.length) h += '<label class="pe-l">Traer de Estudio SimpleApp (opcional)</label><select id="pe-imp" onchange="peImp(this.value)"><option value="">— Elegí un examen —</option>' + ef.map(function (x, i) { return '<option value="' + i + '">' + esc(x.n) + ' · ' + esc(x.f) + '</option>'; }).join('') + '</select>';
     h += '<label class="pe-l">¿Qué examen es?</label><input type="text" id="pe-n" maxlength="60" placeholder="Ej: Final de Historia">' +
-      '<label class="pe-l">Fecha del examen</label><input type="text" id="pe-f" maxlength="10" placeholder="dd/mm/aaaa (ej: 25/11/2026)">' +
+      '<label class="pe-l">Fecha del examen</label><div style="display:flex;gap:6px;"><input type="text" id="pe-f" inputmode="numeric" maxlength="10" placeholder="dd/mm/aaaa" oninput="fechaTipeo(this)" autocomplete="off" style="flex:1;min-width:0;"><button type="button" onclick="calAbrir(this)" aria-label="Elegir fecha en el calendario" style="flex-shrink:0;padding:0 14px;border-radius:10px;border:1px solid var(--border);background:var(--card2,#fff);font-size:20px;cursor:pointer;">📅</button></div>' +
       '<label class="pe-l">Temas (uno por línea)</label><textarea id="pe-tm" placeholder="Ej:\nUnidad 1\nUnidad 2\nUnidad 3"></textarea>' +
       '<div class="pe-s" style="margin-top:4px;">Podés copiar el índice del programa y pegarlo acá.</div>' +
       '<label class="pe-s" style="display:flex;gap:8px;align-items:center;margin-top:10px;"><input type="checkbox" id="pe-dom" style="width:18px;height:18px;"> No estudiar los domingos</label>' +
@@ -26003,8 +26138,8 @@ body.bnav-on{padding-bottom:64px;}
         }
       }
     }
-    h += '<div class="pe-card"><div class="pe-h">✅ Todos los temas</div>' + (p.temas.length ? p.temas.map(function (t) { return '<div class="pe-t' + (t.done ? ' ok' : '') + '"><input type="checkbox"' + (t.done ? ' checked' : '') + ' onchange="peTema(\'' + p.id + '\',\'' + t.id + '\')"><span style="flex:1;">' + esc(t.t) + '</span><button type="button" class="pe-btn del" style="padding:3px 9px;" onclick="peBorrarTema(\'' + p.id + '\',\'' + t.id + '\')">✕</button></div>'; }).join('') : '<div class="pe-s">Sin temas.</div>') +
-      '<label class="pe-l">Agregar temas (uno por línea)</label><textarea id="pe-mas" style="min-height:60px;"></textarea><div style="margin-top:8px;"><button type="button" class="pe-btn sec" onclick="peMas(\'' + p.id + '\')">+ Agregar</button></div></div>';
+    h += '<div class="pe-card"><div class="pe-h">✅ Todos los temas</div>' + (p.temas.length ? p.temas.map(function (t) { return '<div class="pe-t' + (t.done ? ' ok' : '') + '"><input type="checkbox"' + (t.done ? ' checked' : '') + ' onchange="peTema(\'' + p.id + '\',\'' + t.id + '\')"><span style="flex:1;">' + esc(t.t) + '</span><button type="button" class="pe-btn sec" style="padding:3px 9px;" aria-label="Subir" onclick="peMover(\'' + p.id + '\',\'' + t.id + '\',-1)">↑</button><button type="button" class="pe-btn sec" style="padding:3px 9px;" aria-label="Bajar" onclick="peMover(\'' + p.id + '\',\'' + t.id + '\',1)">↓</button><button type="button" class="pe-btn del" style="padding:3px 9px;" onclick="peBorrarTema(\'' + p.id + '\',\'' + t.id + '\')">✕</button></div>'; }).join('') : '<div class="pe-s">Sin temas.</div>') +
+      '<label class="pe-l">Agregar temas (uno por línea)</label><textarea id="pe-mas" style="min-height:60px;"></textarea><div class="pe-row" style="margin-top:8px;"><button type="button" class="pe-btn sec" onclick="peMas(\'' + p.id + '\',0)">+ Agregar al final</button><button type="button" class="pe-btn sec" onclick="peMas(\'' + p.id + '\',1)">⬆ Agregar al principio</button></div><div class="pe-s" style="margin-top:6px;">Con las flechas ↑ ↓ cambiás el orden. El plan estudia los temas en ese orden.</div></div>';
     h += '<div class="pe-card"><div class="pe-h">⚙️ Opciones</div><label class="pe-s" style="display:flex;gap:8px;align-items:center;"><input type="checkbox" style="width:18px;height:18px;"' + (p.dom ? ' checked' : '') + ' onchange="peDom(\'' + p.id + '\')"> No estudiar los domingos</label>' +
       '<div class="pe-s" style="margin-top:8px;">El plan se vuelve a repartir solo cada día con lo que te falta. Si te atrasás, no pasa nada: lo pendiente se reparte en los días que quedan.</div>' +
       '<div class="pe-row" style="margin-top:10px;"><button type="button" class="pe-btn sec" onclick="peReord(\'' + p.id + '\')">🔄 Reordenar lo que falta</button><button type="button" class="pe-btn del" onclick="peBorrar(\'' + p.id + '\')">🗑 Borrar plan</button></div></div>';
@@ -26023,8 +26158,17 @@ body.bnav-on{padding-bottom:64px;}
   };
   window.peAbrir = function (id) { init(); S.abierto = id; pintar(); window.scrollTo(0, 0); };
   window.peTema = function (pid, tid) { var p = plan(pid); if (!p) return; p.temas.forEach(function (t) { if (t.id === tid) t.done = !t.done; }); guardar(); pintar(); };
-  window.peBorrarTema = function (pid, tid) { var p = plan(pid); if (!p) return; p.temas = p.temas.filter(function (t) { return t.id !== tid; }); guardar(); pintar(); };
-  window.peMas = function (pid) { var p = plan(pid), t = lineas($('pe-mas').value); if (!p || !t.length) return; t.forEach(function (x) { p.temas.push({ id: uid(), t: x, done: false }); }); guardar(); pintar(); };
+  window.peBorrarTema = function (pid, tid) { var p = plan(pid); if (!p) return; var q = p.temas.filter(function (t) { return t.id === tid; })[0]; if (q && !confirm('¿Borrar el tema “' + q.t + '”?')) return; p.temas = p.temas.filter(function (t) { return t.id !== tid; }); guardar(); pintar(); };
+  window.peMas = function (pid, ini) {
+    var p = plan(pid), t = lineas($('pe-mas').value); if (!p || !t.length) return;
+    var nuevos = t.map(function (x) { return { id: uid(), t: x, done: false }; });
+    p.temas = ini ? nuevos.concat(p.temas) : p.temas.concat(nuevos); guardar(); pintar();
+  };
+  window.peMover = function (pid, tid, d) {
+    var p = plan(pid); if (!p) return; var i = -1; p.temas.forEach(function (t, k) { if (t.id === tid) i = k; });
+    var j = i + d; if (i < 0 || j < 0 || j >= p.temas.length) return;
+    var x = p.temas[i]; p.temas[i] = p.temas[j]; p.temas[j] = x; guardar(); pintar();
+  };
   window.peDom = function (pid) { var p = plan(pid); if (!p) return; p.dom = !p.dom; guardar(); pintar(); };
   window.peReord = function (pid) { aviso('🔄 Listo: lo que falta quedó repartido en los días que quedan.'); pintar(); };
   window.peBorrar = function (pid) { if (!confirm('¿Borrar este plan?')) return; S.planes = S.planes.filter(function (p) { return p.id !== pid; }); S.abierto = null; guardar(); pintar(); };
@@ -26228,11 +26372,25 @@ body.bnav-on{padding-bottom:64px;}
     if (hechos) h += '<div class="cr-s" style="text-align:center;font-size:12px;color:var(--muted)">Crucigramas completados: <b>' + hechos + '</b></div>';
     a.innerHTML = h;
   }
+  function hoyLocal() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function palabrasPts() {
+    // +5 puntos por cada palabra completada bien (tope 60 por día)
+    P.pag = P.pag || {};
+    if (P.pal.filter(completa).length < 2) return; // racha y puntos desde 2 palabras completas
+    var n = 0; P.pal.forEach(function (c, i) { if (completa(c) && !P.pag[i]) { P.pag[i] = 1; n++; } });
+    if (!n) return;
+    try { window.JuegosStats && window.JuegosStats.dia(0); } catch (e) {}
+    var h = hoyLocal(), tot = 0;
+    try { var d = JSON.parse(localStorage.getItem('crucigramaPts') || 'null'); if (d && d.d === h) tot = d.n; } catch (e) {}
+    var g = Math.max(0, Math.min(n * 5, 60 - tot)); if (!g) return;
+    try { localStorage.setItem('crucigramaPts', JSON.stringify({ d: h, n: tot + g })); } catch (e) {}
+    try { window.JuegosStats && window.JuegosStats.dia(g); } catch (e) {}
+  }
   function revisarFin() {
     if (P.pal.every(completa) && !P.fin) {
       P.fin = true; hechos++; try { localStorage.setItem(KEY, JSON.stringify({ h: hechos })); } catch (e) {}
       // tope: puntos por los primeros 3 crucigramas de cada día (la racha suma igual)
-      var hoyK = new Date().toISOString().slice(0, 10), cnt = 0;
+      var hoyK = hoyLocal(), cnt = 0;
       try { var dd = JSON.parse(localStorage.getItem('crucigramaDia') || 'null'); if (dd && dd.d === hoyK) cnt = dd.n; } catch (e) {}
       var pts = cnt < 3 ? 30 + (P.perdidas === 0 ? 10 : 0) : 0;
       try { localStorage.setItem('crucigramaDia', JSON.stringify({ d: hoyK, n: cnt + 1 })); } catch (e) {}
@@ -26253,7 +26411,7 @@ body.bnav-on{padding-bottom:64px;}
   };
   window.crClue = function (i) { var c = P.pal[i]; if (!c || P.fin) return; P.dir = c.dx ? 'h' : 'v'; var v = c.cells.filter(function (s) { return P.usr[s] !== P.sol[s]; }); P.sel = v.length ? v[0] : c.cells[0]; pintar(); window.scrollTo(0, 0); };
   window.crLetra = function (l) {
-    if (!P || P.fin || P.sinv || !P.sel) return; if (bloqueada(P.sel)) { avanzar(); pintar(); return; } P.usr[P.sel] = l; delete P.mal[P.sel]; P.msg = ''; avanzar(); revisarFin(); pintar();
+    if (!P || P.fin || P.sinv || !P.sel) return; if (bloqueada(P.sel)) { avanzar(); pintar(); return; } P.usr[P.sel] = l; delete P.mal[P.sel]; P.msg = ''; avanzar(); palabrasPts(); revisarFin(); pintar();
   };
   window.crBorrar = function () {
     if (!P || P.fin || P.sinv || !P.sel) return; var pw = palabraSel();
@@ -26333,7 +26491,7 @@ body.bnav-on{padding-bottom:64px;}
     <label class="dv-l">Nombre</label>
     <input id="dvd-nom" type="text" placeholder="Ej: Asado del sábado" oninput="dvdNombre(this.value)" autocomplete="off">
     <label class="dv-l">Fecha</label>
-    <input id="dvd-fec" type="text" placeholder="dd/mm/aaaa" oninput="dvdFecha(this.value)" autocomplete="off">
+    <div style="display:flex;gap:6px;"><input id="dvd-fec" type="text" inputmode="numeric" maxlength="10" placeholder="dd/mm/aaaa" oninput="fechaTipeo(this);dvdFecha(this.value)" autocomplete="off" style="flex:1;min-width:0;"><button type="button" onclick="calAbrir(this)" aria-label="Elegir fecha en el calendario" style="flex-shrink:0;padding:0 14px;border-radius:10px;border:1px solid var(--border);background:var(--card2,#fff);font-size:20px;cursor:pointer;">📅</button></div>
   </div>
 
   <div class="dv-card">
