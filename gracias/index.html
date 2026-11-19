@@ -33,15 +33,41 @@ main{max-width:640px;margin:0 auto}
 .rubro-t{font-size:16px;margin:18px 2px 8px;color:#4a2c12;border-bottom:2px solid #e0cfa8;padding-bottom:4px}
 .pie{text-align:center;font-size:13px;color:var(--mut);margin:18px 0 6px}
 .pie a{color:#0b5a8a}
+
+/* ===== Modo "estado de WhatsApp": abrir .../gracias/?estado y sacar captura ===== */
+html.estado,html.estado body{margin:0;padding:0;height:100%;overflow:hidden;background:#ede4d3}
+html.estado main>*:not(#mapa-wrap){display:none !important}
+html.estado main{max-width:none;margin:0;padding:0}
+html.estado .pie{display:none !important}
+html.estado #mapa-wrap{position:fixed;inset:0;margin:0;padding:0;border:0;border-radius:0;background:#ede4d3}
+html.estado #mapa-wrap h2,html.estado #mapa-wrap .nota{display:none}
+html.estado #mapa{position:absolute;inset:0;height:100%;border-radius:0}
+html.estado .leaflet-control-zoom,html.estado .leaflet-control-attribution{display:none}
+.est-top,.est-bot{display:none}
+html.estado .est-top{display:block;position:absolute;left:0;right:0;top:0;z-index:700;background:linear-gradient(135deg,#4a2c12,#7a4a22);color:#fff;text-align:center;padding:14px 10px 12px;pointer-events:none}
+html.estado .est-top b{display:block;font-size:22px;letter-spacing:1px}
+html.estado .est-top span{display:block;font-size:13px;opacity:.9;margin-top:3px}
+html.estado .est-bot{display:block;position:absolute;left:0;right:0;bottom:0;z-index:700;background:#4a2c12;color:#fff;text-align:center;padding:10px 8px 14px;font-size:14px;font-weight:800;pointer-events:none}
+.est-lab{position:absolute;z-index:600;pointer-events:none;background:rgba(255,255,255,.94);border:1px solid #2e7d32;border-radius:6px;padding:1px 4px;font:800 10.5px/1.2 system-ui,sans-serif;color:#1b3d1d;max-width:92px;text-align:center;box-sizing:border-box}
+.gracias-t{margin:6px 4px 14px;font-size:21px;line-height:1.25;text-align:center;color:#4a2c12;font-weight:900}
+body.en-ficha .gracias-t{font-size:17px;margin:0 4px 8px}
+body.en-ficha #volver a{padding:7px !important;font-size:14px !important}
+body.en-ficha #mapa-wrap{padding:5px;margin-bottom:8px}
+body.en-ficha #mapa-wrap h2,body.en-ficha #mapa-wrap .nota{display:none}
+body.en-ficha{box-sizing:border-box;min-height:100vh;min-height:100dvh}
+body.en-ficha main{display:flex;flex-direction:column;min-height:calc(100vh - 32px);min-height:calc(100dvh - 32px)}
+body.en-ficha #mapa-wrap{flex:1 1 auto;display:flex;flex-direction:column;min-height:230px}
+body.en-ficha #mapa{flex:1 1 auto;height:auto;min-height:200px}
+body.en-ficha .pie{margin:10px 0 4px}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+<script>if(/[?&]estado/.test(location.search))document.documentElement.className+=" estado";</script>
 </head>
 <body>
 <main>
-  <div class="hero"><h1>💚 GRACIAS</h1><p>A los negocios que ayudan a difundir Info SimpleApp</p></div>
-  <div class="intro">Estos comercios <b>nos ayudan a difundir Info SimpleApp</b>. ¡Muchas gracias por su apoyo! 🙌</div>
+  <h1 class="gracias-t">💚 Gracias a los que nos ayudan a difundir Info SimpleApp</h1>
   <div id="volver" style="display:none"><a href="#" onclick="verTodos();return false" style="display:block;text-align:center;background:#efe3d4;color:#3a2a16;border-radius:20px;padding:10px;font-weight:800;font-size:14px;text-decoration:none;margin-bottom:10px">← Ver todos los negocios</a></div>
-<div class="mapa" id="mapa-wrap"><h2>🗺️ Dónde están · San Vicente, Misiones</h2><div id="mapa"></div><div class="nota">Tocá un punto para ver el negocio. Mapa © Esri.</div></div>
+<div class="mapa" id="mapa-wrap"><h2>🗺️ Dónde están · San Vicente, Misiones</h2><div class="est-top"><b>💚 Gracias a los comercios</b><span>de San Vicente, Misiones · que difunden Info SimpleApp</span></div><div id="mapa"></div><div class="est-bot">simpleappgfr-lgtm.github.io/gracias</div><div class="nota">Tocá un punto para ver el negocio. Mapa © Esri.</div></div>
 <div id="lista">
   <!-- ===== UN BLOQUE POR NEGOCIO. Para sumar otro, copiá y pegá un bloque entero, cambiá los datos y poné un id propio (sin espacios ni tildes). ===== -->
   <h2 class="rubro-t">💊 Salud</h2>
@@ -124,6 +150,14 @@ main{max-width:640px;margin:0 auto}
     <div class="btns">
       <a style="background:#1a73e8" target="_blank" rel="noopener" href="https://maps.app.goo.gl/159F2hk31bMjGG379">📍 Ver en Google Maps</a>
       <a class="pill" target="_blank" rel="noopener" href="https://www.instagram.com/imagenlab_/">📷 Instagram</a>
+    </div>
+  </div>
+  <div class="card" id="via-cargo">
+    <div class="nom">Vía Cargo</div>
+    <div class="sub">📦 Envíos y encomiendas · San Vicente, Misiones</div>
+    <div class="dir">📍 Ruta Nacional 14, km 973</div>
+    <div class="btns">
+      <a style="background:#1a73e8" target="_blank" rel="noopener" href="https://maps.app.goo.gl/rHZdcXFw4oV1bd419">📍 Ver en Google Maps</a>
     </div>
   </div>
   <h2 class="rubro-t">🛒 Supermercados y almacenes</h2>
@@ -248,6 +282,13 @@ main{max-width:640px;margin:0 auto}
       <a style="background:#1a73e8" target="_blank" rel="noopener" href="https://maps.app.goo.gl/f4baFzBp4xMvEbEu9">📍 Ver en Google Maps</a>
     </div>
   </div>
+  <div class="card" id="bolsaplast">
+    <div class="nom">Bolsaplast</div>
+    <div class="sub">🛍️ Bolsas y plásticos · San Vicente, Misiones</div>
+    <div class="btns">
+      <a style="background:#1a73e8" target="_blank" rel="noopener" href="https://maps.app.goo.gl/hRZzPXZ1cE3EbW8SA">📍 Ver en Google Maps</a>
+    </div>
+  </div>
   <h2 class="rubro-t">🚗 Automotor y combustible</h2>
   <div class="card" id="petrovalle-ruta-14">
     <div class="nom">Petrovalle · Ruta 14</div>
@@ -360,17 +401,72 @@ main{max-width:640px;margin:0 auto}
   ['la-casa-de-papel','La Casa de Papel','🖨️',-26.9944354,-54.4857112],
   ['cetrogar','Cetrogar','📺',-26.9917051,-54.4795812],
   ['casa-wurm','Casa Wurm','🔨',-26.9929655,-54.4796517],
-  ['fm-ciudad','FM Ciudad 100.9','📻',-26.9950268,-54.4797591]
+  ['fm-ciudad','FM Ciudad 100.9','📻',-26.9950268,-54.4797591],
+  ['bolsaplast','Bolsaplast','🛍️',-26.9955749,-54.4876809],
+  ['via-cargo','Vía Cargo','📦',-27.0040856,-54.5057179]
   ];
   var m=L.map('mapa',{scrollWheelZoom:false});
   L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Tiles © Esri'}).addTo(m);
-  var pts=[];
+  var pts=[],mk=[];
   N.forEach(function(n){
     var ll=[n[3],n[4]];pts.push(ll);
-    L.circleMarker(ll,{radius:9,color:'#1b5e20',weight:2,fillColor:'#2e7d32',fillOpacity:.9}).addTo(m)
-     .bindPopup('<div class="pop">'+n[2]+' <b>'+n[1]+'</b><br><a href="#'+n[0]+'">Ver negocio</a></div>');
+    mk.push(L.circleMarker(ll,{radius:6,color:'#1b5e20',weight:2,fillColor:'#2e7d32',fillOpacity:.9}).addTo(m)
+     .bindPopup('<div class="pop">'+n[2]+' <b>'+n[1]+'</b><br><a href="#'+n[0]+'">Ver negocio</a></div>'));
   });
-  m.fitBounds(pts,{padding:[30,30],maxZoom:13});
+  m.fitBounds(pts,{padding:[30,30],maxZoom:14});
+  window._mkId={};
+  N.forEach(function(n,i){(window._mkId[n[0]]=window._mkId[n[0]]||[]).push({mk:mk[i],n:n});});
+  window._mapaTodos=function(){m.closePopup();m.fitBounds(pts,{padding:[30,30],maxZoom:14});};
+  if(document.documentElement.classList.contains('estado')){
+    (function(){
+      var cont=document.getElementById('mapa'),labs=[];
+      function d(a,b){var x=(a[1]-b[1])*111320*Math.cos(a[0]*Math.PI/180),y=(a[0]-b[0])*110540;return Math.sqrt(x*x+y*y);}
+      var best=0,cen=null;
+      N.forEach(function(a){var c=0;N.forEach(function(b){if(d([a[3],a[4]],[b[3],b[4]])<500)c++;});if(c>best){best=c;cen=[a[3],a[4]];}});
+      var zona=N.filter(function(n){return d(cen,[n[3],n[4]])<520;});
+      var zp=zona.map(function(n){return [n[3],n[4]];});
+      N.forEach(function(n,i){if(zona.indexOf(n)<0)m.removeLayer(mk[i]);});
+      var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('style','position:absolute;left:0;top:0;width:100%;height:100%;z-index:590;pointer-events:none');cont.appendChild(svg);
+      function limpiar(){labs.forEach(function(l){l.remove();});labs=[];while(svg.firstChild)svg.removeChild(svg.firstChild);}
+      function ubicar(){
+        limpiar();
+        var W=cont.clientWidth,H=cont.clientHeight,rects=[],items=[];
+        var tope=70,fondo=H-50;
+        zona.forEach(function(n){
+          var pt=m.latLngToContainerPoint([n[3],n[4]]);
+          if(pt.x<0||pt.x>W||pt.y<tope||pt.y>fondo)return;
+          items.push({n:n,x:pt.x,y:pt.y});
+          rects.push({l:pt.x-8,t:pt.y-8,r:pt.x+8,b:pt.y+8});
+        });
+        items.sort(function(a,b){return a.y-b.y;});
+        items.forEach(function(it){
+          var nombre=it.n[1].split(' · ')[0].replace('Supermercado ','Súper ').replace('Frutería y Verdulería','Frutería').replace('Maxi Kiosco ','Kiosco ').replace('Verificación Técnica Vehicular (VTV)','VTV');
+          var el=document.createElement('div');el.className='est-lab';el.textContent=it.n[2]+' '+nombre;
+          cont.appendChild(el);labs.push(el);
+          var w=el.offsetWidth,h=el.offsetHeight,g=9;
+          var cand=[[g,-h/2],[-w-g,-h/2],[-w/2,-h-g],[-w/2,g],[g,-h-2],[-w-g,-h-2],[g,2],[-w-g,2],[g+10,-h-14],[-w-g-10,-h-14],[g+10,14],[-w-g-10,14],[-w/2,-h-g-16],[-w/2,g+16],[g+30,-h/2],[-w-g-30,-h/2],[g+24,-h-26],[-w-g-24,-h-26],[g+24,26],[-w-g-24,26],[-w/2,-h-g-34],[-w/2,g+34]];
+          var mejor=null,menor=1e9;
+          cand.forEach(function(c){
+            var L0=it.x+c[0],T0=it.y+c[1],R0=L0+w,B0=T0+h,ov=0;
+            if(L0<4)ov+=(4-L0)*20;if(R0>W-4)ov+=(R0-W+4)*20;if(T0<tope)ov+=(tope-T0)*20;if(B0>fondo)ov+=(B0-fondo)*20;
+            rects.forEach(function(r){var ox=Math.min(R0,r.r)-Math.max(L0,r.l),oy=Math.min(B0,r.b)-Math.max(T0,r.t);if(ox>0&&oy>0)ov+=ox*oy;});
+            if(ov<menor){menor=ov;mejor={l:L0,t:T0};}
+          });
+          el.style.left=mejor.l+'px';el.style.top=mejor.t+'px';
+          var cx=Math.max(mejor.l,Math.min(it.x,mejor.l+w)),cy=Math.max(mejor.t,Math.min(it.y,mejor.t+h));
+          if(Math.hypot(cx-it.x,cy-it.y)>12){var ln=document.createElementNS('http://www.w3.org/2000/svg','line');ln.setAttribute('x1',it.x);ln.setAttribute('y1',it.y);ln.setAttribute('x2',cx);ln.setAttribute('y2',cy);ln.setAttribute('stroke','#2e7d32');ln.setAttribute('stroke-width','1.5');svg.appendChild(ln);}
+          rects.push({l:mejor.l,t:mejor.t,r:mejor.l+w,b:mejor.t+h});
+        });
+      }
+      setTimeout(function(){
+        m.invalidateSize();
+        m.fitBounds(zp,{paddingTopLeft:[24,95],paddingBottomRight:[24,60],maxZoom:17});
+        ubicar();
+        m.on('zoomend moveend',ubicar);
+      },200);
+    })();
+  }
+  window._mapaSV=m;
   window._mapaSV=m;
 })();
 </script>
@@ -382,7 +478,23 @@ function mostrar(id){
   if(id&&!hay){cards.forEach(function(c){c.classList.remove('oculto');});id='';}
   document.getElementById('volver').style.display=id?'':'none';
   document.querySelectorAll('.rubro-t').forEach(function(h){h.style.display=id?'none':'';});
-  var mw=document.getElementById('mapa-wrap');if(mw){mw.style.display=id?'none':'';if(!id&&window._mapaSV)setTimeout(function(){window._mapaSV.invalidateSize();},50);}
+  document.body.classList.toggle('en-ficha',!!id);
+  var mw=document.getElementById('mapa-wrap');
+  if(mw&&!document.documentElement.classList.contains('estado')){
+    mw.style.display='';
+    setTimeout(function(){
+      var m=window._mapaSV;if(!m)return;
+      m.invalidateSize();
+      (window._mkId&&Object.keys(window._mkId)).forEach&&Object.keys(window._mkId).forEach(function(k){window._mkId[k].forEach(function(o){o.mk.setPopupContent('<div class="pop">'+o.n[2]+' <b>'+o.n[1]+'</b><br><a href="#'+o.n[0]+'">Ver negocio</a></div>');});});
+      var ms=id&&window._mkId&&window._mkId[id];
+      if(ms){
+        ms.forEach(function(o){o.mk.setPopupContent('<div class="pop">'+o.n[2]+' <b>'+o.n[1]+'</b></div>');});
+        if(ms.length>1){m.fitBounds(ms.map(function(o){return o.mk.getLatLng();}),{padding:[60,60],maxZoom:16});}
+        else{m.setView(ms[0].mk.getLatLng(),16);}
+        ms[0].mk.openPopup();
+      }else if(window._mapaTodos){window._mapaTodos();}
+    },80);
+  }
   window.scrollTo(0,0);
 }
 function verTodos(){history.replaceState(null,'',location.pathname+location.search);mostrar('');}
@@ -393,6 +505,7 @@ document.querySelectorAll('.card').forEach(function(c){
     if(!document.getElementById('volver').offsetParent){history.replaceState(null,'','#'+c.id);mostrar(c.id);}
   });
 });
+window.addEventListener('resize',function(){if(document.body.classList.contains('en-ficha')&&window._mapaSV)window._mapaSV.invalidateSize();});
 window.addEventListener('hashchange',function(){mostrar(location.hash.slice(1));});
 mostrar(location.hash.slice(1));
 </script>
