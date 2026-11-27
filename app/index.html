@@ -32379,3 +32379,30 @@ function eduCerrar(){var o=document.getElementById('edu-ov');if(o)o.style.displa
   window.__afSecReset();
 })();
 </script>
+<script>
+/* Medición (solo en GitHub Pages): Cloudflare + Google Tag Manager + pantalla por pantalla */
+(function(){
+  if(location.hostname!=='simpleappgfr-lgtm.github.io') return;
+  try{var a=document.createElement('script');a.defer=true;a.src='/analytics.js';document.head.appendChild(a);}catch(e){}
+  try{
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-K6QRS94X');
+  }catch(e){}
+  var ult=null, base='/app/', desdeBack=false;
+  function reg(id){
+    if(!id||id===ult) return; ult=id;
+    try{ history.pushState({sv:id},'',base+encodeURIComponent(id)+'/'); }catch(e){}
+  }
+  var prev=window.showTab;
+  if(typeof prev==='function'){
+    window.showTab=showTab=function(id,btn){
+      var r=prev.apply(this,arguments);
+      if(!desdeBack) setTimeout(function(){reg(id);},50);
+      return r;
+    };
+  }
+  window.addEventListener('popstate',function(e){
+    var m=location.pathname.match(/^\/app\/([^\/]+)\/?$/);
+    if(m){ desdeBack=true; ult=decodeURIComponent(m[1]); try{showTab(ult);}catch(x){} desdeBack=false; }
+  });
+})();
+</script>
